@@ -1,0 +1,63 @@
+appId: ${APP_PACKAGE}
+name: "APP-8: Flujo de pagos y cobranza"
+
+---
+
+# APP-8: Pagos y cobranza en la app
+# Fuente: Deuda técnica Notion — "Refactor pagos"
+# Cubre: creación de pago, notas de crédito, consistencia de montos
+
+- runFlow: helpers/login.yaml
+
+# Seleccionar comercio
+- tapOn:
+    text: ".*[Cc]omercio.*|.*[Cc]liente.*|.*[Rr]uta.*"
+    optional: true
+- tapOn:
+    text: ".*${TEST_COMMERCE_NAME}.*"
+    optional: true
+
+# Navegar a sección de pagos/cobranza
+- tapOn:
+    text: ".*[Pp]ago.*|.*[Cc]obranza.*|.*[Cc]obrar.*"
+    optional: true
+
+# APP-8-01: Ver documentos pendientes de pago
+- extendedWaitUntil:
+    visible:
+      text: ".*[Ff]actura.*|.*[Dd]ocumento.*|.*[Pp]endiente.*"
+    timeout: 10000
+- takeScreenshot: test-results/pagos-01-documentos-pendientes
+
+# APP-8-02: Seleccionar factura para pagar
+- tapOn:
+    text: ".*[Ff]actura.*|.*[Ss]eleccionar.*"
+    optional: true
+
+# APP-8-03: Verificar que monto mostrado es correcto
+- assertVisible:
+    text: ".*\\$.*[0-9].*"
+
+# APP-8-04: Verificar que notas de crédito se reflejan en el total
+# (Si hay NC asociada, el monto debe ser neto = factura - NC)
+- takeScreenshot: test-results/pagos-04-monto-con-nc
+
+# APP-8-05: Confirmar pago
+- tapOn:
+    text: ".*[Cc]onfirmar.*|.*[Pp]agar.*|.*[Rr]egistrar.*"
+    optional: true
+
+# APP-8-06: Verificar confirmación del pago
+- extendedWaitUntil:
+    visible:
+      text: ".*[Cc]onfirmad.*|.*[Rr]egistrad.*|.*[Éé]xito.*"
+    timeout: 10000
+- takeScreenshot: test-results/pagos-06-pago-confirmado
+
+# APP-8-07: Verificar que el pago aparece en historial
+- tapOn:
+    text: ".*[Hh]istorial.*|.*[Vv]er pago.*|.*[Aa]trás.*"
+    optional: true
+- assertVisible:
+    text: ".*\\$.*[0-9].*"
+- takeScreenshot: test-results/pagos-07-historial

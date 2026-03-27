@@ -46,7 +46,7 @@
 | Backend | Node.js / Express | Mismo backend para B2B y APP (yom-api). Tiene sus propios tests (hooks, órdenes) |
 | **B2B (tienda)** | Next.js / React | **Next.js** confirmado por Diego. 2 versiones: **nuevo** (clientes nuevos) y **antiguo** (tecnología obsoleta) |
 | **Admin** | Next.js / React | Existe admin nuevo y antiguo. Diego dio acceso al nuevo |
-| APP mobile | React Native | **Java (Android nativo) + React Native (solo login)**. Plan: migrar grueso a RN |
+| APP mobile | React Native | **React Native + Expo SDK 53 + TypeScript**. Java legacy como submodule Android (`yom-sales`) para Realm/SessionBridge. Sin testIDs en componentes RN |
 | Base de datos | MongoDB | MongoDB (backend) + Realm (BD local offline en APP) |
 | ORM / Driver | Mongoose o nativo | No se confirmó directamente |
 | ¿Monorepo o repos separados? | No sabía | Repos separados. B2B tiene su repo. APP: `app-mobile` + `jumpsales` (submódulo Java) |

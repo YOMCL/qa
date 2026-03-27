@@ -5,7 +5,6 @@ import path from 'path';
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 export default defineConfig({
-  testDir: './b2b',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 1,
@@ -29,8 +28,17 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'chromium',
+      name: 'b2b',
+      testDir: './b2b',
       use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'admin',
+      testDir: './admin',
+      use: {
+        ...devices['Desktop Chrome'],
+        baseURL: process.env.ADMIN_URL || 'https://admin.youorder.me',
+      },
     },
   ],
 });

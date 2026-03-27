@@ -11,14 +11,17 @@
 ANTES DE QA                          QA (este documento)                    DESPUÉS DE QA
 ─────────────                        ──────────────────                     ───────────────
 ✅ Levantamiento                     1. Pre-vuelo                           ✅ Capacitaciones
-✅ Entrega de datos                  2. Accesos                             ✅ Rollout
-✅ Kick Off                          3. Datos y catálogo
-✅ Integraciones                     4. Flujos core
-✅ Cuadratura                        5. Features del cliente
-✅ Desarrollos                       6. Integraciones en vivo
-✅ Configuraciones                   7. Triage y escalamiento
-                                     8. Re-test y cierre
-                                     9. Veredicto → Gate de Rollout
+✅ Entrega de datos                  2. Validación de integraciones         ✅ Rollout
+✅ Kick Off                          3. Validación de overrides/segmentos
+✅ Integraciones                     4. Accesos
+✅ Cuadratura                        5. Datos y catálogo
+✅ Desarrollos                       6. Flujos core
+✅ Configuraciones                   7. Features del cliente
+                                     8. Documentos tributarios
+                                     9. Integraciones en vivo
+                                     10. Triage y escalamiento
+                                     11. Re-test y cierre
+                                     12. Veredicto → Gate de Rollout
 ```
 
 ## Cómo ejecutar QA para un cliente
@@ -36,11 +39,14 @@ Esto genera un checklist con **casos de prueba reales** para cada feature del cl
 
 Seguir el checklist generado sección por sección:
 1. Pre-vuelo → confirmar que todo está en pie
-2. Accesos → login en B2B, Admin, APP
-3. Flujos core → compra completa en B2B y APP
-4. Features → caso por caso con el checklist
-5. Integraciones → inyección ERP, sync, CronJobs
-6. Transversales → consola, performance, UX
+2. Validación de integraciones → API del cliente responde, HTTPS, paginación, filtros de fecha, timeout < 100s
+3. Validación de overrides → segmento base existe, overrides con enabled/precio, sin precios trampa $99.999
+4. Accesos → login en B2B, Admin, APP
+5. Flujos core → compra completa en B2B y APP
+6. Features → caso por caso con el checklist
+7. Documentos tributarios → facturas, boletas, NC, numeración, datos fiscales (si aplica)
+8. Integraciones → inyección ERP, sync, CronJobs
+9. Transversales → consola, performance, UX
 
 ### Paso 3: Documentar issues
 

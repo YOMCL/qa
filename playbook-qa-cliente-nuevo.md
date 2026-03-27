@@ -16,7 +16,9 @@ Antes de empezar QA, confirmar que el equipo entregó:
 | Usuario comercio B2B | Tech | Login en B2B con las credenciales |
 | Features configuradas en MongoDB | Tech + Analytics | `checklist-generator.py` las extrae |
 | Catálogo cargado | Analytics (Diego F/Nicole) | Productos visibles post-login |
-| Integraciones activas (ERP, etc.) | Tech | Según config del cliente |
+| Integraciones activas (ERP, etc.) | Tech + Analytics | Ver Fase 1.4 abajo |
+| Segmento base con overrides | Analytics | Todos los comercios en segmento base, overrides con enabled/precio |
+| Documentación tributaria configurada | Tech | Tipo de documento (factura/boleta), datos fiscales del cliente |
 
 ---
 
@@ -25,7 +27,6 @@ Antes de empezar QA, confirmar que el equipo entregó:
 ### 1.1 Generar checklist del cliente
 
 ```bash
-cd ~/Desktop/YOM/qa
 python3 tools/checklist-generator.py --cliente {NOMBRE} -o QA/{NOMBRE}/{FECHA}/checklist.md
 ```
 
@@ -51,6 +52,37 @@ EOF
 - [ ] Si `anonymousAccess=false`: redirect a login
 - [ ] Abrir APP Yom Ventas → login con credenciales del vendedor
 
+### 1.4 Validar integraciones del cliente (si aplica)
+
+> Basado en requisitos técnicos de integration-docs. Si la integración falla aquí, los datos llegan mal y QA detecta síntomas sin causa clara. Escalar a Analytics + Tech antes de continuar.
+
+| # | Verificación | Cómo validar | Estado |
+|---|---|---|---|
+| 1 | API del cliente responde | `curl https://{api-cliente}/api/health-check` → 200 OK | ☐ |
+| 2 | Solo HTTPS | Verificar que no hay endpoints HTTP plano | ☐ |
+| 3 | Autenticación funciona | Token/credenciales del cliente → auth exitoso | ☐ |
+| 4 | Paginación implementada | `GET /api/product?page=1&limit=50` → respuesta con `pagination` | ☐ |
+| 5 | Filtro de fechas | `GET /api/product?updated_from=2026-01-01` → solo registros recientes | ☐ |
+| 6 | Respuesta en JSON UTF-8 | Content-Type correcto en headers | ☐ |
+| 7 | Tiempo de respuesta < 100s | Endpoint con datos completos responde a tiempo | ☐ |
+| 8 | Datos históricos completos | Respuesta incluye activos e inactivos | ☐ |
+| 9 | Endpoints requeridos disponibles | Comercios, productos, stock, overrides, promociones, segmentos | ☐ |
+| 10 | Whitelist de IPs de YOM | Request desde IP de YOM no es bloqueado | ☐ |
+
+**Si alguno falla:** No continuar con QA funcional. Escalar a Analytics + Tech con template de integración (`templates/escalation-templates.md`).
+
+### 1.5 Validar estructura de overrides
+
+> La mayoría de problemas de precios en PeM vienen de overrides mal configurados. Verificar ANTES de testear precios.
+
+| # | Verificación | Cómo validar | Estado |
+|---|---|---|---|
+| 1 | Segmento base existe | MongoDB: segmento con prioridad alta (ej: 10000) y todos los comercios asignados | ☐ |
+| 2 | Override base por producto | Cada producto tiene override en segmento base con `enabled=false` | ☐ |
+| 3 | Override de segmento activa productos | Segmentos del cliente tienen overrides con `enabled=true` y precio real | ☐ |
+| 4 | Sin precios trampa visibles | No hay productos con precio $99.999 visibles en catálogo (indica override base sin segmento) | ☐ |
+| 5 | Comercio asignado a segmentos | El comercio de prueba pertenece al menos a 2 segmentos (base + 1 comercial) | ☐ |
+
 ---
 
 ## Fase 2 — QA Automatizado B2B (15 min)
@@ -58,7 +90,7 @@ EOF
 ### 2.1 Correr Playwright
 
 ```bash
-cd ~/Desktop/YOM/qa/tests/e2e
+cd tests/e2e
 npx playwright test
 ```
 
@@ -144,6 +176,24 @@ Verificar según la config en MongoDB:
 | `hasStockEnabled` | Stock visible en catálogo |
 | `enableChooseSaleUnit` | Dropdown de unidad de venta |
 | `includeTaxRateInPrices` | Precios incluyen/excluyen IVA según config |
+| `enablePaymentDocumentsB2B` | Botón de facturas visible en lista de órdenes |
+| `enableInvoicesList` | Opción de facturas accesible desde menú |
+| `pendingDocuments` | Badge de documentos pendientes visible |
+
+### 4.4 Documentos tributarios (si aplica)
+
+> Solo si el cliente tiene `enablePaymentDocumentsB2B`, `enableInvoicesList`, o `enableCreditNotes` activos.
+
+| # | Verificación | Qué validar | Estado |
+|---|---|---|---|
+| 1 | Factura post-pedido | Después de crear pedido confirmado, factura se genera con items y montos correctos | ☐ |
+| 2 | Numeración | Facturas tienen número correlativo sin saltos | ☐ |
+| 3 | Datos fiscales | RUT, razón social, dirección fiscal, giro presentes y correctos | ☐ |
+| 4 | Impuestos | Si `useTaxRate=true`: desglose IVA correcto. Si exento: impuesto = $0 | ☐ |
+| 5 | Tipo de documento | Factura vs boleta según tipo de comercio (empresa vs persona) | ☐ |
+| 6 | Nota de crédito | Si `enableCreditNotes=true`: NC se puede emitir, referencia factura original | ☐ |
+| 7 | Factura visible en B2B | Botón de facturas en lista de órdenes funciona, descarga correcta | ☐ |
+| 8 | Documentos pendientes | Badge/indicador visible si hay documentos sin pagar | ☐ |
 
 ---
 

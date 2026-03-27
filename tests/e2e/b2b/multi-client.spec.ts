@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import clients from '../fixtures/clients.json';
+import clients from '../fixtures/clients';
 
 // Correr los flujos críticos contra cada cliente
 for (const [key, client] of Object.entries(clients)) {

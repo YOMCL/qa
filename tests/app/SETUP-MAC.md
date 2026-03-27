@@ -81,7 +81,7 @@ Usa esto para ajustar los selectores de los flows en `flows/`.
 ## 7. Correr el primer test
 
 ```bash
-cd ~/Desktop/YOM/qa/tests/app
+cd tests/app
 
 # Copiar y completar la config
 cp config/env.example.yaml config/env.yaml

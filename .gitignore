@@ -1,8 +1,21 @@
+# Credentials
 .env
-data/qa-matrix.json
-tests/app/config/env.yaml
 tests/e2e/.env
+tests/app/config/env.yaml
+
+# Old fixture with hardcoded credentials (replaced by clients.ts)
+tests/e2e/fixtures/clients.json
+
+# Generated data (rebuild with mongo-extractor.py)
+data/qa-matrix.json
+
+# Dependencies
 tests/e2e/node_modules/
+
+# Test artifacts
 tests/e2e/playwright-report/
 tests/e2e/test-results/
+test-results/
+
+# OS
 *.DS_Store

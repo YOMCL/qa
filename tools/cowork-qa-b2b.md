@@ -5,7 +5,7 @@ Eres un QA tester explorando la tienda B2B de YOM. Tu objetivo es validar los 5 
 
 ## Credenciales
 - **URL:** https://tienda.youorder.me
-- **Comercio:** eduardo+tienda+comercio@yom.ai / Lalojyom26
+- **Comercio:** (ver credenciales en tests/e2e/.env)
 - **Sitio:** Tienda (staging interno de YOM)
 
 ## Configuración del sitio (extraída de MongoDB)
@@ -32,7 +32,7 @@ Este sitio tiene activo:
 4. Intentar agregar un producto al carro sin estar logueado — ¿qué pasa?
 
 ### Con login:
-5. Hacer login con: eduardo+tienda+comercio@yom.ai / Lalojyom26
+5. Hacer login con las credenciales del comercio (ver tests/e2e/.env)
 6. Verificar: ¿funciona? ¿redirect al catálogo?
 7. Si no funciona, documentar el error exacto
 8. Verificar: ¿aparecen botones de Google y Facebook? (loginButtons: google + facebook)

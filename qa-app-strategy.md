@@ -7,10 +7,10 @@
 
 | Aspecto | Realidad |
 |---|---|
-| **Lenguaje** | Java (Android nativo) — grueso de la app. React Native — solo login hoy |
-| **BD local** | Realm (offline-first). 99% datos vía sync, 1% en línea |
+| **Lenguaje** | React Native + Expo SDK 53 + TypeScript (UI). Java Android legacy como submodule en `android/` (`yom-sales`) para Realm y Native Modules (SessionBridge) |
+| **BD local** | Realm (offline-first, accedida via JavaRealmContext bridge). 99% datos vía sync, 1% en línea |
 | **Backend** | Mismo que B2B (Node.js, MongoDB) |
-| **Repos** | `app-mobile` (principal) + `jumpsales` (submódulo con código Java) |
+| **Repos** | `app-mobile` (Expo/RN principal) + `yom-sales` (submodule Java Android en `android/`) |
 | **Deploy** | Play Store → Internal Testing (grupo reducido) → Producción |
 | **Rollback** | 4 horas a 2 días vía Play Store (vs 2 min en B2B) |
 | **Config multi-tenant** | Email del usuario → identifica cliente → carga config desde MongoDB → Realm |
@@ -35,6 +35,9 @@
 **Objetivo:** Validar que los flujos críticos no se rompan antes de subir a Internal Testing.
 
 **Herramienta sugerida:** [Maestro](https://maestro.mobile.dev/) o Appium con emulador Android.
+
+> **Prerequisito: testIDs (27-03-2026)**
+> Los componentes React Native en `app-mobile` **no tienen atributos `testID`**. Los tests actuales (Jest + React Testing Library) usan `getByText`. Maestro funciona con text matching pero es frágil — se rompe si cambian labels o traducciones. **Acción requerida:** Pedir al equipo que agregue `testID` a componentes críticos: LoginScreen, catálogo, carrito, checkout, sync. Esto habilita selectores estables tipo `id: "login-email-input"` en vez de `text: "Correo"`.
 
 **Cliente de prueba:** Crear un cliente en producción con datos fijos y consistentes:
 - Productos siempre iguales (nombre, precio, stock)

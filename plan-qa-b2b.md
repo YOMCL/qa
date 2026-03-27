@@ -23,22 +23,25 @@ El B2B de YOM es una plataforma e-commerce multi-tenant en **Next.js** donde cad
 |---|---|
 | Unit tests / componentes | Pocos, en expansión. Corren en GitHub Actions |
 | Code Quality (GitHub) | Activo en PRs. Revisa código, no funcionalidad |
-| E2E (Cypress) | **Roto**. Tenía solo login + carrito. Problemas de timeout por lentitud del front |
+| E2E (Cypress) | Corre cada 4h en CI contra soprole.solopide.me. Cobertura limitada (login + carrito). Problemas de timeout por lentitud del front |
+| E2E (Playwright) | **Complementa Cypress**. 7 specs, 74 tests. Multi-cliente, precios, config validation. Corre manual desde este repo |
 | Staging | No formal. tienda.yom.ai funciona como staging (no productivo) |
 | Monitoreo producción | No existe |
+
+> **Nota (27-03-2026):** Cypress es el E2E oficial en CI del repo B2B. Playwright lo complementa desde este repo QA con cobertura multi-cliente y validación de config. No se reemplaza Cypress — ambos conviven.
 
 ---
 
 ## Estrategia: 3 capas
 
-### Capa 1 — E2E automatizado (reemplazar Cypress roto)
+### Capa 1 — E2E automatizado (complementar Cypress con Playwright)
 
 **Objetivo:** Detectar que un cambio no rompe la funcionalidad en múltiples clientes.
 
-**Herramienta:** Playwright (reemplaza Cypress)
+**Herramienta:** Playwright (complementa Cypress existente en CI)
+- Cypress corre cada 4h en CI del repo B2B → cobertura base de login + carrito
+- Playwright corre desde este repo QA → cobertura multi-cliente, precios, config validation
 - Mejor manejo de timeouts y reintentos nativos (resuelve el problema de lentitud)
-- Más rápido que Cypress
-- Soporte nativo para múltiples browsers
 - `auto-waiting` — espera automáticamente a que elementos estén listos, sin timeouts fijos de 5 seg
 
 **Entorno de pruebas:** tienda.yom.ai (staging informal)

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import clients from '../fixtures/clients.json';
+import clients from '../fixtures/clients';
 
 /**
  * Validación de config: verifica que lo que dice MongoDB (clients.json)

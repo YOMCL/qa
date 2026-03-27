@@ -13,7 +13,7 @@ Antes de generar cualquier código, debes explorar todos los repositorios dispon
 2. ¿Qué lenguaje y versión usa el backend? (esperado: Node.js / Express)
 3. ¿Qué framework usa el frontend web B2B? (esperado: Next.js / React)
 4. ¿Qué framework usa el Admin? (esperado: Next.js / React)
-5. ¿Qué framework usa la APP mobile? (confirmado: Java Android nativo + React Native solo login)
+5. ¿Qué framework usa la APP mobile? (confirmado: React Native + Expo SDK 53 + TypeScript. Java legacy como submodule Android para Realm/SessionBridge)
 6. ¿Qué base de datos usa? (esperado: MongoDB)
 7. ¿Qué librerías de testing ya están instaladas?
 8. ¿Existe algún archivo de CI/CD (.github/workflows, etc.)?
@@ -61,7 +61,7 @@ Genera un reporte de exploración antes de continuar.
 |---|---|---|
 | **B2B** (tienda) | `{cliente}.youorder.me` | Next.js / React |
 | **Admin** | `admin.youorder.me` | Next.js / React |
-| **APP** (vendedores) | App móvil | Java (Android nativo) + React Native (solo login). Migración a RN planificada |
+| **APP** (vendedores) | App móvil | React Native + Expo SDK 53 + TypeScript. Java Android legacy como submodule (`yom-sales`) para Realm/Native Modules |
 | **API** | `api.youorder.me/api/v2/` | Node.js / Express |
 
 ### Roles en el sistema
@@ -251,6 +251,11 @@ Estos flujos son los primeros en construirse. Si alguno falla en producción, el
 | C3-03 | Precio con sobrescritura ADD | override con operación ADD | Precio = base + valor override | Unit |
 | C3-04 | Precio con sobrescritura MULTIPLY | override con operación MULTIPLY | Precio = base × factor override | Unit |
 | C3-05 | Prioridad de sobrescrituras | múltiples overrides para mismo producto | Aplica el de mayor prioridad (menor número) | Unit |
+| C3-17 | Producto sin override en ningún segmento | producto sin override para comercio | Producto NO visible en catálogo (override base tiene enabled=false) | Unit + Integration |
+| C3-18 | Override base (enabled=false) + override segmento (enabled=true) | comercio en segmento con override activo | Producto visible con precio del override de segmento | Unit |
+| C3-19 | Override base con precio trampa (99999) sin override de segmento | producto solo con override base | Producto oculto. Si visible, precio $99.999 indica error de config | Integration |
+| C3-20 | Comercio en múltiples segmentos con overrides conflictivos | 2+ segmentos con overrides para mismo producto | Se aplica override del segmento con menor número de prioridad | Unit |
+| C3-21 | Override con enabled=false en segmento prioritario | segmento prioridad 1 con enabled=false, segmento prioridad 5 con enabled=true | Producto oculto (prioridad 1 manda) | Unit |
 | C3-06 | Promoción de catálogo activa | producto con promoción vigente | Precio descontado visible | Unit + Integration |
 | C3-07 | Promoción expirada | promoción fuera de fecha | Precio vuelve a normal | Unit |
 | C3-08 | Descuento por volumen — escala 1 | cantidad >= umbral escala 1 | Descuento escala 1 aplicado | Unit |
@@ -360,12 +365,54 @@ Estos flujos son los primeros en construirse. Si alguno falla en producción, el
 
 ---
 
+### [C7] Documentos Tributarios
+
+**Descripción:** Facturas, boletas, notas de crédito y notas de débito generados a partir de pedidos.
+**Impacto si falla:** Documentos tributarios incorrectos — problemas legales y contables para el cliente.
+
+| ID | Caso | Datos de entrada | Resultado esperado | Tipo |
+|---|---|---|---|---|
+| C7-01 | Factura generada post-pedido | orden confirmada con datos fiscales | Factura con tipo FACTURA, items correctos, montos coinciden con orden | Integration |
+| C7-02 | Numeración correlativa | múltiples facturas del mismo cliente | Números correlativos sin saltos (prefijo + serie + número) | Integration |
+| C7-03 | Datos fiscales completos | factura emitida | RUT emisor, razón social, dirección fiscal, giro presentes y correctos | Integration |
+| C7-04 | Desglose de impuestos | factura con IVA (useTaxRate=true) | taxDetails muestra tasa, monto y base imponible correctos | Integration |
+| C7-05 | Factura exenta | comercio exento de impuestos | taxDetails.exempt=true, monto impuesto = 0 | Integration |
+| C7-06 | Nota de crédito vinculada | NC emitida para factura existente | NC referencia documentId de factura original, montos coinciden | Integration |
+| C7-07 | Nota de crédito parcial | NC por devolución de 1 item | NC con items parciales, monto menor que factura original | Integration |
+| C7-08 | Boleta vs factura según comercio | comercio tipo persona vs empresa | Tipo de documento correcto según clasificación tributaria | Integration |
+| C7-09 | Documento anulado | factura con status ANULADO | Documento no aparece en cobros pendientes, cancelledAt presente | Integration |
+| C7-10 | Factura visible en B2B | enablePaymentDocumentsB2B=true | Botón de facturas visible en lista de órdenes, descarga funciona | E2E |
+| C7-11 | Lista de facturas en menú | enableInvoicesList=true | Opción de facturas accesible desde menú de órdenes | E2E |
+| C7-12 | Documentos pendientes badge | pendingDocuments=true | Indicador/badge de documentos pendientes visible en menú | E2E |
+
+---
+
+### [C8] Validación de Integración del Cliente (Pre-QA)
+
+**Descripción:** Los endpoints del cliente cumplen los requisitos técnicos para que la sync de datos funcione.
+**Impacto si falla:** Datos desactualizados, precios incorrectos, stock irreal — todo lo que QA detecta como "dato malo" puede venir de aquí.
+
+| ID | Caso | Datos de entrada | Resultado esperado | Tipo |
+|---|---|---|---|---|
+| C8-01 | Health check del API del cliente | GET /api/health-check | Respuesta 200 OK, API accesible | Integration |
+| C8-02 | Endpoints sobre HTTPS | cualquier endpoint del cliente | Solo HTTPS, no HTTP plano | Integration |
+| C8-03 | Autenticación funcional | token o credenciales del cliente | Auth exitoso, token válido retornado | Integration |
+| C8-04 | Paginación implementada | GET /api/product?page=1&limit=50 | Respuesta con pagination: current_page, total_pages, total_items | Integration |
+| C8-05 | Filtro de fechas funcional | GET /api/product?updated_from=2026-01-01 | Solo registros actualizados después de la fecha | Integration |
+| C8-06 | Formato JSON UTF-8 | cualquier endpoint | Content-Type: application/json; charset=utf-8 | Integration |
+| C8-07 | Tiempo de respuesta < 100s | endpoint con datos completos | Respuesta en < 100 segundos | Integration |
+| C8-08 | Datos históricos completos | GET /api/product (sin filtros) | Incluye productos activos E inactivos (histórico completo) | Integration |
+| C8-09 | Whitelist de IPs configurada | request desde IP de YOM | Acceso permitido desde IPs de YOM, bloqueado desde otras | Integration |
+| C8-10 | Todos los endpoints disponibles | cada entidad del contrato | Comercios, productos, stock, overrides, promociones, segmentos responden | Integration |
+
+---
+
 ## FLUJOS TIER 2 — (implementar después de Tier 1)
 
 | ID | Flujo | Descripción |
 |---|---|---|
-| C7 | Seguimiento de pedido | Comercio ve estado del pedido en B2B |
-| C8 | Estado crediticio | Comercio con crédito bloqueado no puede comprar |
+| C9 | Seguimiento de pedido | Comercio ve estado del pedido en B2B |
+| C10 | Estado crediticio | Comercio con crédito bloqueado no puede comprar |
 | V2 | Ruta del día | Vendedor ve comercios asignados en orden de visita |
 | V3 | Registro de visitas | Vendedor registra visita con encuesta |
 | V4 | Cobranza (APP) | Vendedor gestiona facturas y pagos pendientes |
@@ -379,12 +426,10 @@ Estos flujos son los primeros en construirse. Si alguno falla en producción, el
 
 | ID | Flujo | Descripción |
 |---|---|---|
-| C9 | Historial de facturas | Comercio ve facturas y pagos |
-| C10 | Compartir pedido | Comercio comparte detalle del pedido |
+| C11 | Compartir pedido | Comercio comparte detalle del pedido |
 | V5 | Gestión de tareas | Vendedor completa tareas asignadas |
 | V6 | Exportación de datos | Vendedor exporta datos de la APP |
 | A4 | Dashboards (Metabase) | Admin ve reportes y métricas |
-| A5 | Gestión de documentos tributarios | Facturas, boletas, notas de crédito |
 | I1 | Migración SFTP → API | Cuando se habilite SFTP nuevamente |
 
 ---
@@ -463,6 +508,9 @@ Estos flujos son los primeros en construirse. Si alguno falla en producción, el
 - override_high_priority: override con prioridad 1 (más alta)
 - override_low_priority: override con prioridad 10 (más baja)
 - override_with_scales: override con escalas de descuento por volumen
+- override_base_disabled: override base con enabled=false, prioridad 10000, precio 99999
+- override_segment_enabled: override de segmento con enabled=true que activa producto sobre base
+- override_conflict_multi_segment: 2 overrides para mismo producto en segmentos distintos con prioridades diferentes
 ```
 
 ### segments.fixture
@@ -470,6 +518,18 @@ Estos flujos son los primeros en construirse. Si alguno falla en producción, el
 - segment_standard: segmento estándar (prioridad 5)
 - segment_premium: segmento premium (prioridad 1)
 - segment_wholesale: segmento mayorista con precios especiales
+- segment_base: segmento base (prioridad 10000) — todos los comercios pertenecen, overrides con enabled=false
+```
+
+### tax_documents.fixture
+```
+- taxdoc_factura_emitida: factura EMITIDA con items, impuestos y numeración correcta
+- taxdoc_factura_exenta: factura con exempt=true, impuesto=0
+- taxdoc_boleta: boleta para comercio tipo persona natural
+- taxdoc_nota_credito: NC vinculada a factura original, monto parcial
+- taxdoc_nota_credito_total: NC por monto total de factura
+- taxdoc_anulado: documento con status ANULADO y cancelledAt
+- taxdoc_borrador: documento en status BORRADOR (no emitido)
 ```
 
 ---

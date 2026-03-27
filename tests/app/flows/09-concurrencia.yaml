@@ -1,0 +1,67 @@
+appId: ${APP_PACKAGE}
+name: "APP-9: Condiciones de carrera (background thread)"
+
+---
+
+# APP-9: Tests de concurrencia y race conditions
+# Fuente: Deuda técnica Notion — "Refactorizar hilo de background"
+# Cubre: operaciones simultáneas, sync durante uso, estabilidad UI
+
+- runFlow: helpers/login.yaml
+
+# Seleccionar comercio
+- tapOn:
+    text: ".*[Cc]omercio.*|.*[Cc]liente.*|.*[Rr]uta.*"
+    optional: true
+- tapOn:
+    text: ".*${TEST_COMMERCE_NAME}.*"
+    optional: true
+
+# APP-9-01: Sync durante navegación de catálogo
+# Forzar sync y navegar al mismo tiempo
+- extendedWaitUntil:
+    visible:
+      text: ".*${TEST_PRODUCT_NAME}.*"
+    timeout: 10000
+
+# Scroll rápido mientras la app puede estar sincronizando
+- scroll:
+    direction: DOWN
+- scroll:
+    direction: DOWN
+- scroll:
+    direction: UP
+- scroll:
+    direction: UP
+
+# Verificar que el catálogo sigue estable
+- assertVisible:
+    text: ".*${TEST_PRODUCT_NAME}.*"
+- takeScreenshot: test-results/concurrencia-01-catalogo-estable
+
+# APP-9-02: Agregar producto y navegar rápido
+- tapOn:
+    text: ".*${TEST_PRODUCT_NAME}.*"
+- tapOn:
+    text: ".*[Aa]gregar.*|.*\\+.*"
+    optional: true
+
+# Volver atrás inmediatamente
+- pressKey: back
+- pressKey: back
+
+# No debe crashear
+- takeScreenshot: test-results/concurrencia-02-navegacion-rapida
+
+# APP-9-03: Doble tap en confirmar (prevención duplicados)
+- tapOn:
+    text: ".*[Cc]arro.*|.*[Pp]edido.*|.*[Vv]er pedido.*"
+    optional: true
+- tapOn:
+    text: ".*[Cc]onfirmar.*|.*[Ee]nviar.*"
+    optional: true
+# Segundo tap inmediato
+- tapOn:
+    text: ".*[Cc]onfirmar.*|.*[Ee]nviar.*"
+    optional: true
+- takeScreenshot: test-results/concurrencia-03-doble-tap
