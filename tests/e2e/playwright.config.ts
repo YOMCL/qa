@@ -5,10 +5,10 @@ import path from 'path';
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 export default defineConfig({
-  fullyParallel: false,
+  fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 1,
-  workers: 1,
+  retries: process.env.CI ? 2 : 0,
+  workers: 4,
   reporter: [
     ['html', { open: 'never' }],
     ['./reporters/grouped-report.ts'],
