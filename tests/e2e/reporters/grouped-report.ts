@@ -2,18 +2,21 @@ import { Reporter, TestCase, TestResult } from '@playwright/test/reporter';
 import * as fs from 'fs';
 import * as path from 'path';
 
-interface TestGroup {
-  feature: string;
-  types: Record<string, {
-    name: string;
-    icon: string;
-    tests: Array<{
-      title: string;
-      status: 'passed' | 'failed' | 'skipped';
-      duration: number;
-      error?: string;
-    }>;
+interface FeatureGroup {
+  name: string;
+  tests: Array<{
+    title: string;
+    status: 'passed' | 'failed' | 'skipped';
+    duration: number;
+    error?: string;
   }>;
+}
+
+interface TestGroup {
+  type: string;
+  name: string;
+  icon: string;
+  features: Record<string, FeatureGroup>;
 }
 
 export default class GroupedReporter implements Reporter {
@@ -41,18 +44,19 @@ export default class GroupedReporter implements Reporter {
 
     const typeInfo = typeMap[typeTag] || { name: '⚪ Otros', icon: '⚪' };
 
-    if (!this.groups.has(feature)) {
-      this.groups.set(feature, {
-        feature,
-        types: {},
+    if (!this.groups.has(typeTag)) {
+      this.groups.set(typeTag, {
+        type: typeTag,
+        name: typeInfo.name,
+        icon: typeInfo.icon,
+        features: {},
       });
     }
 
-    const group = this.groups.get(feature)!;
-    if (!group.types[typeTag]) {
-      group.types[typeTag] = {
-        name: typeInfo.name,
-        icon: typeInfo.icon,
+    const group = this.groups.get(typeTag)!;
+    if (!group.features[feature]) {
+      group.features[feature] = {
+        name: feature,
         tests: [],
       };
     }
@@ -60,7 +64,7 @@ export default class GroupedReporter implements Reporter {
     // Limpiar título de tags
     const cleanTitle = test.title.replace(/@\w+\s*/g, '');
 
-    group.types[typeTag].tests.push({
+    group.features[feature].tests.push({
       title: cleanTitle,
       status: result.status,
       duration: result.duration,
@@ -77,36 +81,46 @@ export default class GroupedReporter implements Reporter {
   }
 
   private generateHtml(): string {
-    const sortedGroups = Array.from(this.groups.values()).sort((a, b) =>
-      a.feature.localeCompare(b.feature)
-    );
+    // Ordenar tipos por severidad: crítico > funcional > configuración > regresión > otros
+    const typeOrder = ['crítico', 'funcional', 'configuración', 'regresión'];
+    const sortedGroups = Array.from(this.groups.values()).sort((a, b) => {
+      const aIndex = typeOrder.indexOf(a.type);
+      const bIndex = typeOrder.indexOf(b.type);
+      if (aIndex === -1 && bIndex === -1) return 0;
+      if (aIndex === -1) return 1;
+      if (bIndex === -1) return -1;
+      return aIndex - bIndex;
+    });
 
     const groupsHtml = sortedGroups.map(group => {
-      const typeEntries = Object.entries(group.types);
-      const groupStats = typeEntries.reduce((acc, [_, type]) => {
-        acc.passed += type.tests.filter(t => t.status === 'passed').length;
-        acc.failed += type.tests.filter(t => t.status === 'failed').length;
-        acc.skipped += type.tests.filter(t => t.status === 'skipped').length;
-        acc.total += type.tests.length;
+      const featureEntries = Object.entries(group.features).sort((a, b) =>
+        a[0].localeCompare(b[0])
+      );
+
+      const groupStats = featureEntries.reduce((acc, [_, feature]) => {
+        acc.passed += feature.tests.filter(t => t.status === 'passed').length;
+        acc.failed += feature.tests.filter(t => t.status === 'failed').length;
+        acc.skipped += feature.tests.filter(t => t.status === 'skipped').length;
+        acc.total += feature.tests.length;
         return acc;
       }, { passed: 0, failed: 0, skipped: 0, total: 0 });
 
       const passRate = groupStats.total > 0 ? Math.round((groupStats.passed / groupStats.total) * 100) : 0;
 
       return `
-        <div class="feature-group">
-          <div class="feature-header">
-            <h2>${group.feature}</h2>
+        <div class="type-section">
+          <div class="type-header">
+            <h2>${group.icon} ${group.name}</h2>
             <span class="stats">${groupStats.passed}/${groupStats.total} passed (${passRate}%)</span>
           </div>
 
-          ${typeEntries.map(([_, type]) => {
-            const typePassed = type.tests.filter(t => t.status === 'passed').length;
+          ${featureEntries.map(([feature, featureGroup]) => {
+            const featurePassed = featureGroup.tests.filter(t => t.status === 'passed').length;
             return `
-              <div class="type-group">
-                <h3>${type.icon} ${type.name} (${typePassed}/${type.tests.length})</h3>
+              <div class="feature-group">
+                <h3>📌 ${featureGroup.name} (${featurePassed}/${featureGroup.tests.length})</h3>
                 <ul class="tests">
-                  ${type.tests.map(test => `
+                  ${featureGroup.tests.map(test => `
                     <li class="test ${test.status}">
                       <span class="status-icon">${test.status === 'passed' ? '✓' : test.status === 'failed' ? '✗' : '⊘'}</span>
                       <span class="test-title">${test.title}</span>
@@ -160,24 +174,25 @@ export default class GroupedReporter implements Reporter {
           .summary-item strong { font-size: 1.5rem; display: block; }
           .summary-item span { font-size: 0.9rem; opacity: 0.9; }
 
-          .feature-group {
+          .type-section {
             background: white;
             border-radius: 8px;
             margin-bottom: 2rem;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
           }
-          .feature-header {
-            background: #f8f9fa;
+          .type-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             padding: 1.5rem;
-            border-left: 4px solid #667eea;
+            border-left: 6px solid #333;
             display: flex;
             justify-content: space-between;
             align-items: center;
           }
-          .feature-header h2 { font-size: 1.3rem; color: #333; }
+          .type-header h2 { font-size: 1.5rem; font-weight: 700; }
           .stats {
-            background: #667eea;
+            background: rgba(255,255,255,0.2);
             color: white;
             padding: 0.5rem 1rem;
             border-radius: 20px;
@@ -185,15 +200,17 @@ export default class GroupedReporter implements Reporter {
             font-weight: 600;
           }
 
-          .type-group {
+          .feature-group {
             padding: 1.5rem;
             border-bottom: 1px solid #eee;
+            background: #fafafa;
           }
-          .type-group:last-child { border-bottom: none; }
-          .type-group h3 {
-            font-size: 1rem;
+          .feature-group:last-child { border-bottom: none; background: white; }
+          .feature-group h3 {
+            font-size: 1.1rem;
             margin-bottom: 1rem;
-            color: #555;
+            color: #333;
+            font-weight: 600;
           }
 
           .tests {
