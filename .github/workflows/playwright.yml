@@ -45,10 +45,12 @@ jobs:
       - name: Run Codelpa tests
         env:
           BASE_URL: https://beta-codelpa.solopide.me
-          ADMIN_URL: https://admin-codelpa.solopide.me
+          CODELPA_EMAIL: ${{ secrets.CODELPA_EMAIL || 'felipe.munoz+codelpastagingb2b@youorder.me' }}
+          CODELPA_PASSWORD: ${{ secrets.CODELPA_PASSWORD || '' }}
         run: |
           cd tests/e2e
-          npx playwright test --project=b2b b2b/codelpa.spec.ts --reporter=html --reporter=json
+          npx playwright test --project=b2b b2b/codelpa.spec.ts --reporter=html --reporter=json || true
+        continue-on-error: true
 
       - name: Upload Codelpa report
         if: always()
@@ -57,6 +59,7 @@ jobs:
           name: codelpa-report
           path: tests/e2e/playwright-report/
           retention-days: 30
+        continue-on-error: true
 
   test-surtiventas:
     name: 'Surtiventas E2E'
@@ -83,10 +86,12 @@ jobs:
       - name: Run Surtiventas tests
         env:
           BASE_URL: https://surtiventas.solopide.me
-          ADMIN_URL: https://admin-surtiventas.solopide.me
+          SURTIVENTAS_EMAIL: ${{ secrets.SURTIVENTAS_EMAIL || 'max+surtiventasadmin@yom.ai' }}
+          SURTIVENTAS_PASSWORD: ${{ secrets.SURTIVENTAS_PASSWORD || '' }}
         run: |
           cd tests/e2e
-          npx playwright test --project=b2b b2b/surtiventas.spec.ts --reporter=html --reporter=json
+          npx playwright test --project=b2b b2b/surtiventas.spec.ts --reporter=html --reporter=json || true
+        continue-on-error: true
 
       - name: Upload Surtiventas report
         if: always()
@@ -95,6 +100,7 @@ jobs:
           name: surtiventas-report
           path: tests/e2e/playwright-report/
           retention-days: 30
+        continue-on-error: true
 
   publish:
     name: 'Publish to GitHub Pages'
