@@ -11,6 +11,7 @@ export default defineConfig({
   workers: 1,
   reporter: [
     ['html', { open: 'never' }],
+    ['./reporters/grouped-report.ts'],
     ['list'],
   ],
   use: {

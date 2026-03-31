@@ -29,7 +29,7 @@ async function login(page: any) {
 
 test.describe('Surtiventas — Login', () => {
 
-  test('Home sin login — redirige a login o muestra catálogo anónimo', async ({ page }) => {
+  test('Home sin login — redirige a login o muestra catálogo anónimo @login @funcional', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(10_000);
@@ -50,13 +50,13 @@ test.describe('Surtiventas — Login', () => {
     expect(isOnLogin || hasPrices || hasLoginLink).toBeTruthy();
   });
 
-  test('Login exitoso', async ({ page }) => {
+  test('Login exitoso @login @funcional', async ({ page }) => {
     await login(page);
     // Post-login debe mostrar catálogo con precios
     await expect(page.locator('text=/\\$\\s*[\\d.,]+/')).toBeVisible({ timeout: 30_000 });
   });
 
-  test('Login fallido con password incorrecto', async ({ page }) => {
+  test('Login fallido con password incorrecto @login @crítico', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('domcontentloaded');
     await page.getByLabel('Correo').fill(EMAIL);
@@ -66,7 +66,7 @@ test.describe('Surtiventas — Login', () => {
     await expect(page).toHaveURL(/auth|login/);
   });
 
-  test('Sesión persistente', async ({ browser }) => {
+  test('Sesión persistente @login @configuración', async ({ browser }) => {
     const context = await browser.newContext();
     const page = await context.newPage();
     await login(page);
@@ -90,14 +90,14 @@ test.describe('Surtiventas — Catálogo', () => {
     await page.waitForLoadState('domcontentloaded');
   });
 
-  test('Catálogo muestra productos con precios CLP', async ({ page }) => {
+  test('Catálogo muestra productos con precios CLP @catalog @funcional', async ({ page }) => {
     const prices = page.locator('text=/\\$\\s*[\\d.,]+/');
     await expect(prices.first()).toBeVisible({ timeout: 30_000 });
     const count = await prices.count();
     expect(count).toBeGreaterThan(0);
   });
 
-  test('No hay productos con precio $0', async ({ page }) => {
+  test('No hay productos con precio $0 @catalog @funcional', async ({ page }) => {
     await page.waitForTimeout(5_000);
     const prices = page.locator('text=/\\$\\s*[\\d.,]+/');
     const allPrices = await prices.allTextContents();
@@ -111,7 +111,7 @@ test.describe('Surtiventas — Catálogo', () => {
     expect(zeroCount).toBe(0);
   });
 
-  test('Carrito muestra items agregados', async ({ page }) => {
+  test('Carrito muestra items agregados @catalog @funcional', async ({ page }) => {
     // Agregar producto
     await Promise.all([
       page.waitForResponse(resp => resp.url().includes('/cart') && resp.request().method() === 'POST'),
@@ -124,7 +124,7 @@ test.describe('Surtiventas — Catálogo', () => {
     await expect(page.getByText(/\d+ Producto/)).toBeVisible({ timeout: 15_000 });
   });
 
-  test('Modificar cantidad en carrito', async ({ page }) => {
+  test('Modificar cantidad en carrito @catalog @funcional', async ({ page }) => {
     // Agregar producto
     await Promise.all([
       page.waitForResponse(resp => resp.url().includes('/cart') && resp.request().method() === 'POST'),
@@ -146,7 +146,7 @@ test.describe('Surtiventas — Catálogo', () => {
 
 test.describe('Surtiventas — Cupones (enableCoupons=true)', () => {
 
-  test('Campo de cupón visible en carrito', async ({ page }) => {
+  test('Campo de cupón visible en carrito @coupons @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
@@ -171,7 +171,7 @@ test.describe('Surtiventas — Cupones (enableCoupons=true)', () => {
     await expect(couponField.first()).toBeVisible({ timeout: 10_000 });
   });
 
-  test('Cupón inválido muestra error (no crash)', async ({ page }) => {
+  test('Cupón inválido muestra error (no crash) @coupons @crítico', async ({ page }) => {
     await login(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
@@ -201,7 +201,7 @@ test.describe('Surtiventas — Cupones (enableCoupons=true)', () => {
 
 test.describe('Surtiventas — Checkout', () => {
 
-  test('Flujo completo: catálogo → carrito → checkout', async ({ page }) => {
+  test('Flujo completo: catálogo → carrito → checkout @checkout @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
@@ -228,7 +228,7 @@ test.describe('Surtiventas — Checkout', () => {
     await expect(page).toHaveURL(/confirmation/, { timeout: 30_000 });
   });
 
-  test('Pedido aparece en historial post-checkout', async ({ page }) => {
+  test('Pedido aparece en historial post-checkout @checkout @funcional', async ({ page }) => {
     await login(page);
 
     // Ir a historial de pedidos
@@ -250,13 +250,13 @@ test.describe('Surtiventas — Precios', () => {
     await expect(page.locator('text=/\\$\\s*[\\d.,]+/').first()).toBeVisible({ timeout: 30_000 });
   });
 
-  test('Precios en formato CLP ($ sin decimales)', async ({ page }) => {
+  test('Precios en formato CLP ($ sin decimales) @pricing @funcional', async ({ page }) => {
     const prices = page.locator('text=/\\$\\s*[\\d.,]+/');
     const count = await prices.count();
     expect(count).toBeGreaterThan(0);
   });
 
-  test('Precios consistentes catálogo vs carrito', async ({ page }) => {
+  test('Precios consistentes catálogo vs carrito @pricing @funcional', async ({ page }) => {
     // Capturar primer precio visible
     const firstPrice = page.locator('text=/\\$\\s*[\\d.,]+/').first();
     const catalogPrice = await firstPrice.textContent();
@@ -279,7 +279,7 @@ test.describe('Surtiventas — Precios', () => {
 
 test.describe('Surtiventas — Detalle de producto', () => {
 
-  test('Click en producto abre detalle/modal', async ({ page }) => {
+  test('Click en producto abre detalle/modal @detalle-de-producto @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
@@ -300,7 +300,7 @@ test.describe('Surtiventas — Detalle de producto', () => {
 
 test.describe('Surtiventas — Pedidos y estados', () => {
 
-  test('Historial de pedidos muestra tabla con estados', async ({ page }) => {
+  test('Historial de pedidos muestra tabla con estados @pedidos-y-estados @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/orders');
     await page.waitForLoadState('domcontentloaded');
@@ -315,7 +315,7 @@ test.describe('Surtiventas — Pedidos y estados', () => {
     expect(hasOrders || hasEmptyMsg).toBeTruthy();
   });
 
-  test('Estados de pedido son válidos (no "No disponible")', async ({ page }) => {
+  test('Estados de pedido son válidos (no "No disponible") @pedidos-y-estados @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/orders');
     await page.waitForLoadState('domcontentloaded');
@@ -336,7 +336,7 @@ test.describe('Surtiventas — Pedidos y estados', () => {
 
 test.describe('Surtiventas — Validaciones', () => {
 
-  test('Carrito vacío no permite confirmar pedido', async ({ page }) => {
+  test('Carrito vacío no permite confirmar pedido @validaciones @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/cart');
     await page.waitForLoadState('domcontentloaded');
@@ -350,7 +350,7 @@ test.describe('Surtiventas — Validaciones', () => {
     // Si no existe el botón, es comportamiento correcto (no muestra checkout sin items)
   });
 
-  test('Monto mínimo muestra mensaje si no se alcanza', async ({ page }) => {
+  test('Monto mínimo muestra mensaje si no se alcanza @validaciones @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
@@ -383,7 +383,7 @@ test.describe('Surtiventas — Validaciones', () => {
 
 test.describe('Surtiventas — Variables sin cobertura (config-dependent)', () => {
 
-  test('disableCommerceEdit=false: Campos de perfil comercio son EDITABLES', async ({ page }) => {
+  test('disableCommerceEdit=false: Campos de perfil comercio son EDITABLES @config @configuración', async ({ page }) => {
     // TODO: Encontrar ruta exacta del perfil (probables: /profile, /account, /settings)
     // Surtiventas: disableCommerceEdit=false → campos DEBEN ser editables (diferente a Codelpa)
 
@@ -430,7 +430,7 @@ test.describe('Surtiventas — Variables sin cobertura (config-dependent)', () =
     }
   });
 
-  test('editAddress=true: Dirección es editable en checkout', async ({ page }) => {
+  test('editAddress=true: Dirección es editable en checkout @config @configuración', async ({ page }) => {
     // TODO: Validar con Cowork que la dirección es editable
     // Surtiventas: editAddress=true → dirección debe ser editable
 
@@ -479,7 +479,7 @@ test.describe('Surtiventas — Variables sin cobertura (config-dependent)', () =
     }
   });
 
-  test('hasStockEnabled=true + hasSingleDistributionCenter: Stock visible en tarjetas (sin multicentro)', async ({ page }) => {
+  test('hasStockEnabled=true + hasSingleDistributionCenter: Stock visible en tarjetas (sin multicentro) @config @funcional', async ({ page }) => {
     // Surtiventas: hasStockEnabled=true + hasSingleDistributionCenter=true
     // (diferente a Codelpa que tiene hasAllDistributionCenters=true)
 
@@ -519,7 +519,7 @@ test.describe('Surtiventas — Variables sin cobertura (config-dependent)', () =
     }
   });
 
-  test('enableSellerDiscount=true: Descuento visible en carrito/checkout', async ({ page }) => {
+  test('enableSellerDiscount=true: Descuento visible en carrito/checkout @config @funcional', async ({ page }) => {
     // Surtiventas: enableSellerDiscount=true
 
     await login(page);
@@ -558,7 +558,7 @@ test.describe('Surtiventas — Variables sin cobertura (config-dependent)', () =
     }
   });
 
-  test('useNewPromotions=true: Promociones deben estar visibles', async ({ page }) => {
+  test('useNewPromotions=true: Promociones deben estar visibles @config @funcional', async ({ page }) => {
     // Surtiventas: useNewPromotions=true
 
     await login(page);
@@ -585,7 +585,7 @@ test.describe('Surtiventas — Variables sin cobertura (config-dependent)', () =
     }
   });
 
-  test('hasMultiUnitEnabled=true: Selector de unidad de compra (caja/unidad/etc)', async ({ page }) => {
+  test('hasMultiUnitEnabled=true: Selector de unidad de compra (caja/unidad/etc) @config @funcional', async ({ page }) => {
     // Surtiventas: hasMultiUnitEnabled=true
 
     await login(page);

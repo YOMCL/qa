@@ -28,7 +28,7 @@ async function login(page: any) {
 
 test.describe('Codelpa — Login', () => {
 
-  test('Home sin login — redirige a login o muestra catálogo anónimo', async ({ page }) => {
+  test('Home sin login — redirige a login o muestra catálogo anónimo @login @funcional', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(10_000);
@@ -49,13 +49,13 @@ test.describe('Codelpa — Login', () => {
     expect(isOnLogin || hasPrices || hasLoginLink).toBeTruthy();
   });
 
-  test('Login exitoso', async ({ page }) => {
+  test('Login exitoso @login @funcional', async ({ page }) => {
     await login(page);
     // Post-login debe mostrar catálogo con precios
     await expect(page.locator('text=/\\$\\s*[\\d.,]+/')).toBeVisible({ timeout: 30_000 });
   });
 
-  test('Login fallido con password incorrecto', async ({ page }) => {
+  test('Login fallido con password incorrecto @login @crítico', async ({ page }) => {
     await page.goto('/');
     await page.waitForLoadState('domcontentloaded');
     await page.getByLabel('Correo').fill(EMAIL);
@@ -65,7 +65,7 @@ test.describe('Codelpa — Login', () => {
     await expect(page).toHaveURL(/auth|login/);
   });
 
-  test('Sesión persistente', async ({ browser }) => {
+  test('Sesión persistente @login @configuración', async ({ browser }) => {
     const context = await browser.newContext();
     const page = await context.newPage();
     await login(page);
@@ -89,14 +89,14 @@ test.describe('Codelpa — Catálogo', () => {
     await page.waitForLoadState('domcontentloaded');
   });
 
-  test('Catálogo muestra productos con precios CLP', async ({ page }) => {
+  test('Catálogo muestra productos con precios CLP @catalog @funcional', async ({ page }) => {
     const prices = page.locator('text=/\\$\\s*[\\d.,]+/');
     await expect(prices.first()).toBeVisible({ timeout: 30_000 });
     const count = await prices.count();
     expect(count).toBeGreaterThan(0);
   });
 
-  test('No hay productos con precio $0', async ({ page }) => {
+  test('No hay productos con precio $0 @catalog @funcional', async ({ page }) => {
     await page.waitForTimeout(5_000);
 
     // Buscar todas las tarjetas de producto
@@ -122,7 +122,7 @@ test.describe('Codelpa — Catálogo', () => {
     expect(zeroProducts.length).toBe(0);
   });
 
-  test('Buscar producto por nombre', async ({ page }) => {
+  test('Buscar producto por nombre @catalog @funcional', async ({ page }) => {
     const searchInput = page.getByPlaceholder('Buscar productos');
     await expect(searchInput).toBeVisible({ timeout: 15_000 });
     await searchInput.fill('test');
@@ -136,7 +136,7 @@ test.describe('Codelpa — Catálogo', () => {
     expect(hasResults || hasNoResultsMsg).toBeTruthy();
   });
 
-  test('Productos sin imagen muestran placeholder (no broken)', async ({ page }) => {
+  test('Productos sin imagen muestran placeholder (no broken) @catalog @funcional', async ({ page }) => {
     await page.waitForTimeout(3_000);
     const images = page.locator('img[src*="product"], img[alt*="product" i], img[class*="product" i]');
     const allImages = page.locator('img');
@@ -163,7 +163,7 @@ test.describe('Codelpa — Catálogo', () => {
     expect(brokenCount).toBe(0);
   });
 
-  test('Búsqueda sin resultados muestra feedback', async ({ page }) => {
+  test('Búsqueda sin resultados muestra feedback @catalog @funcional', async ({ page }) => {
     const searchInput = page.getByPlaceholder('Buscar productos');
     await searchInput.fill('xyznoexiste99999');
     await searchInput.press('Enter');
@@ -188,7 +188,7 @@ test.describe('Codelpa — Carrito', () => {
     ).toBeVisible({ timeout: 30_000 });
   });
 
-  test('Agregar producto al carrito', async ({ page }) => {
+  test('Agregar producto al carrito @cart @funcional', async ({ page }) => {
     const addButton = page.locator('.add-new-product-to-cart-button').first();
 
     const [response] = await Promise.all([
@@ -199,7 +199,7 @@ test.describe('Codelpa — Carrito', () => {
     expect(response.ok()).toBeTruthy();
   });
 
-  test('Carrito muestra items agregados', async ({ page }) => {
+  test('Carrito muestra items agregados @cart @funcional', async ({ page }) => {
     // Agregar producto
     await Promise.all([
       page.waitForResponse(resp => resp.url().includes('/cart') && resp.request().method() === 'POST'),
@@ -212,7 +212,7 @@ test.describe('Codelpa — Carrito', () => {
     await expect(page.getByText(/\d+ Producto/)).toBeVisible({ timeout: 15_000 });
   });
 
-  test('Modificar cantidad en carrito', async ({ page }) => {
+  test('Modificar cantidad en carrito @cart @funcional', async ({ page }) => {
     // Agregar producto
     await Promise.all([
       page.waitForResponse(resp => resp.url().includes('/cart') && resp.request().method() === 'POST'),
@@ -234,7 +234,7 @@ test.describe('Codelpa — Carrito', () => {
 
 test.describe('Codelpa — Cupones (PM1/PM2)', () => {
 
-  test('Campo de cupón visible en carrito', async ({ page }) => {
+  test('Campo de cupón visible en carrito @coupons @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
@@ -259,7 +259,7 @@ test.describe('Codelpa — Cupones (PM1/PM2)', () => {
     await expect(couponField.first()).toBeVisible({ timeout: 10_000 });
   });
 
-  test('Cupón inválido muestra error (no crash)', async ({ page }) => {
+  test('Cupón inválido muestra error (no crash) @coupons @crítico', async ({ page }) => {
     await login(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
@@ -289,7 +289,7 @@ test.describe('Codelpa — Cupones (PM1/PM2)', () => {
 
 test.describe('Codelpa — Checkout', () => {
 
-  test('Flujo completo: catálogo → carrito → checkout', async ({ page }) => {
+  test('Flujo completo: catálogo → carrito → checkout @checkout @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
@@ -316,7 +316,7 @@ test.describe('Codelpa — Checkout', () => {
     await expect(page).toHaveURL(/confirmation/, { timeout: 30_000 });
   });
 
-  test('Pedido aparece en historial post-checkout', async ({ page }) => {
+  test('Pedido aparece en historial post-checkout @checkout @funcional', async ({ page }) => {
     await login(page);
 
     // Ir a historial de pedidos
@@ -338,13 +338,13 @@ test.describe('Codelpa — Precios', () => {
     await expect(page.locator('text=/\\$\\s*[\\d.,]+/').first()).toBeVisible({ timeout: 30_000 });
   });
 
-  test('Precios en formato CLP ($ sin decimales)', async ({ page }) => {
+  test('Precios en formato CLP ($ sin decimales) @pricing @funcional', async ({ page }) => {
     const prices = page.locator('text=/\\$\\s*[\\d.,]+/');
     const count = await prices.count();
     expect(count).toBeGreaterThan(0);
   });
 
-  test('Precios consistentes catálogo vs carrito', async ({ page }) => {
+  test('Precios consistentes catálogo vs carrito @pricing @funcional', async ({ page }) => {
     // Capturar primer precio visible
     const firstPrice = page.locator('text=/\\$\\s*[\\d.,]+/').first();
     const catalogPrice = await firstPrice.textContent();
@@ -364,7 +364,7 @@ test.describe('Codelpa — Precios', () => {
     await expect(page.locator('text=/\\$\\s*[\\d.,]+/')).toBeVisible({ timeout: 10_000 });
   });
 
-  test('hideReceiptType=true — no muestra selector de boleta/factura', async ({ page }) => {
+  test('hideReceiptType=true — no muestra selector de boleta/factura @pricing @funcional', async ({ page }) => {
     // Agregar producto e ir al carrito
     await Promise.all([
       page.waitForResponse(resp => resp.url().includes('/cart') && resp.request().method() === 'POST'),
@@ -384,7 +384,7 @@ test.describe('Codelpa — Precios', () => {
 
 test.describe('Codelpa — Detalle de producto', () => {
 
-  test('Click en producto abre detalle/modal', async ({ page }) => {
+  test('Click en producto abre detalle/modal @detalle-de-producto @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
@@ -407,7 +407,7 @@ test.describe('Codelpa — Detalle de producto', () => {
 
 test.describe('Codelpa — Consola y errores', () => {
 
-  test('Navegación sin errores JS en consola', async ({ page }) => {
+  test('Navegación sin errores JS en consola @consola-y-errores @crítico', async ({ page }) => {
     const errors: string[] = [];
     page.on('pageerror', (error) => errors.push(error.message));
 
@@ -430,7 +430,7 @@ test.describe('Codelpa — Consola y errores', () => {
     expect(errors.length).toBe(0);
   });
 
-  test('Sin requests 4xx/5xx durante navegación', async ({ page }) => {
+  test('Sin requests 4xx/5xx durante navegación @consola-y-errores @funcional', async ({ page }) => {
     const failedRequests: string[] = [];
     page.on('response', (response) => {
       if (response.status() >= 400) {
@@ -461,7 +461,7 @@ test.describe('Codelpa — Consola y errores', () => {
 
 test.describe('Codelpa — Monto mínimo y validaciones', () => {
 
-  test('Carrito vacío no permite confirmar pedido', async ({ page }) => {
+  test('Carrito vacío no permite confirmar pedido @monto-mínimo-y-validaciones @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/cart');
     await page.waitForLoadState('domcontentloaded');
@@ -475,7 +475,7 @@ test.describe('Codelpa — Monto mínimo y validaciones', () => {
     // Si no existe el botón, es comportamiento correcto (no muestra checkout sin items)
   });
 
-  test('Monto mínimo muestra mensaje si no se alcanza', async ({ page }) => {
+  test('Monto mínimo muestra mensaje si no se alcanza @monto-mínimo-y-validaciones @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
@@ -508,7 +508,7 @@ test.describe('Codelpa — Monto mínimo y validaciones', () => {
 
 test.describe('Codelpa — Pedidos y estados', () => {
 
-  test('Historial de pedidos muestra tabla con estados', async ({ page }) => {
+  test('Historial de pedidos muestra tabla con estados @pedidos-y-estados @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/orders');
     await page.waitForLoadState('domcontentloaded');
@@ -523,7 +523,7 @@ test.describe('Codelpa — Pedidos y estados', () => {
     expect(hasOrders || hasEmptyMsg).toBeTruthy();
   });
 
-  test('Estados de pedido son válidos (no "No disponible")', async ({ page }) => {
+  test('Estados de pedido son válidos (no "No disponible") @pedidos-y-estados @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/orders');
     await page.waitForLoadState('domcontentloaded');
@@ -544,7 +544,7 @@ test.describe('Codelpa — Pedidos y estados', () => {
 
 test.describe('Codelpa — Pagos', () => {
 
-  test('Historial de pagos carga', async ({ page }) => {
+  test('Historial de pagos carga @pagos @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/payments');
     await page.waitForLoadState('domcontentloaded');
@@ -552,7 +552,7 @@ test.describe('Codelpa — Pagos', () => {
     await expect(page.locator('body')).not.toContainText(/error.*500|internal server/i);
   });
 
-  test('Montos no muestran valores negativos confusos', async ({ page }) => {
+  test('Montos no muestran valores negativos confusos @pagos @funcional', async ({ page }) => {
     await login(page);
     await page.goto('/payments');
     await page.waitForLoadState('domcontentloaded');
@@ -573,7 +573,7 @@ test.describe('Codelpa — Pagos', () => {
 
 test.describe('Codelpa — Variables sin cobertura (config-dependent)', () => {
 
-  test('purchaseOrderEnabled: Campo OC (Orden de Compra) visible en checkout', async ({ page }) => {
+  test('purchaseOrderEnabled: Campo OC (Orden de Compra) visible en checkout @config @funcional', async ({ page }) => {
     // TODO: Validar con Cowork que el campo OC existe y ubicación exacta
     // Requiere que purchaseOrderEnabled=true en config (✓ en Codelpa)
 
@@ -614,7 +614,7 @@ test.describe('Codelpa — Variables sin cobertura (config-dependent)', () => {
     }
   });
 
-  test('disableCommerceEdit: Campos de perfil comercio son read-only', async ({ page }) => {
+  test('disableCommerceEdit: Campos de perfil comercio son read-only @config @funcional', async ({ page }) => {
     // TODO: Encontrar ruta exacta del perfil (probables: /profile, /account, /settings)
     // Requiere que disableCommerceEdit=true en config (✓ en Codelpa)
 
@@ -661,7 +661,7 @@ test.describe('Codelpa — Variables sin cobertura (config-dependent)', () => {
     }
   });
 
-  test('hasStockEnabled + hasAllDistributionCenters: Stock visible en tarjetas (multicentro)', async ({ page }) => {
+  test('hasStockEnabled + hasAllDistributionCenters: Stock visible en tarjetas (multicentro) @config @funcional', async ({ page }) => {
     // Requiere hasStockEnabled=true y hasAllDistributionCenters=true en config (✓ en Codelpa)
 
     await login(page);
@@ -700,7 +700,7 @@ test.describe('Codelpa — Variables sin cobertura (config-dependent)', () => {
     }
   });
 
-  test('enableOrderApproval: Órdenes pueden estar en estado "pending_approval"', async ({ page }) => {
+  test('enableOrderApproval: Órdenes pueden estar en estado "pending_approval" @config @funcional', async ({ page }) => {
     // Requiere enableOrderApproval=true en config (✓ en Codelpa)
     // Datos: 24 órdenes en pending_approval en MongoDB
 
