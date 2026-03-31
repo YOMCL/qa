@@ -89,19 +89,55 @@ const clients: Record<string, ClientConfig> = {
   },
   codelpa: {
     name: 'Codelpa',
-    baseURL: 'https://codelpa.solopide.me',
+    baseURL: 'https://beta-codelpa.solopide.me',
     loginPath: '/login',
     credentials: creds('CODELPA'),
     config: {
+      // Login & auth
       anonymousAccess: false,
+      anonymousHideCart: true,
+      anonymousHidePrice: true,
+
+      // Commerce management
+      disableCommerceEdit: true,
+      editAddress: false,
+
+      // Coupons & promotions
       enableCoupons: true,
+
+      // Orders & checkout
+      enableMassiveOrderSend: true,
       enableOrderApproval: true,
       enableOrderValidation: true,
-      useMongoPricing: true,
       enableSellerDiscount: true,
       hideReceiptType: true,
-      hidePrices: false,
+      purchaseOrderEnabled: true,
       disableCart: false,
+      hidePrices: false,
+
+      // App features (vendedor)
+      enableTask: true,
+
+      // Stock & distribution
+      hasAllDistributionCenters: true,
+      hasStockEnabled: true,
+
+      // User interface
+      pendingDocuments: true,
+      useMobileGps: true,
+
+      // Pricing & data sync
+      useMongoPricing: true,
+      "taxes.showSummary": true,
+      "shoppingDetail.lastOrder": true,
+      "synchronization.enableSyncImages": true,
+      "packagingInformation.hideSingleItemPackagingInformationB2B": true,
+
+      // Integration hooks
+      "hooks.shippingHook": true,
+      "hooks.stockHook": true,
+
+      // Currency
       currency: 'clp',
     },
   },
