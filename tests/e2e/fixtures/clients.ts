@@ -63,15 +63,57 @@ const clients: Record<string, ClientConfig> = {
     loginPath: '/auth/jwt/login',
     credentials: creds('SURTIVENTAS'),
     config: {
+      // Login & auth
       anonymousAccess: false,
+      anonymousHideCart: true,
+
+      // Commerce management
+      'commerce.enableCreateCommerce': true,
+      disableCommerceEdit: false,
+      editAddress: true,
+
+      // Coupons & promotions
       enableCoupons: true,
-      enableChooseSaleUnit: true,
-      limitAddingByStock: true,
       useNewPromotions: true,
-      includeTaxRateInPrices: true,
-      hidePrices: false,
+
+      // Orders & checkout
+      enableMassiveOrderSend: true,
+      enableOrderApproval: false,
+      enableSellerDiscount: true,
+      hideReceiptType: false,
+      purchaseOrderEnabled: false,
       disableCart: false,
-      currency: 'cop',
+      hidePrices: false,
+
+      // Stock & distribution
+      hasAllDistributionCenters: false,
+      hasSingleDistributionCenter: true,
+      hasStockEnabled: true,
+      hasMultiUnitEnabled: true,
+      limitAddingByStock: true,
+      hasNoSaleFilter: true,
+      enableChooseSaleUnit: true,
+
+      // User interface
+      pendingDocuments: false,
+      useMobileGps: false,
+
+      // Pricing & data sync
+      useMongoPricing: false,
+      'taxes.showSummary': true,
+      'taxes.useTaxRate': true,
+      'shoppingDetail.lastOrder': false,
+      'synchronization.enableSyncImages': false,
+      'packagingInformation.hidePackagingInformationB2B': true,
+      'packagingInformation.hideSingleItemPackagingInformationB2B': true,
+      'packaging.amountUsesUnits': true,
+
+      // Integration hooks
+      'hooks.shippingHook': false,
+      'hooks.stockHook': false,
+
+      // Currency
+      currency: 'clp',
     },
   },
   marleycoffee: {
