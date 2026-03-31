@@ -1,0 +1,64 @@
+name: Playwright E2E Tests — Nightly
+
+on:
+  schedule:
+    # 2 AM UTC = 11 PM Chile (previous day)
+    - cron: '0 2 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'package-lock.json'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright tests (B2B)
+        env:
+          BASE_URL: https://tienda.youorder.me
+          CODELPA_EMAIL: ${{ secrets.CODELPA_EMAIL }}
+          CODELPA_PASSWORD: ${{ secrets.CODELPA_PASSWORD }}
+          SURTIVENTAS_EMAIL: ${{ secrets.SURTIVENTAS_EMAIL }}
+          SURTIVENTAS_PASSWORD: ${{ secrets.SURTIVENTAS_PASSWORD }}
+        working-directory: tests/e2e
+        run: |
+          npx playwright test --project=b2b b2b/codelpa.spec.ts b2b/surtiventas.spec.ts --reporter=html,list
+
+      - name: Copy test results to public
+        if: always()
+        run: |
+          mkdir -p public/reports
+          cp -r tests/e2e/playwright-report/* public/reports/
+          # Also copy grouped report if it exists
+          if [ -f tests/e2e/playwright-report/grouped-report.html ]; then
+            cp tests/e2e/playwright-report/grouped-report.html public/
+          fi
+
+      - name: Update dashboard timestamp
+        if: always()
+        run: |
+          TIMESTAMP=$(date '+%d de %B de %Y · %H:%M %Z' -d @$(date +%s))
+          sed -i "s|⏱️ Último ejecutado: .*|⏱️ Último ejecutado: ${TIMESTAMP}|" public/index.html
+
+      - name: Deploy to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          cname: eduardolaloyom.github.io
