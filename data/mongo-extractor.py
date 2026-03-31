@@ -261,10 +261,176 @@ def get_active_tests(variables: dict) -> Dict[str, List[str]]:
 
 
 # ─────────────────────────────────────────────
+# Collection extraction (products, commerces, orders, etc.)
+# ─────────────────────────────────────────────
+
+def extract_collections(db: Any, domain: str, cid_obj: Any) -> dict:
+    """Extract stats and details from additional MongoDB collections.
+
+    Uses domain (str) for most collections, customerId (ObjectId) for others.
+    """
+    result = {}
+
+    try:
+        # ── PRODUCTS ──
+        prod_total = db.products.count_documents({"domain": domain})
+        prod_active = db.products.count_documents({"domain": domain, "active": True})
+        prod_hidden = db.products.count_documents({"domain": domain, "b2bHidden": True})
+
+        # Stock statuses
+        stock_stats = {}
+        for doc in db.products.aggregate([
+            {"$match": {"domain": domain}},
+            {"$group": {"_id": "$stockStatus", "count": {"$sum": 1}}},
+            {"$sort": {"count": -1}}
+        ]):
+            stock_stats[doc["_id"] or "null"] = doc["count"]
+
+        result["products"] = {
+            "total": prod_total,
+            "active": prod_active,
+            "hidden_b2b": prod_hidden,
+            "stock_statuses": stock_stats,
+        }
+
+        # ── COMMERCES ──
+        comm_total = db.commerces.count_documents({"domain": domain})
+        comm_active = db.commerces.count_documents({"domain": domain, "active": True})
+        comm_auth = db.commerces.count_documents({"domain": domain, "authorized": True})
+        comm_credit = db.commerces.count_documents({"domain": domain, "credit": {"$exists": True, "$ne": None}})
+
+        result["commerces"] = {
+            "total": comm_total,
+            "active": comm_active,
+            "authorized": comm_auth,
+            "with_credit": comm_credit,
+        }
+
+        # ── PROMOTIONS ──
+        promo_total = db.promotions.count_documents({"customerId": cid_obj})
+        promo_active = db.promotions.count_documents({"customerId": cid_obj, "status": "active"})
+
+        promo_types = {}
+        for doc in db.promotions.aggregate([
+            {"$match": {"customerId": cid_obj}},
+            {"$group": {"_id": "$type", "count": {"$sum": 1}}},
+        ]):
+            promo_types[doc["_id"]] = doc["count"]
+
+        # Full promo items (usually small list)
+        promo_items = []
+        for p in db.promotions.find({"customerId": cid_obj}).limit(100):
+            promo_items.append(serialize({
+                "name": p.get("name", ""),
+                "type": p.get("type", ""),
+                "status": p.get("status", ""),
+                "priority": p.get("priority"),
+                "showDiscountRate": p.get("showDiscountRate"),
+                "showTag": p.get("showTag"),
+                "triggerRules": p.get("triggerRules", []),
+                "discountRules": p.get("discountRules", []),
+                "productTags": p.get("productTags", []),
+            }))
+
+        result["promotions"] = {
+            "total": promo_total,
+            "active": promo_active,
+            "by_type": promo_types,
+            "items": promo_items,
+        }
+
+        # ── OVERRIDES ──
+        over_total = db.overrides.count_documents({"customerId": cid_obj})
+        over_enabled = db.overrides.count_documents({"customerId": cid_obj, "enabled": True})
+
+        result["overrides"] = {
+            "total": over_total,
+            "enabled": over_enabled,
+        }
+
+        # ── ORDERS ──
+        order_total = db.orders.count_documents({"domain": domain})
+
+        order_status = {}
+        for doc in db.orders.aggregate([
+            {"$match": {"domain": domain}},
+            {"$group": {"_id": "$status", "count": {"$sum": 1}}},
+            {"$sort": {"count": -1}}
+        ]):
+            order_status[doc["_id"] or "unknown"] = doc["count"]
+
+        result["orders"] = {
+            "total": order_total,
+            "by_status": order_status,
+        }
+
+        # ── CATEGORIES ──
+        cat_total = db.categories.count_documents({"domain": domain})
+        cat_items = []
+        for c in db.categories.find({"domain": domain}).sort("name", 1):
+            cat_items.append(serialize({
+                "name": c.get("name", ""),
+                "tags": c.get("tags", []),
+                "active": c.get("active", True),
+                "has_parent": c.get("parent") is not None,
+            }))
+
+        result["categories"] = {
+            "total": cat_total,
+            "items": cat_items,
+        }
+
+        # ── SEGMENTS ──
+        seg_total = db.segments.count_documents({"domain": domain})
+        seg_items = []
+        for s in db.segments.find({"domain": domain}).sort("name", 1).limit(100):
+            seg_items.append(serialize({
+                "name": s.get("name", ""),
+                "code": s.get("code", ""),
+            }))
+
+        result["segments"] = {
+            "total": seg_total,
+            "items": seg_items,
+        }
+
+        # ── COUPONS ──
+        coup_total = db.coupons.count_documents({"customerId": cid_obj})
+        coup_items = []
+        for c in db.coupons.find({"customerId": cid_obj}).limit(100):
+            coup_items.append(serialize({
+                "code": c.get("code", ""),
+                "discount": c.get("discount", {}),
+            }))
+
+        result["coupons"] = {
+            "total": coup_total,
+            "items": coup_items,
+        }
+
+        # ── SIMPLE COUNTS ──
+        result["sellers"] = {"total": db.sellers.count_documents({"domain": domain})}
+        result["banners"] = {"total": db.banners.count_documents({"domain": domain})}
+        result["carts"] = {"total": db.carts.count_documents({"domain": domain})}
+        result["payments"] = {"total": db.payments.count_documents({"domain": domain})}
+        result["pendingDocuments"] = {"total": db.pendingdocuments.count_documents({"customerId": cid_obj})}
+
+    except Exception as e:
+        print(f"Warning: Collection extraction failed: {e}", file=sys.stderr)
+        # Return partial/empty result instead of crashing
+        if not result:
+            result = {k: {} for k in ["products", "commerces", "promotions", "overrides", "orders",
+                                      "categories", "segments", "coupons", "sellers", "banners",
+                                      "carts", "payments", "pendingDocuments"]}
+
+    return result
+
+
+# ─────────────────────────────────────────────
 # Main extraction
 # ─────────────────────────────────────────────
 
-def extract(client_filter: Optional[str] = None) -> dict:
+def extract(client_filter: Optional[str] = None, full_extract: bool = False) -> dict:
     """Extract all data from MongoDB and return the qa-matrix structure."""
     print("Connecting to MongoDB clusters...")
 
@@ -289,6 +455,7 @@ def extract(client_filter: Optional[str] = None) -> dict:
         "totalSites": len(sites),
         "totalCustomers": len(customers),
         "totalSalesterms": len(salesterms),
+        "fullExtract": full_extract,
         "clients": {},
     }
 
@@ -304,6 +471,7 @@ def extract(client_filter: Optional[str] = None) -> dict:
             continue
 
         cid = str(site.get("customerId", ""))
+        cid_obj = site.get("customerId")
         cust = cust_by_id.get(cid)
         st = st_by_cust.get(cid) or st_by_domain.get(domain)
 
@@ -341,7 +509,7 @@ def extract(client_filter: Optional[str] = None) -> dict:
         # Build client key from domain
         client_key = domain.replace(".youorder.me", "").replace(".solopide.me", "-staging")
 
-        result["clients"][client_key] = {
+        client_obj = {
             "name": display_name,
             "domain": domain,
             "customerId": cid,
@@ -363,6 +531,12 @@ def extract(client_filter: Optional[str] = None) -> dict:
             },
         }
 
+        # Extract additional collections if --full flag is set
+        if full_extract and cid_obj:
+            client_obj["collections"] = extract_collections(legacy_db, domain, cid_obj)
+
+        result["clients"][client_key] = client_obj
+
     micro_client.close()
     legacy_client.close()
 
@@ -375,17 +549,34 @@ def main():
     parser.add_argument("--cliente", type=str, help="Filter by client name")
     parser.add_argument("--output", type=str, default="data/qa-matrix.json",
                         help="Output file path (default: data/qa-matrix.json)")
+    parser.add_argument("--full", action="store_true",
+                        help="Also extract products, commerces, promotions, orders, etc. (slower)")
     args = parser.parse_args()
 
-    data = extract(client_filter=args.cliente)
+    data = extract(client_filter=args.cliente, full_extract=args.full)
 
     with open(args.output, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
     print(f"\nOutput: {args.output}")
     for key, client in data["clients"].items():
-        print(f"  {client['name']:25s} — {client['testCount']['total']} tests "
-              f"({client['testCount']['standard']} std + {client['testCount']['conditional']} cond)")
+        test_info = f"{client['testCount']['total']} tests ({client['testCount']['standard']} std + {client['testCount']['conditional']} cond)"
+
+        # If full extract, add collection stats
+        if "collections" in client:
+            col = client["collections"]
+            col_info = []
+            if col.get("products", {}).get("total"):
+                col_info.append(f"prod={col['products']['total']}")
+            if col.get("orders", {}).get("total"):
+                col_info.append(f"orders={col['orders']['total']}")
+            if col.get("commerces", {}).get("total"):
+                col_info.append(f"comm={col['commerces']['total']}")
+            col_info_str = " | " + ", ".join(col_info) if col_info else ""
+        else:
+            col_info_str = ""
+
+        print(f"  {client['name']:25s} — {test_info}{col_info_str}")
 
 
 if __name__ == "__main__":
