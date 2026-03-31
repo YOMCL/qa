@@ -1,0 +1,12 @@
+{
+  "name": "yom-qa",
+  "version": "1.0.0",
+  "description": "QA suite for YOM B2B platform",
+  "workspaces": [
+    "tests/e2e"
+  ],
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "dotenv": "^16.4.0"
+  }
+}
