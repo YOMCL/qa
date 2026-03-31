@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YOM QA — Grouped Test Report</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      padding: 2rem;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+    header h1 { font-size: 2rem; margin-bottom: 1rem; }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .summary-item {
+      background: rgba(255,255,255,0.2);
+      padding: 1rem;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .summary-item strong { font-size: 1.5rem; display: block; }
+    .summary-item span { font-size: 0.9rem; opacity: 0.9; }
+
+    .feature-group {
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .feature-header {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-left: 4px solid #667eea;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .feature-header h2 { font-size: 1.3rem; color: #333; }
+    .stats {
+      background: #667eea;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .type-group {
+      padding: 1.5rem;
+      border-bottom: 1px solid #eee;
+    }
+    .type-group:last-child { border-bottom: none; }
+    .type-group h3 {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: #555;
+    }
+
+    .tests {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 1rem;
+    }
+    .test {
+      padding: 1rem;
+      border-radius: 6px;
+      background: #f0f9f6;
+      border-left: 3px solid #28a745;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+    }
+    .test.passed {
+      border-left-color: #28a745;
+      background: #f0f9f6;
+    }
+    .status-icon {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #28a745;
+    }
+    .test-title {
+      flex: 1;
+      color: #333;
+    }
+
+    footer {
+      text-align: center;
+      color: #999;
+      font-size: 0.85rem;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🧪 Grouped Test Report</h1>
+      <div class="summary">
+        <div class="summary-item">
+          <strong>239</strong>
+          <span>Total Tests</span>
+        </div>
+        <div class="summary-item">
+          <strong>239</strong>
+          <span>Passed</span>
+        </div>
+        <div class="summary-item">
+          <strong>0</strong>
+          <span>Failed</span>
+        </div>
+        <div class="summary-item">
+          <strong>0</strong>
+          <span>Skipped</span>
+        </div>
+      </div>
+    </header>
+
+    
+        <div class="feature-group">
+          <div class="feature-header">
+            <h2>🛒 Cart</h2>
+            <span class="stats">3/3 passed (100%)</span>
+          </div>
+
+            <div class="type-group">
+              <h3>🟡 🟡 Funcionales (3/3)</h3>
+              <ul class="tests">
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Agregar producto al carrito</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Carrito muestra items agregados</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Modificar cantidad en carrito</span>
+                </li>
+
+              </ul>
+            </div>
+
+        </div>
+
+        <div class="feature-group">
+          <div class="feature-header">
+            <h2>📦 Catalog</h2>
+            <span class="stats">9/9 passed (100%)</span>
+          </div>
+
+            <div class="type-group">
+              <h3>🟡 🟡 Funcionales (9/9)</h3>
+              <ul class="tests">
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Catálogo muestra productos con precios CLP</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">No hay productos con precio $0</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Buscar producto por nombre</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Productos sin imagen muestran placeholder (no broken)</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Búsqueda sin resultados muestra feedback</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Catálogo muestra productos con precios CLP</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">No hay productos con precio $0</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Carrito muestra items agregados</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Modificar cantidad en carrito</span>
+                </li>
+
+              </ul>
+            </div>
+
+        </div>
+
+        <div class="feature-group">
+          <div class="feature-header">
+            <h2>💳 Checkout</h2>
+            <span class="stats">4/4 passed (100%)</span>
+          </div>
+
+            <div class="type-group">
+              <h3>🟡 🟡 Funcionales (4/4)</h3>
+              <ul class="tests">
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Flujo completo: catálogo → carrito → checkout</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Pedido aparece en historial post-checkout</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Flujo completo: catálogo → carrito → checkout</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Pedido aparece en historial post-checkout</span>
+                </li>
+
+              </ul>
+            </div>
+
+        </div>
+
+        <div class="feature-group">
+          <div class="feature-header">
+            <h2>⚙️ Config</h2>
+            <span class="stats">10/10 passed (100%)</span>
+          </div>
+
+            <div class="type-group">
+              <h3>🟡 🟡 Funcionales (8/8)</h3>
+              <ul class="tests">
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">purchaseOrderEnabled: Campo OC (Orden de Compra) visible en checkout</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">disableCommerceEdit: Campos de perfil comercio son read-only</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">hasStockEnabled + hasAllDistributionCenters: Stock visible en tarjetas (multicentro)</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">enableOrderApproval: Órdenes pueden estar en estado "pending_approval"</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">hasStockEnabled=true + hasSingleDistributionCenter: Stock visible en tarjetas (sin multicentro)</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">enableSellerDiscount=true: Descuento visible en carrito/checkout</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">useNewPromotions=true: Promociones deben estar visibles</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">hasMultiUnitEnabled=true: Selector de unidad de compra (caja/unidad/etc)</span>
+                </li>
+
+              </ul>
+            </div>
+
+            <div class="type-group">
+              <h3>🔵 🔵 Configuración (2/2)</h3>
+              <ul class="tests">
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">disableCommerceEdit=false: Campos de perfil comercio son EDITABLES</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">editAddress=true: Dirección es editable en checkout</span>
+                </li>
+
+              </ul>
+            </div>
+
+        </div>
+
+        <div class="feature-group">
+          <div class="feature-header">
+            <h2>🎟️ Coupons</h2>
+            <span class="stats">4/4 passed (100%)</span>
+          </div>
+
+            <div class="type-group">
+              <h3>🔴 🔴 Críticos (2/2)</h3>
+              <ul class="tests">
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Cupón inválido muestra error (no crash)</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Cupón inválido muestra error (no crash)</span>
+                </li>
+
+              </ul>
+            </div>
+
+            <div class="type-group">
+              <h3>🟡 🟡 Funcionales (2/2)</h3>
+              <ul class="tests">
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Campo de cupón visible en carrito</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Campo de cupón visible en carrito</span>
+                </li>
+
+              </ul>
+            </div>
+
+        </div>
+
+        <div class="feature-group">
+          <div class="feature-header">
+            <h2>🔐 Login</h2>
+            <span class="stats">8/8 passed (100%)</span>
+          </div>
+
+            <div class="type-group">
+              <h3>🔴 🔴 Críticos (2/2)</h3>
+              <ul class="tests">
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Login fallido con password incorrecto</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Login fallido con password incorrecto</span>
+                </li>
+
+              </ul>
+            </div>
+
+            <div class="type-group">
+              <h3>🟡 🟡 Funcionales (4/4)</h3>
+              <ul class="tests">
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Home sin login — redirige a login o muestra catálogo anónimo</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Login exitoso</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Home sin login — redirige a login o muestra catálogo anónimo</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Login exitoso</span>
+                </li>
+
+              </ul>
+            </div>
+
+            <div class="type-group">
+              <h3>🔵 🔵 Configuración (2/2)</h3>
+              <ul class="tests">
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Sesión persistente</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Sesión persistente</span>
+                </li>
+
+              </ul>
+            </div>
+
+        </div>
+
+        <div class="feature-group">
+          <div class="feature-header">
+            <h2>💳 Pagos</h2>
+            <span class="stats">2/2 passed (100%)</span>
+          </div>
+
+            <div class="type-group">
+              <h3>🟡 🟡 Funcionales (2/2)</h3>
+              <ul class="tests">
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Historial de pagos carga</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Montos no muestran valores negativos confusos</span>
+                </li>
+
+              </ul>
+            </div>
+
+        </div>
+
+        <div class="feature-group">
+          <div class="feature-header">
+            <h2>💰 Pricing</h2>
+            <span class="stats">5/5 passed (100%)</span>
+          </div>
+
+            <div class="type-group">
+              <h3>🟡 🟡 Funcionales (5/5)</h3>
+              <ul class="tests">
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Precios en formato CLP ($ sin decimales)</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Precios consistentes catálogo vs carrito</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">hideReceiptType=true — no muestra selector de boleta/factura</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Precios en formato CLP ($ sin decimales)</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Precios consistentes catálogo vs carrito</span>
+                </li>
+
+              </ul>
+            </div>
+
+        </div>
+
+        <div class="feature-group">
+          <div class="feature-header">
+            <h2>📝 Validaciones</h2>
+            <span class="stats">2/2 passed (100%)</span>
+          </div>
+
+            <div class="type-group">
+              <h3>🟡 🟡 Funcionales (2/2)</h3>
+              <ul class="tests">
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Carrito vacío no permite confirmar pedido</span>
+                </li>
+
+                <li class="test passed">
+                  <span class="status-icon">✓</span>
+                  <span class="test-title">Monto mínimo muestra mensaje si no se alcanza</span>
+                </li>
+
+              </ul>
+            </div>
+
+        </div>
+
+
+    <footer>
+      Generated on 31 de March de 2026 · 14:32:00 (Chile)
+    </footer>
+  </div>
+</body>
+</html>
