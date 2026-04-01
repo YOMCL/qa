@@ -10,6 +10,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
@@ -23,7 +25,9 @@ jobs:
           cache-dependency-path: 'package-lock.json'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm install
+          cd tests/e2e && npm install
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
@@ -72,4 +76,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          cname: eduardolaloyom.github.io
