@@ -110,6 +110,8 @@ qa/
 | **08-pagos.yaml** | Cobranza y pagos | **Deuda técnica** |
 | **09-concurrencia.yaml** | Race conditions | **Deuda técnica** |
 | **10-descuentos.yaml** | Descuentos en pedido | **Post-mortem PM3** |
+| **11-contacto-cliente.yaml** | Contacto con cliente vía chat/teléfono | **Growth/escalamiento** |
+| **12-tareas-growth.yaml** | Gestión de tareas y seguimiento | **Growth/escalamiento** |
 
 ---
 

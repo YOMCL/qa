@@ -1,7 +1,12 @@
-# Variables por Cliente YOM — Extracción Completa con Definiciones
+# Variables por Cliente YOM — Referencia Histórica
+
+> ⚠️ **NOTA**: Este documento es histórico (fecha: 2026-03-25, 18 clientes).
+> Para datos ACTUALES de clientes, ver `data/qa-matrix.json` (regenerado por mongo-extractor.py).
+> Este documento se mantiene como **enciclopedia de definiciones de variables YOM** — las definiciones de cada variable siguen siendo válidas.
+>
 > Fuentes: sites (yom-stores), salesterms (yom-production), customers (yom-production)
-> Fecha: 2026-03-25
-> Clientes: 18 (producción + staging)
+> Clientes en documento: 18 (producción + staging históricos)
+> Clientes en qa-matrix.json: 2 (Codelpa, Surtiventas — actuales)
 
 ---
 
