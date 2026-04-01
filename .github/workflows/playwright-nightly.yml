@@ -40,7 +40,7 @@ jobs:
         working-directory: tests/e2e
         run: |
           rm -rf playwright-report
-          npx playwright test --project=b2b --grep="^Codelpa" --reporter=html,"./reporters/grouped-report.ts",list
+          npx playwright test --project=b2b --grep="Codelpa" --reporter=html,"./reporters/grouped-report.ts",list
 
       - name: Copy Codelpa results
         if: always()
@@ -56,7 +56,7 @@ jobs:
         working-directory: tests/e2e
         run: |
           rm -rf playwright-report
-          npx playwright test --project=b2b --grep="^Surtiventas" --reporter=html,"./reporters/grouped-report.ts",list
+          npx playwright test --project=b2b --grep="Surtiventas" --reporter=html,"./reporters/grouped-report.ts",list
 
       - name: Copy Surtiventas results
         if: always()
