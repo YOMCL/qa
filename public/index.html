@@ -123,16 +123,16 @@
           <div class="status-badge status-fail">🔴 LENTITUD CRÍTICA</div>
           <div class="metrics">
             <div class="metric">
-              <div class="metric-value">39/100</div>
+              <div class="metric-value">58/100</div>
               <div class="metric-label">Health Score</div>
             </div>
             <div class="metric">
-              <div class="metric-value">17/43</div>
+              <div class="metric-value">22/38</div>
               <div class="metric-label">Tests pasando</div>
             </div>
           </div>
           <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">
-            <strong>BLOQUEADORES:</strong> Timeouts en carga (>60s). Checkout, carrito, búsqueda sin respuesta. Performance issue.
+            <strong>BLOQUEADORES:</strong> Config-validation fallos (6/6). Checkout lentitud. Búsqueda sin feedback.
           </p>
           <div>
             <a href="./codelpa/index.html" class="btn btn-secondary">📊 Reporte Playwright</a>
@@ -149,16 +149,16 @@
           <div class="status-badge status-warning">⚠️ CON CONDICIONES</div>
           <div class="metrics">
             <div class="metric">
-              <div class="metric-value">56/100</div>
+              <div class="metric-value">65/100</div>
               <div class="metric-label">Health Score</div>
             </div>
             <div class="metric">
-              <div class="metric-value">20/36</div>
+              <div class="metric-value">20/31</div>
               <div class="metric-label">Tests pasando</div>
             </div>
           </div>
           <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">
-            <strong>Issues:</strong> Validación carrito vacío incompleta. Checkout lentitud. Cupones con problemas.
+            <strong>Issues:</strong> Config-validation fallos (6/6). Carrito vacío no desactiva botón. Cupones.
           </p>
           <div>
             <a href="./surtiventas/index.html" class="btn btn-secondary">📊 Reporte Playwright</a>
@@ -168,13 +168,14 @@
     </div>
 
     <div class="info-box">
-      <h2>📋 Estado General</h2>
+      <h2>📋 Estado General (con config-validation)</h2>
       <ul>
-        <li><strong>Codelpa:</strong> 🔴 CRÍTICO — Lentitud en API/carga (>60s timeouts). Investigar beta-codelpa.solopide.me performance</li>
-        <li><strong>Surtiventas:</strong> ⚠️ CON CONDICIONES — Validaciones incompletas (carrito vacío), checkout lento. Mejor que Codelpa (56% vs 39%)</li>
-        <li><strong>Accionables:</strong> Revisar logs de performance en beta-codelpa, multiplicar timeouts en tests, validar API responses</li>
+        <li><strong>Codelpa:</strong> 22/38 pasando (58%) — Config-validation falla (6/6). API timeouts en login.</li>
+        <li><strong>Surtiventas:</strong> 20/31 pasando (65%) — Config-validation falla (6/6). Carrito no desactiva botón vacío.</li>
+        <li><strong>Accionables P0:</strong> Config-validation tests fallan en login. Revisar why getByLabel('Correo') no existe.</li>
+        <li><strong>Accionables P1:</strong> Codelpa performance (timeouts >60s). Surtiventas validaciones incompletas.</li>
       </ul>
-      <p class="last-update">⏱️ Último ejecutado: 1 de Abril de 2026 · 11:02 AM (Chile) · Playwright 17+20 tests pasando</p>
+      <p class="last-update">⏱️ Último ejecutado: 1 de Abril de 2026 · 11:30 AM (Chile) · Con config-validation (25+19 flags MongoDB)</p>
     </div>
 
     <div class="footer">
