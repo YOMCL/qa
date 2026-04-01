@@ -131,6 +131,33 @@ Migración a SSR (Admin o B2B):
 
 ## Cómo correr los tests
 
+### Pipeline QA Completo (MongoDB → Playwright)
+
+El pipeline QA está integrado con MongoDB. El flujo es:
+
+```
+1. MongoDB (yom-stores, yom-production, yom-promotions, b2b-marketing)
+    ↓
+2. python3 data/mongo-extractor.py    → data/qa-matrix.json (config, coupons, banners, promotions)
+    ↓
+3. python3 tools/sync-clients.py      → tests/e2e/fixtures/clients.ts (AUTO-GENERADO)
+    ↓
+4. Playwright tests (multi-cliente: Codelpa, Surtiventas automáticamente)
+    ↓
+5. Reportes en public/ y GitHub Pages
+```
+
+**Script conveniente: `./tools/run-qa.sh`**
+```bash
+# Ejecuta el pipeline completo: extrae Mongo → regenera clients.ts → corre Playwright → genera reporte
+./tools/run-qa.sh Codelpa          # O "Surtiventas" o sin parámetros para ambos
+```
+
+**IMPORTANTE**: 
+- `clients.ts` es **AUTO-GENERADO** por `sync-clients.py` — no editar manualmente
+- Cada vez que hay cambios en MongoDB, correr `mongo-extractor.py` + `sync-clients.py` antes de ejecutar tests
+- Las credenciales de cada cliente se definen en `tests/e2e/.env` (no en el código)
+
 ### Playwright (B2B + Admin)
 
 ```bash
@@ -138,23 +165,59 @@ cd tests/e2e
 npm install                                    # Primera vez
 npx playwright install chromium                # Primera vez
 
-# Todos los tests B2B
+# ═══════════════════════════════════════════════════════════════
+# SETUP: Regenerar clients.ts desde MongoDB (requiere cada vez que cambie MongoDB)
+# ═══════════════════════════════════════════════════════════════
+python3 ../../data/mongo-extractor.py          # Extrae 4 DBs MongoDB → qa-matrix.json
+python3 ../../tools/sync-clients.py            # qa-matrix.json → clients.ts (auto-generado)
+
+# ═══════════════════════════════════════════════════════════════
+# EJECUCIÓN: Tests multi-cliente (Codelpa, Surtiventas automáticamente)
+# ═══════════════════════════════════════════════════════════════
+
+# TODOS LOS TESTS B2B (todos los clientes en clients.ts)
 npx playwright test --project=b2b
 
-# Todos los tests Admin
+# TODOS LOS TESTS ADMIN
 npx playwright test --project=admin
 
-# Un spec específico
-npx playwright test --project=b2b coupons
+# UN SPEC ESPECÍFICO (corre para cada cliente)
+npx playwright test --project=b2b checkout     # Todos los clientes
 
-# Con browser visible (para debug/demo)
-npx playwright test --project=b2b --headed
+# SOLO UN CLIENTE (filtrar por nombre en la salida)
+npx playwright test --project=b2b -g "codelpa"         # Solo tests de Codelpa
+npx playwright test --project=b2b -g "surtiventas"     # Solo tests de Surtiventas
 
-# Ver reporte HTML después de correr
-npx playwright show-report
+# ═══════════════════════════════════════════════════════════════
+# DEBUG / MODO VISUAL
+# ═══════════════════════════════════════════════════════════════
+npx playwright test --project=b2b --headed             # Navegador visible
+npx playwright test --project=b2b --debug              # Con debugger de Playwright
+npx playwright test --project=b2b --view-report        # Abrir reporte HTML automáticamente
+npx playwright show-report                             # Ver último reporte generado
 
-# Contra otro cliente (cambiar BASE_URL)
-BASE_URL=https://soprole.youorder.me npx playwright test --project=b2b
+# ═══════════════════════════════════════════════════════════════
+# CREDENCIALES POR CLIENTE
+# ═══════════════════════════════════════════════════════════════
+# Archivo: tests/e2e/.env (copiar de .env.example)
+# Variables requeridas por cliente activo:
+CODELPA_EMAIL=user@codelpa.example
+CODELPA_PASSWORD=password123
+SURTIVENTAS_EMAIL=user@surtiventas.example
+SURTIVENTAS_PASSWORD=password456
+
+# Nota: Las credenciales son opcionales para algunos tests (ej: config-validation)
+# pero requeridas para tests que necesitan login (ej: cart, checkout, prices)
+
+# ═══════════════════════════════════════════════════════════════
+# AGREGAR UN CLIENTE NUEVO (por defecto es cada cliente en qa-matrix.json)
+# ═══════════════════════════════════════════════════════════════
+# 1. Agregar cliente a MongoDB (colecciones yom-stores, yom-production, etc.)
+# 2. Ejecutar: python3 ../../data/mongo-extractor.py
+# 3. Ejecutar: python3 ../../tools/sync-clients.py
+# 4. Verificar: cat fixtures/clients.ts | grep -i nuevocliente
+# 5. Agregar credenciales: NUEVOCLIENTE_EMAIL, NUEVOCLIENTE_PASSWORD en .env
+# 6. Ejecutar tests del nuevo cliente: npx playwright test --project=b2b -g "nuevocliente"
 ```
 
 ### Maestro (APP mobile)
