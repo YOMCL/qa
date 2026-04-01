@@ -286,7 +286,10 @@ export default class GroupedReporter implements Reporter {
       <body>
         <div class="container">
           <header>
-            <h1>🧪 Grouped Test Report</h1>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+              <h1 style="margin: 0;">🧪 Grouped Test Report</h1>
+              <a href="../../index.html" style="padding: 0.75rem 1.5rem; background: #667eea; color: white; text-decoration: none; border-radius: 6px; font-weight: 600; transition: background 0.3s;">← Volver al Dashboard</a>
+            </div>
             <div class="summary">
               <div class="summary-item">
                 <strong>${this.stats.total}</strong>
