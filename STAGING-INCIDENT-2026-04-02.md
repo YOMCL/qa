@@ -18,20 +18,31 @@ Staging environment is **completely non-functional**. All QA tests fail with tim
 
 ### Run Details
 - **Execution Time:** 2026-04-02 17:30:43 UTC
-- **Total Tests:** 10
-- **Passed:** 0 ❌
-- **Failed:** 10 (100%)
-- **Duration:** 3.5 minutes (all timeouts)
+- **Total Tests:** 159 (full B2B E2E suite)
+- **Passed:** 2 ✅
+  - `staging.spec.ts:15` Codelpa: Home carga sin error (6.2s)
+  - `staging.spec.ts:15` Surtiventas: Home carga sin error (6.0s)
+- **Failed:** 155 ❌ (97.5% failure rate)
+  - ~30 tests: Direct login attempts (form selectors missing)
+  - ~125 tests: Cascading failures (blocked by login/redirects)
+- **Skipped:** 2
+- **Duration:** 17.1 minutes
 
 ### Failures by Feature
 
-| Feature | Codelpa | Surtiventas | Root Cause |
-|---------|---------|-------------|------------|
-| **Home Load** | 53-90s delay | 50-90s delay | Performance degradation |
-| **Login** | TIMEOUT 60s | TIMEOUT 90s | Form fields missing or wrong selector |
-| **Catalog** | TIMEOUT 60s | TIMEOUT 90s | Requires login (blocked by ☝️) |
-| **Cart** | TIMEOUT 60s | TIMEOUT 80s | Requires login (blocked by ☝️) |
-| **Prices** | TIMEOUT 90s | TIMEOUT 90s | Requires login (blocked by ☝️) |
+| Feature | Tests | Status | Root Cause |
+|---------|-------|--------|------------|
+| **Home Load** | 2 | ✅ PASSED | Loads in ~80ms (before login fails) |
+| **Login** | 30+ | ❌ FAILED | Form selectors missing — `getByLabel('Correo')` timeout |
+| **Catalog** | 25+ | ❌ FAILED | Blocked by login (depends on auth) |
+| **Cart** | 15+ | ❌ FAILED | Blocked by login (depends on auth) |
+| **Checkout** | 12+ | ❌ FAILED | Blocked by login (depends on auth) |
+| **Prices** | 20+ | ❌ FAILED | Blocked by login (depends on auth) |
+| **Coupons** | 8+ | ❌ FAILED | Blocked by login (depends on auth) |
+| **Payments** | 4+ | ❌ FAILED | Blocked by login (depends on auth) |
+| **Config** | 10+ | ❌ FAILED | Blocked by login (depends on auth) |
+| **Promotions** | 6+ | ❌ FAILED | Blocked by login (depends on auth) |
+| **Surtiventas** | 18+ | ❌ FAILED | Same login issue + performance |
 
 ---
 
@@ -74,11 +85,12 @@ Every interaction: 30-120s timeout
 
 ### Execution Timeline
 ```
-17:30:43 — Tests start
-17:30:53 — Home page starts loading (50s+ wait)
-17:31:53 — Home loads, but login form missing
-17:32:00 — Login attempts fail (form selectors not found)
-17:34:34 — All 10 tests timeout/fail
+17:30:43 — Tests start (159 total, 4 workers)
+17:30:53 — Home page loads (~80ms), tests 1-2 PASS
+17:31:00 — Login tests start (30+ tests) — form selectors not found
+17:31:30 — Login timeouts cascade to catalog/cart/checkout
+17:32:00 — Cascading failures in all dependent features
+17:47:43 — All tests complete: 155 failed, 2 passed, 2 skipped
 ```
 
 ---
