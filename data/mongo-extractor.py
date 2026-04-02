@@ -495,7 +495,7 @@ def extract_collections(db: Any, domain: str, cid_obj: Any) -> dict:
 # ─────────────────────────────────────────────
 
 def extract_integrations_data(integrations_client, domain: str, cid_obj) -> dict:
-    """Extract segments, overrides, and user segments from integrations cluster."""
+    """Extract segments, overrides, and user segments from integrations/yom-production."""
     result = {
         "segments": {"total": 0, "items": []},
         "overrides": {"total": 0, "items": []},
@@ -503,56 +503,60 @@ def extract_integrations_data(integrations_client, domain: str, cid_obj) -> dict
     }
 
     try:
-        # Try each database
-        seg_db = None
-        over_db = None
-        useg_db = None
+        # Integrations cluster uses yom-production database
+        # (Try yom-production first, fallback to yom-staging)
+        if "yom-production" in integrations_client.list_database_names():
+            db = integrations_client["yom-production"]
+        elif "yom-staging" in integrations_client.list_database_names():
+            db = integrations_client["yom-staging"]
+        else:
+            return result
 
-        dbs = integrations_client.list_database_names()
+        # Extract segments (search by domain or customerId)
+        seg_total = db.segments.count_documents({"domain": domain})
+        if seg_total == 0:
+            # Try by customerId
+            seg_total = db.segments.count_documents({"customerId": cid_obj})
 
-        if "segments" in dbs:
-            seg_db = integrations_client["segments"]
-        if "overrides" in dbs:
-            over_db = integrations_client["overrides"]
-        if "user-segments" in dbs or "user_segments" in dbs:
-            useg_db = integrations_client["user-segments" if "user-segments" in dbs else "user_segments"]
+        seg_items = []
+        for s in db.segments.find({"domain": domain}).sort("name", 1).limit(50):
+            seg_items.append(serialize({
+                "name": s.get("name", ""),
+                "code": s.get("code", ""),
+                "active": s.get("active", True),
+            }))
+        result["segments"] = {"total": seg_total, "items": seg_items}
 
-        # Extract segments
-        if seg_db:
-            seg_total = seg_db.segments.count_documents({"domain": domain})
-            seg_items = []
-            for s in seg_db.segments.find({"domain": domain}).sort("name", 1).limit(50):
-                seg_items.append(serialize({
-                    "name": s.get("name", ""),
-                    "code": s.get("code", ""),
-                    "active": s.get("active", True),
-                }))
-            result["segments"] = {"total": seg_total, "items": seg_items}
+        # Extract overrides (search by customerId or domain)
+        over_total = db.overrides.count_documents({"customerId": cid_obj})
+        if over_total == 0:
+            # Try by domain
+            over_total = db.overrides.count_documents({"domain": domain})
 
-        # Extract overrides
-        if over_db:
-            over_total = over_db.overrides.count_documents({"customerId": cid_obj})
-            over_items = []
-            for o in over_db.overrides.find({"customerId": cid_obj}).sort("createdAt", -1).limit(50):
-                over_items.append(serialize({
-                    "productId": str(o.get("productId", "")),
-                    "price": o.get("price"),
-                    "discount": o.get("discount"),
-                    "enabled": o.get("enabled", True),
-                }))
-            result["overrides"] = {"total": over_total, "items": over_items}
+        over_items = []
+        for o in db.overrides.find({"customerId": cid_obj}).sort("createdAt", -1).limit(50):
+            over_items.append(serialize({
+                "productId": str(o.get("productId", "")),
+                "price": o.get("price"),
+                "discount": o.get("discount"),
+                "enabled": o.get("enabled", True),
+            }))
+        result["overrides"] = {"total": over_total, "items": over_items}
 
-        # Extract user segments
-        if useg_db:
-            useg_total = useg_db.userSegments.count_documents({"customerId": cid_obj})
-            useg_items = []
-            for us in useg_db.userSegments.find({"customerId": cid_obj}).sort("createdAt", -1).limit(50):
-                useg_items.append(serialize({
-                    "name": us.get("name", ""),
-                    "segmentId": str(us.get("segmentId", "")),
-                    "userCount": us.get("userCount", 0),
-                }))
-            result["userSegments"] = {"total": useg_total, "items": useg_items}
+        # Extract user segments (usersegments collection)
+        useg_total = db.usersegments.count_documents({"customerId": cid_obj})
+        if useg_total == 0:
+            # Try by domain
+            useg_total = db.usersegments.count_documents({"domain": domain})
+
+        useg_items = []
+        for us in db.usersegments.find({"customerId": cid_obj}).sort("createdAt", -1).limit(50):
+            useg_items.append(serialize({
+                "name": us.get("name", ""),
+                "segmentId": str(us.get("segmentId", "")),
+                "userCount": us.get("userCount", 0),
+            }))
+        result["userSegments"] = {"total": useg_total, "items": useg_items}
 
     except Exception as e:
         print(f"Warning: Integrations extraction failed: {e}", file=sys.stderr)
