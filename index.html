@@ -28,6 +28,13 @@
             text-align: center;
             color: white;
             margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-content {
+            flex: 1;
         }
 
         h1 {
@@ -38,6 +45,28 @@
         .subtitle {
             font-size: 1.1em;
             opacity: 0.9;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-staging {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .btn-staging:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
         }
 
         .card {
@@ -280,6 +309,24 @@
         }
 
         @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .header-content {
+                width: 100%;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
+            .btn-staging {
+                width: 100%;
+                text-align: center;
+            }
+
             .summary-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -301,8 +348,13 @@
 <body>
     <div class="container">
         <header>
-            <h1>🧪 QA Dashboard — YOM B2B</h1>
-            <p class="subtitle">Playwright E2E Test Suite</p>
+            <div class="header-content">
+                <h1>🧪 QA Dashboard — YOM B2B</h1>
+                <p class="subtitle">Playwright E2E Test Suite</p>
+            </div>
+            <div class="header-actions">
+                <a href="staging-report.html" class="btn-staging" target="_blank">📊 Staging Tests</a>
+            </div>
         </header>
 
         <div class="card">
