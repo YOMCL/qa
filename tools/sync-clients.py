@@ -121,13 +121,14 @@ const clients: Record<string, ClientConfig> = {{
             if isinstance(value, bool):
                 config_items.append(f"      {key_str}: {str(value).lower()},")
             elif isinstance(value, str):
-                config_items.append(f'      {key_str}: "{value}",')
+                # Use json.dumps to properly escape strings (handles quotes, newlines, etc.)
+                config_items.append(f"      {key_str}: {json.dumps(value)},")
             elif isinstance(value, (int, float)):
                 config_items.append(f"      {key_str}: {value},")
             elif isinstance(value, list):
                 config_items.append(f"      {key_str}: {json.dumps(value)},")
             elif isinstance(value, dict):
-                config_items.append(f'      {key_str}: {json.dumps(value)},')
+                config_items.append(f"      {key_str}: {json.dumps(value)},")
             else:
                 config_items.append(f"      {key_str}: {value},")
 

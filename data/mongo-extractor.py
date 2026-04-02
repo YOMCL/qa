@@ -48,17 +48,23 @@ _load_env()
 MICRO_URI = os.environ.get("MONGO_MICRO_URI", "")
 LEGACY_URI = os.environ.get("MONGO_LEGACY_URI", "")
 
-if not MICRO_URI or not LEGACY_URI:
+if not LEGACY_URI:
     print("Error: MongoDB URIs not configured.", file=sys.stderr)
-    print("Create qa/.env with MONGO_MICRO_URI and MONGO_LEGACY_URI", file=sys.stderr)
+    print("Create qa/.env with MONGO_LEGACY_URI (and optionally MONGO_MICRO_URI)", file=sys.stderr)
     sys.exit(1)
 
+# MICRO_URI is optional; if not set, skip promotions/banners extraction
+if not MICRO_URI:
+    print("Warning: MONGO_MICRO_URI not configured. Skipping promotions/banners extraction.", file=sys.stderr)
+
 # Real production clients (domain → display name)
+# Includes both production and staging variants
 REAL_CLIENTS = {
     "bastien.youorder.me": "Bastien",
     "cedisur.youorder.me": "Cedisur",
     "coexito.youorder.me": "CoExito",
     "codelpa.youorder.me": "Codelpa",
+    "beta-codelpa.solopide.me": "Codelpa (staging)",
     "codelpa-peru.youorder.me": "Codelpa Peru",
     "elmuneco.youorder.me": "El Muneco",
     "expressdent.youorder.me": "ExpressDent",
@@ -71,6 +77,7 @@ REAL_CLIENTS = {
     "soprole.youorder.me": "Soprole",
     "new-soprole.youorder.me": "Soprole (new)",
     "surtiventas.youorder.me": "Surtiventas",
+    "surtiventas.solopide.me": "Surtiventas (staging)",
     "softys-cencocal.youorder.me": "Softys-Cencocal",
     "softys-dimak.youorder.me": "Softys-Dimak",
 }
@@ -486,13 +493,26 @@ def extract(client_filter: Optional[str] = None, full_extract: bool = False) -> 
     """Extract all data from MongoDB and return the qa-matrix structure."""
     print("Connecting to MongoDB clusters...")
 
-    micro_client = MongoClient(MICRO_URI)
+    micro_client = None
+    if MICRO_URI:
+        micro_client = MongoClient(MICRO_URI)
+
     legacy_client = MongoClient(LEGACY_URI)
 
-    sites_db = micro_client["yom-stores"]
-    legacy_db = legacy_client["yom-production"]
-    promotions_db = micro_client["yom-promotions"]
-    marketing_db = micro_client["b2b-marketing"]
+    if MICRO_URI:
+        sites_db = micro_client["yom-stores"]
+        promotions_db = micro_client["yom-promotions"]
+        marketing_db = micro_client["b2b-marketing"]
+    else:
+        sites_db = legacy_client["yom-stores"]  # fallback to legacy for sites
+        promotions_db = None
+        marketing_db = None
+
+    # Try yom-production first (production), fallback to yom-staging (staging)
+    if "yom-production" in legacy_client.list_database_names():
+        legacy_db = legacy_client["yom-production"]
+    else:
+        legacy_db = legacy_client["yom-staging"]
 
     # Get all sites
     sites = list(sites_db.sites.find({}))
@@ -585,12 +605,16 @@ def extract(client_filter: Optional[str] = None, full_extract: bool = False) -> 
             },
         }
 
-        # Extract promotions and banners for QA validation (always)
-        if cid_obj:
+        # Extract promotions and banners for QA validation (only if MICRO_URI available)
+        if cid_obj and promotions_db is not None and marketing_db is not None:
             promo_data = extract_promotions_data(promotions_db, marketing_db, domain, cid_obj)
             client_obj["coupons"] = promo_data.get("coupons", [])
             client_obj["promotions"] = promo_data.get("promotions", [])
             client_obj["banners"] = promo_data.get("banners", [])
+        else:
+            client_obj["coupons"] = []
+            client_obj["promotions"] = []
+            client_obj["banners"] = []
 
         # Extract additional collections if --full flag is set
         if full_extract and cid_obj:
@@ -598,7 +622,8 @@ def extract(client_filter: Optional[str] = None, full_extract: bool = False) -> 
 
         result["clients"][client_key] = client_obj
 
-    micro_client.close()
+    if micro_client:
+        micro_client.close()
     legacy_client.close()
 
     print(f"Extracted {len(result['clients'])} clients")
