@@ -40,43 +40,39 @@ for (const [key, client] of Object.entries(clients)) {
 
         // Navegar a productos
         await page.goto(`${client.baseURL}/products`);
-        await page.waitForLoadState('domcontentloaded');
-        await page.waitForTimeout(3000);
+        await page.waitForLoadState('networkidle');
 
         // Agregar un producto al carrito
         const addButton = page.getByRole('button', { name: 'Agregar' }).first();
-        if (await addButton.isVisible({ timeout: 5_000 }).catch(() => false)) {
-          await addButton.click();
-          await page.waitForTimeout(2000);
+        await expect(addButton).toBeVisible({ timeout: 15_000 });
+        await addButton.click();
+        await page.waitForLoadState('networkidle');
 
-          // Ir al carrito
-          await page.locator('a[href*="cart"]').first().click();
-          await page.waitForTimeout(3000);
+        // Ir al carrito
+        await page.locator('a[href*="cart"]').first().click();
+        await page.waitForLoadState('networkidle');
 
-          // Buscar campo de cupón e intentar aplicar el código real de Mongo
-          const couponField = page.getByPlaceholder(/cup[oó]n/i)
-            .or(page.getByText(/cup[oó]n/i))
-            .or(page.getByRole('textbox', { name: /cup[oó]n/i }));
+        // Buscar campo de cupón e intentar aplicar el código real de Mongo
+        const couponField = page.getByPlaceholder(/cup[oó]n/i)
+          .or(page.getByText(/cup[oó]n/i))
+          .or(page.getByRole('textbox', { name: /cup[oó]n/i }));
 
-          const couponCode = client.coupons[0].code;
-          if (couponCode && await couponField.first().isVisible({ timeout: 5_000 }).catch(() => false)) {
-            await couponField.first().fill(couponCode);
-            await page.getByRole('button', { name: /aplicar|usar|aceptar/i }).first().click({ timeout: 5_000 });
-            await page.waitForTimeout(2000);
+        const couponCode = client.coupons[0].code;
+        await expect(couponField.first()).toBeVisible({ timeout: 10_000 });
 
-            // Verificar que el cupón se aplicó (debe haber cambio en el precio o mensaje de éxito)
-            const successMessage = page.getByText(/descuento|aplicado|éxito/i);
-            const priceUpdated = page.locator('text=/\\$\\s*[\\d.,]+/').nth(1);
+        await couponField.first().fill(couponCode);
+        await page.getByRole('button', { name: /aplicar|usar|aceptar/i }).first().click({ timeout: 5_000 });
+        await page.waitForLoadState('networkidle');
 
-            const applied =
-              (await successMessage.isVisible({ timeout: 3_000 }).catch(() => false)) ||
-              (await priceUpdated.isVisible({ timeout: 3_000 }).catch(() => false));
+        // Verificar que el cupón se aplicó (debe haber cambio en el precio o mensaje de éxito)
+        const successMessage = page.getByText(/descuento|aplicado|éxito/i);
+        const priceUpdated = page.locator('text=/\\$\\s*[\\d.,]+/').nth(1);
 
-            if (!applied) {
-              console.log(`⚠️  Cupón ${couponCode} no fue aplicado visualmente, pero no falló.`);
-            }
-          }
-        }
+        const applied =
+          (await successMessage.isVisible({ timeout: 3_000 }).catch(() => false)) ||
+          (await priceUpdated.isVisible({ timeout: 3_000 }).catch(() => false));
+
+        expect(applied).toBeTruthy();
 
         await context.close();
       });
@@ -94,8 +90,7 @@ for (const [key, client] of Object.entries(clients)) {
 
         // Ir al home
         await page.goto(`${client.baseURL}/`);
-        await page.waitForLoadState('domcontentloaded');
-        await page.waitForTimeout(3000);
+        await page.waitForLoadState('networkidle');
 
         // Buscar elementos de banner (carrusel, imagen grande, etc.)
         const bannerLocators = [
@@ -107,7 +102,8 @@ for (const [key, client] of Object.entries(clients)) {
 
         let bannerFound = false;
         for (const locator of bannerLocators) {
-          if (await locator.first().isVisible({ timeout: 3_000 }).catch(() => false)) {
+          const isVisible = await locator.first().isVisible({ timeout: 3_000 }).catch(() => false);
+          if (isVisible) {
             bannerFound = true;
             break;
           }
@@ -116,7 +112,8 @@ for (const [key, client] of Object.entries(clients)) {
         // Si no hay elementos de banner específicos, verificar que hay ALGÚN elemento visual en el hero/header
         if (!bannerFound) {
           const heroSection = page.locator('header, [class*="hero" i], [data-testid*="hero" i]').first();
-          if (await heroSection.isVisible({ timeout: 3_000 }).catch(() => false)) {
+          const isVisible = await heroSection.isVisible({ timeout: 3_000 }).catch(() => false);
+          if (isVisible) {
             bannerFound = true;
           }
         }
@@ -138,8 +135,7 @@ for (const [key, client] of Object.entries(clients)) {
 
         // Navegar a catálogo
         await page.goto(`${client.baseURL}/products`);
-        await page.waitForLoadState('domcontentloaded');
-        await page.waitForTimeout(3000);
+        await page.waitForLoadState('networkidle');
 
         // Buscar indicadores de promoción: descuento, tachado, etiqueta roja, etc.
         const promoIndicators = [
@@ -152,20 +148,15 @@ for (const [key, client] of Object.entries(clients)) {
 
         let promoFound = false;
         for (const locator of promoIndicators) {
-          if (await locator.first().isVisible({ timeout: 3_000 }).catch(() => false)) {
+          const isVisible = await locator.first().isVisible({ timeout: 3_000 }).catch(() => false);
+          if (isVisible) {
             promoFound = true;
             break;
           }
         }
 
-        // Si no hay indicadores visuales, al menos verificar que hay precios visibles
-        if (!promoFound) {
-          const prices = page.locator('text=/\\$\\s*[\\d.,]+/');
-          const priceCount = await prices.count();
-          expect(priceCount).toBeGreaterThan(0);
-        } else {
-          expect(promoFound).toBeTruthy();
-        }
+        // Si hay promotions en Mongo, DEBE haber indicadores visuales de descuento
+        expect(promoFound).toBeTruthy();
 
         await context.close();
       });
