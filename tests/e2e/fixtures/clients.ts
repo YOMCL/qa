@@ -35,7 +35,7 @@ interface ClientConfig {
 const clients: Record<string, ClientConfig> = {
   "codelpa-staging": {
     name: "Codelpa (staging)",
-    baseURL: "https://beta-solopide.solopide.me",
+    baseURL: "https://beta-codelpa.solopide.me",
     loginPath: "/login",
     credentials: creds("CODELPA_STAGING"),
     coupons: [],
@@ -110,7 +110,7 @@ const clients: Record<string, ClientConfig> = {
   },
   "prisa-staging": {
     name: "Surtiventas (staging)",
-    baseURL: "https://surtiventa.solopide.me",
+    baseURL: "https://surtiventas.solopide.me",
     loginPath: "/auth/jwt/login",
     credentials: creds("PRISA_STAGING"),
     coupons: [],
