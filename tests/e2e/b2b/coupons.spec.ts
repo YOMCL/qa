@@ -38,10 +38,13 @@ for (const [key, client] of Object.entries(clients)) {
         .or(page.getByLabel(/cup[oó]n/i));
       const couponButton = page.getByRole('button', { name: /cup[oó]n|aplicar|agregar c[oó]digo/i });
 
-      const inputVisible = await couponInput.first().isVisible({ timeout: 10_000 }).catch(() => false);
-      const buttonVisible = await couponButton.first().isVisible({ timeout: 5_000 }).catch(() => false);
+      try {
+        await expect(couponInput.first().or(couponButton.first())).toBeVisible({ timeout: 10_000 });
+      } catch (e) {
+        // Si no está visible, lanzar error descriptivo
+        throw new Error('Campo de cupón no encontrado en checkout — esperado input o botón para aplicar cupón');
+      }
 
-      expect(inputVisible || buttonVisible).toBeTruthy();
       await page.screenshot({ path: `test-results/coupons-field-visible-${key}.png`, fullPage: true });
     });
 
@@ -52,27 +55,28 @@ for (const [key, client] of Object.entries(clients)) {
       const couponInput = page.getByPlaceholder(/cup[oó]n/i)
         .or(page.getByLabel(/cup[oó]n/i));
 
-      if (await couponInput.first().isVisible({ timeout: 10_000 }).catch(() => false)) {
-        await couponInput.first().fill('CUPON-INVALIDO-QA-TEST-999');
+      await expect(couponInput.first()).toBeVisible({ timeout: 10_000 });
+      await couponInput.first().fill('CUPON-INVALIDO-QA-TEST-999');
 
-        // Buscar botón para aplicar
-        const applyBtn = page.getByRole('button', { name: /aplicar|agregar|usar/i });
-        if (await applyBtn.first().isVisible({ timeout: 5_000 }).catch(() => false)) {
-          await applyBtn.first().click();
-          await page.waitForLoadState('networkidle');
+      // Buscar botón para aplicar
+      const applyBtn = page.getByRole('button', { name: /aplicar|agregar|usar/i });
+      await expect(applyBtn.first()).toBeVisible({ timeout: 5_000 });
+      await applyBtn.first().click();
+      await page.waitForLoadState('networkidle');
 
-          // Debe mostrar error — no crash ni pantalla en blanco
-          const hasError = await page.getByText(/inv[aá]lid|expirad|no existe|error|no encontr/i)
-            .isVisible({ timeout: 10_000 }).catch(() => false);
+      // Debe mostrar error — no crash ni pantalla en blanco
+      const hasError = await page.getByText(/inv[aá]lid|expirad|no existe|error|no encontr/i)
+        .isVisible({ timeout: 10_000 }).catch(() => false);
 
-          await page.screenshot({ path: `test-results/coupons-invalid-response-${key}.png`, fullPage: true });
+      await page.screenshot({ path: `test-results/coupons-invalid-response-${key}.png`, fullPage: true });
 
-          // No debe haber crash (error 500 o página en blanco)
-          const hasCrash = await page.getByText(/error interno|500|server error/i)
-            .isVisible().catch(() => false);
-          expect(hasCrash).toBeFalsy();
-        }
-      }
+      // DEBE mostrar un mensaje de error para cupón inválido
+      expect(hasError).toBeTruthy();
+
+      // No debe haber crash (error 500 o página en blanco)
+      const hasCrash = await page.getByText(/error interno|500|server error/i)
+        .isVisible().catch(() => false);
+      expect(hasCrash).toBeFalsy();
     });
 
     test(`${key}: PM2-04 Modal/UI de cupón no queda en loading infinito`, async ({ authedPage: page }) => {
@@ -81,30 +85,24 @@ for (const [key, client] of Object.entries(clients)) {
       const couponInput = page.getByPlaceholder(/cup[oó]n/i)
         .or(page.getByLabel(/cup[oó]n/i));
 
-      if (await couponInput.first().isVisible({ timeout: 10_000 }).catch(() => false)) {
-        await couponInput.first().fill('TEST-LOADING-CHECK');
+      await expect(couponInput.first()).toBeVisible({ timeout: 10_000 });
+      await couponInput.first().fill('TEST-LOADING-CHECK');
 
-        const applyBtn = page.getByRole('button', { name: /aplicar|agregar|usar/i });
-        if (await applyBtn.first().isVisible({ timeout: 5_000 }).catch(() => false)) {
-          await applyBtn.first().click();
+      const applyBtn = page.getByRole('button', { name: /aplicar|agregar|usar/i });
+      await expect(applyBtn.first()).toBeVisible({ timeout: 5_000 });
+      await applyBtn.first().click();
 
-          // Esperar respuesta — el loading debe resolverse en <10 segundos
-          await page.waitForLoadState('networkidle');
+      // Esperar respuesta — el loading debe resolverse en <10 segundos
+      await page.waitForLoadState('networkidle');
 
-          // Verificar que no hay spinner/loading permanente
-          const stillLoading = await page.locator('[class*="loading" i], [class*="spinner" i], [aria-busy="true"]')
-            .isVisible({ timeout: 3_000 }).catch(() => false);
+      // Verificar que no hay spinner/loading permanente
+      const stillLoading = await page.locator('[class*="loading" i], [class*="spinner" i], [aria-busy="true"]')
+        .isVisible({ timeout: 3_000 }).catch(() => false);
 
-          await page.screenshot({ path: `test-results/coupons-no-infinite-loading-${key}.png`, fullPage: true });
+      await page.screenshot({ path: `test-results/coupons-no-infinite-loading-${key}.png`, fullPage: true });
 
-          if (stillLoading) {
-            test.info().annotations.push({
-              type: 'warning',
-              description: 'Loading indicator aún visible después de 10s — posible bug PM2',
-            });
-          }
-        }
-      }
+      // NO debe haber loading después de resolver
+      expect(stillLoading).toBeFalsy();
     });
 
     test(`${key}: PM1-03 Crear orden SIN cupón no se rompe por cambios en cupones`, async ({ authedPage: page }) => {
@@ -127,10 +125,11 @@ for (const [key, client] of Object.entries(clients)) {
       await page.waitForLoadState('networkidle');
       await page.screenshot({ path: `test-results/order-without-coupon-${key}.png`, fullPage: true });
 
+      // La orden DEBE haber sido creada (response no null)
+      expect(response).not.toBeNull();
+
       // La orden no debe devolver 500
-      if (response) {
-        expect(response.status()).not.toBe(500);
-      }
+      expect(response.status()).not.toBe(500);
 
       // No debe haber error visible
       const hasCrash = await page.getByText(/error interno|500|server error/i)
