@@ -47,15 +47,20 @@ _load_env()
 
 MICRO_URI = os.environ.get("MONGO_MICRO_URI", "")
 LEGACY_URI = os.environ.get("MONGO_LEGACY_URI", "")
+INTEGRATIONS_URI = os.environ.get("MONGO_INTEGRATIONS_URI", "")
 
 if not LEGACY_URI:
     print("Error: MongoDB URIs not configured.", file=sys.stderr)
-    print("Create qa/.env with MONGO_LEGACY_URI (and optionally MONGO_MICRO_URI)", file=sys.stderr)
+    print("Create qa/.env with MONGO_LEGACY_URI (and optionally MONGO_MICRO_URI, MONGO_INTEGRATIONS_URI)", file=sys.stderr)
     sys.exit(1)
 
 # MICRO_URI is optional; if not set, skip promotions/banners extraction
 if not MICRO_URI:
     print("Warning: MONGO_MICRO_URI not configured. Skipping promotions/banners extraction.", file=sys.stderr)
+
+# INTEGRATIONS_URI is optional; if not set, skip segments/overrides extraction
+if not INTEGRATIONS_URI:
+    print("Warning: MONGO_INTEGRATIONS_URI not configured. Skipping segments/overrides extraction.", file=sys.stderr)
 
 # Real production clients (domain → display name)
 # Includes both production and staging variants
@@ -486,6 +491,76 @@ def extract_collections(db: Any, domain: str, cid_obj: Any) -> dict:
 
 
 # ─────────────────────────────────────────────
+# Extract integrations data
+# ─────────────────────────────────────────────
+
+def extract_integrations_data(integrations_client, domain: str, cid_obj) -> dict:
+    """Extract segments, overrides, and user segments from integrations cluster."""
+    result = {
+        "segments": {"total": 0, "items": []},
+        "overrides": {"total": 0, "items": []},
+        "userSegments": {"total": 0, "items": []},
+    }
+
+    try:
+        # Try each database
+        seg_db = None
+        over_db = None
+        useg_db = None
+
+        dbs = integrations_client.list_database_names()
+
+        if "segments" in dbs:
+            seg_db = integrations_client["segments"]
+        if "overrides" in dbs:
+            over_db = integrations_client["overrides"]
+        if "user-segments" in dbs or "user_segments" in dbs:
+            useg_db = integrations_client["user-segments" if "user-segments" in dbs else "user_segments"]
+
+        # Extract segments
+        if seg_db:
+            seg_total = seg_db.segments.count_documents({"domain": domain})
+            seg_items = []
+            for s in seg_db.segments.find({"domain": domain}).sort("name", 1).limit(50):
+                seg_items.append(serialize({
+                    "name": s.get("name", ""),
+                    "code": s.get("code", ""),
+                    "active": s.get("active", True),
+                }))
+            result["segments"] = {"total": seg_total, "items": seg_items}
+
+        # Extract overrides
+        if over_db:
+            over_total = over_db.overrides.count_documents({"customerId": cid_obj})
+            over_items = []
+            for o in over_db.overrides.find({"customerId": cid_obj}).sort("createdAt", -1).limit(50):
+                over_items.append(serialize({
+                    "productId": str(o.get("productId", "")),
+                    "price": o.get("price"),
+                    "discount": o.get("discount"),
+                    "enabled": o.get("enabled", True),
+                }))
+            result["overrides"] = {"total": over_total, "items": over_items}
+
+        # Extract user segments
+        if useg_db:
+            useg_total = useg_db.userSegments.count_documents({"customerId": cid_obj})
+            useg_items = []
+            for us in useg_db.userSegments.find({"customerId": cid_obj}).sort("createdAt", -1).limit(50):
+                useg_items.append(serialize({
+                    "name": us.get("name", ""),
+                    "segmentId": str(us.get("segmentId", "")),
+                    "userCount": us.get("userCount", 0),
+                }))
+            result["userSegments"] = {"total": useg_total, "items": useg_items}
+
+    except Exception as e:
+        print(f"Warning: Integrations extraction failed: {e}", file=sys.stderr)
+
+    return result
+
+
+# ─────────────────────────────────────────────
 # Main extraction
 # ─────────────────────────────────────────────
 
@@ -496,6 +571,10 @@ def extract(client_filter: Optional[str] = None, full_extract: bool = False) -> 
     micro_client = None
     if MICRO_URI:
         micro_client = MongoClient(MICRO_URI)
+
+    integrations_client = None
+    if INTEGRATIONS_URI:
+        integrations_client = MongoClient(INTEGRATIONS_URI)
 
     legacy_client = MongoClient(LEGACY_URI)
 
@@ -616,6 +695,17 @@ def extract(client_filter: Optional[str] = None, full_extract: bool = False) -> 
             client_obj["promotions"] = []
             client_obj["banners"] = []
 
+        # Extract integrations data (segments, overrides, user segments)
+        if cid_obj and integrations_client is not None:
+            integrations_data = extract_integrations_data(integrations_client, domain, cid_obj)
+            client_obj["integrations"] = integrations_data
+        else:
+            client_obj["integrations"] = {
+                "segments": {"total": 0, "items": []},
+                "overrides": {"total": 0, "items": []},
+                "userSegments": {"total": 0, "items": []},
+            }
+
         # Extract additional collections if --full flag is set
         if full_extract and cid_obj:
             client_obj["collections"] = extract_collections(legacy_db, domain, cid_obj)
@@ -624,11 +714,15 @@ def extract(client_filter: Optional[str] = None, full_extract: bool = False) -> 
 
     if micro_client:
         micro_client.close()
+    if integrations_client:
+        integrations_client.close()
     legacy_client.close()
 
     print(f"Extracted {len(result['clients'])} clients")
     print(f"  - Databases: yom-stores, yom-promotions, b2b-marketing (MICRO)")
     print(f"  - Databases: yom-production (LEGACY)")
+    if INTEGRATIONS_URI:
+        print(f"  - Databases: segments, overrides, user-segments (INTEGRATIONS)")
     return result
 
 

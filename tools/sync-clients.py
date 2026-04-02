@@ -90,6 +90,7 @@ interface ClientConfig {{
   coupons?: Array<{{ code: string; discount: any }}>; // From yom-promotions
   banners?: Array<{{ title: string; position: string }}>; // From b2b-marketing
   promotions?: Array<any>; // From yom-promotions
+  integrations?: {{ segments: any; overrides: any; userSegments: any }}; // From integrations cluster
 }}
 
 const clients: Record<string, ClientConfig> = {{
@@ -104,6 +105,7 @@ const clients: Record<string, ClientConfig> = {{
         coupons = client_data.get("coupons", [])
         banners = client_data.get("banners", [])
         promotions = client_data.get("promotions", [])
+        integrations = client_data.get("integrations", {})
         active_tests = client_data.get("activeTests", {})
 
         # Determine login path
@@ -157,6 +159,19 @@ const clients: Record<string, ClientConfig> = {{
         if promotions:
             promotions_str = json.dumps(promotions[:5])
 
+        # Format integrations object
+        integrations_str = "{ segments: [], overrides: [], userSegments: [] }"
+        if integrations:
+            segments = integrations.get("segments", {}).get("items", [])[:5]
+            overrides = integrations.get("overrides", {}).get("items", [])[:5]
+            user_segments = integrations.get("userSegments", {}).get("items", [])[:5]
+            integrations_obj = {
+                "segments": segments,
+                "overrides": overrides,
+                "userSegments": user_segments,
+            }
+            integrations_str = json.dumps(integrations_obj)
+
         # Conditional tests comment
         conditional_comment = format_conditional_tests(active_tests)
 
@@ -171,6 +186,7 @@ const clients: Record<string, ClientConfig> = {{
     coupons: {coupons_str},
     banners: {banners_str},
     promotions: {promotions_str},
+    integrations: {integrations_str},
     {conditional_comment}
     config: {{
 {config_str}
