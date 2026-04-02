@@ -111,7 +111,7 @@ const clients: Record<string, ClientConfig> = {{
 
         # Determine login path
         login_path = "/auth/jwt/login"
-        if domain in ("codelpa.youorder.me", "beta-codelpa.solopide.me"):
+        if domain in ("codelpa.youorder.me", "codelpa.solopide.me"):
             login_path = "/login"
         elif domain in ("soprole.youorder.me", "soprole.solopide.me"):
             login_path = "/login"
