@@ -46,8 +46,7 @@ for (const [key, client] of Object.entries(clients)) {
       await loginIfNeeded(page);
 
       await page.goto(`${client.baseURL}/products`);
-      await page.waitForLoadState('domcontentloaded');
-      await page.waitForTimeout(5000);
+      await page.waitForLoadState('networkidle');
 
       const prices = page.locator('text=/\\$\\s*[\\d.,]+/');
       const priceCount = await prices.count();
@@ -68,18 +67,19 @@ for (const [key, client] of Object.entries(clients)) {
       await loginIfNeeded(page);
 
       await page.goto(`${client.baseURL}/products`);
-      await page.waitForLoadState('domcontentloaded');
-      await page.waitForTimeout(5000);
+      await page.waitForLoadState('networkidle');
 
       const addButtons = page.getByRole('button', { name: 'Agregar' });
       const cartLink = page.locator('a[href*="cart"]');
 
       if (client.config.disableCart) {
-        // No debe haber botones de agregar ni link al carro
+        // No debe haber botones de agregar NI link al carro
         expect(await addButtons.count()).toBe(0);
+        expect(await cartLink.count()).toBe(0);
       } else {
-        // Debe haber botones de agregar
+        // Debe haber botones de agregar Y link al carro
         expect(await addButtons.count()).toBeGreaterThan(0);
+        expect(await cartLink.count()).toBeGreaterThan(0);
       }
 
       await context.close();
@@ -94,25 +94,27 @@ for (const [key, client] of Object.entries(clients)) {
 
         // Agregar producto al carro para ver checkout
         await page.goto(`${client.baseURL}/products`);
-        await page.waitForLoadState('domcontentloaded');
+        await page.waitForLoadState('networkidle');
         const addButton = page.getByRole('button', { name: 'Agregar' }).first();
 
-        if (await addButton.isVisible({ timeout: 15_000 }).catch(() => false)) {
-          await addButton.click();
-          await page.waitForTimeout(2000);
+        await expect(addButton).toBeVisible({ timeout: 15_000 });
+        await addButton.click();
+        await page.waitForLoadState('networkidle');
 
-          // Ir al carro
-          await page.locator('a[href*="cart"]').first().click();
-          await page.waitForTimeout(3000);
+        // Ir al carro
+        await page.locator('a[href*="cart"]').first().click();
+        await page.waitForLoadState('networkidle');
 
-          const couponField = page.getByPlaceholder(/cup[oó]n/i)
-            .or(page.getByText(/cup[oó]n/i))
-            .or(page.getByRole('button', { name: /aplicar/i }));
+        const couponField = page.getByPlaceholder(/cup[oó]n/i)
+          .or(page.getByText(/cup[oó]n/i))
+          .or(page.getByRole('button', { name: /aplicar.*cup/i }));
 
-          if (client.config.enableCoupons) {
-            await expect(couponField.first()).toBeVisible({ timeout: 10_000 });
-          }
-          // Si enableCoupons=false, no verificamos ausencia porque puede haber "Aplicar" para otra cosa
+        if (client.config.enableCoupons) {
+          // Si está habilitado, DEBE existir el campo de cupón
+          await expect(couponField.first()).toBeVisible({ timeout: 10_000 });
+        } else {
+          // Si está deshabilitado, NO debe existir el campo de cupón
+          await expect(couponField.first()).not.toBeVisible({ timeout: 5_000 });
         }
 
         await context.close();
@@ -128,22 +130,24 @@ for (const [key, client] of Object.entries(clients)) {
 
         // Ir al carro y buscar tipo de recibo
         await page.goto(`${client.baseURL}/products`);
-        await page.waitForLoadState('domcontentloaded');
+        await page.waitForLoadState('networkidle');
         const addButton = page.getByRole('button', { name: 'Agregar' }).first();
 
-        if (await addButton.isVisible({ timeout: 15_000 }).catch(() => false)) {
-          await addButton.click();
-          await page.waitForTimeout(2000);
-          await page.locator('a[href*="cart"]').first().click();
-          await page.waitForTimeout(3000);
+        await expect(addButton).toBeVisible({ timeout: 15_000 });
+        await addButton.click();
+        await page.waitForLoadState('networkidle');
 
-          const receiptType = page.getByText(/tipo de recibo|boleta|factura/i);
+        await page.locator('a[href*="cart"]').first().click();
+        await page.waitForLoadState('networkidle');
 
-          if (client.config.hideReceiptType) {
-            // No debe mostrar selector de tipo de recibo
-            const visible = await receiptType.isVisible({ timeout: 5_000 }).catch(() => false);
-            expect(visible).toBeFalsy();
-          }
+        const receiptType = page.getByText(/tipo de recibo|boleta|factura/i);
+
+        if (client.config.hideReceiptType) {
+          // No debe mostrar selector de tipo de recibo
+          await expect(receiptType).not.toBeVisible({ timeout: 5_000 });
+        } else {
+          // Si está visible, DEBE mostrar el selector
+          await expect(receiptType).toBeVisible({ timeout: 5_000 });
         }
 
         await context.close();
@@ -151,14 +155,14 @@ for (const [key, client] of Object.entries(clients)) {
     }
 
     // ── currency ──
-    test(`${key}: currency=${client.config.currency}`, async ({ browser }) => {
+    // TODO: currency no está en clients.ts, usar campo correcto cuando se disponibilice
+    test.skip(`${key}: currency=${client.config.currency}`, async ({ browser }) => {
       const context = await browser.newContext();
       const page = await context.newPage();
       await loginIfNeeded(page);
 
       await page.goto(`${client.baseURL}/products`);
-      await page.waitForLoadState('domcontentloaded');
-      await page.waitForTimeout(5000);
+      await page.waitForLoadState('networkidle');
 
       // Verificar que los precios usan el símbolo correcto
       const currencySymbols: Record<string, string> = {
