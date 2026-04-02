@@ -183,7 +183,7 @@ const clients: Record<string, ClientConfig> = {{
     name: "{name}",
     baseURL: "{baseurl}",
     loginPath: "{login_path}",
-    credentials: creds("{client_key.upper()}"),
+    credentials: creds("{client_key.upper().replace('-', '_')}"),
     coupons: {coupons_str},
     banners: {banners_str},
     promotions: {promotions_str},
