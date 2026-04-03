@@ -1,79 +1,156 @@
 # QA Plan Client
 
-Plan comprehensive QA for a client: coverage mapping, test scenarios, validation checklist, and Playwright specs.
+Plan QA concreto para un cliente: lee sus flags desde `qa-matrix.json`, aplica las Flag→Test rules y genera un plan ejecutable en `ai-specs/changes/`.
 
-## Usage
+## Uso
 
-`/qa-plan-client Codelpa` — Generate QA plan for Codelpa
+`/qa-plan-client Codelpa` — Genera plan QA para Codelpa
 
-## Steps
+## Pasos
 
-1. **Adopt QA Coordinator role** (see `ai-specs/.agents/qa-coordinator.md`)
+1. **Adoptar rol QA Coordinator** (ver `ai-specs/.agents/qa-coordinator.md`)
 
-2. **Gather client context**
-   - Fetch Linear tickets for client (deuda técnica, features, post-mortems)
-   - Check Notion for client-specific features and configurations
-   - Review `checklists/INDICE.md` for existing coverage
+2. **Leer contexto del cliente**
+   - Linear: tickets abiertos del cliente (deuda técnica, features, bugs)
+   - `checklists/INDICE.md`: cobertura existente
 
-3. **Extract MongoDB config** (via `mongo-extractor.py`)
-   - Payment methods, promotions, domain rules, banners
-   - Multi-store setup, custom workflows
+3. **Leer flags del cliente desde `data/qa-matrix.json`**
+   - Buscar la entrada del cliente por `slug` o `name`
+   - Extraer todos los flags booleanos y de configuración
+   - Ejemplos de flags críticos a revisar:
+     ```
+     enableCoupons, enableKhipu, enablePaymentDocumentsB2B,
+     enableInvoicesList, pendingDocuments, enableOrderApproval,
+     purchaseOrderEnabled, editAddress, hasStockEnabled,
+     hasAllDistributionCenters, enableSellerDiscount,
+     disableCommerceEdit, anonymousAccess, enableCreditNotes,
+     enableOrderValidation, enablePriceOracle,
+     pricing.stepPricing, promotions, ERP hooks
+     ```
 
-4. **Map test coverage**
-   - Identify Tier 1 (critical): auth, payment, order creation
-   - Tier 2 (high): config validation, promotions, edge cases
-   - Tier 3 (low): UX refinements, formatting
+4. **Aplicar Flag→Test rules** (definidas en `ai-specs/specs/qa-standards.mdc`)
 
-5. **Design test suite**
-   - Playwright specs: multi-client config validation, feature testing
-   - Maestro flows: user journeys (order, payment, profile)
-   - Checklists: backend services, payment gateway integration
-   - Cowork validation: visual inspection, real user scenarios
+   **4a. Tests obligatorios** (siempre, todo cliente):
+   | Test | Tool |
+   |------|------|
+   | `login.spec.ts` | Playwright |
+   | `config-validation.spec.ts` | Playwright |
+   | `cart.spec.ts` | Playwright |
+   | `checkout.spec.ts` | Playwright |
+   | `checklist-regresion-postmortems.md` (PM1-PM7) | Checklist |
+   | COWORK: C1 (Login) + C2 (Flujo de compra) | Cowork |
+   | Maestro: `01-login.yaml` + `05-pedido.yaml` | Maestro |
 
-6. **Generate plan document** → `ai-specs/changes/QA-{CLIENT}-{DATE}.md`
-   - Coverage map (feature → test type → status)
-   - Identified gaps and priority order
-   - Success criteria (% pass rate, zero P0 issues)
+   **4b. Tests condicionales** (por flag activo del cliente):
+   - `enableCoupons: true` → `coupons.spec.ts` · COWORK: C3-14, C3-15
+   - `enableKhipu: true` → `checklist-fintech-khipu.md` · COWORK: verificar opción Khipu en checkout
+   - `enablePaymentDocumentsB2B: true` → `payments.spec.ts` · COWORK: C7-10, C7-11, C7-12
+   - `enableInvoicesList: true` → COWORK: C7-11 (menú facturas)
+   - `pendingDocuments: true` → COWORK: C7-12 (badge documentos)
+   - `enableOrderApproval: true` → COWORK: Flujo 5 (botón aprobar en /orders)
+   - `purchaseOrderEnabled: true` → COWORK: C2-11 (campo OC en checkout)
+   - `editAddress: false` → COWORK: validar dirección locked en checkout
+   - `hasStockEnabled: true` → COWORK: C2-01 (stock en tarjetas)
+   - `hasAllDistributionCenters: true` → COWORK: botón "Ver stock" multicentro
+   - `enableSellerDiscount: true` → COWORK: campo descuento en carrito
+   - `disableCommerceEdit: true` → COWORK: Flujo 3 (perfil locked)
+   - `anonymousAccess: true` → COWORK: catálogo sin login
+   - `enableCreditNotes: true` → `checklist-deuda-tecnica-pagos.md`
+   - `enableOrderValidation: true` → COWORK: C2-12 (doble submit + validación)
+   - `pricing.stepPricing` exists → `step-pricing.spec.ts` · `prices.spec.ts`
+   - `promotions` exist → `promotions.spec.ts` · COWORK: C3-02
+   - `enablePriceOracle: true` → COWORK: precio cambia con fecha de entrega
+   - ERP hooks configurados → `checklist-integraciones-erp.md` · `checklist-webhooks.md` · COWORK: C4-09
 
-7. **Output Playwright fixture update** (if new client)
-   - Ensure `sync-clients.py` is run
-   - Verify `clients.ts` contains client credentials
+   **4c. Tests omitidos** (flag ausente o false — documentar motivo):
+   - `enableKhipu: false` → skip `checklist-fintech-khipu.md`
+   - `enablePaymentDocumentsB2B: false` → skip C7-10, C7-11, C7-12
+   - `enableCoupons: false` → skip `coupons.spec.ts`, C3-14, C3-15
+   - Sin ERP hooks → skip `checklist-integraciones-erp.md`, `checklist-webhooks.md`
+   - APP no desplegada para el cliente → skip todos los flows Maestro
 
-## Plan Structure
+5. **Generar plan** → `ai-specs/changes/QA-{CLIENT}-{DATE}.md`
+
+## Estructura del plan generado
 
 ```markdown
-# QA Plan: {CLIENT}
+# QA Plan: {CLIENT} — {DATE}
 
-## Context
-- Features (Linear, Notion)
-- Known issues (post-mortems, open bugs)
-- Configuration snapshot (MongoDB exports)
+## Config Snapshot
+Flags extraídos de `data/qa-matrix.json` para {CLIENT}:
+| Flag | Valor |
+|------|-------|
+| enableCoupons | true/false |
+| enableKhipu | true/false |
+| ... | ... |
 
-## Coverage Map
-| Feature | Playwright | Maestro | Checklist | Tier |
-|---------|-----------|---------|-----------|------|
-| Authentication | ✓ | ✓ | ✓ | 1 |
-| Payment Processing | ✓ | ✓ | ✓ | 1 |
-| Order Creation | ✓ | ✓ | ✓ | 1 |
+## Tests Obligatorios
+Todo cliente, toda sesión QA:
 
-## Test Scenarios
-- [x] Scenario 1 (critical path)
-- [ ] Scenario 2 (edge case)
-- [ ] Scenario 3 (regression)
+| Test | Tool | Tier |
+|------|------|------|
+| login.spec.ts | Playwright | 1 |
+| config-validation.spec.ts | Playwright | 1 |
+| cart.spec.ts | Playwright | 1 |
+| checkout.spec.ts | Playwright | 1 |
+| checklist-regresion-postmortems.md (PM1-PM7) | Checklist | 1 |
+| COWORK: C1 (Login) | Cowork | 1 |
+| COWORK: C2 (Flujo de compra) | Cowork | 1 |
+| Maestro: 01-login.yaml | Maestro | 1 |
+| Maestro: 05-pedido.yaml | Maestro | 1 |
 
-## Gaps & Blockers
-- Gap 1: Staging credentials (action: request from team)
-- Gap 2: Maestro selector updates (action: re-record)
+## Tests Condicionales
+Habilitados por flags activos del cliente:
 
-## Success Criteria
-- 100% Tier 1 pass
-- <5% Tier 2 failures
-- Zero blocking issues found
+| Flag | Test | Tool |
+|------|------|------|
+| enableCoupons: true | coupons.spec.ts · C3-14, C3-15 | Playwright + Cowork |
+| ... | ... | ... |
+
+## Tests Omitidos
+Skipped por flags ausentes o false:
+
+| Flag | Test omitido | Razón |
+|------|-------------|-------|
+| enableKhipu: false | checklist-fintech-khipu.md | Flag desactivado |
+| ... | ... | ... |
+
+## Plan de Ejecución
+Orden recomendado:
+
+**1. Cowork** (validación visual + flujos)
+- [ ] C1: Login (C1-01 a C1-06)
+- [ ] C2: Flujo de compra (C2-01 a C2-11)
+- [ ] [condicionales según flags]
+
+**2. Playwright** (regresión E2E)
+- [ ] `npx playwright test --project=b2b login.spec.ts`
+- [ ] `npx playwright test --project=b2b config-validation.spec.ts`
+- [ ] `npx playwright test --project=b2b cart.spec.ts`
+- [ ] `npx playwright test --project=b2b checkout.spec.ts`
+- [ ] [specs condicionales según flags]
+
+**3. Maestro** (APP mobile) — solo si APP desplegada
+- [ ] `maestro test tests/app/flows/01-login.yaml`
+- [ ] `maestro test tests/app/flows/05-pedido.yaml`
+
+**4. Checklists** (manual)
+- [ ] `checklists/regresion/checklist-regresion-postmortems.md`
+- [ ] [checklists condicionales según flags]
+
+## Criterios de Éxito
+- [ ] 100% Tier 1 tests pasan
+- [ ] Zero issues P0 encontrados
+- [ ] Cowork emite veredicto LISTO o CON CONDICIONES (documentado)
+- [ ] Playwright: sin regresiones en specs obligatorias
+- [ ] Issues encontrados registrados con ID {CLIENT}-QA-{NNN}
 ```
 
-## Key Documents
+## Documentos clave
 
-- `qa-master-prompt.md` — Canonical test cases (Tier 1-3)
-- `checklists/INDICE.md` — Existing coverage map
-- `plan-qa-b2b.md` — B2B strategy reference
-- `GUIA-OPERACIONAL-QA.md` — When to use each tool
+- `ai-specs/specs/qa-standards.mdc` — Flag→Test rules (fuente de verdad)
+- `qa-master-guide.md` — IDs canónicos de casos (C1-C7, A1, V1)
+- `COWORK.md` — Pasos UI concretos para Cowork
+- `B2B_REFERENCE.md` — Selectores UI, rutas, stack
+- `checklists/INDICE.md` — Mapa de cobertura existente
+- `data/qa-matrix.json` — Flags MongoDB por cliente (AUTO-GENERADO)
