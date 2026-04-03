@@ -92,6 +92,13 @@ QA/{CLIENTE}/{FECHA}/ (reporte HTML)
 - **Notion**: features por cliente, post-mortems, wiki (lag hasta 2 semanas)
 - **Slack #engineering/#tech**: bugs en producción, coordinación
 
+## Archivos por herramienta
+
+| Herramienta | Archivo de instrucciones |
+|-------------|--------------------------|
+| **Claude Code** (este) | `CLAUDE.md` — instrucciones para desarrollo, tests, automatización |
+| **Cowork** (claude.ai) | `COWORK.md` — flujos QA con pasos UI, formato de reporte, escalamiento |
+
 ## Documentos principales
 
 | Documento | Propósito |
