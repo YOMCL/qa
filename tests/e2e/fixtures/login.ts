@@ -20,8 +20,8 @@ export async function loginHelper(
 
   // First, try to navigate to login path
   await page.goto(url);
-  await page.waitForLoadState('domcontentloaded');
-  await page.waitForTimeout(1000);
+  await page.waitForLoadState('networkidle');
+  await page.waitForTimeout(2000);
 
   // Strategy 1: Try to find email input by name="email" (most reliable)
   let emailInput = page.locator('input[name="email"]').first();
@@ -79,13 +79,8 @@ export async function loginHelper(
   await emailInput.fill(email);
   await passwordInput.fill(password);
 
-  // Submit button (usually in a form, but could be a button outside)
-  const submitButton = page.locator('button[type="submit"]')
-    .or(page.locator('form button'))
-    .or(page.getByRole('button', { name: /iniciar sesión|login|ingresar/i }))
-    .first();
-
-  await submitButton.click();
+  // Submit the form — press Enter on password field (most reliable, avoids button ambiguity)
+  await passwordInput.press('Enter');
 
   // Wait for redirect — user is logged in
   await expect(page).not.toHaveURL(/auth\/jwt\/login|\/login$/, { timeout: 30_000 });

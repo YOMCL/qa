@@ -154,19 +154,19 @@
             </div>
             <div class="summary">
               <div class="summary-item">
-                <strong>164</strong>
+                <strong>57</strong>
                 <span>Total Tests</span>
               </div>
               <div class="summary-item">
-                <strong>20</strong>
+                <strong>41</strong>
                 <span>Passed</span>
               </div>
               <div class="summary-item">
-                <strong>142</strong>
+                <strong>16</strong>
                 <span>Failed</span>
               </div>
               <div class="summary-item">
-                <strong>2</strong>
+                <strong>0</strong>
                 <span>Skipped</span>
               </div>
             </div>
@@ -176,162 +176,166 @@
         <div class="type-section">
           <div class="type-header">
             <h2>🟡 🟡 Funcionales</h2>
-            <span class="stats">2/48 passed (4%)</span>
+            <span class="stats">35/48 passed (73%)</span>
           </div>
 
           
               <div class="feature-group">
-                <h3>📌 cart (0/3)</h3>
+                <h3>📌 cart (3/3)</h3>
                 <ul class="tests">
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Agregar producto al carrito </span>
-                      <span class="duration">32595ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">14353ms</span>
+                      
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Carrito muestra items agregados </span>
-                      <span class="duration">32753ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">14788ms</span>
+                      
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Modificar cantidad en carrito </span>
-                      <span class="duration">32612ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">19854ms</span>
+                      
                     </li>
                   
                 </ul>
               </div>
             
               <div class="feature-group">
-                <h3>📌 catalog (0/9)</h3>
+                <h3>📌 catalog (7/9)</h3>
                 <ul class="tests">
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Catálogo muestra productos con precios CLP </span>
-                      <span class="duration">32434ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">9780ms</span>
+                      
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
+                      <span class="test-title">Productos sin imagen muestran placeholder (no broken) </span>
+                      <span class="duration">11203ms</span>
+                      
+                    </li>
+                  
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">No hay productos con precio $0 </span>
-                      <span class="duration">32618ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">12925ms</span>
+                      
                     </li>
                   
                     <li class="test failed">
                       <span class="status-icon">✗</span>
                       <span class="test-title">Buscar producto por nombre </span>
-                      <span class="duration">32591ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">Productos sin imagen muestran placeholder (no broken) </span>
-                      <span class="duration">32638ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">69873ms</span>
+                      <pre class="error">TimeoutError: page.waitForLoadState: Timeout 60000ms exceeded.</pre>
                     </li>
                   
                     <li class="test failed">
                       <span class="status-icon">✗</span>
                       <span class="test-title">Búsqueda sin resultados muestra feedback </span>
-                      <span class="duration">32758ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">70475ms</span>
+                      <pre class="error">TimeoutError: page.waitForLoadState: Timeout 60000ms exceeded.</pre>
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Catálogo muestra productos con precios CLP </span>
-                      <span class="duration">32442ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                      <span class="duration">8451ms</span>
+                      
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">No hay productos con precio $0 </span>
-                      <span class="duration">32507ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Carrito muestra items agregados </span>
-                      <span class="duration">32434ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                      <span class="duration">9770ms</span>
+                      
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
+                      <span class="test-title">No hay productos con precio $0 </span>
+                      <span class="duration">12519ms</span>
+                      
+                    </li>
+                  
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Modificar cantidad en carrito </span>
-                      <span class="duration">32465ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+                      <span class="duration">10247ms</span>
+                      
+                    </li>
+                  
+                </ul>
+              </div>
+            
+              <div class="feature-group">
+                <h3>📌 checkout (2/4)</h3>
+                <ul class="tests">
+                  
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
+                      <span class="test-title">Pedido aparece en historial post-checkout </span>
+                      <span class="duration">13540ms</span>
+                      
+                    </li>
+                  
+                    <li class="test failed">
+                      <span class="status-icon">✗</span>
+                      <span class="test-title">Flujo completo: catálogo → carrito → checkout </span>
+                      <span class="duration">46187ms</span>
+                      <pre class="error">TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByRole(&#039;button&#039;, { name: /confirmar pedido/i })[22m
+[2m    - locator resolved to &lt;button disabled tabindex=&quot;-1&quot; type=&quot;button&quot; class=&quot;MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation Mui-disabled MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation css-sg8b1x&quot;&gt;…&lt;/button&gt;[22m
+[2m  - attempting click action[22m
+[2m    - waiting for element to be visible, enabled and stable[22m
+[2m    - element is not enabled[22m
+[2m  - retrying click action[22m
+[2m    - waiting for element to be visible, enabled and stable[22m
+[2m    - element is not stable[22m
+[2m  - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    58 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is not enabled[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+</pre>
+                    </li>
+                  
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
+                      <span class="test-title">Pedido aparece en historial post-checkout </span>
+                      <span class="duration">8497ms</span>
+                      
+                    </li>
+                  
+                    <li class="test failed">
+                      <span class="status-icon">✗</span>
+                      <span class="test-title">Flujo completo: catálogo → carrito → checkout </span>
+                      <span class="duration">40087ms</span>
+                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
 
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
+Expected pattern: [32m/confirmation/[39m
+Received string:  [31m&quot;https://surtiventas.solopide.me/cart&quot;[39m
 Timeout: 30000ms
 
 Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
+[2m  - Expect &quot;toHaveURL&quot; with timeout 30000ms[22m
+[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/cart&quot;[22m
 </pre>
                     </li>
                   
@@ -339,170 +343,73 @@ Call log:
               </div>
             
               <div class="feature-group">
-                <h3>📌 checkout (0/4)</h3>
+                <h3>📌 config (7/8)</h3>
                 <ul class="tests">
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">Flujo completo: catálogo → carrito → checkout </span>
-                      <span class="duration">32558ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
+                      <span class="test-title">hasStockEnabled + hasAllDistributionCenters: Stock visible en tarjetas (multicentro) </span>
+                      <span class="duration">10659ms</span>
+                      
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">Pedido aparece en historial post-checkout </span>
-                      <span class="duration">32867ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
+                      <span class="test-title">disableCommerceEdit: Campos de perfil comercio son read-only </span>
+                      <span class="duration">12447ms</span>
+                      
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">Flujo completo: catálogo → carrito → checkout </span>
-                      <span class="duration">32394ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
+                      <span class="test-title">enableOrderApproval: Órdenes pueden estar en estado "pending_approval" </span>
+                      <span class="duration">11777ms</span>
+                      
                     </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">Pedido aparece en historial post-checkout </span>
-                      <span class="duration">32485ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                </ul>
-              </div>
-            
-              <div class="feature-group">
-                <h3>📌 config (0/8)</h3>
-                <ul class="tests">
                   
                     <li class="test failed">
                       <span class="status-icon">✗</span>
                       <span class="test-title">purchaseOrderEnabled: Campo OC (Orden de Compra) visible en checkout </span>
-                      <span class="duration">32553ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
+                      <span class="duration">37687ms</span>
+                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+Locator: locator(&#039;.add-new-product-to-cart-button&#039;).first()
+Expected: visible
+Timeout: 30000ms
+Error: element(s) not found
+
 Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
+[2m  - Expect &quot;toBeVisible&quot; with timeout 30000ms[22m
+[2m  - waiting for locator(&#039;.add-new-product-to-cart-button&#039;).first()[22m
 </pre>
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">disableCommerceEdit: Campos de perfil comercio son read-only </span>
-                      <span class="duration">32470ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">hasStockEnabled + hasAllDistributionCenters: Stock visible en tarjetas (multicentro) </span>
-                      <span class="duration">32627ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">enableOrderApproval: Órdenes pueden estar en estado "pending_approval" </span>
-                      <span class="duration">32510ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">hasStockEnabled=true + hasSingleDistributionCenter: Stock visible en tarjetas (sin multicentro) </span>
-                      <span class="duration">32475ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                      <span class="duration">10520ms</span>
+                      
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">enableSellerDiscount=true: Descuento visible en carrito/checkout </span>
-                      <span class="duration">32455ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                      <span class="duration">9490ms</span>
+                      
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">useNewPromotions=true: Promociones deben estar visibles </span>
-                      <span class="duration">32446ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">hasMultiUnitEnabled=true: Selector de unidad de compra (caja/unidad/etc) </span>
-                      <span class="duration">32425ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                      <span class="duration">10030ms</span>
+                      
+                    </li>
+                  
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
+                      <span class="test-title">useNewPromotions=true: Promociones deben estar visibles </span>
+                      <span class="duration">10566ms</span>
+                      
                     </li>
                   
                 </ul>
@@ -515,150 +422,125 @@ Call log:
                     <li class="test failed">
                       <span class="status-icon">✗</span>
                       <span class="test-title">Sin requests 4xx/5xx durante navegación -y-errores </span>
-                      <span class="duration">32488ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">67798ms</span>
+                      <pre class="error">TimeoutError: page.waitForLoadState: Timeout 60000ms exceeded.</pre>
                     </li>
                   
                 </ul>
               </div>
             
               <div class="feature-group">
-                <h3>📌 coupons (0/2)</h3>
+                <h3>📌 coupons (2/2)</h3>
                 <ul class="tests">
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Campo de cupón visible en carrito </span>
-                      <span class="duration">32446ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">17011ms</span>
+                      
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Campo de cupón visible en carrito </span>
-                      <span class="duration">32438ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                      <span class="duration">9785ms</span>
+                      
                     </li>
                   
                 </ul>
               </div>
             
               <div class="feature-group">
-                <h3>📌 detalle (0/2)</h3>
+                <h3>📌 detalle (1/2)</h3>
                 <ul class="tests">
                   
                     <li class="test failed">
                       <span class="status-icon">✗</span>
                       <span class="test-title">Click en producto abre detalle/modal -de-producto </span>
-                      <span class="duration">32562ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
+                      <span class="duration">38257ms</span>
+                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+Locator: locator(&#039;.add-new-product-to-cart-button&#039;).first()
+Expected: visible
+Timeout: 30000ms
+Error: element(s) not found
+
 Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
+[2m  - Expect &quot;toBeVisible&quot; with timeout 30000ms[22m
+[2m  - waiting for locator(&#039;.add-new-product-to-cart-button&#039;).first()[22m
 </pre>
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Click en producto abre detalle/modal -de-producto </span>
-                      <span class="duration">32406ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                      <span class="duration">8498ms</span>
+                      
                     </li>
                   
                 </ul>
               </div>
             
               <div class="feature-group">
-                <h3>📌 login (2/4)</h3>
+                <h3>📌 login (4/4)</h3>
                 <ul class="tests">
                   
                     <li class="test passed">
                       <span class="status-icon">✓</span>
-                      <span class="test-title">Home sin login — redirige a login o muestra catálogo anónimo </span>
-                      <span class="duration">11853ms</span>
-                      
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
                       <span class="test-title">Login exitoso </span>
-                      <span class="duration">33503ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">7865ms</span>
+                      
                     </li>
                   
                     <li class="test passed">
                       <span class="status-icon">✓</span>
                       <span class="test-title">Home sin login — redirige a login o muestra catálogo anónimo </span>
-                      <span class="duration">11222ms</span>
+                      <span class="duration">11804ms</span>
                       
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Login exitoso </span>
-                      <span class="duration">32421ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                      <span class="duration">7450ms</span>
+                      
+                    </li>
+                  
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
+                      <span class="test-title">Home sin login — redirige a login o muestra catálogo anónimo </span>
+                      <span class="duration">11289ms</span>
+                      
                     </li>
                   
                 </ul>
               </div>
             
               <div class="feature-group">
-                <h3>📌 monto (0/2)</h3>
+                <h3>📌 monto (1/2)</h3>
                 <ul class="tests">
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Carrito vacío no permite confirmar pedido -mínimo-y-validaciones </span>
-                      <span class="duration">32499ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">10651ms</span>
+                      
                     </li>
                   
                     <li class="test failed">
                       <span class="status-icon">✗</span>
                       <span class="test-title">Monto mínimo muestra mensaje si no se alcanza -mínimo-y-validaciones </span>
-                      <span class="duration">32649ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
+                      <span class="duration">37697ms</span>
+                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+Locator: locator(&#039;.add-new-product-to-cart-button&#039;).first()
+Expected: visible
+Timeout: 30000ms
+Error: element(s) not found
+
 Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
+[2m  - Expect &quot;toBeVisible&quot; with timeout 30000ms[22m
+[2m  - waiting for locator(&#039;.add-new-product-to-cart-button&#039;).first()[22m
 </pre>
                     </li>
                   
@@ -666,154 +548,123 @@ Call log:
               </div>
             
               <div class="feature-group">
-                <h3>📌 pagos (0/2)</h3>
+                <h3>📌 pagos (2/2)</h3>
                 <ul class="tests">
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Historial de pagos carga </span>
-                      <span class="duration">32573ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">7755ms</span>
+                      
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Montos no muestran valores negativos confusos </span>
-                      <span class="duration">32541ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">10765ms</span>
+                      
                     </li>
                   
                 </ul>
               </div>
             
               <div class="feature-group">
-                <h3>📌 pedidos (0/4)</h3>
+                <h3>📌 pedidos (3/4)</h3>
                 <ul class="tests">
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Historial de pedidos muestra tabla con estados -y-estados </span>
-                      <span class="duration">32684ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">10916ms</span>
+                      
                     </li>
                   
                     <li class="test failed">
                       <span class="status-icon">✗</span>
                       <span class="test-title">Estados de pedido son válidos (no "No disponible") -y-estados </span>
-                      <span class="duration">32548ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">11126ms</span>
+                      <pre class="error">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+Expected: [32m0[39m
+Received: [31m10[39m</pre>
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Historial de pedidos muestra tabla con estados -y-estados </span>
-                      <span class="duration">32435ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                      <span class="duration">10694ms</span>
+                      
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Estados de pedido son válidos (no "No disponible") -y-estados </span>
-                      <span class="duration">32475ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                      <span class="duration">10587ms</span>
+                      
                     </li>
                   
                 </ul>
               </div>
             
               <div class="feature-group">
-                <h3>📌 pricing (0/5)</h3>
+                <h3>📌 pricing (2/5)</h3>
                 <ul class="tests">
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Precios en formato CLP ($ sin decimales) </span>
-                      <span class="duration">32755ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
+                      <span class="duration">11714ms</span>
+                      
+                    </li>
+                  
+                    <li class="test failed">
+                      <span class="status-icon">✗</span>
+                      <span class="test-title">Precios consistentes catálogo vs carrito </span>
+                      <span class="duration">12052ms</span>
+                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+Locator: locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)
+Expected: visible
+Error: strict mode violation: locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;) resolved to 14 elements:
+    1) &lt;p class=&quot;MuiTypography-root MuiTypography-body1 css-hqifo1&quot;&gt;$96.540&lt;/p&gt; aka getByTestId(&#039;side-cart-button&#039;)
+    2) &lt;p class=&quot;MuiTypography-root MuiTypography-body1 css-98ot1o&quot;&gt;$54.480&lt;/p&gt; aka getByText(&#039;$&#039;).nth(1)
+    3) &lt;p class=&quot;MuiTypography-root MuiTypography-body1 css-pp9j0y&quot;&gt;$54.480&lt;/p&gt; aka getByText(&#039;$&#039;).nth(2)
+    4) &lt;p class=&quot;MuiTypography-root MuiTypography-body1 css-98ot1o&quot;&gt;$42.060&lt;/p&gt; aka getByText(&#039;$&#039;).nth(3)
+    5) &lt;p class=&quot;MuiTypography-root MuiTypography-body1 css-pp9j0y&quot;&gt;$42.060&lt;/p&gt; aka getByText(&#039;$&#039;).nth(4)
+    6) &lt;p class=&quot;MuiTypography-root MuiTypography-body1 css-18k3lyo&quot;&gt;$96.540&lt;/p&gt; aka getByText(&#039;$&#039;).nth(5)
+    7) &lt;p class=&quot;MuiTypography-root MuiTypography-body1 css-44t9ny&quot;&gt;$0&lt;/p&gt; aka getByText(&#039;$0&#039;).first()
+    8) &lt;p class=&quot;MuiTypography-root MuiTypography-body1 css-7gzez4&quot;&gt;$96.540&lt;/p&gt; aka getByText(&#039;$96.540&#039;).nth(2)
+    9) &lt;p class=&quot;MuiTypography-root MuiTypography-body1 css-18k3lyo&quot;&gt;$18.343&lt;/p&gt; aka getByText(&#039;$18.343&#039;)
+    10) &lt;p class=&quot;MuiTypography-root MuiTypography-body1 css-44t9ny&quot;&gt;$0&lt;/p&gt; aka getByText(&#039;$0&#039;).nth(1)
+    ...
+
 Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
+[2m  - Expect &quot;toBeVisible&quot; with timeout 10000ms[22m
+[2m  - waiting for locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)[22m
 </pre>
                     </li>
                   
                     <li class="test failed">
                       <span class="status-icon">✗</span>
                       <span class="test-title">hideReceiptType=true — no muestra selector de boleta/factura </span>
-                      <span class="duration">32561ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">40454ms</span>
+                      <pre class="error">TimeoutError: page.waitForResponse: Timeout 30000ms exceeded while waiting for event &quot;response&quot;</pre>
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">Precios consistentes catálogo vs carrito </span>
-                      <span class="duration">32579ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Precios en formato CLP ($ sin decimales) </span>
-                      <span class="duration">32502ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                      <span class="duration">8390ms</span>
+                      
                     </li>
                   
                     <li class="test failed">
                       <span class="status-icon">✗</span>
                       <span class="test-title">Precios consistentes catálogo vs carrito </span>
-                      <span class="duration">32532ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
+                      <span class="duration">38715ms</span>
+                      <pre class="error">TimeoutError: locator.textContent: Timeout 30000ms exceeded.
 Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
+[2m  - waiting for locator(&#039;.product-card&#039;).first().locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;).first()[22m
 </pre>
                     </li>
                   
@@ -821,38 +672,32 @@ Call log:
               </div>
             
               <div class="feature-group">
-                <h3>📌 validaciones (0/2)</h3>
+                <h3>📌 validaciones (1/2)</h3>
                 <ul class="tests">
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">Carrito vacío no permite confirmar pedido </span>
-                      <span class="duration">32459ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
+                      <span class="test-title">Monto mínimo muestra mensaje si no se alcanza </span>
+                      <span class="duration">12417ms</span>
+                      
                     </li>
                   
                     <li class="test failed">
                       <span class="status-icon">✗</span>
-                      <span class="test-title">Monto mínimo muestra mensaje si no se alcanza </span>
-                      <span class="duration">32461ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
+                      <span class="test-title">Carrito vacío no permite confirmar pedido </span>
+                      <span class="duration">25728ms</span>
+                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeDisabled[2m([22m[2m)[22m failed
 
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
+Locator:  getByRole(&#039;button&#039;, { name: /confirmar pedido/i })
+Expected: disabled
+Received: enabled
+Timeout:  15000ms
 
 Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
+[2m  - Expect &quot;toBeDisabled&quot; with timeout 15000ms[22m
+[2m  - waiting for getByRole(&#039;button&#039;, { name: /confirmar pedido/i })[22m
+[2m    19 × locator resolved to &lt;button tabindex=&quot;0&quot; type=&quot;button&quot; class=&quot;MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-disableElevation css-mf16ev&quot;&gt;…&lt;/button&gt;[22m
+[2m       - unexpected value &quot;enabled&quot;[22m
 </pre>
                     </li>
                   
@@ -864,61 +709,40 @@ Call log:
         <div class="type-section">
           <div class="type-header">
             <h2>⚪ ⚪ Otros</h2>
-            <span class="stats">18/116 passed (16%)</span>
+            <span class="stats">6/9 passed (67%)</span>
           </div>
 
           
               <div class="feature-group">
-                <h3>📌 config (0/2)</h3>
+                <h3>📌 config (2/2)</h3>
                 <ul class="tests">
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">disableCommerceEdit=false: Campos de perfil comercio son EDITABLES ón</span>
-                      <span class="duration">32430ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                      <span class="duration">11996ms</span>
+                      
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">editAddress=true: Dirección es editable en checkout ón</span>
-                      <span class="duration">32331ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
+                      <span class="duration">9860ms</span>
+                      
                     </li>
                   
                 </ul>
               </div>
             
               <div class="feature-group">
-                <h3>📌 consola (0/1)</h3>
+                <h3>📌 consola (1/1)</h3>
                 <ul class="tests">
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Navegación sin errores JS en consola -y-errores ítico</span>
-                      <span class="duration">32468ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">16812ms</span>
+                      
                     </li>
                   
                 </ul>
@@ -931,26 +755,20 @@ Call log:
                     <li class="test failed">
                       <span class="status-icon">✗</span>
                       <span class="test-title">Cupón inválido muestra error (no crash) ítico</span>
-                      <span class="duration">32524ms</span>
+                      <span class="duration">43342ms</span>
                       <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
 Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
+[2m  - waiting for getByLabel(/cup[oó]n/i).or(getByPlaceholder(/cup[oó]n/i)).first()[22m
 </pre>
                     </li>
                   
                     <li class="test failed">
                       <span class="status-icon">✗</span>
                       <span class="test-title">Cupón inválido muestra error (no crash) ítico</span>
-                      <span class="duration">32502ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
+                      <span class="duration">40051ms</span>
+                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
 Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
+[2m  - waiting for getByLabel(/cup[oó]n/i).or(getByPlaceholder(/cup[oó]n/i)).first()[22m
 </pre>
                     </li>
                   
@@ -958,1311 +776,37 @@ Call log:
               </div>
             
               <div class="feature-group">
-                <h3>📌 General (18/107)</h3>
+                <h3>📌 login (3/4)</h3>
                 <ul class="tests">
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: C2-08 Modificar cantidad en carro</span>
-                      <span class="duration">33642ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: C2-09 Eliminar producto del carro</span>
-                      <span class="duration">33902ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: C2-12 Doble click en crear pedido no genera duplicado</span>
-                      <span class="duration">34266ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: C2-11 Flujo completo catalogo → carro → checkout</span>
-                      <span class="duration">35578ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://beta-codelpa.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://beta-codelpa.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: C2-08 Modificar cantidad en carro</span>
-                      <span class="duration">35629ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://beta-codelpa.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://beta-codelpa.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: C2-09 Eliminar producto del carro</span>
-                      <span class="duration">35682ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://beta-codelpa.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://beta-codelpa.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: C2-05 Agregar producto al carro</span>
-                      <span class="duration">35692ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://beta-codelpa.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://beta-codelpa.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: C2-05 Agregar producto al carro</span>
-                      <span class="duration">35733ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://beta-codelpa.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://beta-codelpa.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: C2-13 Pedido aparece en historial</span>
-                      <span class="duration">32701ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: C2-11 Flujo completo catalogo → carro → checkout</span>
-                      <span class="duration">32787ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: C2-12 Doble click en crear pedido no genera duplicado</span>
-                      <span class="duration">32819ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: C2-13 Pedido aparece en historial</span>
-                      <span class="duration">32970ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
                     <li class="test passed">
                       <span class="status-icon">✓</span>
-                      <span class="test-title">codelpa: anonymousAccess=true</span>
-                      <span class="duration">1442ms</span>
-                      
-                    </li>
-                  
-                    <li class="test skipped">
-                      <span class="status-icon">⊘</span>
-                      <span class="test-title">codelpa: currency=undefined</span>
-                      <span class="duration">0ms</span>
-                      
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">codelpa: hidePrices=false</span>
-                      <span class="duration">5248ms</span>
-                      
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: disableCart=false</span>
-                      <span class="duration">5058ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
-
-Expected: &gt; [32m0[39m
-Received:   [31m0[39m</pre>
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">codelpa: anonymousHideCart=true</span>
-                      <span class="duration">4542ms</span>
-                      
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">codelpa: inMaintenance=false</span>
-                      <span class="duration">4865ms</span>
-                      
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: anonymousHidePrice=true</span>
-                      <span class="duration">4878ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
-
-Expected: [32m0[39m
-Received: [31m40[39m</pre>
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">codelpa: ordersRequireAuthorization=false</span>
-                      <span class="duration">4760ms</span>
-                      
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">codelpa: lazyLoadingPrices=false</span>
-                      <span class="duration">4960ms</span>
-                      
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: hideReceiptType=true</span>
-                      <span class="duration">20870ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: enableCoupons=false</span>
-                      <span class="duration">19861ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">surtiventas: anonymousAccess=true</span>
-                      <span class="duration">1312ms</span>
-                      
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">surtiventas: hidePrices=false</span>
-                      <span class="duration">5132ms</span>
-                      
-                    </li>
-                  
-                    <li class="test skipped">
-                      <span class="status-icon">⊘</span>
-                      <span class="test-title">surtiventas: currency=undefined</span>
-                      <span class="duration">0ms</span>
-                      
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: disableCart=false</span>
-                      <span class="duration">4793ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
-
-Expected: &gt; [32m0[39m
-Received:   [31m0[39m</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: enableMassiveOrderSend=true visible</span>
-                      <span class="duration">14747ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: getByText(/envío masivo|enviar masivo|massive|masivo/i).or(getByRole(&#039;button&#039;, { name: /masivo/i })).first()
-Expected: visible
-Timeout: 10000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 10000ms[22m
-[2m  - waiting for getByText(/envío masivo|enviar masivo|massive|masivo/i).or(getByRole(&#039;button&#039;, { name: /masivo/i })).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: includeTaxRateInPrices=false</span>
-                      <span class="duration">19854ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">surtiventas: inMaintenance=false</span>
-                      <span class="duration">4383ms</span>
-                      
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">surtiventas: anonymousHideCart=true</span>
-                      <span class="duration">4290ms</span>
-                      
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">surtiventas: anonymousHidePrice=false</span>
-                      <span class="duration">4662ms</span>
-                      
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">surtiventas: ordersRequireAuthorization=false</span>
-                      <span class="duration">4705ms</span>
-                      
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: enableAskDeliveryDate=false</span>
-                      <span class="duration">19739ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">surtiventas: lazyLoadingPrices=false</span>
-                      <span class="duration">4701ms</span>
-                      
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">surtiventas: enableChooseSaleUnit=true</span>
-                      <span class="duration">4505ms</span>
-                      
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: enableCoupons=true</span>
-                      <span class="duration">19633ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: hideReceiptType=false</span>
-                      <span class="duration">19789ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: includeTaxRateInPrices=true</span>
-                      <span class="duration">19351ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: enablePayments=false</span>
-                      <span class="duration">19924ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: enableAskDeliveryDate=false</span>
-                      <span class="duration">19851ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: PM1-04 Cupón inválido muestra error (no crash)</span>
-                      <span class="duration">32653ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: PM2-04 Modal/UI de cupón no queda en loading infinito</span>
-                      <span class="duration">32534ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: PM1-01 Campo de cupón existe y es interactuable</span>
-                      <span class="duration">32619ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: PM1-03 Crear orden SIN cupón no se rompe por cambios en cupones</span>
-                      <span class="duration">32576ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: PM1-01 Campo de cupón existe y es interactuable</span>
-                      <span class="duration">32438ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: PM1-04 Cupón inválido muestra error (no crash)</span>
-                      <span class="duration">32436ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: PM2-04 Modal/UI de cupón no queda en loading infinito</span>
-                      <span class="duration">32488ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">codelpa: No hay productos con precio $0</span>
-                      <span class="duration">6484ms</span>
-                      
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: Acceso anónimo muestra catálogo</span>
-                      <span class="duration">16433ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: PM1-03 Crear orden SIN cupón no se rompe por cambios en cupones</span>
-                      <span class="duration">32462ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">surtiventas: No hay productos con precio $0</span>
-                      <span class="duration">6516ms</span>
-                      
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: Acceso anónimo muestra catálogo</span>
-                      <span class="duration">16296ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: Catálogo muestra productos con precios</span>
-                      <span class="duration">31275ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)
-Expected: visible
-Timeout: 30000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 30000ms[22m
-[2m  - waiting for locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: Login exitoso</span>
-                      <span class="duration">32980ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: Agregar producto al carro</span>
-                      <span class="duration">31484ms</span>
-                      <pre class="error">TimeoutError: locator.waitFor: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first() to be visible[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: Login exitoso</span>
-                      <span class="duration">32994ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: Catálogo muestra productos con precios</span>
-                      <span class="duration">31222ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)
-Expected: visible
-Timeout: 30000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 30000ms[22m
-[2m  - waiting for locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: Agregar producto al carro</span>
-                      <span class="duration">31600ms</span>
-                      <pre class="error">TimeoutError: locator.waitFor: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByRole(&#039;button&#039;, { name: &#039;Agregar&#039; }).first() to be visible[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: C3-01 Precios visibles en catalogo anonimo (formato CLP)</span>
-                      <span class="duration">16320ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: PAG-04 Historial de pagos carga correctamente</span>
-                      <span class="duration">32358ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: C3-02 Detectar productos con precio $0</span>
-                      <span class="duration">16358ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: PAG-16 Montos en historial no muestran valores negativos confusos</span>
-                      <span class="duration">32432ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: PAG-04 Historial de pagos carga correctamente</span>
-                      <span class="duration">32435ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: PAG-16 Montos en historial no muestran valores negativos confusos</span>
-                      <span class="duration">32446ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: C3-04 Descuento visible en catalogo</span>
-                      <span class="duration">16397ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: C3-03 Precios consistentes catalogo vs carro</span>
-                      <span class="duration">32428ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: C3-01 Precios visibles en catalogo anonimo (formato CLP)</span>
-                      <span class="duration">16439ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: C3-02 Detectar productos con precio $0</span>
-                      <span class="duration">16356ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: C3-04 Descuento visible en catalogo</span>
-                      <span class="duration">16324ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
-
-Locator: locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)
-Expected: visible
-Timeout: 15000ms
-Error: element(s) not found
-
-Call log:
-[2m  - Expect &quot;toBeVisible&quot; with timeout 15000ms[22m
-[2m  - waiting for locator(&#039;text=/\\$\\s*[\\d.,]+/&#039;)[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: C3-05 Campo de cupon visible en carro</span>
-                      <span class="duration">32422ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: C3-11 Precio bruto vs neto — impuestos segun config</span>
-                      <span class="duration">32391ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: C5-05 Sugerencias se pueden agregar al carro</span>
-                      <span class="duration">32482ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: C3-03 Precios consistentes catalogo vs carro</span>
-                      <span class="duration">32476ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: C3-05 Campo de cupon visible en carro</span>
-                      <span class="duration">32623ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: C3-11 Precio bruto vs neto — impuestos segun config</span>
-                      <span class="duration">32614ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: C5-05 Sugerencias se pueden agregar al carro</span>
-                      <span class="duration">32508ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: PM5-01 Catálogo carga productos con precios (promotions funcional)</span>
-                      <span class="duration">32445ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: PM5-02 Carrito muestra totales con descuentos aplicados</span>
-                      <span class="duration">32552ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: PM5-03 Catálogo no queda en loading infinito si promotions es lento</span>
-                      <span class="duration">32409ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: PM5-01 Catálogo carga productos con precios (promotions funcional)</span>
-                      <span class="duration">32394ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: PM5-02 Carrito muestra totales con descuentos aplicados</span>
-                      <span class="duration">32441ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa-staging: Sin acceso anónimo redirige a login</span>
-                      <span class="duration">16246ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: [32m/auth|login/[39m
-Received string:  [31m&quot;https://beta-codelpa.solopide.me/&quot;[39m
-Timeout: 15000ms
-
-Call log:
-[2m  - Expect &quot;toHaveURL&quot; with timeout 15000ms[22m
-[2m    19 × unexpected value &quot;https://beta-codelpa.solopide.me/&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: PM5-03 Catálogo no queda en loading infinito si promotions es lento</span>
-                      <span class="duration">32478ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa-staging: Login exitoso</span>
-                      <span class="duration">32745ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas-staging: Sin acceso anónimo redirige a login</span>
-                      <span class="duration">16411ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: [32m/auth|login/[39m
-Received string:  [31m&quot;https://surtiventas.solopide.me/&quot;[39m
-Timeout: 15000ms
-
-Call log:
-[2m  - Expect &quot;toHaveURL&quot; with timeout 15000ms[22m
-[2m    19 × unexpected value &quot;https://surtiventas.solopide.me/&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa-staging: Catálogo muestra productos con precios</span>
-                      <span class="duration">32733ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">codelpa-staging: Home carga sin error</span>
-                      <span class="duration">1393ms</span>
-                      
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa-staging: Agregar producto al carro</span>
-                      <span class="duration">32702ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa-staging: No hay productos con precio $0</span>
-                      <span class="duration">32598ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas-staging: Login exitoso</span>
-                      <span class="duration">32743ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa-staging: Login exitoso en staging</span>
-                      <span class="duration">11230ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: [32m/auth|login/[39m
-Received string:  [31m&quot;https://beta-codelpa.solopide.me/&quot;[39m
-Timeout: 10000ms
-
-Call log:
-[2m  - Expect &quot;toHaveURL&quot; with timeout 10000ms[22m
-[2m    14 × unexpected value &quot;https://beta-codelpa.solopide.me/&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test passed">
-                      <span class="status-icon">✓</span>
-                      <span class="test-title">surtiventas-staging: Home carga sin error</span>
-                      <span class="duration">1242ms</span>
-                      
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas-staging: Catálogo muestra productos con precios</span>
-                      <span class="duration">32683ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas-staging: Login exitoso en staging</span>
-                      <span class="duration">11334ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: [32m/auth|login/[39m
-Received string:  [31m&quot;https://surtiventas.solopide.me/&quot;[39m
-Timeout: 10000ms
-
-Call log:
-[2m  - Expect &quot;toHaveURL&quot; with timeout 10000ms[22m
-[2m    14 × unexpected value &quot;https://surtiventas.solopide.me/&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas-staging: Agregar producto al carro</span>
-                      <span class="duration">32830ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas-staging: No hay productos con precio $0</span>
-                      <span class="duration">33599ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa-staging: Catálogo carga productos en staging</span>
-                      <span class="duration">33996ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa-staging: Carrito funciona en staging</span>
-                      <span class="duration">33595ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa-staging: Checkout funciona en staging</span>
-                      <span class="duration">33546ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas-staging: Catálogo carga productos en staging</span>
-                      <span class="duration">34043ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas-staging: Carrito funciona en staging</span>
-                      <span class="duration">34428ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas-staging: Checkout funciona en staging</span>
-                      <span class="duration">34276ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: PM4-01 Productos con step pricing muestran escalones</span>
-                      <span class="duration">32700ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">codelpa: PM4-02 Agregar producto con cantidad > 1 muestra precio correcto</span>
-                      <span class="duration">32628ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: PM4-01 Productos con step pricing muestran escalones</span>
-                      <span class="duration">32420ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">surtiventas: PM4-02 Agregar producto con cantidad > 1 muestra precio correcto</span>
-                      <span class="duration">32424ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
-                    </li>
-                  
-                </ul>
-              </div>
-            
-              <div class="feature-group">
-                <h3>📌 login (0/4)</h3>
-                <ul class="tests">
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
                       <span class="test-title">Login fallido con password incorrecto ítico</span>
-                      <span class="duration">31889ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;)[22m
-</pre>
+                      <span class="duration">5828ms</span>
+                      
                     </li>
                   
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
                       <span class="test-title">Sesión persistente ón</span>
-                      <span class="duration">32889ms</span>
-                      <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
-Call log:
-[2m  - waiting for getByLabel(&#039;Correo&#039;).or(getByPlaceholder(/correo|email/i)).or(locator(&#039;input[type=&quot;email&quot;]&#039;)).or(locator(&#039;input[type=&quot;text&quot;][placeholder*=&quot;email&quot; i]&#039;)).or(locator(&#039;input[placeholder*=&quot;correo&quot; i]&#039;)).or(locator(&#039;input[name=&quot;email&quot;]&#039;)).first()[22m
-</pre>
+                      <span class="duration">9445ms</span>
+                      
+                    </li>
+                  
+                    <li class="test passed">
+                      <span class="status-icon">✓</span>
+                      <span class="test-title">Sesión persistente ón</span>
+                      <span class="duration">8901ms</span>
+                      
                     </li>
                   
                     <li class="test failed">
                       <span class="status-icon">✗</span>
                       <span class="test-title">Login fallido con password incorrecto ítico</span>
-                      <span class="duration">31382ms</span>
+                      <span class="duration">31306ms</span>
                       <pre class="error">TimeoutError: locator.fill: Timeout 30000ms exceeded.
 Call log:
 [2m  - waiting for getByLabel(&#039;Correo&#039;)[22m
-</pre>
-                    </li>
-                  
-                    <li class="test failed">
-                      <span class="status-icon">✗</span>
-                      <span class="test-title">Sesión persistente ón</span>
-                      <span class="duration">32383ms</span>
-                      <pre class="error">Error: [2mexpect([22m[31mpage[39m[2m).not.[22mtoHaveURL[2m([22m[32mexpected[39m[2m)[22m failed
-
-Expected pattern: not [32m/auth\/jwt\/login|\/login$/[39m
-Received string: [31m&quot;https://surtiventas.solopide.me/[7mauth/jwt/login[27m&quot;[39m
-Timeout: 30000ms
-
-Call log:
-[2m  - Expect &quot;not toHaveURL&quot; with timeout 30000ms[22m
-[2m    34 × unexpected value &quot;https://surtiventas.solopide.me/auth/jwt/login&quot;[22m
 </pre>
                     </li>
                   
@@ -2273,7 +817,7 @@ Call log:
       
 
           <footer>
-            Generated on 03-04-2026, 4:12:04 p. m.
+            Generated on 03-04-2026, 10:10:00 p. m.
           </footer>
         </div>
       </body>

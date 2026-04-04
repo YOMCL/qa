@@ -19,6 +19,9 @@ const CLIENT = clients.codelpa;
 const EMAIL = process.env.CODELPA_EMAIL || process.env.COMMERCE_EMAIL || '';
 const PASSWORD = process.env.CODELPA_PASSWORD || process.env.COMMERCE_PASSWORD || '';
 
+// Override baseURL so relative page.goto('/products') etc. resolve to codelpa's domain
+test.use({ baseURL: CLIENT.baseURL });
+
 // Helper: login en Codelpa — navega directo al form de login
 async function login(page: any) {
   await loginHelper(page, EMAIL, PASSWORD, CLIENT.loginPath, CLIENT.baseURL);
@@ -54,8 +57,9 @@ test.describe('Codelpa — Login', () => {
   });
 
   test('Login fallido con password incorrecto @login @crítico', async ({ page }) => {
-    await page.goto(CLIENT.baseURL);
-    await page.waitForLoadState('domcontentloaded');
+    await page.goto(CLIENT.loginPath);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
     await page.getByLabel('Correo').fill(EMAIL);
     await page.getByLabel('Contraseña').fill('WrongPassword123');
     await page.locator('form').getByRole('button', { name: 'Iniciar sesión' }).click();

@@ -33,7 +33,7 @@ const clients: Record<string, ClientConfig> = {
   'codelpa-staging': {
     name: 'Codelpa (staging)',
     baseURL: 'https://beta-codelpa.solopide.me',
-    loginPath: '/login',
+    loginPath: '/auth/jwt/login',
     credentials: creds('CODELPA_STAGING'),
     coupons: [],
     banners: [],
