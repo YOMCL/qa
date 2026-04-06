@@ -1,6 +1,6 @@
 {
   "date": "2026-04-06",
-  "timestamp": "2026-04-06T18:32:13.909257+00:00",
+  "timestamp": "2026-04-06T20:29:45.873651+00:00",
   "total": 57,
   "passed": 44,
   "failed": 11,
@@ -39,6 +39,73 @@
       "reportUrl": "reports/index.html"
     }
   },
+  "failure_groups": [
+    {
+      "category": "real-bug",
+      "label": "\ud83d\udd34 Bug Real",
+      "reason": "Expected: 0 \u2192 Received: 1",
+      "count": 1,
+      "tests": [
+        "[codelpa.spec.ts] Sin requests 4xx/5xx durante navegaci\u00f3n @consola-y-errores @funcional"
+      ]
+    },
+    {
+      "category": "real-bug",
+      "label": "\ud83d\udd34 Bug Real",
+      "reason": "Expected: 0 \u2192 Received: 10",
+      "count": 1,
+      "tests": [
+        "[codelpa.spec.ts] Estados de pedido son v\u00e1lidos (no \"No disponible\") @pedidos-y-estados @funcional"
+      ]
+    },
+    {
+      "category": "selector",
+      "label": "\ud83d\udd27 Selector / Infraestructura",
+      "reason": "Elemento no existe en el DOM: `.add-new-product-to-cart-button`",
+      "count": 6,
+      "tests": [
+        "[codelpa.spec.ts] Agregar producto al carrito @cart @funcional",
+        "[codelpa.spec.ts] Modificar cantidad en carrito @cart @funcional",
+        "[codelpa.spec.ts] Flujo completo: cat\u00e1logo \u2192 carrito \u2192 checkout @checkout @funcional",
+        "[codelpa.spec.ts] Click en producto abre detalle/modal @detalle-de-producto @funcional",
+        "[codelpa.spec.ts] Monto m\u00ednimo muestra mensaje si no se alcanza @monto-m\u00ednimo-y-validaciones @funcional",
+        "[codelpa.spec.ts] purchaseOrderEnabled: Campo OC (Orden de Compra) visible en checkout @config @funcional"
+      ]
+    },
+    {
+      "category": "selector",
+      "label": "\ud83d\udd27 Selector / Infraestructura",
+      "reason": "Request HTTP esperada nunca ocurri\u00f3 (bot\u00f3n no encontrado antes)",
+      "count": 2,
+      "tests": [
+        "[codelpa.spec.ts] Precios consistentes cat\u00e1logo vs carrito @pricing @funcional",
+        "[codelpa.spec.ts] hideReceiptType=true \u2014 no muestra selector de boleta/factura @pricing @funcional"
+      ]
+    },
+    {
+      "category": "selector",
+      "label": "\ud83d\udd27 Selector / Infraestructura",
+      "reason": "No se pudo interactuar con: `getByLabel(/cup[o\u00f3]n/i).or(getByPlaceholder(/cup[o\u00f3]n/i)).first()`",
+      "count": 1,
+      "tests": [
+        "[surtiventas.spec.ts] Cup\u00f3n inv\u00e1lido muestra error (no crash) @coupons @cr\u00edtico"
+      ]
+    },
+    {
+      "category": "flaky",
+      "label": "\u26a0\ufe0f Flaky",
+      "reason": "Pasaron en retry \u2014 no son bugs confirmados",
+      "count": 6,
+      "tests": [
+        "[codelpa.spec.ts] Productos sin imagen muestran placeholder (no broken) @catalog @funcional",
+        "[surtiventas.spec.ts] Carrito vac\u00edo no permite confirmar pedido @validaciones @funcional",
+        "[surtiventas.spec.ts] editAddress=true: Direcci\u00f3n es editable en checkout @config @configuraci\u00f3n",
+        "[surtiventas.spec.ts] enableSellerDiscount=true: Descuento visible en carrito/checkout @config @funcional",
+        "[surtiventas.spec.ts] useNewPromotions=true: Promociones deben estar visibles @config @funcional",
+        "[surtiventas.spec.ts] hasMultiUnitEnabled=true: Selector de unidad de compra (caja/unidad/etc) @config @funcional"
+      ]
+    }
+  ],
   "evidence": {
     "screenshots": [],
     "errors": []
