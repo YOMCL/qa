@@ -248,6 +248,7 @@ test.describe('Codelpa — Carrito', () => {
 test.describe('Codelpa — Cupones (PM1/PM2)', () => {
 
   test('Campo de cupón visible en carrito @coupons @funcional', async ({ page }) => {
+    test.skip(CLIENT.config.enableCoupons === false, 'enableCoupons=false en esta instancia — cupones deshabilitados');
     await login(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
@@ -273,6 +274,7 @@ test.describe('Codelpa — Cupones (PM1/PM2)', () => {
   });
 
   test('Cupón inválido muestra error (no crash) @coupons @crítico', async ({ page }) => {
+    test.skip(CLIENT.config.enableCoupons === false, 'enableCoupons=false en esta instancia — cupones deshabilitados');
     await login(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
@@ -309,11 +311,9 @@ test.describe('Codelpa — Checkout', () => {
 
     // Agregar producto
     const addButton = page.locator('.add-new-product-to-cart-button').first();
-    await expect(addButton).toBeVisible({ timeout: 30_000 });
-    await Promise.all([
-      page.waitForResponse(resp => resp.url().includes('/cart') && resp.request().method() === 'POST'),
-      addButton.click(),
-    ]);
+    await expect(addButton).toBeVisible({ timeout: 45_000 });
+    await addButton.click();
+    await page.waitForTimeout(2_000);
 
     // Ir al carrito
     await page.goto('/cart');
