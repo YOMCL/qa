@@ -57,14 +57,25 @@ test.describe('Codelpa — Login', () => {
   });
 
   test('Login fallido con password incorrecto @login @crítico', async ({ page }) => {
-    await page.goto(CLIENT.loginPath);
-    await page.waitForLoadState('networkidle');
-    await page.waitForTimeout(2000);
-    await page.getByLabel('Correo').fill(EMAIL);
-    await page.getByLabel('Contraseña').fill('WrongPassword123');
-    await page.locator('form').getByRole('button', { name: 'Iniciar sesión' }).click();
-    await page.waitForLoadState('networkidle');
-    await expect(page).toHaveURL(/auth|login/);
+    const url = `${CLIENT.baseURL}${CLIENT.loginPath}`;
+    await page.goto(url, { waitUntil: 'domcontentloaded' });
+    await page.waitForLoadState('networkidle', { timeout: 15_000 }).catch(() => {});
+
+    const emailInput = page.getByLabel('Correo')
+      .or(page.locator('input[type="email"]'))
+      .first();
+    await emailInput.waitFor({ state: 'visible', timeout: 20_000 });
+    await emailInput.fill(EMAIL);
+
+    const passwordInput = page.getByLabel('Contraseña')
+      .or(page.locator('input[type="password"]'))
+      .first();
+    await passwordInput.fill('WrongPassword123');
+    await passwordInput.press('Enter');
+
+    // Tras credenciales incorrectas, debe permanecer en la página de login
+    await page.waitForTimeout(3_000);
+    await expect(page).toHaveURL(/auth|login/, { timeout: 10_000 });
   });
 
   test('Sesión persistente @login @configuración', async ({ browser }) => {

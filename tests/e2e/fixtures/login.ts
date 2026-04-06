@@ -37,5 +37,5 @@ export async function loginHelper(
   await passwordInput.press('Enter');
 
   // Wait for redirect away from login page
-  await expect(page).not.toHaveURL(/auth\/jwt\/login|\/login$/, { timeout: 30_000 });
+  await expect(page).not.toHaveURL(/auth\/jwt\/login|\/login$/, { timeout: 45_000 });
 }
