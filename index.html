@@ -520,44 +520,47 @@
 
         function updateClientsSection() {
             const clientsContainer = document.getElementById('clientsContainer');
-            const clientsHtml = Object.entries(latestRun.clients).map(([key, client]) => `
+            const clientsHtml = Object.entries(latestRun.clients).map(([key, client]) => {
+                const passRate = client.tests > 0 ? Math.round((client.passed / client.tests) * 100) : 0;
+                const statusColor = passRate === 100 ? '#10b981' : passRate >= 70 ? '#f59e0b' : '#ef4444';
+                const failed = client.failed || (client.tests - client.passed);
+                return `
                 <div class="client-section">
                     <div class="client-header" onclick="toggleClientDetails(this)">
                         <div>
                             <div class="client-name">🏪 ${client.name}</div>
                             <small style="color: #6b7280;">${client.url}</small>
                         </div>
-                        <span class="expand-icon">▼</span>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-weight: bold; color: ${statusColor};">${passRate}% pass</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
                     </div>
                     <div class="client-details">
                         <div class="detail-grid">
                             <div class="detail-item">
-                                <div class="detail-label">Variables Validated</div>
-                                <div class="detail-value">${client.variables}</div>
-                            </div>
-                            <div class="detail-item">
-                                <div class="detail-label">Tests Run</div>
+                                <div class="detail-label">Total Tests</div>
                                 <div class="detail-value">${client.tests}</div>
                             </div>
                             <div class="detail-item">
-                                <div class="detail-label">Tests Passed</div>
-                                <div class="detail-value" style="color: #10b981;">${client.passed}</div>
+                                <div class="detail-label">Passed</div>
+                                <div class="detail-value" style="color: #10b981;">✅ ${client.passed}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Failed</div>
+                                <div class="detail-value" style="color: ${failed > 0 ? '#ef4444' : '#10b981'};">${failed > 0 ? '❌ ' + failed : '✅ 0'}</div>
+                            </div>
+                            <div class="detail-item">
+                                <div class="detail-label">Pass Rate</div>
+                                <div class="detail-value" style="color: ${statusColor};">${passRate}%</div>
                             </div>
                         </div>
                         <div style="margin-top: 15px;">
-                            <strong style="color: #6b7280; font-size: 0.95em;">Coverage:</strong>
-                            <div class="tags">
-                                ${client.coupons.map(c => `<span class="tag">💰 ${c}</span>`).join('')}
-                                ${Array(client.banners).fill(0).map((_, i) => `<span class="tag">🎯 Banner ${i+1}</span>`).join('')}
-                                ${Array(client.promotions).fill(0).map((_, i) => `<span class="tag">📢 Promo ${i+1}</span>`).join('')}
-                            </div>
-                        </div>
-                        <div style="margin-top: 15px;">
-                            <a href="${client.reportUrl}" class="report-link" target="_blank">→ Detailed Report for ${client.name}</a>
+                            <a href="${client.reportUrl}" class="report-link" target="_blank">→ Ver reporte completo de ${client.name}</a>
                         </div>
                     </div>
                 </div>
-            `).join('');
+            `}).join('');
 
             clientsContainer.innerHTML = clientsHtml;
         }

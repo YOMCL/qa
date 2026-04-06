@@ -1,0 +1,46 @@
+{
+  "date": "2026-04-06",
+  "timestamp": "2026-04-06T15:02:09.329561+00:00",
+  "total": 57,
+  "passed": 32,
+  "failed": 19,
+  "duration": 635,
+  "suites": [
+    {
+      "name": "codelpa.spec.ts",
+      "tests": 32,
+      "passed": 13,
+      "failed": 14,
+      "reportUrl": "reports/index.html"
+    },
+    {
+      "name": "surtiventas.spec.ts",
+      "tests": 25,
+      "passed": 19,
+      "failed": 5,
+      "reportUrl": "reports/index.html"
+    }
+  ],
+  "clients": {
+    "codelpa": {
+      "name": "Codelpa",
+      "url": "https://beta-codelpa.solopide.me",
+      "tests": 32,
+      "passed": 13,
+      "failed": 14,
+      "reportUrl": "reports/index.html"
+    },
+    "surtiventas": {
+      "name": "Surtiventas",
+      "url": "https://surtiventas.solopide.me",
+      "tests": 25,
+      "passed": 19,
+      "failed": 5,
+      "reportUrl": "reports/index.html"
+    }
+  },
+  "evidence": {
+    "screenshots": [],
+    "errors": []
+  }
+}
