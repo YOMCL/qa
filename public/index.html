@@ -286,6 +286,62 @@
             margin-bottom: 15px;
         }
 
+        .failure-group {
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+
+        .failure-group-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .failure-group-header:hover { opacity: 0.85; }
+
+        .failure-group.real-bug .failure-group-header    { background: #fee2e2; }
+        .failure-group.selector .failure-group-header    { background: #fef9c3; }
+        .failure-group.timeout .failure-group-header     { background: #fff7ed; }
+        .failure-group.credentials .failure-group-header { background: #ede9fe; }
+        .failure-group.flaky .failure-group-header       { background: #fff7ed; }
+        .failure-group.unknown .failure-group-header     { background: #f3f4f6; }
+
+        .fg-left { display: flex; align-items: center; gap: 12px; }
+        .fg-label { font-weight: 700; font-size: 1em; color: #111827; }
+        .fg-reason { font-size: 0.88em; color: #374151; margin-top: 2px; font-family: monospace; }
+        .fg-count {
+            background: rgba(0,0,0,0.1);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9em;
+            color: #111827;
+        }
+
+        .failure-group-tests {
+            display: none;
+            padding: 12px 18px;
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .failure-group-tests.show { display: block; }
+
+        .failure-group-tests li {
+            font-size: 0.9em;
+            color: #374151;
+            padding: 4px 0;
+            border-bottom: 1px solid #e5e7eb;
+            list-style: none;
+        }
+
+        .failure-group-tests li:last-child { border-bottom: none; }
+
         footer {
             text-align: center;
             color: white;
@@ -393,6 +449,12 @@
                 <div class="loading">Cargando clientes...</div>
             </div>
 
+            <!-- Failure Analysis -->
+            <div id="failureAnalysisSection" style="display:none;">
+                <div class="section-title">Por qué fallaron</div>
+                <div id="failureGroupsContainer"></div>
+            </div>
+
             <!-- Historical Trend -->
             <div class="section-title">Test Trend (Last 30 Days)</div>
             <div class="chart-container">
@@ -457,6 +519,7 @@
             updateSummary();
             updateSuitesTable();
             updateClientsSection();
+            updateFailureGroups();
             updateTrendChart();
         }
 
@@ -571,6 +634,39 @@
 
             icon.classList.toggle('expanded');
             details.classList.toggle('show');
+        }
+
+        function updateFailureGroups() {
+            const groups = latestRun.failure_groups;
+            if (!groups || groups.length === 0) return;
+
+            document.getElementById('failureAnalysisSection').style.display = 'block';
+            const container = document.getElementById('failureGroupsContainer');
+
+            container.innerHTML = groups.map((g, i) => `
+                <div class="failure-group ${g.category}">
+                    <div class="failure-group-header" onclick="toggleGroup(this)">
+                        <div class="fg-left">
+                            <div>
+                                <div class="fg-label">${g.label}</div>
+                                <div class="fg-reason">${g.reason}</div>
+                            </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <span class="fg-count">${g.count} test${g.count !== 1 ? 's' : ''}</span>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                    </div>
+                    <ul class="failure-group-tests">
+                        ${g.tests.map(t => `<li>${t}</li>`).join('')}
+                    </ul>
+                </div>
+            `).join('');
+        }
+
+        function toggleGroup(header) {
+            header.querySelector('.expand-icon').classList.toggle('expanded');
+            header.nextElementSibling.classList.toggle('show');
         }
 
         async function updateTrendChart() {

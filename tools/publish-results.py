@@ -11,9 +11,11 @@ If --date is not provided, uses today's date.
 """
 
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
+from collections import defaultdict
 from datetime import datetime, timezone
 from typing import Optional
 
@@ -65,7 +67,15 @@ def flatten_tests(suite: dict, file_hint: str = "") -> list:
     file_name = suite.get("file", file_hint)
     for spec in suite.get("specs", []):
         for test in spec.get("tests", []):
-            tests.append({"file": file_name, "status": test.get("status")})
+            results = test.get("results", [])
+            last = results[-1] if results else {}
+            error_msg = last.get("error", {}).get("message", "") if last else ""
+            tests.append({
+                "file": file_name.split("/")[-1] if file_name else file_name,
+                "title": spec.get("title", ""),
+                "status": test.get("status"),
+                "error": error_msg,
+            })
     for sub in suite.get("suites", []):
         tests.extend(flatten_tests(sub, file_name))
     return tests
@@ -89,6 +99,101 @@ def extract_suite_stats(results: dict, suite_name: str) -> dict:
         "failed": failed,
         "skipped": skipped,
     }
+
+
+def strip_ansi(text: str) -> str:
+    return re.sub(r'\x1b\[[0-9;]*m', '', text)
+
+
+def classify_error(error: str) -> tuple:
+    """Classify a test error into a category and short reason."""
+    error = strip_ansi(error)
+    if not error:
+        return ("real-bug", "Aserción fallida — la app devolvió un valor incorrecto")
+    e = error.lower()
+    if "element(s) not found" in e or ("not found" in e and "locator" in e):
+        match = re.search(r"locator\('([^']+)'\)", error)
+        locator = match.group(1) if match else "locator desconocido"
+        return ("selector", f"Elemento no existe en el DOM: `{locator}`")
+    if "tobevisible" in e and "timeout" in e:
+        match = re.search(r"locator\('([^']+)'\)", error)
+        locator = match.group(1) if match else "locator desconocido"
+        return ("selector", f"Elemento no visible (timeout): `{locator}`")
+    if "waitforresponse" in e and "timeout" in e:
+        return ("selector", "Request HTTP esperada nunca ocurrió (botón no encontrado antes)")
+    if "locator.fill" in e or "locator.click" in e:
+        match = re.search(r"waiting for (.+?)[\n\r]", error)
+        detail = match.group(1).strip()[:80] if match else "locator desconocido"
+        return ("selector", f"No se pudo interactuar con: `{detail}`")
+    if "navigation" in e and "timeout" in e:
+        return ("timeout", "La página tardó demasiado en cargar")
+    if "expected:" in e and "received:" in e:
+        m_exp = re.search(r"expected:\s*(.+)", error, re.IGNORECASE)
+        m_rec = re.search(r"received:\s*(.+)", error, re.IGNORECASE)
+        exp = m_exp.group(1).strip()[:50] if m_exp else "?"
+        rec = m_rec.group(1).strip()[:50] if m_rec else "?"
+        return ("real-bug", f"Expected: {exp} → Received: {rec}")
+    if "tohaveurl" in e:
+        return ("real-bug", "La app no redirigió a la URL esperada")
+    if "401" in error or "unauthorized" in e:
+        return ("credentials", "Error de autenticación")
+    return ("unknown", error[:100])
+
+
+CATEGORY_ORDER = {"real-bug": 0, "selector": 1, "timeout": 2, "credentials": 3, "unknown": 4}
+CATEGORY_LABELS = {
+    "real-bug":    "🔴 Bug Real",
+    "selector":    "🔧 Selector / Infraestructura",
+    "timeout":     "⏱️ Timeout",
+    "credentials": "🔑 Credenciales",
+    "unknown":     "❓ Desconocido",
+}
+
+
+def generate_failure_groups(results: dict) -> list:
+    """Group failed tests by root cause for dashboard display."""
+    all_tests = []
+    for suite in results.get("suites", []):
+        all_tests.extend(flatten_tests(suite))
+
+    failed = [t for t in all_tests if t.get("status") == "unexpected"]
+    flaky  = [t for t in all_tests if t.get("status") == "flaky"]
+
+    # Group failures by (category, reason)
+    groups: dict = defaultdict(list)
+    cause_map: dict = {}
+
+    for t in failed:
+        # Get last error from raw results — flatten_tests only gives status/file
+        # We need to re-extract the error; re-flatten with errors
+        category, reason = classify_error(t.get("error", ""))
+        key = f"{category}::{reason}"
+        groups[key].append(f"[{t['file']}] {t['title']}")
+        cause_map[key] = (category, reason)
+
+    sorted_keys = sorted(groups.keys(), key=lambda k: CATEGORY_ORDER.get(cause_map[k][0], 9))
+
+    result = []
+    for key in sorted_keys:
+        category, reason = cause_map[key]
+        result.append({
+            "category": category,
+            "label": CATEGORY_LABELS.get(category, category),
+            "reason": reason,
+            "count": len(groups[key]),
+            "tests": groups[key],
+        })
+
+    if flaky:
+        result.append({
+            "category": "flaky",
+            "label": "⚠️ Flaky",
+            "reason": "Pasaron en retry — no son bugs confirmados",
+            "count": len(flaky),
+            "tests": [f"[{t['file']}] {t['title']}" for t in flaky],
+        })
+
+    return result
 
 
 def generate_run_json(results: dict, date: str) -> dict:
@@ -159,6 +264,7 @@ def generate_run_json(results: dict, date: str) -> dict:
         "duration": duration,
         "suites": suites,
         "clients": clients,
+        "failure_groups": generate_failure_groups(results),
         "evidence": {
             "screenshots": [],
             "errors": [],
