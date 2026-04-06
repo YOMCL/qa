@@ -21,3 +21,8 @@ test-results/
 
 # OS
 *.DS_Store
+
+# Large Playwright artifacts (videos, traces) — not needed for dashboard
+public/reports/data/*.webm
+public/reports/data/*.zip
+public/reports/trace/

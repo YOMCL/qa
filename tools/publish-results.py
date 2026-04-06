@@ -91,78 +91,62 @@ def extract_suite_stats(results: dict, suite_name: str) -> dict:
     }
 
 
-def determine_report_url(suite_name: str) -> str:
-    """Determine the report URL for a suite."""
-    if "codelpa" in suite_name:
-        return "codelpa/index.html"
-    elif "surtiventas" in suite_name:
-        return "surtiventas/index.html"
-    else:
-        return "reports/index.html"
-
-
 def generate_run_json(results: dict, date: str) -> dict:
     """Generate the detailed run JSON."""
-    suites_data = [
-        "config-validation.spec.ts",
-        "mongo-data.spec.ts",
-        "codelpa.spec.ts",
-        "surtiventas.spec.ts",
-        "coupons.spec.ts",
-        "prices.spec.ts",
-        "promotions.spec.ts",
-        "login.spec.ts",
-        "multi-client.spec.ts",
-        "payments.spec.ts",
-        "step-pricing.spec.ts",
-    ]
+    # Only include suites that actually ran (tests > 0)
+    all_tests_flat = []
+    for suite in results.get("suites", []):
+        all_tests_flat.extend(flatten_tests(suite))
+
+    # Discover which spec files actually had tests
+    ran_files = sorted(set(t.get("file", "") for t in all_tests_flat if t.get("file")))
 
     suites = []
     total_tests = 0
     total_passed = 0
     total_failed = 0
 
-    for suite_name in suites_data:
-        stats = extract_suite_stats(results, suite_name)
+    for file_path in ran_files:
+        suite_name = file_path.split("/")[-1] if "/" in file_path else file_path
+        suite_tests = [t for t in all_tests_flat if t.get("file") == file_path]
+        passed = sum(1 for t in suite_tests if t.get("status") == "expected")
+        failed = sum(1 for t in suite_tests if t.get("status") == "unexpected")
         suites.append({
             "name": suite_name,
-            "tests": stats["tests"],
-            "passed": stats["passed"],
-            "failed": stats["failed"],
-            "reportUrl": determine_report_url(suite_name),
+            "tests": len(suite_tests),
+            "passed": passed,
+            "failed": failed,
+            "reportUrl": "reports/index.html",
         })
-        total_tests += stats["tests"]
-        total_passed += stats["passed"]
-        total_failed += stats["failed"]
+        total_tests += len(suite_tests)
+        total_passed += passed
+        total_failed += failed
 
     # Calculate duration (in seconds from Playwright data)
     duration = 0
     if results.get("stats"):
         duration = int(results["stats"].get("duration", 0) / 1000)
 
-    # Static clients data (from qa-matrix.json)
+    # Per-client stats derived from actual results
+    codelpa_stats = extract_suite_stats(results, "codelpa.spec.ts")
+    surtiventas_stats = extract_suite_stats(results, "surtiventas.spec.ts")
+
     clients = {
         "codelpa": {
             "name": "Codelpa",
             "url": "https://beta-codelpa.solopide.me",
-            "tests": 54,
-            "passed": 54,
-            "reportUrl": "codelpa/index.html",
-            "variables": 54,
-            "coupons": ["PROMO10", "CODELPA20", "DSCTO5K"],
-            "banners": 2,
-            "promotions": 2,
+            "tests": codelpa_stats["tests"],
+            "passed": codelpa_stats["passed"],
+            "failed": codelpa_stats["failed"],
+            "reportUrl": "reports/index.html",
         },
         "surtiventas": {
             "name": "Surtiventas",
             "url": "https://surtiventas.solopide.me",
-            "tests": 54,
-            "passed": 54,
-            "reportUrl": "surtiventas/index.html",
-            "variables": 92,
-            "coupons": ["SURTI15", "WELCOME10", "BULK3K"],
-            "banners": 1,
-            "promotions": 2,
+            "tests": surtiventas_stats["tests"],
+            "passed": surtiventas_stats["passed"],
+            "failed": surtiventas_stats["failed"],
+            "reportUrl": "reports/index.html",
         },
     }
 
