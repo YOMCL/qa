@@ -267,14 +267,9 @@ test.describe('Surtiventas — Precios', () => {
   });
 
   test('Precios consistentes catálogo vs carrito @pricing @funcional', async ({ page }) => {
-    // Capturar primer producto y su precio
-    const firstProduct = page.locator('.product-card').first();
-    const firstPrice = firstProduct.locator('text=/\\$\\s*[\\d.,]+/').first();
+    // Capturar primer precio visible en catálogo
+    const firstPrice = page.locator('text=/\\$\\s*[\\d.,]+/').first();
     const catalogPrice = await firstPrice.textContent();
-    const productName = await firstProduct.locator('[class*="name"]').first().textContent().catch(() => 'Producto desconocido');
-
-    console.log(`\n📦 Producto a testear: ${productName}`);
-    console.log(`💰 Precio en catálogo: ${catalogPrice}\n`);
 
     // Agregar ese producto
     await Promise.all([
@@ -288,7 +283,7 @@ test.describe('Surtiventas — Precios', () => {
     await expect(page.getByText(/\d+ Producto/)).toBeVisible({ timeout: 15_000 });
 
     // El carrito debe mostrar precios (no necesariamente el mismo, pero sí formato CLP)
-    await expect(page.locator('text=/\\$\\s*[\\d.,]+/')).toBeVisible({ timeout: 10_000 });
+    await expect(page.locator('text=/\\$\\s*[\\d.,]+/').first()).toBeVisible({ timeout: 10_000 });
   });
 });
 

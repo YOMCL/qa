@@ -140,7 +140,7 @@ test.describe('Codelpa — Catálogo', () => {
     await expect(searchInput).toBeVisible({ timeout: 15_000 });
     await searchInput.fill('test');
     await searchInput.press('Enter');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('networkidle', { timeout: 15_000 }).catch(() => {});
 
     const results = page.locator('text=/\\$\\s*[\\d.,]+/');
     const noResults = page.getByText(/sin resultado|no encontr|no hay/i);
@@ -180,7 +180,7 @@ test.describe('Codelpa — Catálogo', () => {
     const searchInput = page.getByPlaceholder('Buscar productos');
     await searchInput.fill('xyznoexiste99999');
     await searchInput.press('Enter');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('networkidle', { timeout: 15_000 }).catch(() => {});
 
     const prices = page.locator('text=/\\$\\s*[\\d.,]+/');
     if (await prices.count() === 0) {
@@ -374,7 +374,7 @@ test.describe('Codelpa — Precios', () => {
     await expect(page.getByText(/\d+ Producto/)).toBeVisible({ timeout: 15_000 });
 
     // El carrito debe mostrar precios (no necesariamente el mismo, pero sí formato CLP)
-    await expect(page.locator('text=/\\$\\s*[\\d.,]+/')).toBeVisible({ timeout: 10_000 });
+    await expect(page.locator('text=/\\$\\s*[\\d.,]+/').first()).toBeVisible({ timeout: 10_000 });
   });
 
   test('hideReceiptType=true — no muestra selector de boleta/factura @pricing @funcional', async ({ page }) => {
@@ -453,9 +453,9 @@ test.describe('Codelpa — Consola y errores', () => {
 
     await login(page);
     await page.goto('/products');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('networkidle', { timeout: 15_000 }).catch(() => {});
     await page.goto('/cart');
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('networkidle', { timeout: 15_000 }).catch(() => {});
 
     // Filtrar errores esperados (ej: 401 pre-auth, favicon)
     const realErrors = failedRequests.filter(
