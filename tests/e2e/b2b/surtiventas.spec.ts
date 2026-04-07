@@ -25,6 +25,18 @@ async function login(page: any) {
   await loginHelper(page, EMAIL, PASSWORD, CLIENT.loginPath, CLIENT.baseURL);
 }
 
+// Helper: vaciar carrito para que el botón "Agregar" esté disponible
+async function clearCart(page: any) {
+  await page.goto('/cart');
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForTimeout(2_000);
+  const eliminarTodos = page.getByText('Eliminar todos', { exact: true });
+  if (await eliminarTodos.isVisible({ timeout: 5_000 }).catch(() => false)) {
+    await eliminarTodos.click();
+    await page.waitForTimeout(2_000);
+  }
+}
+
 test.describe('Surtiventas — Login', () => {
 
   test('Home sin login — redirige a login o muestra catálogo anónimo @login @funcional', async ({ page }) => {
@@ -96,6 +108,7 @@ test.describe('Surtiventas — Catálogo', () => {
 
   test.beforeEach(async ({ page }) => {
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
   });
@@ -158,6 +171,7 @@ test.describe('Surtiventas — Cupones (enableCoupons=true)', () => {
 
   test('Campo de cupón visible en carrito @coupons @funcional', async ({ page }) => {
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
 
@@ -183,6 +197,7 @@ test.describe('Surtiventas — Cupones (enableCoupons=true)', () => {
 
   test('Cupón inválido muestra error (no crash) @coupons @crítico', async ({ page }) => {
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
 
@@ -213,6 +228,7 @@ test.describe('Surtiventas — Checkout', () => {
 
   test('Flujo completo: catálogo → carrito → checkout @checkout @funcional', async ({ page }) => {
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
 
@@ -262,6 +278,7 @@ test.describe('Surtiventas — Precios', () => {
 
   test.beforeEach(async ({ page }) => {
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('text=/\\$\\s*[\\d.,]+/').first()).toBeVisible({ timeout: 30_000 });
@@ -298,6 +315,7 @@ test.describe('Surtiventas — Detalle de producto', () => {
 
   test('Click en producto abre detalle/modal @detalle-de-producto @funcional', async ({ page }) => {
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('.add-new-product-to-cart-button').first()).toBeVisible({ timeout: 30_000 });
@@ -369,6 +387,7 @@ test.describe('Surtiventas — Validaciones', () => {
 
   test('Monto mínimo muestra mensaje si no se alcanza @validaciones @funcional', async ({ page }) => {
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
 
@@ -452,6 +471,7 @@ test.describe('Surtiventas — Variables sin cobertura (config-dependent)', () =
     // Surtiventas: editAddress=true → dirección debe ser editable
 
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
 
@@ -501,6 +521,7 @@ test.describe('Surtiventas — Variables sin cobertura (config-dependent)', () =
     // (diferente a Codelpa que tiene hasAllDistributionCenters=true)
 
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(3_000);
@@ -540,6 +561,7 @@ test.describe('Surtiventas — Variables sin cobertura (config-dependent)', () =
     // Surtiventas: enableSellerDiscount=true
 
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
 
@@ -579,6 +601,7 @@ test.describe('Surtiventas — Variables sin cobertura (config-dependent)', () =
     // Surtiventas: useNewPromotions=true
 
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(3_000);
@@ -606,6 +629,7 @@ test.describe('Surtiventas — Variables sin cobertura (config-dependent)', () =
     // Surtiventas: hasMultiUnitEnabled=true
 
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
 

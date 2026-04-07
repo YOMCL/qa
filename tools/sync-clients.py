@@ -102,8 +102,17 @@ interface ClientConfig {{
 const clients: Record<string, ClientConfig> = {{
 '''
 
+    # Normalize client keys: strip "-staging" suffix and map prisa → surtiventas
+    KEY_ALIASES = {
+        "prisa-staging": "surtiventas",
+        "prisa":         "surtiventas",
+    }
+    KEY_STRIP_SUFFIX = "-staging"
+
     client_entries = []
-    for client_key, client_data in qa_matrix.get("clients", {}).items():
+    for raw_key, client_data in qa_matrix.get("clients", {}).items():
+        client_key = raw_key.removesuffix(KEY_STRIP_SUFFIX)
+        client_key = KEY_ALIASES.get(raw_key, KEY_ALIASES.get(client_key, client_key))
         domain = client_data.get("domain", "")
         name = client_data.get("name", "")
         baseurl = map_domain_to_baseurl(domain)
@@ -116,9 +125,7 @@ const clients: Record<string, ClientConfig> = {{
 
         # Determine login path
         login_path = "/auth/jwt/login"
-        if domain in ("codelpa.youorder.me", "codelpa.solopide.me"):
-            login_path = "/login"
-        elif domain in ("soprole.youorder.me", "soprole.solopide.me"):
+        if domain in ("soprole.youorder.me", "soprole.solopide.me"):
             login_path = "/login"
 
         # Format config object

@@ -1,7 +1,8 @@
-import { test, expect } from '../fixtures/multi-client-auth';
+import { createClientTest, expect } from '../fixtures/multi-client-auth';
 import clients from '../fixtures/clients';
 
 for (const [key, client] of Object.entries(clients)) {
+  const test = createClientTest(client);
   test.describe(`C3 — Precios y descuentos: ${client.name}`, () => {
 
     test(`${key}: C3-01 Precios visibles en catalogo anonimo (formato CLP)`, async ({ page }) => {

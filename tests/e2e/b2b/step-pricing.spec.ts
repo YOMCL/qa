@@ -1,4 +1,4 @@
-import { test, expect } from '../fixtures/multi-client-auth';
+import { createClientTest, expect } from '../fixtures/multi-client-auth';
 import clients from '../fixtures/clients';
 
 /**
@@ -10,6 +10,7 @@ import clients from '../fixtures/clients';
  */
 
 for (const [key, client] of Object.entries(clients)) {
+  const test = createClientTest(client);
   test.describe(`PM4 — Step pricing: regresión post-mortem: ${client.name}`, () => {
 
     test(`${key}: PM4-01 Productos con step pricing muestran escalones`, async ({ authedPage: page }) => {

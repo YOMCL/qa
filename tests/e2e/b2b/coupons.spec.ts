@@ -1,4 +1,4 @@
-import { test, expect } from '../fixtures/multi-client-auth';
+import { createClientTest, expect } from '../fixtures/multi-client-auth';
 import clients from '../fixtures/clients';
 
 /**
@@ -10,6 +10,7 @@ import clients from '../fixtures/clients';
  */
 
 for (const [key, client] of Object.entries(clients)) {
+  const test = createClientTest(client);
   test.describe(`PM1/PM2 — Cupones: regresión post-mortem: ${client.name}`, () => {
 
     async function addProductsAndGoToCart(page: any) {

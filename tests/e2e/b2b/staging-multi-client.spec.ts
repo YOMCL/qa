@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { loginHelper } from '../fixtures/login';
-import clients from '../fixtures/clients-staging';
+import clients from '../fixtures/clients';
 
 /**
  * STAGING — Multi-client test suite

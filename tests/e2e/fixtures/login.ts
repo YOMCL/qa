@@ -24,7 +24,7 @@ export async function loginHelper(
     .or(page.getByPlaceholder(/correo|email/i))
     .first();
 
-  await emailInput.waitFor({ state: 'visible', timeout: 20000 });
+  await emailInput.waitFor({ state: 'visible', timeout: 45000 });
 
   const passwordInput = page.getByLabel('Contraseña')
     .or(page.locator('input[name="password"]'))

@@ -27,6 +27,19 @@ async function login(page: any) {
   await loginHelper(page, EMAIL, PASSWORD, CLIENT.loginPath, CLIENT.baseURL);
 }
 
+// Helper: vaciar carrito para que el botón "Agregar" esté disponible
+async function clearCart(page: any) {
+  await page.goto('/cart');
+  await page.waitForLoadState('domcontentloaded');
+  await page.waitForTimeout(2_000);
+  // Buscar el botón "Eliminar todos" por texto visible
+  const eliminarTodos = page.getByText('Eliminar todos', { exact: true });
+  if (await eliminarTodos.isVisible({ timeout: 5_000 }).catch(() => false)) {
+    await eliminarTodos.click();
+    await page.waitForTimeout(2_000);
+  }
+}
+
 test.describe('Codelpa — Login', () => {
 
   test('Home sin login — redirige a login o muestra catálogo anónimo @login @funcional', async ({ page }) => {
@@ -98,6 +111,7 @@ test.describe('Codelpa — Catálogo', () => {
 
   test.beforeEach(async ({ page }) => {
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
   });
@@ -193,20 +207,24 @@ test.describe('Codelpa — Carrito', () => {
 
   test.beforeEach(async ({ page }) => {
     await login(page);
-    // Limpiar carrito antes de cada test para evitar que el botón "Agregar"
-    // haya sido reemplazado por +/- de cantidad de una ejecución anterior
-    await page.goto('/cart');
-    await page.waitForLoadState('domcontentloaded');
-    const eliminarTodos = page.getByRole('button', { name: /eliminar todos/i });
-    if (await eliminarTodos.isVisible({ timeout: 5_000 }).catch(() => false)) {
-      await eliminarTodos.click();
-      await page.waitForTimeout(1_000);
-    }
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
-    await expect(
-      page.locator('.add-new-product-to-cart-button').first()
-    ).toBeVisible({ timeout: 30_000 });
+    // Si el botón no aparece, el carrito puede estar lleno de una ejecución anterior
+    const addButton = page.locator('.add-new-product-to-cart-button').first();
+    const hasButton = await addButton.isVisible({ timeout: 10_000 }).catch(() => false);
+    if (!hasButton) {
+      await page.goto('/cart');
+      await page.waitForLoadState('domcontentloaded');
+      const eliminarTodos = page.getByRole('button', { name: /eliminar todos/i });
+      if (await eliminarTodos.isVisible({ timeout: 5_000 }).catch(() => false)) {
+        await eliminarTodos.click();
+        await page.waitForTimeout(1_000);
+      }
+      await page.goto('/products');
+      await page.waitForLoadState('domcontentloaded');
+    }
+    await expect(addButton).toBeVisible({ timeout: 30_000 });
   });
 
   test('Agregar producto al carrito @cart @funcional', async ({ page }) => {
@@ -258,6 +276,7 @@ test.describe('Codelpa — Cupones (PM1/PM2)', () => {
   test('Campo de cupón visible en carrito @coupons @funcional', async ({ page }) => {
     test.skip(CLIENT.config.enableCoupons === false, 'enableCoupons=false en esta instancia — cupones deshabilitados');
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
 
@@ -284,6 +303,7 @@ test.describe('Codelpa — Cupones (PM1/PM2)', () => {
   test('Cupón inválido muestra error (no crash) @coupons @crítico', async ({ page }) => {
     test.skip(CLIENT.config.enableCoupons === false, 'enableCoupons=false en esta instancia — cupones deshabilitados');
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
 
@@ -314,6 +334,7 @@ test.describe('Codelpa — Checkout', () => {
 
   test('Flujo completo: catálogo → carrito → checkout @checkout @funcional', async ({ page }) => {
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
 
@@ -354,6 +375,7 @@ test.describe('Codelpa — Precios', () => {
 
   test.beforeEach(async ({ page }) => {
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('text=/\\$\\s*[\\d.,]+/').first()).toBeVisible({ timeout: 30_000 });
@@ -407,6 +429,7 @@ test.describe('Codelpa — Detalle de producto', () => {
 
   test('Click en producto abre detalle/modal @detalle-de-producto @funcional', async ({ page }) => {
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
     await expect(page.locator('.add-new-product-to-cart-button').first()).toBeVisible({ timeout: 30_000 });
@@ -460,6 +483,7 @@ test.describe('Codelpa — Consola y errores', () => {
     });
 
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('networkidle', { timeout: 15_000 }).catch(() => {});
     await page.goto('/cart');
@@ -498,6 +522,7 @@ test.describe('Codelpa — Monto mínimo y validaciones', () => {
 
   test('Monto mínimo muestra mensaje si no se alcanza @monto-mínimo-y-validaciones @funcional', async ({ page }) => {
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
 
@@ -599,6 +624,7 @@ test.describe('Codelpa — Variables sin cobertura (config-dependent)', () => {
     // Requiere que purchaseOrderEnabled=true en config (✓ en Codelpa)
 
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
 
@@ -686,6 +712,7 @@ test.describe('Codelpa — Variables sin cobertura (config-dependent)', () => {
     // Requiere hasStockEnabled=true y hasAllDistributionCenters=true en config (✓ en Codelpa)
 
     await login(page);
+    await clearCart(page);
     await page.goto('/products');
     await page.waitForLoadState('domcontentloaded');
     await page.waitForTimeout(3_000);

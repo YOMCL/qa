@@ -1,4 +1,4 @@
-import { test, expect } from '../fixtures/multi-client-auth';
+import { createClientTest, expect } from '../fixtures/multi-client-auth';
 import clients from '../fixtures/clients';
 
 /**
@@ -8,6 +8,7 @@ import clients from '../fixtures/clients';
  */
 
 for (const [key, client] of Object.entries(clients)) {
+  const test = createClientTest(client);
   test.describe(`PAG — Pagos y documentos tributarios (B2B): ${client.name}`, () => {
 
     test(`${key}: PAG-04 Historial de pagos carga correctamente`, async ({ authedPage: page }) => {
