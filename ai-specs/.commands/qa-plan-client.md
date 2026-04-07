@@ -14,7 +14,17 @@ Plan QA concreto para un cliente: lee sus flags desde `qa-matrix.json`, aplica l
    - Linear: tickets abiertos del cliente (deuda técnica, features, bugs)
    - `checklists/INDICE.md`: cobertura existente
 
-3. **Leer flags del cliente desde `data/qa-matrix.json`**
+3. **Generar checklist pre-producción del cliente** → `QA/{CLIENT}/{DATE}/checklist-preproduccion.md`
+   - Copiar el template de `checklists/integraciones/checklist-preproduccion-cliente.md`
+   - Con los flags del cliente, auto-marcar como `N/A` los items que no aplican:
+     - INT-07 Perfiles aprobadores → N/A si `enableOrderApproval: false`
+     - INT-08 Formulario comercios → N/A si `enableCreateCommerce: false`
+     - Sección [4] Integraciones externas completa → N/A si todos los hooks son `false`
+     - Sección [5] Documentos tributarios completa → N/A si `enablePaymentDocumentsB2B=false` AND `enableInvoicesList=false` AND `enableCreditNotes=false`
+   - Guardar en `QA/{CLIENT}/{DATE}/checklist-preproduccion.md`
+   - Indicar: _"Checklist generado en QA/{CLIENT}/{DATE}/checklist-preproduccion.md — Tech/Analytics deben completarlo y escribir veredicto LISTO antes de ejecutar `/qa-client-validation`"_
+
+4. **Leer flags del cliente desde `data/qa-matrix.json`**
    - Buscar la entrada del cliente por `slug` o `name`
    - Extraer todos los flags booleanos y de configuración
    - Ejemplos de flags críticos a revisar:
@@ -69,7 +79,7 @@ Plan QA concreto para un cliente: lee sus flags desde `qa-matrix.json`, aplica l
    - Sin ERP hooks → skip `checklist-integraciones-erp.md`, `checklist-webhooks.md`
    - APP no desplegada para el cliente → skip todos los flows Maestro
 
-5. **Generar plan** → `ai-specs/changes/QA-{CLIENT}-{DATE}.md`
+6. **Generar plan** → `ai-specs/changes/QA-{CLIENT}-{DATE}.md`
 
 ## Estructura del plan generado
 

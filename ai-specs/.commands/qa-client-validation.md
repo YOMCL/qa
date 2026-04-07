@@ -19,10 +19,14 @@ Parameters:
 
 1. **Adopt QA Coordinator role** (see `ai-specs/.agents/qa-coordinator.md`)
 
-2. **Verify prerequisites**
-   - Check `.env` has credentials for client: `{SLUG}_COMMERCE_EMAIL`, `{SLUG}_COMMERCE_PASSWORD`
-   - Check `data/qa-matrix.json` is current (ask: when was last mongo-extractor run?)
-   - If stale (>24h), extract first
+2. **Verificar checklist pre-producción**
+   - Buscar `QA/{CLIENT}/*/checklist-preproduccion.md` (el más reciente)
+   - Si **no existe** → indicar: _"Ejecutar primero `/qa-plan-client {CLIENT}` para generar el checklist"_ y detener
+   - Si existe → leer el veredicto final:
+     - `LISTO` → continuar
+     - `CON CONDICIONES` → mostrar los items pendientes, confirmar con el usuario si continuar
+     - `BLOQUEADO` o sin veredicto escrito → mostrar los items en estado BLOQUEADO o ☐, detener y escalar al dueño correspondiente (Tech/Analytics)
+   - Verificar también: `.env` tiene credenciales para el cliente (`{SLUG}_COMMERCE_EMAIL`, `{SLUG}_COMMERCE_PASSWORD`)
 
 3. **Extract MongoDB config (if stale)**
    ```bash
