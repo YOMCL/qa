@@ -15,8 +15,8 @@
 |------|-----------|--------|
 | **A — Login + Compra** | C1 + C2 | ~20 min |
 | **B — Precios + Config** | C3 + validación de flags | ~15 min |
-| **C — Documentos + Admin** | C7 + A1 | ~15 min |
-| **D — Tier 2** | C9, C10, C5, A2, A3 | ~20 min |
+| **C — Documentos** | C7 | ~10 min |
+| **D — Tier 2** | C9, C10, C5 | ~20 min |
 | **FULL** | Todo lo anterior en orden | ~60 min |
 
 Una vez confirmado el modo, ejecuta **solo ese scope**.
@@ -221,36 +221,7 @@ Después del flujo de compra, valida que los flags del cliente se reflejan corre
 
 ---
 
-## 5. Tests Admin — Tier 1 · Modo C
-
-**URL:** `https://admin.youorder.me`  
-**Credenciales:** Pide `ADMIN_EMAIL` y `ADMIN_PASSWORD` si no las tienes.
-
----
-
-### [A1] Login de Admin
-
-| ID | Qué validar | Cómo hacerlo | Resultado esperado |
-|----|------------|--------------|-------------------|
-| A1-01 | Login admin exitoso | Credenciales válidas → submit | Accede a dashboard/panel |
-| A1-03 | Acceso sin auth | Navegar directo a `/dashboard` sin login | Redirige a login, no muestra datos |
-| A1-06 | Admin gestiona productos | Ir a sección Productos → ver/editar uno | Lista de productos visible, puede editar |
-| A1-07 | Admin gestiona promociones | Ir a sección Promociones → ver lista | Promociones listadas, puede crear/editar |
-| A1-08 | Admin gestiona banners | Ir a sección Banners/Configuración → ver banners | Banners listados, puede activar/desactivar |
-
-**Formato de reporte A1:**
-```
-[A1] ADMIN LOGIN Y GESTIÓN — {CLIENTE}
-A1-01 Login admin: PASS/FAIL — [redirigió a: URL]
-A1-03 Sin auth → redirect: PASS/FAIL
-A1-06 Gestión productos: PASS/FAIL — [pudo editar: sí/no]
-A1-07 Gestión promociones: PASS/FAIL — [cantidad promociones activas]
-A1-08 Gestión banners: PASS/FAIL — [cantidad banners activos]
-```
-
----
-
-## 6. Flujos Tier 2 · Modo D
+## 5. Flujos Tier 2 · Modo D
 
 | ID | Flujo | Plataforma | Cómo validar |
 |----|-------|-----------|--------------|
