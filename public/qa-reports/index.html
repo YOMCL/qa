@@ -82,7 +82,7 @@ async function load() {
                 `<span class="mode-badge ${(rep.modes_done||[]).includes(m)?'done':''}">${m}</span>`
             ).join('');
             const score = rep.score ? `<div class="score">${rep.score}<span>/100</span></div>` : '';
-            return `<a class="report-row" href="${rep.file}" target="_blank">
+            return `<a class="report-row" href="${rep.file}">
                 <div class="report-info">
                     <div class="report-client">${rep.client}</div>
                     <div class="report-date">${rep.date}</div>
