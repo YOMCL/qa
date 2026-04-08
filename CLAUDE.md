@@ -19,8 +19,18 @@ Prioridad: Cowork (validación visual + config) > Playwright (regresión E2E) > 
 | `/run-playwright {PROJECT}` | Ejecutar tests Playwright (b2b, admin, staging) |
 | `/report-qa {CLIENTE} {FECHA}` | Generar reporte QA completo con hallazgos |
 | `/audit-maestro {FLOW}` | Auditar flow Maestro en APP |
+| `guarda el handoff modo {X} para {CLIENTE}` | Guarda el HANDOFF de Cowork en `QA/{CLIENTE}/{FECHA}/handoff-modo-{X}.md` |
 
 Usa `/qa-plan-client Codelpa` para ver ejemplo completo.
+
+## Guardado de HANDOFFs Cowork
+
+Cuando el usuario diga **"guarda el handoff modo X para {CLIENTE}"** (puede ser con o sin fecha):
+1. Determinar la fecha: usar `YYYY-MM-DD` de hoy si no se especifica
+2. Crear `QA/{CLIENTE}/{FECHA}/handoff-modo-{X}.md` con el contenido del HANDOFF que el usuario pegó
+3. Si el usuario no pegó el bloque HANDOFF, pedirlo
+
+Al final de todos los modos ejecutados, el usuario puede correr `/report-qa {CLIENTE} {FECHA}` para consolidar.
 
 ## Estructura
 

@@ -13,32 +13,37 @@ Generate comprehensive QA report for a client: test results summary, issue group
 
 1. **Adopt QA Coordinator role** (see `ai-specs/.agents/qa-coordinator.md`)
 
-2. **Gather test results**
-   - Locate `QA/{CLIENT}/{DATE}/` folder
-   - Parse Playwright reports: `test-results/`, `grouped-report.html`
-   - Review Maestro flow logs (if ran)
-   - Collect manual checklist results
+2. **Gather Cowork results (sesiones A/B/C/D)**
+   - Read `QA/{CLIENT}/{DATE}/handoff-modo-A.md` through `handoff-modo-D.md` (whichever exist)
+   - Extract: flujos completados, issues encontrados, contexto de cada modo
+   - Si no existe ningún handoff file → indicar al usuario que ejecute primero los modos Cowork y guarde los HANDOFFs
 
-3. **Extract findings**
-   - Count pass/fail by test type (Playwright, Maestro, Checklist)
-   - Categorize failures by area: auth, payment, config, UI, data
-   - Identify P0/P1 blockers vs. P2/P3 improvements
+3. **Gather Playwright results**
+   - Locate `QA/{CLIENT}/{DATE}/` folder or read `public/grouped-report.html`
+   - Parse pass/fail counts by spec (cart, prices, coupons, promotions, etc.)
+   - Si no hay resultados Playwright → anotar "no ejecutado" en el reporte
 
-4. **Cross-reference with sources**
+4. **Extract and consolidate findings**
+   - Unificar issues de todos los HANDOFFs (Cowork) + fallos Playwright
+   - Categorizar: auth, payment, config, UI, data
+   - Identificar P0/P1 bloqueantes vs. P2/P3 mejoras
+   - Detectar duplicados (mismo bug reportado por Cowork y Playwright)
+
+5. **Cross-reference with sources**
    - Link failures to Linear tickets (deuda técnica, known bugs)
-   - Check Notion for client-specific context
    - Note if failure is regression (compare against previous test run)
 
-5. **Generate report** → `QA/{CLIENT}/{DATE}/qa-report-{DATE}.md`
+6. **Generate report** → `QA/{CLIENT}/{DATE}/qa-report-{DATE}.md`
    - Use `templates/qa-report-template.md` as base
    - Include:
-     - Test execution summary (dates, environment, duration)
-     - Results breakdown (tests/specs run, pass rate, failures)
-     - Critical findings (blockers, regressions, data inconsistencies)
-     - Recommendations (fix priority, owner assignment)
-     - Appendix (detailed logs, issue links)
+     - Resumen ejecutivo: modos completados, issues por severidad, veredicto
+     - Cowork results: tabla por modo (A/B/C/D) con ✓/✗ por flujo
+     - Playwright results: pass rate por spec
+     - Issues detallados: ID, severidad, descripción, pasos, evidencia
+     - Gate de Rollout con veredicto final
+     - Ship Readiness block para Slack
 
-6. **Escalation (if needed)**
+7. **Escalation (if needed)**
    - Use `templates/escalation-templates.md` for format
    - Identify P0 issues: timeline, impact, owner
    - Propose workarounds or rollback strategy

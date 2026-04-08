@@ -30,6 +30,12 @@ SIGUIENTE MODO A EJECUTAR: {B / C / D / "completo — emitir veredicto final"}
 Contexto: {credenciales usadas, flags confirmados, estado del carrito}
 ```
 
+**Después de producir el HANDOFF, dile al usuario:**
+> "Copia este bloque y pídele a Claude Code que lo guarde:
+> `guarda el handoff modo {X} para {CLIENTE}`"
+
+Esto permite que `/report-qa` consolide todos los modos al final.
+
 **Si recibes un bloque HANDOFF junto con este documento:**
 1. Léelo primero
 2. El modo a ejecutar es el que dice `SIGUIENTE MODO A EJECUTAR`
