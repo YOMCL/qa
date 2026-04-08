@@ -145,9 +145,8 @@ def classify_error(error: str, annotations: list = None, title: str = "") -> tup
         url_list = ", ".join(f"`{url}` ({url_codes[url]})" for url in unique_urls[:3])
         reason = f"Error de servidor (5xx) en: {url_list}"
         action = (
-            f"Reportar a Dev — endpoint(s) fallando en staging: {', '.join(unique_urls[:3])}. "
-            f"Método: GET. Ambiente: staging. "
-            f"Dev debe revisar logs del servidor para ese endpoint y cliente."
+            f"Se debe revisar los logs del servidor para el endpoint {', '.join(unique_urls[:3])} "
+            f"(GET, staging). El servidor retorna 500 — se debe identificar y corregir el error interno."
         )
         return ("real-bug", reason, "dev", action)
 
@@ -164,48 +163,46 @@ def classify_error(error: str, annotations: list = None, title: str = "") -> tup
 
     # ── toBeDisabled failures — must check before expected/received ──────────
     if "tobedisabled" in e or ("expected: disabled" in e and "received: enabled" in e):
-        # Extract button name from error
         btn_match = re.search(r"name:\s*/([^/]+)/i?\)", error)
         btn_name = btn_match.group(1) if btn_match else "confirmar pedido"
         return ("real-bug",
                 f"Botón '{btn_name}' habilitado cuando debería estar deshabilitado",
                 "dev",
-                f"El botón '{btn_name}' está habilitado con carrito vacío. "
-                f"Dev debe agregar validación en el componente del carrito: deshabilitar el botón cuando no hay productos.")
+                f"Se debe agregar validación en el componente del carrito para deshabilitar el botón '{btn_name}' cuando no hay productos.")
 
     # ── confirmCartText not applied ──────────────────────────────────────────
     if "confirmcarttext" in t or "pasar a confirmación" in t:
         return ("real-bug",
                 "confirmCartText no se aplica — texto del botón no coincide con la config",
                 "dev",
-                "El campo confirmCartText en MongoDB dice 'Pasar a confirmación del pedido' pero el botón muestra otro texto. "
-                "Dev debe verificar que el componente del carrito lee confirmCartText desde la config del cliente.")
+                "Se debe verificar que el componente del carrito lee confirmCartText desde la config del cliente. "
+                "En MongoDB está configurado como 'Pasar a confirmación del pedido' pero el botón muestra otro texto.")
 
     if "element(s) not found" in e or ("not found" in e and "locator" in e):
         match = re.search(r"locator\('([^']+)'\)", error)
         locator = match.group(1) if match else "locator desconocido"
         return ("selector", f"Elemento no existe en el DOM: `{locator}`",
-                "qa", f"Inspeccionar el sitio staging en el navegador → buscar el elemento real → actualizar el selector `{locator}` en el spec")
+                "qa", f"Se debe inspeccionar el sitio staging, buscar el elemento real y actualizar el selector `{locator}` en el spec")
 
     if "tobevisible" in e and "timeout" in e:
         match = re.search(r"locator\('([^']+)'\)", error)
         locator = match.group(1) if match else "locator desconocido"
         return ("selector", f"Elemento no visible tras timeout: `{locator}`",
-                "qa", f"Verificar si el elemento `{locator}` existe en staging o si cambió de clase/estructura")
+                "qa", f"Se debe verificar si el elemento `{locator}` existe en staging o si cambió de clase/estructura")
 
     if "waitforresponse" in e and "timeout" in e:
         return ("selector", "Request HTTP esperada nunca ocurrió (botón no se pudo clickear antes)",
-                "qa", "Se resuelve solo al arreglar el selector del botón de carrito en el grupo anterior")
+                "qa", "Se resuelve al arreglar el selector del botón de carrito en el grupo anterior")
 
     if "locator.fill" in e or "locator.click" in e:
         match = re.search(r"waiting for (.+?)[\n\r]", error)
         detail = match.group(1).strip()[:80] if match else "locator desconocido"
         return ("selector", f"No se pudo interactuar con: `{detail}`",
-                "qa", "Inspeccionar el sitio staging → verificar que el campo existe y tiene el label/placeholder correcto → actualizar el selector en el spec")
+                "qa", "Se debe inspeccionar el sitio staging, verificar que el campo existe con el label/placeholder correcto y actualizar el selector en el spec")
 
     if "navigation" in e and "timeout" in e:
         return ("timeout", "La página tardó demasiado en cargar",
-                "qa", "Verificar que el ambiente staging esté activo. Si el problema persiste, aumentar navigationTimeout en playwright.config.ts")
+                "qa", "Se debe verificar que el ambiente staging esté activo. Si persiste, se debe aumentar navigationTimeout en playwright.config.ts")
 
     if "tobedisabled" in e:
         return ("real-bug", "Elemento debería estar deshabilitado pero está habilitado",
@@ -218,7 +215,7 @@ def classify_error(error: str, annotations: list = None, title: str = "") -> tup
         rec = m_rec.group(1).strip()[:50] if m_rec else "?"
         reason = f"Expected: {exp} → Received: {rec}"
         if "no disponible" in e or "disponible" in rec.lower():
-            action = "Hay pedidos con estado 'No disponible' — Dev debe verificar el mapeo de estados de pedido para este cliente en el frontend"
+            action = "Se debe verificar el mapeo de estados de pedido para este cliente — hay pedidos con estado 'No disponible' sin mapear en el frontend"
         elif ann_texts:
             action = f"{ann_texts[:200]}"
         else:
@@ -227,14 +224,14 @@ def classify_error(error: str, annotations: list = None, title: str = "") -> tup
 
     if "tohaveurl" in e:
         return ("real-bug", "La app no redirigió a la URL esperada",
-                "dev", "El flujo de navegación está roto — la app quedó en la misma URL en lugar de avanzar. Dev debe revisar el routing de este flujo.")
+                "dev", "Se debe revisar el routing de este flujo — la app quedó en la misma URL en lugar de avanzar.")
 
     if "401" in error or "unauthorized" in e:
         return ("credentials", "Error de autenticación (401)",
-                "qa", "Verificar que las credenciales en .env sean correctas para este cliente")
+                "qa", "Se debe verificar que las credenciales en .env sean correctas para este cliente")
 
     return ("unknown", f"{title}: {error[:80]}" if title else error[:100],
-            "qa", f"Test '{title}' falló con resultado inesperado. Revisar manualmente en staging." if title else "Revisar manualmente en staging.")
+            "qa", f"Se debe revisar manualmente en staging el test '{title}'." if title else "Se debe revisar manualmente en staging.")
 
 
 CATEGORY_ORDER = {"real-bug": 0, "selector": 1, "timeout": 2, "credentials": 3, "unknown": 4}
