@@ -71,12 +71,17 @@ def flatten_tests(suite: dict, file_hint: str = "", suite_title: str = "") -> li
             results = test.get("results", [])
             last = results[-1] if results else {}
             error_msg = last.get("error", {}).get("message", "") if last else ""
+            # Collect all annotations from all retries
+            annotations = []
+            for r in results:
+                annotations.extend(r.get("annotations", []))
             tests.append({
                 "file": file_name.split("/")[-1] if file_name else file_name,
                 "title": spec.get("title", ""),
                 "suite_title": current_title,
                 "status": test.get("status"),
                 "error": error_msg,
+                "annotations": annotations,
             })
     for sub in suite.get("suites", []):
         tests.extend(flatten_tests(sub, file_name, current_title))
@@ -107,16 +112,50 @@ def strip_ansi(text: str) -> str:
     return re.sub(r'\x1b\[[0-9;]*m', '', text)
 
 
-def classify_error(error: str) -> tuple:
+def classify_error(error: str, annotations: list = None) -> tuple:
     """
     Classify a test error into (category, reason, owner, action).
     owner: 'dev' | 'qa'
     action: concrete next step
     """
     error = strip_ansi(error)
+    annotations = annotations or []
+
+    # Extract annotation text for richer context
+    ann_texts = " ".join(a.get("description", "") for a in annotations)
+    ann_error_texts = " ".join(a.get("description", "") for a in annotations if a.get("type") == "error")
+
+    # ── 5xx server errors (detected via annotations) ──────────────────────────
+    server_error_match = re.search(r"Requests 5xx:\s*(.+?)(?:\n|$)", ann_error_texts)
+    if server_error_match:
+        urls_raw = server_error_match.group(1).strip()
+        # Parse "500 https://..., 500 https://..."
+        entries = [e.strip() for e in urls_raw.split(",") if e.strip()]
+        # Group by unique URL
+        url_codes: dict = {}
+        for entry in entries:
+            parts = entry.split(" ", 1)
+            if len(parts) == 2:
+                code, url = parts[0], parts[1]
+                url_codes[url] = code
+        unique_urls = list(url_codes.keys())
+        url_list = ", ".join(f"`{url}` ({url_codes[url]})" for url in unique_urls[:3])
+        reason = f"Error de servidor (5xx) en: {url_list}"
+        action = (
+            f"Reportar a Dev — endpoint(s) fallando en staging: {', '.join(unique_urls[:3])}. "
+            f"Método: GET. Ambiente: staging. "
+            f"Dev debe revisar logs del servidor para ese endpoint y cliente."
+        )
+        return ("real-bug", reason, "dev", action)
+
+    # ── Assertion failures enriched by annotations ────────────────────────────
     if not error:
+        if ann_texts:
+            return ("real-bug", f"Aserción fallida: {ann_texts[:120]}",
+                    "dev", "Revisar el Trace del test para ver qué devolvió la app y reportar al equipo dev")
         return ("real-bug", "Aserción fallida — la app devolvió un valor incorrecto",
                 "dev", "Revisar el Trace del test para ver qué devolvió la app y reportar al equipo dev")
+
     e = error.lower()
 
     if "element(s) not found" in e or ("not found" in e and "locator" in e):
@@ -145,15 +184,20 @@ def classify_error(error: str) -> tuple:
         return ("timeout", "La página tardó demasiado en cargar",
                 "qa", "Verificar que el ambiente staging esté activo. Si el problema persiste, aumentar navigationTimeout en playwright.config.ts")
 
+    if "tobedisabled" in e:
+        return ("real-bug", "Elemento debería estar deshabilitado pero está habilitado",
+                "dev", "El botón de confirmar pedido está habilitado con carrito vacío — Dev debe agregar validación en el frontend para deshabilitar el botón cuando no hay productos en el carrito")
+
     if "expected:" in e and "received:" in e:
         m_exp = re.search(r"expected:\s*(.+)", error, re.IGNORECASE)
         m_rec = re.search(r"received:\s*(.+)", error, re.IGNORECASE)
         exp = m_exp.group(1).strip()[:50] if m_exp else "?"
         rec = m_rec.group(1).strip()[:50] if m_rec else "?"
         reason = f"Expected: {exp} → Received: {rec}"
-        # More specific actions based on what was received
         if "no disponible" in e or "disponible" in rec.lower():
             action = "Reportar al equipo dev: hay pedidos con estado sin mapear en el frontend de este cliente"
+        elif ann_texts:
+            action = f"Contexto del test: {ann_texts[:150]}. Reportar al equipo dev con esta info."
         elif rec.strip() not in ("?", "0", "false"):
             action = "Abrir el Trace del test → ver qué devolvió la app → reportar la URL o el valor incorrecto al equipo dev"
         else:
@@ -211,7 +255,7 @@ def generate_failure_groups(results: dict) -> list:
     group_clients: dict = defaultdict(set)
 
     for t in failed:
-        category, reason, owner, action = classify_error(t.get("error", ""))
+        category, reason, owner, action = classify_error(t.get("error", ""), t.get("annotations", []))
         key = f"{category}::{reason}"
         groups[key].append(f"[{t['file']}] {t['title']}")
         cause_map[key] = (category, reason, owner, action)

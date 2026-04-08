@@ -1,6 +1,6 @@
 {
   "date": "2026-04-08",
-  "timestamp": "2026-04-08T19:00:31.124493+00:00",
+  "timestamp": "2026-04-08T19:15:25.661267+00:00",
   "total": 32,
   "passed": 29,
   "failed": 3,
@@ -36,9 +36,9 @@
     {
       "category": "real-bug",
       "label": "\ud83d\udd34 Bug Real",
-      "reason": "Expected: disabled \u2192 Received: enabled",
+      "reason": "Elemento deber\u00eda estar deshabilitado pero est\u00e1 habilitado",
       "owner": "dev",
-      "action": "Abrir el Trace del test \u2192 ver qu\u00e9 devolvi\u00f3 la app \u2192 reportar la URL o el valor incorrecto al equipo dev",
+      "action": "El bot\u00f3n de confirmar pedido est\u00e1 habilitado con carrito vac\u00edo \u2014 Dev debe agregar validaci\u00f3n en el frontend para deshabilitar el bot\u00f3n cuando no hay productos en el carrito",
       "count": 1,
       "tests": [
         "[new-soprole.spec.ts] Carrito vac\u00edo no permite confirmar pedido @validaciones @funcional"
@@ -50,9 +50,9 @@
     {
       "category": "real-bug",
       "label": "\ud83d\udd34 Bug Real",
-      "reason": "Expected: 0 \u2192 Received: 4",
+      "reason": "Error de servidor (5xx) en: `https://api.solopide.me/api/v2/commerces/delivery` (500), `https://api.solopide.me/api/v2/commerces/delivery Requests 5xx: 500 https://api.solopide.me/api/v2/commerces/delivery` (500)",
       "owner": "dev",
-      "action": "Abrir el Trace del test \u2192 ver qu\u00e9 devolvi\u00f3 la app \u2192 reportar la URL o el valor incorrecto al equipo dev",
+      "action": "Reportar a Dev \u2014 endpoint(s) fallando en staging: https://api.solopide.me/api/v2/commerces/delivery, https://api.solopide.me/api/v2/commerces/delivery Requests 5xx: 500 https://api.solopide.me/api/v2/commerces/delivery. M\u00e9todo: GET. Ambiente: staging. Dev debe revisar logs del servidor para ese endpoint y cliente.",
       "count": 1,
       "tests": [
         "[new-soprole.spec.ts] Sin requests 4xx/5xx durante navegaci\u00f3n @consola @funcional"
