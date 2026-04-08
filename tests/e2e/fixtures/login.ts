@@ -18,21 +18,16 @@ export async function loginHelper(
   await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});
 
   // Wait for email input to appear (SPA needs time to render)
-  const emailInput = page.getByLabel('Correo')
-    .or(page.locator('input[name="email"]'))
-    .or(page.locator('input[type="email"]'))
-    .or(page.getByPlaceholder(/correo|email/i))
-    .first();
+  // Direct name selectors avoid .or() chain resolution issues with MUI controlled inputs
+  const emailInput = page.locator('input[name="email"]').first();
+  const passwordInput = page.locator('input[name="password"]').first();
 
   await emailInput.waitFor({ state: 'visible', timeout: 45000 });
 
-  const passwordInput = page.getByLabel('Contraseña')
-    .or(page.locator('input[name="password"]'))
-    .or(page.locator('input[type="password"]'))
-    .first();
-
-  // Fill and submit
+  // fill() properly triggers React's onChange via Playwright's internal event dispatch
+  await emailInput.click();
   await emailInput.fill(email);
+  await passwordInput.click();
   await passwordInput.fill(password);
   await passwordInput.press('Enter');
 
