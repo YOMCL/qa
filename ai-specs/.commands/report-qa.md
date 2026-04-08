@@ -33,7 +33,9 @@ Generate comprehensive QA report for a client: test results summary, issue group
    - Link failures to Linear tickets (deuda técnica, known bugs)
    - Note if failure is regression (compare against previous test run)
 
-6. **Generate report** → `QA/{CLIENT}/{DATE}/qa-report-{DATE}.md`
+6. **Generate report** → dos archivos simultáneamente:
+
+   **a) `QA/{CLIENT}/{DATE}/qa-report-{DATE}.md`** (lectura local / GitHub)
    - Use `templates/qa-report-template.md` as base
    - Include:
      - Resumen ejecutivo: modos completados, issues por severidad, veredicto
@@ -42,6 +44,15 @@ Generate comprehensive QA report for a client: test results summary, issue group
      - Issues detallados: ID, severidad, descripción, pasos, evidencia
      - Gate de Rollout con veredicto final
      - Ship Readiness block para Slack
+
+   **b) `public/qa-reports/{CLIENT}-{DATE}.html`** (dashboard GitHub Pages)
+   - HTML autónomo, mismo contenido que el .md pero formateado
+   - Estructura: header con cliente/fecha/veredicto, secciones colapsables por modo, tabla de issues con colores por severidad
+   - Incluir enlace "← Dashboard" a `../`
+
+   **c) Actualizar `public/qa-reports/manifest.json`**
+   - Agregar entrada `{ "client": "{CLIENT}", "date": "{DATE}", "file": "{CLIENT}-{DATE}.html", "verdict": "{LISTO/CON CONDICIONES/BLOQUEADO}", "score": {N}, "modes_done": ["A","B","C","D"] }`
+   - No eliminar entradas anteriores, solo agregar la nueva al array `reports`
 
 7. **Escalation (if needed)**
    - Use `templates/escalation-templates.md` for format
