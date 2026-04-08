@@ -566,7 +566,7 @@
             <p>Playwright E2E · B2B Platform</p>
         </div>
         <div class="header-actions">
-<a href="qa-reports/" class="btn-ghost" target="_blank">📋 Reportes Cowork</a>
+<a href="qa-reports/" class="btn-ghost">📋 Reportes Cowork</a>
 <a href="reports/index.html" class="btn-ghost" target="_blank">🔬 Playwright Report</a>
         </div>
     </header>
@@ -1171,7 +1171,7 @@ async function loadCoworkReports() {
                 return `<span class="mode-badge ${done ? 'done' : ''}">${m}</span>`;
             }).join('');
             const scoreHtml = rep.score ? `<div class="report-score">${rep.score}<span>/100</span></div>` : '';
-            return `<a class="report-card" href="qa-reports/${rep.file}" target="_blank">
+            return `<a class="report-card" href="qa-reports/${rep.file}">
                 <div class="report-card-header">
                     <div>
                         <div class="report-client">${escapeHtml(rep.client)}</div>
