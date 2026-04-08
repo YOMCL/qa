@@ -31,10 +31,10 @@ Contexto: {credenciales usadas, flags confirmados, estado del carrito}
 ```
 
 **Después de producir el HANDOFF, dile al usuario:**
-> "Copia este bloque y pídele a Claude Code que lo guarde:
-> `guarda el handoff modo {X} para {CLIENTE}`"
+> "Agrega este bloque al archivo de sesión con Claude Code:
+> `agrega modo {X} al archivo de sesión de {CLIENTE}`"
 
-Esto permite que `/report-qa` consolide todos los modos al final.
+Si es el primer modo del día, el archivo se crea. Los modos siguientes se agregan al mismo archivo. Al final, `/report-qa {CLIENTE} {FECHA}` consolida todo.
 
 **Si recibes un bloque HANDOFF junto con este documento:**
 1. Léelo primero

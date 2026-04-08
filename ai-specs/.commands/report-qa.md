@@ -14,9 +14,9 @@ Generate comprehensive QA report for a client: test results summary, issue group
 1. **Adopt QA Coordinator role** (see `ai-specs/.agents/qa-coordinator.md`)
 
 2. **Gather Cowork results (sesiones A/B/C/D)**
-   - Read `QA/{CLIENT}/{DATE}/handoff-modo-A.md` through `handoff-modo-D.md` (whichever exist)
-   - Extract: flujos completados, issues encontrados, contexto de cada modo
-   - Si no existe ningún handoff file → indicar al usuario que ejecute primero los modos Cowork y guarde los HANDOFFs
+   - Read `QA/{CLIENT}/{DATE}/cowork-session.md` (archivo único con todos los HANDOFFs del día)
+   - Extract: flujos completados por modo, issues encontrados, contexto acumulado
+   - Si no existe → indicar al usuario que ejecute los modos Cowork y agregue cada HANDOFF al archivo de sesión
 
 3. **Gather Playwright results**
    - Locate `QA/{CLIENT}/{DATE}/` folder or read `public/grouped-report.html`
