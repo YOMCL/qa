@@ -275,8 +275,11 @@ test.describe('Soprole New — Precios', () => {
     await page.goto('/cart');
     await page.waitForLoadState('domcontentloaded');
     await expect(page.getByText(/\d+ Producto/)).toBeVisible({ timeout: 15_000 });
-    const receiptType = page.getByText(/tipo de recibo|boleta|factura/i);
-    const visible = await receiptType.isVisible({ timeout: 5_000 }).catch(() => false);
+    // Buscar selector de TIPO (radio/dropdown para elegir), no el label "Facturación:" del resumen
+    const receiptSelector = page.locator('input[type="radio"]').filter({ has: page.getByText(/boleta|factura/i) })
+      .or(page.locator('select').filter({ has: page.getByText(/boleta|factura/i) }))
+      .or(page.getByRole('radiogroup').filter({ has: page.getByText(/boleta|factura/i) }));
+    const visible = await receiptSelector.first().isVisible({ timeout: 5_000 }).catch(() => false);
     expect(visible).toBeFalsy();
   });
 
