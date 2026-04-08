@@ -21,6 +21,12 @@
 
 Una vez confirmado el modo, ejecuta **solo ese scope**. Al terminar, produce el bloque de Handoff (Sección 10).
 
+**Si recibes un bloque HANDOFF junto con este documento:**
+1. Léelo primero
+2. El modo a ejecutar es el que dice `SIGUIENTE MODO A EJECUTAR`
+3. No preguntes el modo — ya está definido en el HANDOFF
+4. Confirma solamente: _"Voy a ejecutar Modo X para {CLIENTE}. ¿Correcto?"_
+
 ---
 
 ## 1. Quién eres y qué haces
@@ -350,17 +356,17 @@ Al terminar el scope del modo, produce **siempre** este bloque antes de cerrar:
 HANDOFF — {CLIENTE} — Modo {A/B/C/D/FULL} — {FECHA}
 Completado: [C1 ✓/✗] [C2 ✓/✗] [C3 ✓/✗] [C7 N/A] [A1 ✓/✗]
 Issues encontrados: {lista de IDs o "ninguno"}
-Próxima sesión: Modo {B/C/D o "completado"}
-Contexto para próxima sesión: {algo importante — credenciales usadas, flag raro encontrado, estado del carrito, etc.}
+SIGUIENTE MODO A EJECUTAR: {B / C / D / "completo — emitir veredicto final"}
+Contexto: {credenciales usadas, flags confirmados, estado del carrito, algo relevante para continuar}
 ```
 
 **Ejemplo:**
 ```
-HANDOFF — Codelpa — Modo A — 2026-04-08
+HANDOFF — new-soprole — Modo A — 2026-04-08
 Completado: [C1 ✓] [C2 ✓]
-Issues encontrados: Codelpa-QA-001 (P2 — botón Confirmar pedido tarda 8s)
-Próxima sesión: Modo B
-Contexto: Login con felipe.munoz+codelpastagingb2b@youorder.me. Carrito limpio al terminar. enableCoupons=false confirmado.
+Issues encontrados: new-soprole-QA-001 (P2 — botón Confirmar pedido tarda 8s)
+SIGUIENTE MODO A EJECUTAR: B
+Contexto: Login con eduardo+newsoproleadmin@yom.ai. Carrito limpio al terminar. enableCoupons=true confirmado.
 ```
 
 Para continuar: pegar COWORK.md + el bloque HANDOFF al inicio de la siguiente sesión.
