@@ -67,10 +67,9 @@
         /* ── Summary row ── */
         .summary-row {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 120px;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
             gap: 10px;
-            margin-bottom: 20px;
-            align-items: center;
+            margin-bottom: 10px;
         }
         .stat-box {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -85,15 +84,33 @@
         .stat-value { font-size: 1.5em; font-weight: 800; line-height: 1; margin-bottom: 3px; }
         .stat-label { font-size: 0.72em; opacity: 0.9; font-weight: 600; letter-spacing: 0.03em; }
 
-        .donut-box {
-            background: #f9fafb;
-            border-radius: 10px;
-            border: 1px solid #e5e7eb;
+        .pass-rate-bar-wrap {
+            margin-bottom: 20px;
+        }
+        .pass-rate-bar-meta {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            padding: 10px;
-            position: relative;
+            margin-bottom: 5px;
+            font-size: 0.78em;
+            color: #6b7280;
+            font-weight: 600;
+        }
+        .pass-rate-bar-meta strong {
+            font-size: 1em;
+            color: #111827;
+        }
+        .pass-rate-track {
+            height: 10px;
+            background: #fee2e2;
+            border-radius: 99px;
+            overflow: hidden;
+        }
+        .pass-rate-fill {
+            height: 100%;
+            border-radius: 99px;
+            background: linear-gradient(90deg, #10b981, #059669);
+            transition: width 0.6s ease;
         }
 
         /* ── Status badge ── */
@@ -492,7 +509,6 @@
 
         @media (max-width: 900px) {
             .summary-row { grid-template-columns: 1fr 1fr; }
-            .donut-box { display: none; }
             .chart-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 600px) {
@@ -525,6 +541,7 @@
         <div class="summary-row" id="summaryRow">
             <div class="loading" style="grid-column:1/-1">Cargando datos...</div>
         </div>
+        <div class="pass-rate-bar-wrap" id="passRateBar"></div>
     </div>
 
     <!-- Failure analysis -->
@@ -690,47 +707,17 @@ function updateSummary() {
         <div class="stat-box green"><div class="stat-value">${passed}</div><div class="stat-label">Passed</div></div>
         <div class="stat-box red"><div class="stat-value">${failed}</div><div class="stat-label">Failed</div></div>
         <div class="stat-box amber"><div class="stat-value">${durationMins}m</div><div class="stat-label">Duración</div></div>
-        <div class="donut-box">
-            <canvas id="summaryDonut" width="110" height="110"></canvas>
-        </div>
     `;
 
-    // Mini donut en summary
-    const dCtx = document.getElementById('summaryDonut').getContext('2d');
-    new Chart(dCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Passed', 'Failed'],
-            datasets: [{ data: [passed, failed],
-                backgroundColor: ['#10b981', '#ef4444'],
-                borderWidth: 0 }]
-        },
-        options: {
-            responsive: false,
-            cutout: '68%',
-            plugins: {
-                legend: { display: false },
-                tooltip: { enabled: true },
-            },
-            animation: { animateRotate: true }
-        },
-        plugins: [{
-            id: 'centerText',
-            beforeDraw(chart) {
-                const { ctx, width, height } = chart;
-                ctx.save();
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillStyle = '#111827';
-                ctx.font = 'bold 28px -apple-system, sans-serif';
-                ctx.fillText(`${passRate}%`, width / 2, height / 2 - 8);
-                ctx.fillStyle = '#9ca3af';
-                ctx.font = '11px -apple-system, sans-serif';
-                ctx.fillText('pass rate', width / 2, height / 2 + 14);
-                ctx.restore();
-            }
-        }]
-    });
+    document.getElementById('passRateBar').innerHTML = `
+        <div class="pass-rate-bar-meta">
+            <span>Pass rate</span>
+            <strong>${passRate}%</strong>
+        </div>
+        <div class="pass-rate-track">
+            <div class="pass-rate-fill" style="width:${passRate}%"></div>
+        </div>
+    `;
 }
 
 // ── Failure Groups ────────────────────────────────────────
