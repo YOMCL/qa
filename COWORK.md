@@ -19,7 +19,16 @@
 | **D — Tier 2** | C9, C10, C5, A2, A3 | ~20 min |
 | **FULL** | Todo lo anterior en orden | ~60 min |
 
-Una vez confirmado el modo, ejecuta **solo ese scope**. Al terminar, produce el bloque de Handoff (Sección 10).
+Una vez confirmado el modo, ejecuta **solo ese scope**.
+
+**Al terminar el modo, produce siempre este bloque de Handoff:**
+```
+HANDOFF — {CLIENTE} — Modo {A/B/C/D} — {FECHA}
+Completado: [C1 ✓/✗] [C2 ✓/✗] [C3 ✓/✗] [C7 N/A] [A1 ✓/✗]
+Issues encontrados: {lista de IDs o "ninguno"}
+SIGUIENTE MODO A EJECUTAR: {B / C / D / "completo — emitir veredicto final"}
+Contexto: {credenciales usadas, flags confirmados, estado del carrito}
+```
 
 **Si recibes un bloque HANDOFF junto con este documento:**
 1. Léelo primero
