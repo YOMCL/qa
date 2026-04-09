@@ -1,0 +1,873 @@
+{
+  "generatedAt": "2026-04-09T16:43:56.435757+00:00",
+  "total": 113,
+  "variables": {
+    "anonymousAccess": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "anonymousHideCart": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "anonymousHidePrice": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "blockedClientAlert.blockedClientAlertHtmlContent": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "blockedClientAlert.enableBlockedClientAlert": {
+      "clients": [
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "businessUnits": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "commerce.enableCreateCommerce": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "confirmCartText": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "contact.about": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "contact.branchesContactInformation": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "contact.email": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "contact.phone": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "disableCart": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "disableCommerceEdit": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "disableObservationInput": {
+      "clients": [
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "disablePayments": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "disableShowEstimatedDeliveryHour": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "disableSyncDate": {
+      "clients": [
+        "codelpa"
+      ],
+      "implemented": null
+    },
+    "disableWrongPrices": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "discountTypes.discountTypesList": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "discountTypes.enableOrderDiscountType": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "discountTypes.enableProductDiscountType": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "editAddress": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enableActivation": {
+      "clients": [
+        "codelpa"
+      ],
+      "implemented": null
+    },
+    "enableAskDeliveryDate": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enableBetaButtons": {
+      "clients": [
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enableChooseSaleUnit": {
+      "clients": [
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enableCoupons": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enableCreditNotes": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enableCreditStateMessage": {
+      "clients": [
+        "codelpa"
+      ],
+      "implemented": null
+    },
+    "enableDialogNoSellReason": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enableDistributionCentersSelector": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enableHome": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "enableInvoicesList": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enableMassiveOrderSend": {
+      "clients": [
+        "codelpa"
+      ],
+      "implemented": null
+    },
+    "enableNewUI": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enableOrderApproval": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enableOrderAproval": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "enableOrderValidation": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enablePaymentDocumentsB2B": {
+      "clients": [
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enablePayments": {
+      "clients": [
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enablePaymentsCollection": {
+      "clients": [
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enablePriceOracle": {
+      "clients": [
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enableSellerDiscount": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "enableTask": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "externalAccess": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "filterGroupedSuggestionsBy": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "flagFeatures.reactNativeOrderTaker": {
+      "clients": [
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "flagFeatures.reactNativeOrderTakerForAll": {
+      "clients": [
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "flagFeatures.reactNativeOrderTakerSellers": {
+      "clients": [
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "footerCustomContent.footerCustomHtmlContent": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "footerCustomContent.useFooterCustomContent": {
+      "clients": [
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "hasAllDistributionCenters": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "hasMultiUnitEnabled": {
+      "clients": [
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "hasMultipleBusinessUnit": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "hasNoSaleFilter": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "hasSingleDistributionCenter": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "hasStockEnabled": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "hasTransferPaymentType": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "hasTransportCode": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "hasVoucherPrinterEnabled": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "hidePrices": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "hideReceiptType": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "includeTaxRateInPrices": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "lazyLoadingPrices": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "limitAddingByStock": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "mustHaveOverride": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "orderPolicy.creditExceededStatus": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "orderPolicy.overdueDebtConfiguration.blockSettings.enabled": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "orderPolicy.overdueDebtConfiguration.blockSettings.thresholdDays": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "orderPolicy.overdueDebtConfiguration.retentionSettings.enabled": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "orderPolicy.overdueDebtConfiguration.retentionSettings.thresholdDays": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "orderPolicy.retainBelowMinimumOrder": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "orderPolicy.retainCreditBlockedCommerces": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "ordersRequireAuthorization": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "ordersRequireVerification": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "packaging.amountUsesUnits": {
+      "clients": [
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "packagingInformation.hidePackagingInformationB2B": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "packagingInformation.hideSingleItemPackagingInformationB2B": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "packagingInformation.ignoreUnitOnPackInformationB2B": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "payment.balances": {
+      "clients": [
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "payment.enableNewPaymentModule": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "payment.externalPayment": {
+      "clients": [
+        "marleycoffee"
+      ],
+      "implemented": null
+    },
+    "payment.requiresFullPayment": {
+      "clients": [
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "payment.walletEnabled": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "paymentsWithoutAccount": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "pendingDocuments": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "pointsEnabled": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "priceRoundingDecimals": {
+      "clients": [
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "productDetailViewConfiguration.tabsOrder": {
+      "clients": [
+        "codelpa",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "productList.enableSuggestionByCategories": {
+      "clients": [
+        "codelpa"
+      ],
+      "implemented": null
+    },
+    "productVariability": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "purchaseOrderEnabled": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "shareOrderNewDesign": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "shoppingDetail.lastOrder": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "showEmptyCategories": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "showMinOne": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "suggestions.enableSortingByCategories": {
+      "clients": [
+        "codelpa"
+      ],
+      "implemented": null
+    },
+    "synchronization.backgroundSyncList": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "synchronization.enableBackgroundSendOrders": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "synchronization.enableBackgroundSync": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "synchronization.enableSyncImages": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "taxes.showSummary": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "taxes.taxRate": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "taxes.useTaxRate": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "uploadOrderFileWithMinUnits": {
+      "clients": [
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "useMobileGps": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "useMongoPricing": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "useNewPromotions": {
+      "clients": [
+        "codelpa",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "validatePaymentFromAdmin": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "weightInfo": {
+      "clients": [
+        "codelpa",
+        "marleycoffee",
+        "new-soprole",
+        "prisa"
+      ],
+      "implemented": null
+    },
+    "wrongPrices.block": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    },
+    "wrongPrices.threshold": {
+      "clients": [
+        "new-soprole"
+      ],
+      "implemented": null
+    }
+  }
+}
