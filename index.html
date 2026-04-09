@@ -635,8 +635,9 @@
             <button class="filter-btn" onclick="filterB2bVars('unknown', this)" style="color:#92400e;border-color:#fcd34d">⚠️ Sin confirmar <span id="b2b-count-unknown" style="background:#fef3c7;border-radius:9999px;padding:1px 7px;font-size:11px;margin-left:3px;"></span></button>
             <button class="filter-btn" onclick="filterB2bVars('true', this)" style="color:#065f46;border-color:#6ee7b7">✅ Confirmada <span id="b2b-count-true" style="background:#d1fae5;border-radius:9999px;padding:1px 7px;font-size:11px;margin-left:3px;"></span></button>
             <button class="filter-btn" onclick="filterB2bVars('false', this)" style="color:#991b1b;border-color:#fca5a5">❌ No es B2B <span id="b2b-count-false" style="background:#fee2e2;border-radius:9999px;padding:1px 7px;font-size:11px;margin-left:3px;"></span></button>
-            <button class="filter-btn" onclick="filterB2bVars('backend', this)" style="color:#1e40af;border-color:#93c5fd">🔧 Backend <span id="b2b-count-backend" style="background:#dbeafe;border-radius:9999px;padding:1px 7px;font-size:11px;margin-left:3px;"></span></button>
-            <button class="filter-btn" onclick="filterB2bVars('stub', this)" style="color:#6b21a8;border-color:#d8b4fe">🚧 Stub <span id="b2b-count-stub" style="background:#f3e8ff;border-radius:9999px;padding:1px 7px;font-size:11px;margin-left:3px;"></span></button>
+            <button class="filter-btn" onclick="filterB2bVars('confirmed_manual', this)" style="color:#065f46;border-color:#6ee7b7">✅ Confirmada (dev) <span id="b2b-count-confirmed_manual" style="background:#d1fae5;border-radius:9999px;padding:1px 7px;font-size:11px;margin-left:3px;"></span></button>
+            <button class="filter-btn" onclick="filterB2bVars('not_exist', this)" style="color:#6b21a8;border-color:#d8b4fe">🚫 No existe <span id="b2b-count-not_exist" style="background:#f3e8ff;border-radius:9999px;padding:1px 7px;font-size:11px;margin-left:3px;"></span></button>
+            <button class="filter-btn" onclick="filterB2bVars('not_b2b', this)" style="color:#991b1b;border-color:#fca5a5">❌ No es B2B <span id="b2b-count-not_b2b" style="background:#fee2e2;border-radius:9999px;padding:1px 7px;font-size:11px;margin-left:3px;"></span></button>
             <input class="search-input" type="text" placeholder="Buscar variable..." oninput="searchB2bVars(this.value)" style="margin-left:auto;">
         </div>
 
@@ -1225,7 +1226,7 @@ let b2bVarsData = null;
 let b2bVarsFilter = 'all';
 let b2bVarsSearch = '';
 
-// Classifications stored in localStorage: { varName: { type: 'backend'|'stub', ticket: 'YOM-123' } }
+// Classifications stored in localStorage: { varName: { type: 'confirmed_manual'|'not_exist'|'not_b2b', ticket: 'YOM-123' } }
 function loadB2bClassifications() {
     try { return JSON.parse(localStorage.getItem('b2b-classifications') || '{}'); }
     catch { return {}; }
@@ -1290,8 +1291,9 @@ function classificationCell(varName, impl, classification) {
     const ticket = classification?.ticket || '';
     const opts = [
         ['', '— Sin clasificar —'],
-        ['backend', '🔧 Backend-controlada'],
-        ['stub', '🚧 Stub pendiente'],
+        ['confirmed_manual', '✅ Confirmada'],
+        ['not_exist', '🚫 No existe'],
+        ['not_b2b', '❌ No es B2B'],
     ];
     const sel = opts.map(([v, l]) =>
         `<option value="${v}" ${type === v ? 'selected' : ''}>${l}</option>`
@@ -1318,23 +1320,25 @@ function renderB2bVars() {
     const classifications = loadB2bClassifications();
 
     // Count by status
-    const counts = { all: entries.length, unknown: 0, true: 0, false: 0, backend: 0, stub: 0 };
+    const counts = { all: entries.length, unknown: 0, true: 0, false: 0, confirmed_manual: 0, not_exist: 0, not_b2b: 0 };
     entries.forEach(([name, v]) => {
         const cl = classifications[name];
         if (v.implemented === true)  { counts.true++; }
         else if (v.implemented === false) { counts.false++; }
         else {
             counts.unknown++;
-            if (cl?.type === 'backend') counts.backend++;
-            if (cl?.type === 'stub')    counts.stub++;
+            if (cl?.type === 'confirmed_manual') counts.confirmed_manual++;
+            if (cl?.type === 'not_exist')        counts.not_exist++;
+            if (cl?.type === 'not_b2b')          counts.not_b2b++;
         }
     });
-    document.getElementById('b2b-count-all').textContent     = counts.all;
-    document.getElementById('b2b-count-unknown').textContent = counts.unknown;
-    document.getElementById('b2b-count-true').textContent    = counts.true;
-    document.getElementById('b2b-count-false').textContent   = counts.false;
-    document.getElementById('b2b-count-backend').textContent = counts.backend;
-    document.getElementById('b2b-count-stub').textContent    = counts.stub;
+    document.getElementById('b2b-count-all').textContent              = counts.all;
+    document.getElementById('b2b-count-unknown').textContent          = counts.unknown;
+    document.getElementById('b2b-count-true').textContent             = counts.true;
+    document.getElementById('b2b-count-false').textContent            = counts.false;
+    document.getElementById('b2b-count-confirmed_manual').textContent = counts.confirmed_manual;
+    document.getElementById('b2b-count-not_exist').textContent        = counts.not_exist;
+    document.getElementById('b2b-count-not_b2b').textContent          = counts.not_b2b;
 
     // Filter + search
     const filtered = entries.filter(([name, v]) => {
@@ -1345,8 +1349,9 @@ function renderB2bVars() {
             (b2bVarsFilter === 'unknown'  && isUnknown) ||
             (b2bVarsFilter === 'true'     && v.implemented === true) ||
             (b2bVarsFilter === 'false'    && v.implemented === false) ||
-            (b2bVarsFilter === 'backend'  && isUnknown && cl?.type === 'backend') ||
-            (b2bVarsFilter === 'stub'     && isUnknown && cl?.type === 'stub');
+            (b2bVarsFilter === 'confirmed_manual' && isUnknown && cl?.type === 'confirmed_manual') ||
+            (b2bVarsFilter === 'not_exist'        && isUnknown && cl?.type === 'not_exist') ||
+            (b2bVarsFilter === 'not_b2b'          && isUnknown && cl?.type === 'not_b2b');
         const searchMatch = !b2bVarsSearch || name.toLowerCase().includes(b2bVarsSearch);
         return statusMatch && searchMatch;
     });
@@ -1354,8 +1359,9 @@ function renderB2bVars() {
     const statusBadge = (impl, cl) => {
         if (impl === true)  return '<span style="background:#d1fae5;color:#065f46;border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:500;">✅ Confirmada</span>';
         if (impl === false) return '<span style="background:#fee2e2;color:#991b1b;border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:500;">❌ No es B2B</span>';
-        if (cl?.type === 'backend') return '<span style="background:#dbeafe;color:#1e40af;border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:500;">🔧 Backend</span>';
-        if (cl?.type === 'stub')    return '<span style="background:#f3e8ff;color:#6b21a8;border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:500;">🚧 Stub</span>';
+        if (cl?.type === 'confirmed_manual') return '<span style="background:#d1fae5;color:#065f46;border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:500;">✅ Confirmada</span>';
+        if (cl?.type === 'not_exist')        return '<span style="background:#f3e8ff;color:#6b21a8;border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:500;">🚫 No existe</span>';
+        if (cl?.type === 'not_b2b')          return '<span style="background:#fee2e2;color:#991b1b;border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:500;">❌ No es B2B</span>';
         return '<span style="background:#fef3c7;color:#92400e;border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:500;">⚠️ Sin confirmar</span>';
     };
 
