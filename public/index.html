@@ -644,9 +644,9 @@
             <thead>
                 <tr>
                     <th>Variable MongoDB</th>
-                    <th style="width:260px;">Clientes (valor)</th>
-                    <th style="width:140px;text-align:center;">Estado en B2B</th>
-                    <th style="width:280px;">Clasificación dev</th>
+                    <th>Clientes (valor)</th>
+                    <th style="width:150px;text-align:center;">Estado en B2B</th>
+                    <th style="width:300px;">Clasificación dev</th>
                 </tr>
             </thead>
             <tbody id="b2bVarsBody">
@@ -1271,12 +1271,17 @@ async function loadB2bVariables() {
 }
 
 function clientValueTag(clientName, value) {
-    let display = value;
-    let bg = '#f3f4f6', color = '#374151';
-    if (value === true  || value === 'true')  { bg = '#d1fae5'; color = '#065f46'; display = '✓'; }
-    if (value === false || value === 'false') { bg = '#fee2e2'; color = '#991b1b'; display = '✗'; }
-    if (typeof value === 'string' && value.length > 12) display = value.slice(0, 10) + '…';
-    return `<span title="${escapeHtml(clientName)}: ${escapeHtml(String(value))}" style="background:${bg};color:${color};border-radius:4px;padding:1px 6px;font-size:11px;margin:1px;display:inline-block;cursor:default;">${escapeHtml(clientName)}&nbsp;<strong>${escapeHtml(String(display))}</strong></span>`;
+    let display, tooltip, bg = '#f3f4f6', color = '#374151';
+
+    if (value === true  || value === true)   { bg = '#d1fae5'; color = '#065f46'; display = '✓'; tooltip = 'true'; }
+    else if (value === false || value === false) { bg = '#fee2e2'; color = '#991b1b'; display = '✗'; tooltip = 'false'; }
+    else if (Array.isArray(value))           { display = `[${value.length}]`; tooltip = JSON.stringify(value).slice(0, 120); }
+    else if (value !== null && typeof value === 'object') { display = '{…}'; tooltip = JSON.stringify(value).slice(0, 120); }
+    else if (typeof value === 'string' && value.trim().startsWith('<')) { display = 'HTML'; tooltip = value.slice(0, 120); }
+    else if (typeof value === 'string' && value.length > 14) { display = value.slice(0, 12) + '…'; tooltip = value; }
+    else { display = String(value); tooltip = String(value); }
+
+    return `<span title="${escapeHtml(clientName + ': ' + tooltip)}" style="background:${bg};color:${color};border-radius:4px;padding:1px 6px;font-size:11px;margin:1px 2px;display:inline-block;cursor:default;white-space:nowrap;">${escapeHtml(clientName)}&nbsp;<strong>${escapeHtml(display)}</strong></span>`;
 }
 
 function classificationCell(varName, impl, classification) {
