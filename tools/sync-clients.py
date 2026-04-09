@@ -243,6 +243,41 @@ export default clients;
     return header + clients_section + footer
 
 
+def generate_b2b_variables_json(qa_matrix: dict, b2b_feature_map: dict) -> dict:
+    """Generate public/data/b2b-variables.json for the dashboard."""
+    SKIP_VARS = {"_id", "__v", "createdAt", "updatedAt", "domain", "customerId", "currency", "inMaintenance"}
+    HOOK_PREFIX = "hooks."
+
+    var_clients: dict = {}
+    for raw_key, client_data in qa_matrix.get("clients", {}).items():
+        client_key = raw_key.removesuffix("-staging")
+        for var in client_data.get("variables", {}):
+            if var in SKIP_VARS or var.startswith(HOOK_PREFIX):
+                continue
+            if var not in var_clients:
+                var_clients[var] = []
+            if client_key not in var_clients[var]:
+                var_clients[var].append(client_key)
+
+    variables = {}
+    for var in sorted(var_clients):
+        status = b2b_feature_map.get(var)
+        if status is None:
+            implemented = None  # unknown — pending review
+        else:
+            implemented = status  # True or False
+        variables[var] = {
+            "clients": sorted(var_clients[var]),
+            "implemented": implemented,
+        }
+
+    return {
+        "generatedAt": qa_matrix.get("extractedAt", datetime.now(timezone.utc).isoformat()),
+        "total": len(variables),
+        "variables": variables,
+    }
+
+
 def main():
     """Main entry point."""
     parser = argparse.ArgumentParser(description="Generate clients.ts from qa-matrix.json")
@@ -255,6 +290,7 @@ def main():
 
     print(f"Loading {args.input}...")
     qa_matrix = load_qa_matrix(args.input)
+    b2b_feature_map = load_b2b_feature_status()
 
     print(f"Generating clients.ts from {len(qa_matrix.get('clients', {}))} clients...")
     clients_ts = generate_clients_ts(qa_matrix)
@@ -262,7 +298,14 @@ def main():
     output_path = Path("tests/e2e/fixtures/clients.ts")
     output_path.write_text(clients_ts)
 
+    # Generate b2b-variables.json for dashboard
+    b2b_vars = generate_b2b_variables_json(qa_matrix, b2b_feature_map)
+    vars_path = Path("public/data/b2b-variables.json")
+    vars_path.parent.mkdir(parents=True, exist_ok=True)
+    vars_path.write_text(json.dumps(b2b_vars, indent=2))
+
     print(f"✅ Generated {output_path}")
+    print(f"✅ Generated {vars_path} ({b2b_vars['total']} variables)")
     print(f"   {len(qa_matrix.get('clients', {}))} clients")
     print(f"   Last sync: {qa_matrix.get('extractedAt', 'unknown')}")
 

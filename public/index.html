@@ -624,6 +624,34 @@
         <div id="pendingB2bContainer"></div>
     </div>
 
+    <!-- Variables B2B -->
+    <div class="card">
+        <div class="card-title">🔬 Variables B2B — Revisión de implementación</div>
+        <p style="color:#6b7280;font-size:13px;margin:0 0 14px;">Variables configuradas en MongoDB. Confirmar con el equipo de dev cuáles están implementadas en <code>YOMCL/b2b</code> y actualizar <code>data/b2b-feature-status.json</code>.</p>
+
+        <div class="filters-bar" style="margin-bottom:12px;">
+            <span class="filter-label">Estado:</span>
+            <button class="filter-btn active" onclick="filterB2bVars('all', this)">Todas <span id="b2b-count-all" style="background:#e5e7eb;border-radius:9999px;padding:1px 7px;font-size:11px;margin-left:3px;"></span></button>
+            <button class="filter-btn" onclick="filterB2bVars('unknown', this)" style="color:#92400e;border-color:#fcd34d">❓ Sin revisar <span id="b2b-count-unknown" style="background:#fef3c7;border-radius:9999px;padding:1px 7px;font-size:11px;margin-left:3px;"></span></button>
+            <button class="filter-btn" onclick="filterB2bVars('true', this)" style="color:#065f46;border-color:#6ee7b7">✅ Implementada <span id="b2b-count-true" style="background:#d1fae5;border-radius:9999px;padding:1px 7px;font-size:11px;margin-left:3px;"></span></button>
+            <button class="filter-btn" onclick="filterB2bVars('false', this)" style="color:#991b1b;border-color:#fca5a5">❌ No implementada <span id="b2b-count-false" style="background:#fee2e2;border-radius:9999px;padding:1px 7px;font-size:11px;margin-left:3px;"></span></button>
+            <input class="search-input" type="text" placeholder="Buscar variable..." oninput="searchB2bVars(this.value)" style="margin-left:auto;">
+        </div>
+
+        <table id="b2bVarsTable">
+            <thead>
+                <tr>
+                    <th>Variable MongoDB</th>
+                    <th style="width:220px;">Clientes</th>
+                    <th style="width:140px;text-align:center;">Estado en B2B</th>
+                </tr>
+            </thead>
+            <tbody id="b2bVarsBody">
+                <tr><td colspan="3" style="color:#9ca3af;text-align:center;padding:20px;">Cargando...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
     <!-- Test suites table -->
     <div class="card">
         <div class="card-title">📋 Test Suites</div>
@@ -1182,6 +1210,87 @@ function escapeHtml(str) {
 }
 
 document.addEventListener('DOMContentLoaded', initDashboard);
+
+// ── Variables B2B ─────────────────────────────────────────
+
+let b2bVarsData = null;
+let b2bVarsFilter = 'all';
+let b2bVarsSearch = '';
+
+async function loadB2bVariables() {
+    try {
+        const r = await fetch('data/b2b-variables.json?v=' + Date.now());
+        if (!r.ok) return;
+        b2bVarsData = await r.json();
+        renderB2bVars();
+    } catch (e) {
+        console.warn('b2b-variables.json not found', e);
+    }
+}
+
+function renderB2bVars() {
+    if (!b2bVarsData) return;
+    const vars = b2bVarsData.variables || {};
+    const entries = Object.entries(vars);
+
+    // Count by status
+    const counts = { all: entries.length, unknown: 0, true: 0, false: 0 };
+    entries.forEach(([, v]) => {
+        if (v.implemented === null || v.implemented === undefined) counts.unknown++;
+        else if (v.implemented === true) counts.true++;
+        else counts.false++;
+    });
+    document.getElementById('b2b-count-all').textContent = counts.all;
+    document.getElementById('b2b-count-unknown').textContent = counts.unknown;
+    document.getElementById('b2b-count-true').textContent = counts.true;
+    document.getElementById('b2b-count-false').textContent = counts.false;
+
+    // Filter + search
+    const filtered = entries.filter(([name, v]) => {
+        const statusMatch = b2bVarsFilter === 'all'
+            || (b2bVarsFilter === 'unknown' && (v.implemented === null || v.implemented === undefined))
+            || (b2bVarsFilter === 'true'    && v.implemented === true)
+            || (b2bVarsFilter === 'false'   && v.implemented === false);
+        const searchMatch = !b2bVarsSearch || name.toLowerCase().includes(b2bVarsSearch);
+        return statusMatch && searchMatch;
+    });
+
+    const statusBadge = (impl) => {
+        if (impl === true)  return '<span style="background:#d1fae5;color:#065f46;border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:500;">✅ Implementada</span>';
+        if (impl === false) return '<span style="background:#fee2e2;color:#991b1b;border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:500;">❌ No implementada</span>';
+        return '<span style="background:#fef3c7;color:#92400e;border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:500;">❓ Sin revisar</span>';
+    };
+
+    const body = document.getElementById('b2bVarsBody');
+    if (!filtered.length) {
+        body.innerHTML = '<tr><td colspan="3" style="color:#9ca3af;text-align:center;padding:20px;">Sin resultados</td></tr>';
+        return;
+    }
+    body.innerHTML = filtered.map(([name, v]) => `
+        <tr>
+            <td><code style="font-size:12px;">${escapeHtml(name)}</code></td>
+            <td>${(v.clients || []).map(c => `<span class="test-client-tag">${escapeHtml(c)}</span>`).join(' ')}</td>
+            <td style="text-align:center;">${statusBadge(v.implemented)}</td>
+        </tr>`).join('');
+}
+
+function filterB2bVars(filter, btn) {
+    b2bVarsFilter = filter;
+    document.querySelectorAll('.filters-bar .filter-btn').forEach(b => {
+        if (b.closest('#b2bVarsTable')?.previousElementSibling?.querySelector(`[onclick*="filterB2bVars"]`) || b.getAttribute('onclick')?.includes('filterB2bVars')) {
+            b.classList.remove('active');
+        }
+    });
+    btn.classList.add('active');
+    renderB2bVars();
+}
+
+function searchB2bVars(val) {
+    b2bVarsSearch = val.toLowerCase();
+    renderB2bVars();
+}
+
+document.addEventListener('DOMContentLoaded', loadB2bVariables);
 
 // ── Cowork Reports ────────────────────────────────────────
 
