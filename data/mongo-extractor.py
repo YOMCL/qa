@@ -8,6 +8,8 @@ as the single source of truth for the QA system.
 Usage:
     python data/mongo-extractor.py
     python data/mongo-extractor.py --cliente Soprole
+    python data/mongo-extractor.py --env staging
+    python data/mongo-extractor.py --env production
     python data/mongo-extractor.py --output custom-output.json
 
 Requires: pymongo[srv]
@@ -45,22 +47,23 @@ def _load_env():
 
 _load_env()
 
-MICRO_URI = os.environ.get("MONGO_MICRO_URI", "")
-LEGACY_URI = os.environ.get("MONGO_LEGACY_URI", "")
-INTEGRATIONS_URI = os.environ.get("MONGO_INTEGRATIONS_URI", "")
+def _get_uris(env: str):
+    """Return (legacy, micro, integrations) URIs for the given env."""
+    if env == "staging":
+        legacy = os.environ.get("MONGO_LEGACY_STAGING_URI", "")
+        micro  = os.environ.get("MONGO_MICRO_STAGING_URI", "")
+        integr = os.environ.get("MONGO_INTEGRATIONS_STAGING_URI", "")
+    else:  # production (default)
+        legacy = os.environ.get("MONGO_LEGACY_URI", "")
+        micro  = os.environ.get("MONGO_MICRO_URI", "")
+        integr = os.environ.get("MONGO_INTEGRATIONS_URI", "")
+    return legacy, micro, integr
 
-if not LEGACY_URI:
-    print("Error: MongoDB URIs not configured.", file=sys.stderr)
-    print("Create qa/.env with MONGO_LEGACY_URI (and optionally MONGO_MICRO_URI, MONGO_INTEGRATIONS_URI)", file=sys.stderr)
-    sys.exit(1)
-
-# MICRO_URI is optional; if not set, skip promotions/banners extraction
-if not MICRO_URI:
-    print("Warning: MONGO_MICRO_URI not configured. Skipping promotions/banners extraction.", file=sys.stderr)
-
-# INTEGRATIONS_URI is optional; if not set, skip segments/overrides extraction
-if not INTEGRATIONS_URI:
-    print("Warning: MONGO_INTEGRATIONS_URI not configured. Skipping segments/overrides extraction.", file=sys.stderr)
+# URIs are resolved after args are parsed (see bottom of file)
+# These are set as module-level vars for backwards compatibility
+LEGACY_URI = ""
+MICRO_URI = ""
+INTEGRATIONS_URI = ""
 
 # Real production clients (domain → display name)
 # Includes both production and staging variants
@@ -598,11 +601,15 @@ def extract(client_filter: Optional[str] = None, full_extract: bool = False, sta
         promotions_db = None
         marketing_db = None
 
-    # Try yom-production first (production), fallback to yom-staging (staging)
-    if "yom-production" in legacy_client.list_database_names():
+    # Production cluster uses yom-production, staging cluster uses yom-staging
+    available_dbs = legacy_client.list_database_names()
+    if "yom-production" in available_dbs:
         legacy_db = legacy_client["yom-production"]
-    else:
+    elif "yom-staging" in available_dbs:
         legacy_db = legacy_client["yom-staging"]
+    else:
+        print("Error: neither yom-production nor yom-staging found in cluster", file=sys.stderr)
+        sys.exit(1)
 
     # Get all sites
     sites = list(sites_db.sites.find({}))
@@ -752,7 +759,23 @@ def main():
                         help="Also extract products, commerces, promotions, orders, etc. (slower)")
     parser.add_argument("--staging", action="store_true",
                         help="Only extract staging clients (*.solopide.me), ignore production")
+    parser.add_argument("--env", type=str, choices=["production", "staging"], default="production",
+                        help="MongoDB environment to connect to (default: production)")
     args = parser.parse_args()
+
+    # Set module-level URIs based on --env
+    global LEGACY_URI, MICRO_URI, INTEGRATIONS_URI
+    LEGACY_URI, MICRO_URI, INTEGRATIONS_URI = _get_uris(args.env)
+
+    if not LEGACY_URI:
+        print(f"Error: MONGO_LEGACY{'_STAGING' if args.env == 'staging' else ''}_URI not configured in .env", file=sys.stderr)
+        sys.exit(1)
+    if not MICRO_URI:
+        print(f"Warning: MONGO_MICRO{'_STAGING' if args.env == 'staging' else ''}_URI not set. Skipping promotions/banners.", file=sys.stderr)
+    if not INTEGRATIONS_URI:
+        print(f"Warning: MONGO_INTEGRATIONS{'_STAGING' if args.env == 'staging' else ''}_URI not set. Skipping segments/overrides.", file=sys.stderr)
+
+    print(f"Connecting to MongoDB [{args.env.upper()}]...")
 
     # Adjust output path if staging
     output_path = args.output
