@@ -157,28 +157,64 @@ def download_b2b_source(token: str, refresh: bool = False) -> Path:
     return SOURCE_CACHE
 
 
-def search_in_local_source(var_name: str, source_dir: Path) -> tuple:
-    """Search for var_name in local b2b source. Returns (found, files)."""
+def extract_usestore_vars(source_dir: Path) -> dict:
+    """
+    Extract all variables/objects destructured from useStore() across the codebase.
+    Returns {varName: [files]} for every field that appears in:
+        const { foo, bar } = useStore();
+        const { foo: alias } = useStore();
+
+    This is the ground truth of what the B2B frontend actually reads from store config.
+    """
     src_path = source_dir / "src"
     if not src_path.exists():
         src_path = source_dir
 
-    search_term = var_name.split(".")[-1] if "." in var_name else var_name
-    pattern = re.compile(r'\b' + re.escape(search_term) + r'\b')
-    matches = []
+    # Match: const { foo, bar, baz: alias } = useStore();
+    destructure_pattern = re.compile(r'const\s*\{([^}]+)\}\s*=\s*useStore\(\)')
+    var_pattern = re.compile(r'(\w+)(?:\s*:\s*\w+)?')  # extracts original name before alias
 
+    var_files: dict = {}
     for ext in ("*.ts", "*.tsx"):
         for filepath in src_path.rglob(ext):
             if any(p in str(filepath) for p in ("__tests__", "__mocks__", ".test.", ".spec.", ".d.ts")):
                 continue
             try:
                 content = filepath.read_text(encoding="utf-8", errors="ignore")
-                if pattern.search(content):
-                    matches.append(str(filepath.relative_to(source_dir)))
+                rel = str(filepath.relative_to(source_dir))
+                for match in destructure_pattern.finditer(content):
+                    fields_str = match.group(1)
+                    for field_match in var_pattern.finditer(fields_str):
+                        field = field_match.group(1)
+                        if field not in var_files:
+                            var_files[field] = []
+                        if rel not in var_files[field]:
+                            var_files[field].append(rel)
             except Exception:
                 continue
 
-    return (len(matches) > 0, matches[:5])
+    return var_files
+
+
+def search_in_local_source(var_name: str, usestore_vars: dict) -> tuple:
+    """
+    Check if var_name is accessed via useStore() in b2b source.
+
+    For top-level vars (enablePayments): check if in usestore_vars directly.
+    For nested vars (payment.walletEnabled): check if the parent object (payment)
+    is in usestore_vars — meaning the component accesses the payment object
+    and could access sub-fields.
+    """
+    top = var_name.split(".")[0]
+
+    if var_name in usestore_vars:
+        return (True, usestore_vars[var_name][:5])
+
+    if top != var_name and top in usestore_vars:
+        # Parent object is destructured — sub-fields are accessible
+        return (True, usestore_vars[top][:5])
+
+    return (False, [])
 
 
 def extract_type_fields(content: str) -> set:
@@ -262,6 +298,10 @@ def main():
     store_fields = build_store_type_fields(token)
     source_dir = download_b2b_source(token, refresh=args.refresh_source)
 
+    print("🔎 Extracting useStore() destructuring from b2b source...")
+    usestore_vars = extract_usestore_vars(source_dir)
+    print(f"   → {len(usestore_vars)} variables/objects read via useStore(): {', '.join(sorted(usestore_vars.keys()))}\n")
+
     to_check = [v for v in variables if args.force or v not in cached_vars]
     already_cached = len(variables) - len(to_check)
     if already_cached:
@@ -286,7 +326,7 @@ def main():
             print(f"  ✗ {var} — not in Store type (skip)")
         else:
             # In Store type → check if frontend reads it
-            found, files = search_in_local_source(var, source_dir)
+            found, files = search_in_local_source(var, usestore_vars)
             if found:
                 # true → confirmed in frontend code
                 cached_vars[var] = {"implemented": True, "files": files}
