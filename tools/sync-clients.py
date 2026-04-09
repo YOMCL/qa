@@ -248,26 +248,25 @@ def generate_b2b_variables_json(qa_matrix: dict, b2b_feature_map: dict) -> dict:
     SKIP_VARS = {"_id", "__v", "createdAt", "updatedAt", "domain", "customerId", "currency", "inMaintenance"}
     HOOK_PREFIX = "hooks."
 
-    var_clients: dict = {}
+    # {var: {clientKey: value}} — actual value per client
+    var_client_values: dict = {}
     for raw_key, client_data in qa_matrix.get("clients", {}).items():
         client_key = raw_key.removesuffix("-staging")
-        for var in client_data.get("variables", {}):
+        for var, value in client_data.get("variables", {}).items():
             if var in SKIP_VARS or var.startswith(HOOK_PREFIX):
                 continue
-            if var not in var_clients:
-                var_clients[var] = []
-            if client_key not in var_clients[var]:
-                var_clients[var].append(client_key)
+            if var not in var_client_values:
+                var_client_values[var] = {}
+            var_client_values[var][client_key] = value
 
     variables = {}
-    for var in sorted(var_clients):
+    for var in sorted(var_client_values):
         status = b2b_feature_map.get(var)
-        if status is None:
-            implemented = None  # unknown — pending review
-        else:
-            implemented = status  # True or False
+        implemented = None if status is None else status
+        # Sort clients alphabetically, include actual value per client
+        client_values = {k: var_client_values[var][k] for k in sorted(var_client_values[var])}
         variables[var] = {
-            "clients": sorted(var_clients[var]),
+            "clients": client_values,
             "implemented": implemented,
         }
 

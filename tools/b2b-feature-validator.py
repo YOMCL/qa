@@ -212,23 +212,50 @@ def extract_usestore_vars(source_dir: Path) -> dict:
     return var_files
 
 
-def search_in_local_source(var_name: str, usestore_vars: dict) -> tuple:
+def search_nested_in_source(var_name: str, source_dir: Path) -> tuple:
     """
-    Check if var_name is accessed via useStore() in b2b source.
+    For nested vars like payment.walletEnabled, search for the exact dotted
+    access pattern `payment?.walletEnabled` or `payment.walletEnabled` in source files.
+    This avoids false positives from parent-object-in-useStore() heuristic.
+    """
+    parts = var_name.split(".", 1)
+    parent, field = parts[0], parts[1]
+    pattern = re.compile(r'\b' + re.escape(parent) + r'[\?\!]?\.' + re.escape(field) + r'\b')
 
-    For top-level vars (enablePayments): check if in usestore_vars directly.
-    For nested vars (payment.walletEnabled): check if the parent object (payment)
-    is in usestore_vars — meaning the component accesses the payment object
-    and could access sub-fields.
+    src_path = source_dir / "src"
+    if not src_path.exists():
+        src_path = source_dir
+
+    matches = []
+    for ext in ("*.ts", "*.tsx"):
+        for filepath in src_path.rglob(ext):
+            if any(p in str(filepath) for p in ("__tests__", "__mocks__", ".test.", ".spec.", ".d.ts")):
+                continue
+            try:
+                content = filepath.read_text(encoding="utf-8", errors="ignore")
+                if pattern.search(content):
+                    matches.append(str(filepath.relative_to(source_dir)))
+            except Exception:
+                continue
+    return (len(matches) > 0, matches[:5])
+
+
+def search_in_local_source(var_name: str, usestore_vars: dict, source_dir: Path) -> tuple:
     """
-    top = var_name.split(".")[0]
+    Check if var_name is used in b2b source.
+
+    Top-level vars (enablePayments):
+      → Check if explicitly destructured from useStore() or accessed as alias.prop
+
+    Nested vars (payment.walletEnabled):
+      → Search for exact dotted access pattern in source files
+      → DO NOT assume confirmed just because parent object is in useStore()
+    """
+    if "." in var_name:
+        return search_nested_in_source(var_name, source_dir)
 
     if var_name in usestore_vars:
         return (True, usestore_vars[var_name][:5])
-
-    if top != var_name and top in usestore_vars:
-        # Parent object is destructured — sub-fields are accessible
-        return (True, usestore_vars[top][:5])
 
     return (False, [])
 
@@ -342,7 +369,7 @@ def main():
             print(f"  ✗ {var} — not in Store type (skip)")
         else:
             # In Store type → check if frontend reads it
-            found, files = search_in_local_source(var, usestore_vars)
+            found, files = search_in_local_source(var, usestore_vars, source_dir)
             if found:
                 # true → confirmed in frontend code
                 cached_vars[var] = {"implemented": True, "files": files}
