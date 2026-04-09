@@ -33,7 +33,7 @@
       "clients": [
         "new-soprole"
       ],
-      "implemented": true
+      "implemented": false
     },
     "blockedClientAlert.enableBlockedClientAlert": {
       "clients": [
@@ -41,14 +41,14 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "businessUnits": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "commerce.enableCreateCommerce": {
       "clients": [
@@ -63,7 +63,7 @@
       "clients": [
         "new-soprole"
       ],
-      "implemented": true
+      "implemented": false
     },
     "contact.about": {
       "clients": [
@@ -104,7 +104,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "disableCommerceEdit": {
       "clients": [
@@ -113,7 +113,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "disableObservationInput": {
       "clients": [
@@ -128,7 +128,7 @@
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "disableShowEstimatedDeliveryHour": {
       "clients": [
@@ -137,40 +137,40 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "disableSyncDate": {
       "clients": [
         "codelpa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "disableWrongPrices": {
       "clients": [
         "new-soprole"
       ],
-      "implemented": true
+      "implemented": false
     },
     "discountTypes.discountTypesList": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "discountTypes.enableOrderDiscountType": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "discountTypes.enableProductDiscountType": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "editAddress": {
       "clients": [
@@ -179,7 +179,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "enableActivation": {
       "clients": [
@@ -194,7 +194,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "enableBetaButtons": {
       "clients": [
@@ -202,7 +202,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "enableChooseSaleUnit": {
       "clients": [
@@ -210,7 +210,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "enableCoupons": {
       "clients": [
@@ -219,14 +219,14 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "enableCreditNotes": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "enableCreditStateMessage": {
       "clients": [
@@ -241,7 +241,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "enableDistributionCentersSelector": {
       "clients": [
@@ -269,14 +269,14 @@
       "clients": [
         "codelpa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "enableNewUI": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "enableOrderApproval": {
       "clients": [
@@ -285,7 +285,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "enableOrderAproval": {
       "clients": [
@@ -300,7 +300,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "enablePaymentDocumentsB2B": {
       "clients": [
@@ -316,7 +316,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "enablePaymentsCollection": {
       "clients": [
@@ -324,7 +324,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "enablePriceOracle": {
       "clients": [
@@ -341,7 +341,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "enableTask": {
       "clients": [
@@ -350,7 +350,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "externalAccess": {
       "clients": [
@@ -366,7 +366,7 @@
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "flagFeatures.reactNativeOrderTaker": {
       "clients": [
@@ -398,7 +398,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "hasAllDistributionCenters": {
       "clients": [
@@ -406,7 +406,7 @@
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "hasMultiUnitEnabled": {
       "clients": [
@@ -421,7 +421,7 @@
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "hasNoSaleFilter": {
       "clients": [
@@ -429,7 +429,7 @@
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "hasSingleDistributionCenter": {
       "clients": [
@@ -438,7 +438,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "hasStockEnabled": {
       "clients": [
@@ -447,28 +447,28 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "hasTransferPaymentType": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "hasTransportCode": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "hasVoucherPrinterEnabled": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "hidePrices": {
       "clients": [
@@ -477,7 +477,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "hideReceiptType": {
       "clients": [
@@ -486,7 +486,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "includeTaxRateInPrices": {
       "clients": [
@@ -495,7 +495,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "lazyLoadingPrices": {
       "clients": [
@@ -504,14 +504,14 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "limitAddingByStock": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "mustHaveOverride": {
       "clients": [
@@ -568,7 +568,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "ordersRequireVerification": {
       "clients": [
@@ -577,7 +577,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "packaging.amountUsesUnits": {
       "clients": [
@@ -592,7 +592,7 @@
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "packagingInformation.hideSingleItemPackagingInformationB2B": {
       "clients": [
@@ -600,7 +600,7 @@
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "packagingInformation.ignoreUnitOnPackInformationB2B": {
       "clients": [
@@ -608,7 +608,7 @@
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "payment.balances": {
       "clients": [
@@ -616,7 +616,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "payment.enableNewPaymentModule": {
       "clients": [
@@ -625,13 +625,13 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "payment.externalPayment": {
       "clients": [
         "marleycoffee"
       ],
-      "implemented": true
+      "implemented": false
     },
     "payment.requiresFullPayment": {
       "clients": [
@@ -639,20 +639,20 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "payment.walletEnabled": {
       "clients": [
         "new-soprole"
       ],
-      "implemented": true
+      "implemented": false
     },
     "paymentsWithoutAccount": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "pendingDocuments": {
       "clients": [
@@ -670,7 +670,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "priceRoundingDecimals": {
       "clients": [
@@ -678,7 +678,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "productDetailViewConfiguration.tabsOrder": {
       "clients": [
@@ -686,7 +686,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "productList.enableSuggestionByCategories": {
       "clients": [
@@ -710,14 +710,14 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "shareOrderNewDesign": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "shoppingDetail.lastOrder": {
       "clients": [
@@ -726,7 +726,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "showEmptyCategories": {
       "clients": [
@@ -744,41 +744,41 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "suggestions.enableSortingByCategories": {
       "clients": [
         "codelpa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "synchronization.backgroundSyncList": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "synchronization.enableBackgroundSendOrders": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "synchronization.enableBackgroundSync": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "synchronization.enableSyncImages": {
       "clients": [
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "taxes.showSummary": {
       "clients": [
@@ -787,7 +787,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "taxes.taxRate": {
       "clients": [
@@ -796,7 +796,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "taxes.useTaxRate": {
       "clients": [
@@ -812,7 +812,7 @@
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "useMobileGps": {
       "clients": [
@@ -821,7 +821,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "useMongoPricing": {
       "clients": [
@@ -838,7 +838,7 @@
         "new-soprole",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "validatePaymentFromAdmin": {
       "clients": [
@@ -846,7 +846,7 @@
         "marleycoffee",
         "prisa"
       ],
-      "implemented": true
+      "implemented": false
     },
     "weightInfo": {
       "clients": [
@@ -861,13 +861,13 @@
       "clients": [
         "new-soprole"
       ],
-      "implemented": true
+      "implemented": false
     },
     "wrongPrices.threshold": {
       "clients": [
         "new-soprole"
       ],
-      "implemented": true
+      "implemented": false
     }
   }
 }
