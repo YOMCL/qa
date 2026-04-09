@@ -99,11 +99,11 @@
     "anonymousAccess": {
       "implemented": true,
       "files": [
-        "src/auth/guard/guest-guard.tsx",
         "src/app/(authenticated)/layout.tsx",
-        "src/lib/contexts/store/store-provider.tsx",
         "src/auth/context/jwt/auth-provider.tsx",
-        "src/lib/contexts/anonymous-access/anonymous-access-provider.tsx"
+        "src/auth/guard/guest-guard.tsx",
+        "src/lib/contexts/anonymous-access/anonymous-access-provider.tsx",
+        "src/lib/contexts/store/store-provider.tsx"
       ]
     },
     "anonymousHideCart": {
@@ -121,27 +121,28 @@
     "blockedClientAlert.blockedClientAlertHtmlContent": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "blockedClientAlert.enableBlockedClientAlert": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "businessUnits": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "confirmCartText": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "contact.about": {
       "implemented": true,
       "files": [
-        "src/app/(dashboard)/contact/_components/view.tsx"
+        "src/app/(dashboard)/contact/_components/view.tsx",
+        "src/components/footer/components/commerce-info.tsx"
       ]
     },
     "contact.branchesContactInformation": {
@@ -153,26 +154,32 @@
     "contact.email": {
       "implemented": true,
       "files": [
-        "src/app/(dashboard)/contact/_components/view.tsx"
+        "src/auth/types.ts",
+        "src/components/sections/auth/hooks/use-local-register-form.ts",
+        "src/components/sections/auth/hooks/use-auth-register.ts",
+        "src/components/sections/auth/hooks/use-local-login-form.ts",
+        "src/components/sections/auth/hooks/use-auth-login.ts"
       ]
     },
     "contact.phone": {
       "implemented": true,
       "files": [
-        "src/auth/guard/guest-guard.tsx",
-        "src/lib/hooks/use-no-delivery-date-message.ts",
-        "src/app/(dashboard)/contact/_components/view.tsx"
+        "src/components/sections/auth/hooks/use-user-info-validations.ts",
+        "src/components/sections/auth/hooks/use-user-info-custom-form.ts",
+        "src/components/sections/profile/hooks/use-profile-user.ts",
+        "src/components/sections/profile/hooks/use-user-info-form.ts",
+        "src/components/sections/profile/interfaces/user.ts"
       ]
     },
     "disableCart": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "disableCommerceEdit": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "disableObservationInput": {
       "implemented": true,
@@ -183,72 +190,72 @@
     "disablePayments": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "disableShowEstimatedDeliveryHour": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "disableSyncDate": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "disableWrongPrices": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "discountTypes.discountTypesList": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "discountTypes.enableOrderDiscountType": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "discountTypes.enableProductDiscountType": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "editAddress": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "enableAskDeliveryDate": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "enableBetaButtons": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "enableChooseSaleUnit": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "enableCoupons": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "enableCreditNotes": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "enableDialogNoSellReason": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "enableDistributionCentersSelector": {
       "implemented": true,
@@ -261,49 +268,48 @@
       "implemented": true,
       "files": [
         "src/app/(authenticated)/(documents)/layout.tsx",
-        "src/lib/routes/guards/external-order-guard.tsx",
-        "src/app/(authenticated)/(documents)/external-orders/guard/external-order-guard.tsx"
+        "src/app/(authenticated)/(documents)/external-orders/guard/external-order-guard.tsx",
+        "src/lib/routes/guards/external-order-guard.tsx"
       ]
     },
     "enableMassiveOrderSend": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "enableNewUI": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "enableOrderApproval": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "enableOrderValidation": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "enablePaymentDocumentsB2B": {
       "implemented": true,
       "files": [
-        "ai-specs/changes/YOM-210_frontend.md",
         "src/lib/hooks/use-upago-finance-portal-url.ts",
-        "src/components/minimals/layouts/common/account-popover.tsx",
+        "src/app/(authenticated)/(documents)/payment-documents/_components/view.tsx",
         "src/app/(authenticated)/(documents)/payment-documents/_components/sections/payment-table.tsx",
-        "src/app/(authenticated)/(documents)/payment-documents/_components/view.tsx"
+        "src/components/minimals/layouts/common/account-popover.tsx"
       ]
     },
     "enablePayments": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "enablePaymentsCollection": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "enablePriceOracle": {
       "implemented": true,
@@ -314,27 +320,27 @@
     "enableSellerDiscount": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "enableTask": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "externalAccess": {
       "implemented": true,
       "files": [
+        "src/components/sections/auth/hooks/use-user-info-validations.ts",
+        "src/components/sections/auth/hooks/use-user-info-custom-form.ts",
         "src/auth/guard/guest-guard.tsx",
         "src/components/sections/auth/components/user-info-default-form.tsx",
-        "src/components/sections/auth/hooks/use-user-info-custom-form.ts",
-        "src/components/sections/auth/components/user-info-form/distribution-fields.tsx",
-        "src/components/sections/auth/hooks/use-user-info-validations.ts"
+        "src/components/sections/auth/components/user-info-form/distribution-fields.tsx"
       ]
     },
     "filterGroupedSuggestionsBy": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "footerCustomContent.footerCustomHtmlContent": {
       "implemented": true,
@@ -345,136 +351,139 @@
     "footerCustomContent.useFooterCustomContent": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "hasAllDistributionCenters": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "hasMultiUnitEnabled": {
       "implemented": true,
       "files": [
-        "src/components/cards/product/cart/product-card-cart.tsx",
         "src/components/cards/product/utils/use-purchase-limit.ts",
         "src/components/cards/product/common/cart-interaction/cart-interaction.tsx",
-        "src/__tests__/components/cards/product/common/cart-interaction/cart-interaction.test.tsx"
+        "src/components/cards/product/cart/product-card-cart.tsx"
       ]
     },
     "hasMultipleBusinessUnit": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "hasNoSaleFilter": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "hasSingleDistributionCenter": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "hasStockEnabled": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "hasTransferPaymentType": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "hasTransportCode": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "hasVoucherPrinterEnabled": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "hidePrices": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "hideReceiptType": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "includeTaxRateInPrices": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "lazyLoadingPrices": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "limitAddingByStock": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "ordersRequireAuthorization": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "ordersRequireVerification": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "packagingInformation.hidePackagingInformationB2B": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "packagingInformation.hideSingleItemPackagingInformationB2B": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "packagingInformation.ignoreUnitOnPackInformationB2B": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "payment.balances": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "payment.enableNewPaymentModule": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "payment.externalPayment": {
-      "implemented": false,
-      "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "implemented": true,
+      "files": [
+        "src/app/(authenticated)/(documents)/layout.tsx",
+        "src/app/(authenticated)/(documents)/payment-documents/_components/sections/payment-table.tsx",
+        "src/app/(authenticated)/cart/_components/view.tsx",
+        "src/components/minimals/layouts/common/account-popover.tsx"
+      ]
     },
     "payment.requiresFullPayment": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "payment.walletEnabled": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "paymentsWithoutAccount": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "pendingDocuments": {
       "implemented": true,
@@ -485,138 +494,152 @@
     "pointsEnabled": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "priceRoundingDecimals": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "productDetailViewConfiguration.tabsOrder": {
-      "implemented": false,
-      "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "implemented": true,
+      "files": [
+        "src/app/(authenticated)/products/[uuid]/_components/sections/description/description-tabs/description-tabs.tsx"
+      ]
     },
     "productVariability": {
       "implemented": true,
       "files": [
         "src/lib/hooks/use-product-variability.ts",
-        "src/lib/hooks/fetcher-hooks/use-recommendations.tsx",
-        "src/lib/hooks/fetcher-hooks/catalog/use-catalog.tsx",
+        "src/lib/hooks/fetcher-hooks/catalog/use-catalog-count.ts",
         "src/components/cards/product/common/recommended-product-quantity.tsx",
-        "src/lib/hooks/fetcher-hooks/catalog/use-detail-product.tsx"
+        "src/lib/hooks/fetcher-hooks/use-recommendations.tsx",
+        "src/lib/hooks/fetcher-hooks/catalog/use-catalog.tsx"
       ]
     },
     "purchaseOrderEnabled": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "shareOrderNewDesign": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "shoppingDetail.lastOrder": {
-      "implemented": false,
-      "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "implemented": true,
+      "files": [
+        "src/app/(authenticated)/offers/_components/view.tsx",
+        "src/app/(authenticated)/_home/home-product-list.tsx"
+      ]
     },
     "showEmptyCategories": {
       "implemented": true,
       "files": [
-        "src/lib/hooks/fetcher-hooks/catalog/use-categories.tsx",
         "src/components/minimals/layouts/dashboard/nav-horizontal/nav-horizontal.tsx",
-        "src/components/minimals/layouts/dashboard/header/components/categories-drawer-content.tsx"
+        "src/components/minimals/layouts/dashboard/header/components/categories-drawer-content.tsx",
+        "src/lib/hooks/fetcher-hooks/catalog/use-categories.tsx"
       ]
     },
     "showMinOne": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "suggestions.enableSortingByCategories": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "synchronization.backgroundSyncList": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "synchronization.enableBackgroundSendOrders": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "synchronization.enableBackgroundSync": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "synchronization.enableSyncImages": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "taxes.showSummary": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "taxes.taxRate": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "taxes.useTaxRate": {
       "implemented": true,
       "files": [
-        "src/lib/utils/product/get-full-pricing-column.ts"
+        "src/lib/utils/product/get-full-pricing-column.ts",
+        "src/lib/hooks/use-product-pricing-calculator.ts",
+        "src/app/(authenticated)/products/[uuid]/_components/sections/description/common/steps/description-steps.tsx",
+        "src/app/(authenticated)/cart/_components/sections/cart-pricing-details.tsx",
+        "src/lib/contexts/cart/cart-provider.tsx"
       ]
     },
     "uploadOrderFileWithMinUnits": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "useMobileGps": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "useNewPromotions": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "validatePaymentFromAdmin": {
       "implemented": false,
       "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "weightInfo": {
-      "implemented": true,
-      "files": [
-        "src/lib/utils/product/has-weight-info.ts",
-        "src/lib/hooks/use-product-pricing-calculator.ts",
-        "src/lib/utils/product/get-weight-price-after-discount.ts",
-        "src/app/(authenticated)/products/[uuid]/_components/sections/description/common/description-info/description-info.tsx"
-      ]
+      "implemented": false,
+      "files": [],
+      "reason": "in @yomcl/types but not used in b2b@staging"
     },
     "wrongPrices.block": {
-      "implemented": false,
-      "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "implemented": true,
+      "files": [
+        "src/components/cards/product/common/cart-interaction/styles/styled-quantity-with-packaging.ts",
+        "src/components/cards/product/detail/image-gallery/styles/thumbnail-stack.ts",
+        "src/components/cards/product/catalog/info/info.tsx",
+        "src/components/cards/product/common/image.tsx",
+        "src/components/cards/product/cart/product-card-cart.tsx"
+      ]
     },
     "wrongPrices.threshold": {
-      "implemented": false,
-      "files": [],
-      "reason": "in @yomcl/types but not used in b2b code"
+      "implemented": true,
+      "files": [
+        "src/lib/hooks/use-intersection-observer.ts",
+        "src/lib/hooks/use-scroll-tracking.ts",
+        "src/components/carousels/product-carousel/product-carousel.tsx",
+        "src/components/cards/product/catalog/product-card/product-card.tsx",
+        "src/lib/utils/scroll-tracker.tsx"
+      ]
     }
   },
   "typesRepo": "YOMCL/monorepo",
-  "note": "Two-step: @yomcl/types Store type + YOMCL/b2b code search",
-  "generatedAt": "2026-04-09T19:07:08.788718+00:00"
+  "note": "Two-step: @yomcl/types Store type + local search in YOMCL/b2b@staging",
+  "generatedAt": "2026-04-09T19:36:44.149869+00:00",
+  "b2bBranch": "staging"
 }
