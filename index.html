@@ -62,7 +62,35 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            cursor: pointer;
+            user-select: none;
         }
+        .card-title:hover .card-collapse-arrow { color: #667eea; }
+        .card-collapse-arrow {
+            margin-left: auto;
+            font-size: 16px;
+            color: #9ca3af;
+            transition: transform 0.2s, color 0.15s;
+            flex-shrink: 0;
+        }
+        .card-collapse-arrow.collapsed { transform: rotate(-90deg); }
+        .card-body.collapsed { display: none; }
+        .card-open-btn {
+            font-size: 11px;
+            color: #9ca3af;
+            background: none;
+            border: 1px solid #e5e7eb;
+            border-radius: 5px;
+            padding: 2px 8px;
+            cursor: pointer;
+            margin-left: 4px;
+            transition: all 0.15s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .card-open-btn:hover { color: #667eea; border-color: #667eea; }
 
         /* ── Summary row ── */
         .summary-row {
@@ -704,6 +732,14 @@
     <div class="card">
         <div class="card-title">📋 Reportes QA Cowork</div>
         <div class="reports-grid" id="coworkReportsGrid">
+            <div class="loading">Cargando reportes...</div>
+        </div>
+    </div>
+
+    <!-- APP Tests (Maestro) -->
+    <div class="card">
+        <div class="card-title">📱 APP Tests (Maestro)</div>
+        <div class="reports-grid" id="appReportsGrid">
             <div class="loading">Cargando reportes...</div>
         </div>
     </div>
@@ -1440,6 +1476,112 @@ async function loadCoworkReports() {
 }
 
 document.addEventListener('DOMContentLoaded', loadCoworkReports);
+
+// ── APP Reports (Maestro) ─────────────────────────────────────
+
+async function loadAppReports() {
+    const grid = document.getElementById('appReportsGrid');
+    try {
+        const r = await fetch('app-reports/manifest.json?v=' + Date.now());
+        if (!r.ok) throw new Error('no manifest');
+        const data = await r.json();
+        const reports = (data.reports || []).sort((a, b) => b.date.localeCompare(a.date));
+        if (reports.length === 0) {
+            grid.innerHTML = '<p class="reports-empty">Sin reportes aún. Ejecuta <code>./tools/run-maestro.sh {cliente}</code> para generar el primero.</p>';
+            return;
+        }
+        grid.innerHTML = reports.map(rep => {
+            const verdictCls = rep.verdict === 'LISTO' ? 'verdict-listo'
+                : rep.verdict === 'CON OBSERVACIONES' ? 'verdict-condiciones'
+                : 'verdict-bloqueado';
+            const healthColor = rep.health >= 80 ? '#10b981' : rep.health >= 60 ? '#f59e0b' : '#ef4444';
+            return `<a class="report-card" href="app-reports/${rep.file}">
+                <div class="report-card-header">
+                    <div>
+                        <div class="report-client">${escapeHtml(rep.client)}</div>
+                        <div class="report-date">${rep.date}</div>
+                    </div>
+                    <div class="report-score" style="color:${healthColor}">${rep.health}<span>/100</span></div>
+                </div>
+                <div style="font-size:0.82em;color:#6b7280;margin-top:2px;">${rep.passed}/${rep.total} flows pasaron</div>
+                <span class="report-verdict ${verdictCls}">${rep.verdict}</span>
+            </a>`;
+        }).join('');
+    } catch {
+        grid.innerHTML = '<p class="reports-empty">Sin reportes aún. Ejecuta <code>./tools/run-maestro.sh {cliente}</code> para generar el primero.</p>';
+    }
+}
+document.addEventListener('DOMContentLoaded', loadAppReports);
+
+// ── Collapsible cards ──────────────────────────────────────
+function initCollapsibleCards() {
+    // Handle ?only=b2b focus mode
+    const focusMode = new URLSearchParams(location.search).get('only');
+
+    document.querySelectorAll('.card').forEach((card, i) => {
+        const title = card.querySelector('.card-title');
+        if (!title) return;
+
+        const cardId = card.id || `card-auto-${i}`;
+        if (!card.id) card.id = cardId;
+
+        // Wrap all children after title in card-body
+        const body = document.createElement('div');
+        body.className = 'card-body';
+        const children = Array.from(card.children).filter(el => el !== title);
+        children.forEach(el => body.appendChild(el));
+        card.appendChild(body);
+
+        // Add collapse arrow
+        const arrow = document.createElement('span');
+        arrow.className = 'card-collapse-arrow';
+        arrow.innerHTML = '▾';
+        title.appendChild(arrow);
+
+        // Restore or apply collapse state
+        const savedCollapsed = localStorage.getItem(`card-collapsed-${cardId}`) === 'true';
+        // In focus mode: collapse all cards except target
+        const shouldCollapse = focusMode
+            ? cardId !== 'b2bVarsCard'
+            : savedCollapsed;
+
+        if (shouldCollapse) {
+            body.classList.add('collapsed');
+            arrow.classList.add('collapsed');
+        }
+
+        title.addEventListener('click', (e) => {
+            // Don't collapse if clicking the open-btn
+            if (e.target.closest('.card-open-btn')) return;
+            const isCollapsed = body.classList.toggle('collapsed');
+            arrow.classList.toggle('collapsed', isCollapsed);
+            localStorage.setItem(`card-collapsed-${cardId}`, isCollapsed);
+        });
+    });
+
+    // Add "Abrir en pestaña" button to B2B vars card
+    const b2bCard = document.getElementById('b2bVarsCard');
+    if (b2bCard) {
+        const b2bTitle = b2bCard.querySelector('.card-title');
+        if (b2bTitle) {
+            const openBtn = document.createElement('a');
+            openBtn.className = 'card-open-btn';
+            openBtn.href = '?only=b2b';
+            openBtn.target = '_blank';
+            openBtn.title = 'Abrir Variables B2B en pestaña separada';
+            openBtn.innerHTML = '↗ Pestaña';
+            // Insert before the arrow
+            b2bTitle.insertBefore(openBtn, b2bTitle.querySelector('.card-collapse-arrow'));
+        }
+    }
+
+    // In focus mode, scroll to target and show only visible cards
+    if (focusMode === 'b2b') {
+        const target = document.getElementById('b2bVarsCard');
+        if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
+    }
+}
+document.addEventListener('DOMContentLoaded', initCollapsibleCards);
 </script>
 </body>
 </html>
