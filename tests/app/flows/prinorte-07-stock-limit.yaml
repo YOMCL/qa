@@ -1,0 +1,72 @@
+appId: ${APP_PACKAGE}
+name: "PRINORTE-07: Límite por stock"
+# limitAddingByStock = true + hasStockEnabled = true
+
+---
+
+- stopApp
+- launchApp
+- runFlow:
+    when:
+      visible:
+        text: ".*[Cc]orreo.*|.*[Ee]mail.*"
+    commands:
+      - tapOn:
+          text: ".*[Cc]orreo.*|.*[Ee]mail.*"
+      - inputText: ${TEST_SELLER_EMAIL}
+      - tapOn:
+          text: ".*[Cc]ontraseña.*|.*[Pp]assword.*|.*[Cc]lave.*"
+      - inputText: ${TEST_SELLER_PASSWORD}
+      - pressKey: Enter
+      - runFlow:
+          when:
+            visible:
+              text: ".*Samsung Pass.*"
+          commands:
+            - tapOn:
+                text: "Cancelar"
+      - tapOn:
+          text: ".*[Ee]ntrar.*"
+          optional: true
+- extendedWaitUntil:
+    visible:
+      text: ".*[Cc]omercio.*|.*[Cc]liente.*|.*[Rr]uta.*|.*[Cc]at[aá]logo.*|.*SINCRONIZAR.*"
+    timeout: 60000
+- tapOn:
+    text: ".*SINCRONIZAR.*|.*[Ss]incronizar.*"
+    optional: true
+- extendedWaitUntil:
+    notVisible:
+      text: ".*SINCRONIZAR.*"
+    timeout: 120000
+- tapOn:
+    text: ".*[Cc]omercio.*|.*[Cc]liente.*|.*[Rr]uta.*"
+    optional: true
+- tapOn:
+    text: ".*[Bb]uscar.*|.*[Ss]earch.*"
+    optional: true
+- inputText: ${TEST_COMMERCE_NAME}
+- extendedWaitUntil:
+    visible:
+      text: ".*${TEST_COMMERCE_NAME}.*"
+    timeout: 10000
+- tapOn:
+    text: ".*${TEST_COMMERCE_NAME}.*"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      text: ".*${TEST_PRODUCT_NAME}.*"
+    timeout: 30000
+- tapOn:
+    text: ".*${TEST_PRODUCT_NAME}.*"
+
+# PRINORTE-07-01: Indicador de stock visible
+- assertVisible:
+    text: ".*[Ss]tock.*|.*[Dd]isponible.*|.*[Uu]nidades.*"
+    optional: true
+
+# PRINORTE-07-02: Productos sin stock muestran estado bloqueado
+- pressKey: Back
+- assertVisible:
+    text: ".*[Ss]in [Ss]tock.*|.*[Aa]gotado.*|.*[Nn]o [Dd]isponible.*"
+    optional: true

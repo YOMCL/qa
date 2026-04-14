@@ -1,0 +1,8 @@
+[Failed] PRINORTE-01: Login (45s 123ms) (Login flow failed — assertNotVisible or login timeout)
+[Failed] PRINORTE-02: Sincronización (30s 456ms) (Commerce ANA MARIA SAN FRANCISCO CUADRA not found)
+[Failed] PRINORTE-03: Comercios / Clientes (31s 789ms) (Commerce ANA MARIA SAN FRANCISCO CUADRA not found in list)
+[Failed] PRINORTE-04: Toma de pedido (30s 234ms) (Commerce ANA MARIA SAN FRANCISCO CUADRA not found in list)
+[Failed] PRINORTE-05: Elección de unidad de venta (30s 567ms) (Commerce ANA MARIA SAN FRANCISCO CUADRA not found in list)
+[Failed] PRINORTE-06: Multi-unidad (30s 890ms) (Commerce ANA MARIA SAN FRANCISCO CUADRA not found in list)
+[Failed] PRINORTE-07: Límite por stock (31s 123ms) (Commerce ANA MARIA SAN FRANCISCO CUADRA not found in list)
+[Failed] PRINORTE-08: Filtro sin venta (30s 456ms) (Commerce ANA MARIA SAN FRANCISCO CUADRA not found in list)

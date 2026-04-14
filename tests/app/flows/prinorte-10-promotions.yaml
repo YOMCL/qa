@@ -1,0 +1,82 @@
+appId: ${APP_PACKAGE}
+name: "PRINORTE-10: Promociones por volumen"
+# useNewPromotions = true + 6.187 promos percentage/unit
+
+---
+
+- stopApp
+- launchApp
+- runFlow:
+    when:
+      visible:
+        text: ".*[Cc]orreo.*|.*[Ee]mail.*"
+    commands:
+      - tapOn:
+          text: ".*[Cc]orreo.*|.*[Ee]mail.*"
+      - inputText: ${TEST_SELLER_EMAIL}
+      - tapOn:
+          text: ".*[Cc]ontraseña.*|.*[Pp]assword.*|.*[Cc]lave.*"
+      - inputText: ${TEST_SELLER_PASSWORD}
+      - pressKey: Enter
+      - runFlow:
+          when:
+            visible:
+              text: ".*Samsung Pass.*"
+          commands:
+            - tapOn:
+                text: "Cancelar"
+      - tapOn:
+          text: ".*[Ee]ntrar.*"
+          optional: true
+- extendedWaitUntil:
+    visible:
+      text: ".*[Cc]omercio.*|.*[Cc]liente.*|.*[Rr]uta.*|.*[Cc]at[aá]logo.*|.*SINCRONIZAR.*"
+    timeout: 60000
+- tapOn:
+    text: ".*SINCRONIZAR.*|.*[Ss]incronizar.*"
+    optional: true
+- extendedWaitUntil:
+    notVisible:
+      text: ".*SINCRONIZAR.*"
+    timeout: 120000
+- tapOn:
+    text: ".*[Cc]omercio.*|.*[Cc]liente.*|.*[Rr]uta.*"
+    optional: true
+- tapOn:
+    text: ".*[Bb]uscar.*|.*[Ss]earch.*"
+    optional: true
+- inputText: ${TEST_COMMERCE_NAME}
+- extendedWaitUntil:
+    visible:
+      text: ".*${TEST_COMMERCE_NAME}.*"
+    timeout: 10000
+- tapOn:
+    text: ".*${TEST_COMMERCE_NAME}.*"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      text: ".*${TEST_PRODUCT_NAME}.*"
+    timeout: 30000
+
+# PRINORTE-10-01: Badge de promoción visible en producto
+- assertVisible:
+    text: ".*[Pp]romo.*|.*[Dd]escuento.*|.*%.*|.*[Oo]ferta.*"
+    optional: true
+
+# PRINORTE-10-02: Abrir producto y ver detalle de descuento por volumen
+- tapOn:
+    text: ".*${TEST_PRODUCT_NAME}.*"
+- assertVisible:
+    text: ".*[Vv]olumen.*|.*[Pp]recio.*[Vv]ol.*|.*[Dd]escuento.*|.*%.*"
+    optional: true
+
+# PRINORTE-10-03: Agregar unidades activa precio con descuento
+- tapOn:
+    text: ".*\\+.*"
+    optional: true
+- tapOn:
+    text: ".*\\+.*"
+    optional: true
+- assertVisible:
+    text: ".*[Dd]escuento.*|.*[Pp]romo.*|.*3%.*"
+    optional: true

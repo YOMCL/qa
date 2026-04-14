@@ -1,8 +1,13 @@
 appId: ${APP_PACKAGE}
+name: "PRINORTE-01: Login"
+
 ---
-# Solo pasos de login — clearState y launchApp los hace el master flow
+
+# Login una vez — los sub-tests comparten sesión
+- clearState
+- launchApp
 - tapOn:
-    text: ".*[Ee]mail.*|.*[Cc]orreo.*"
+    text: ".*[Cc]orreo.*|.*[Ee]mail.*"
 - inputText: ${TEST_SELLER_EMAIL}
 - tapOn:
     text: ".*[Cc]ontraseña.*|.*[Pp]assword.*|.*[Cc]lave.*"
@@ -20,5 +25,11 @@ appId: ${APP_PACKAGE}
     optional: true
 - extendedWaitUntil:
     visible:
-      text: ".*[Cc]omercio.*|.*[Cc]liente.*|.*[Rr]uta.*|.*[Ss]ync.*|.*[Cc]at[aá]logo.*|.*SINCRONIZAR.*"
+      text: ".*[Cc]omercio.*|.*[Cc]liente.*|.*[Rr]uta.*|.*[Cc]at[aá]logo.*|.*SINCRONIZAR.*"
     timeout: 60000
+
+# PRINORTE-01-02: Sin botones Google/Facebook
+- assertNotVisible:
+    text: ".*Google.*"
+- assertNotVisible:
+    text: ".*Facebook.*"

@@ -1,0 +1,49 @@
+appId: ${APP_PACKAGE}
+name: "PRINORTE-13: Formulario crear comercio — campo Región"
+
+---
+
+# Login condicional
+- stopApp
+- launchApp
+- runFlow:
+    when:
+      visible:
+        text: ".*[Cc]orreo.*|.*[Ee]mail.*"
+    commands:
+      - tapOn:
+          text: ".*[Cc]orreo.*|.*[Ee]mail.*"
+      - inputText: ${TEST_SELLER_EMAIL}
+      - tapOn:
+          text: ".*[Cc]ontraseña.*|.*[Pp]assword.*|.*[Cc]lave.*"
+      - inputText: ${TEST_SELLER_PASSWORD}
+      - pressKey: Enter
+- extendedWaitUntil:
+    visible:
+      text: ".*[Cc]omercio.*|.*[Cc]liente.*|.*[Rr]uta.*|.*[Cc]at[aá]logo.*|.*SINCRONIZAR.*"
+    timeout: 60000
+
+# PRINORTE-13-01: Botón crear comercio visible
+- assertVisible:
+    text: ".*[Cc]rear.*[Cc]omercio.*|.*[Cc]rear.*[Cc]liente.*|.*\\+.*[Cc]omercio.*"
+
+# PRINORTE-13-02: Abrir formulario
+- tapOn:
+    text: ".*[Cc]rear.*[Cc]omercio.*|.*[Cc]rear.*[Cc]liente.*|.*\\+.*[Cc]omercio.*"
+- extendedWaitUntil:
+    visible:
+      text: ".*[Rr][Uu][Tt].*|.*[Nn]ombre.*|.*[Rr]az[oó]n.*"
+    timeout: 15000
+
+# PRINORTE-13-03: Campo Región debe ser visible y funcional
+# BUG CONOCIDO: la lista de regiones no carga
+- assertVisible:
+    text: ".*[Rr]egi[oó]n.*"
+
+- tapOn:
+    text: ".*[Rr]egi[oó]n.*"
+
+- extendedWaitUntil:
+    visible:
+      text: ".*[Aa]ntofagasta.*|.*[Mm]etropolitana.*|.*[Vv]alparaíso.*|.*[Tt]arapac[aá].*"
+    timeout: 10000

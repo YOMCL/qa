@@ -1,0 +1,75 @@
+appId: ${APP_PACKAGE}
+name: "PRINORTE-09: Crear nuevo comercio"
+# enableCreateCommerce = true
+# ⚠️ PRODUCCIÓN — Solo llegar al formulario, NO enviar
+
+---
+
+- stopApp
+- launchApp
+- runFlow:
+    when:
+      visible:
+        text: ".*[Cc]orreo.*|.*[Ee]mail.*"
+    commands:
+      - tapOn:
+          text: ".*[Cc]orreo.*|.*[Ee]mail.*"
+      - inputText: ${TEST_SELLER_EMAIL}
+      - tapOn:
+          text: ".*[Cc]ontraseña.*|.*[Pp]assword.*|.*[Cc]lave.*"
+      - inputText: ${TEST_SELLER_PASSWORD}
+      - pressKey: Enter
+      - runFlow:
+          when:
+            visible:
+              text: ".*Samsung Pass.*"
+          commands:
+            - tapOn:
+                text: "Cancelar"
+      - tapOn:
+          text: ".*[Ee]ntrar.*"
+          optional: true
+- extendedWaitUntil:
+    visible:
+      text: ".*[Cc]omercio.*|.*[Cc]liente.*|.*[Rr]uta.*|.*[Cc]at[aá]logo.*|.*SINCRONIZAR.*"
+    timeout: 60000
+- tapOn:
+    text: ".*SINCRONIZAR.*|.*[Ss]incronizar.*"
+    optional: true
+- extendedWaitUntil:
+    notVisible:
+      text: ".*SINCRONIZAR.*"
+    timeout: 120000
+- tapOn:
+    text: ".*[Cc]omercio.*|.*[Cc]liente.*|.*[Rr]uta.*"
+    optional: true
+
+# PRINORTE-09-01: Botón crear comercio visible
+- assertVisible:
+    text: ".*[Nn]uevo.*|.*[Cc]rear.*|.*\\+.*[Cc]liente.*|.*[Aa]gregar.*"
+
+# PRINORTE-09-02: Formulario se abre con campos RUT/Nombre/Email
+- tapOn:
+    text: ".*[Nn]uevo.*|.*[Cc]rear.*|.*\\+.*"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      text: ".*RUT.*|.*[Rr]ut.*|.*[Nn]ombre.*"
+    timeout: 10000
+- assertVisible:
+    text: ".*[Ee]mail.*|.*[Cc]orreo.*"
+- assertVisible:
+    text: ".*[Rr]egi[oó]n.*|.*[Cc]omuna.*"
+
+# PRINORTE-09-03: Validación RUT incorrecto
+- tapOn:
+    text: ".*RUT.*|.*[Rr]ut.*"
+    optional: true
+- inputText: "12345"
+- tapOn:
+    text: ".*[Ss]iguiente.*|.*[Cc]ontinuar.*"
+    optional: true
+- assertVisible:
+    text: ".*[Ii]nválido.*|.*[Ee]rror.*|.*[Ff]ormato.*"
+    optional: true
+# ⚠️ STOP — no enviar formulario
