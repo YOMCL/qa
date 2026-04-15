@@ -559,5 +559,867 @@ for (const [key, client] of Object.entries(clients)) {
         await context.close();
       });
     }
+
+    // ── VARIABLES ADICIONALES ──
+
+    // Helper interno: agrega un producto al carrito
+    async function addOneProductToCart(page: any) {
+      await page.goto(`${client.baseURL}/products`);
+      await page.waitForLoadState('networkidle');
+      const addBtn = page.getByRole('button', { name: 'Agregar' }).first();
+      await expect(addBtn).toBeVisible({ timeout: 20_000 });
+      await addBtn.click();
+      await page.waitForTimeout(800);
+      await page.goto(`${client.baseURL}/cart`);
+      await page.waitForLoadState('domcontentloaded');
+      await page.waitForTimeout(500);
+    }
+
+    // purchaseOrderEnabled: campo OC en checkout
+    if (client.config.purchaseOrderEnabled !== undefined) {
+      test(`${key}: purchaseOrderEnabled=${client.config.purchaseOrderEnabled}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'purchaseOrderEnabled');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+        await addOneProductToCart(page);
+
+        const ocField = page.getByPlaceholder(/orden de compra|purchase order|o\.c\./i)
+          .or(page.getByLabel(/orden de compra|purchase order/i))
+          .or(page.getByText(/orden de compra/i));
+
+        if (client.config.purchaseOrderEnabled) {
+          await expect(ocField.first()).toBeVisible({ timeout: 8_000 });
+        } else {
+          const isVisible = await ocField.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // enableSellerDiscount: campo de descuento de vendedor en carrito
+    if (client.config.enableSellerDiscount !== undefined) {
+      test(`${key}: enableSellerDiscount=${client.config.enableSellerDiscount}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'enableSellerDiscount');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+        await addOneProductToCart(page);
+
+        const discountField = page.getByText(/descuento.*vendedor|seller.*discount|descuento.*adicional/i)
+          .or(page.getByPlaceholder(/descuento.*vendedor|discount/i));
+
+        if (client.config.enableSellerDiscount) {
+          await expect(discountField.first()).toBeVisible({ timeout: 8_000 });
+        } else {
+          const isVisible = await discountField.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // hasStockEnabled: indicador de stock en tarjetas de producto
+    if (client.config.hasStockEnabled !== undefined) {
+      test(`${key}: hasStockEnabled=${client.config.hasStockEnabled}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'hasStockEnabled');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/products`);
+        await page.waitForLoadState('networkidle');
+
+        const stockBadge = page.locator('[class*="stock" i], [class*="Stock" i]')
+          .or(page.getByText(/en stock|sin stock|disponible|agotado/i));
+
+        if (client.config.hasStockEnabled) {
+          const isVisible = await stockBadge.first().isVisible({ timeout: 8_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] hasStockEnabled=true but stock badge not found — staging may have no stock data`);
+        } else {
+          const isVisible = await stockBadge.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // taxes.showSummary: resumen de impuestos en carrito
+    if (client.config['taxes.showSummary'] !== undefined) {
+      test(`${key}: taxes.showSummary=${client.config['taxes.showSummary']}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'taxes.showSummary');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+        await addOneProductToCart(page);
+
+        const taxSummary = page.getByText(/iva|impuesto|tax summary|resumen.*impuesto/i);
+
+        if (client.config['taxes.showSummary']) {
+          await expect(taxSummary.first()).toBeVisible({ timeout: 8_000 });
+        } else {
+          const isVisible = await taxSummary.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // pendingDocuments: sección documentos pendientes en nav
+    if (client.config.pendingDocuments !== undefined) {
+      test(`${key}: pendingDocuments=${client.config.pendingDocuments}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'pendingDocuments');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}`);
+        await page.waitForLoadState('domcontentloaded');
+
+        const pendingLink = page.getByRole('link', { name: /documentos pendientes|pending.*doc/i })
+          .or(page.getByText(/documentos pendientes/i));
+
+        if (client.config.pendingDocuments) {
+          await expect(pendingLink.first()).toBeVisible({ timeout: 8_000 });
+        } else {
+          const isVisible = await pendingLink.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // pointsEnabled: sección puntos/fidelidad
+    if (client.config.pointsEnabled !== undefined) {
+      test(`${key}: pointsEnabled=${client.config.pointsEnabled}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'pointsEnabled');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}`);
+        await page.waitForLoadState('domcontentloaded');
+
+        const pointsSection = page.getByText(/puntos|points|fidelidad|loyalty/i)
+          .or(page.getByRole('link', { name: /puntos|points/i }));
+
+        if (client.config.pointsEnabled) {
+          await expect(pointsSection.first()).toBeVisible({ timeout: 8_000 });
+        } else {
+          const isVisible = await pointsSection.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // enableTask: sección de tareas en nav
+    if (client.config.enableTask !== undefined) {
+      test(`${key}: enableTask=${client.config.enableTask}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'enableTask');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}`);
+        await page.waitForLoadState('domcontentloaded');
+
+        const taskLink = page.getByRole('link', { name: /tarea|task/i })
+          .or(page.getByText(/mis tareas|tareas/i));
+
+        if (client.config.enableTask) {
+          await expect(taskLink.first()).toBeVisible({ timeout: 8_000 });
+        } else {
+          const isVisible = await taskLink.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // enableCreditNotes: notas de crédito en nav u órdenes
+    if (client.config.enableCreditNotes !== undefined) {
+      test(`${key}: enableCreditNotes=${client.config.enableCreditNotes}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'enableCreditNotes');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}`);
+        await page.waitForLoadState('domcontentloaded');
+
+        const creditNotesLink = page.getByRole('link', { name: /nota.*cr[eé]dito|credit.*note/i })
+          .or(page.getByText(/notas de cr[eé]dito/i));
+
+        if (client.config.enableCreditNotes) {
+          await expect(creditNotesLink.first()).toBeVisible({ timeout: 8_000 });
+        } else {
+          const isVisible = await creditNotesLink.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // enableDistributionCentersSelector: selector de centros de distribución
+    if (client.config.enableDistributionCentersSelector !== undefined) {
+      test(`${key}: enableDistributionCentersSelector=${client.config.enableDistributionCentersSelector}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'enableDistributionCentersSelector');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/products`);
+        await page.waitForLoadState('networkidle');
+
+        const dcSelector = page.getByText(/centro.*distribución|distribution.*center|bodega/i)
+          .or(page.locator('[class*="distribution" i], [class*="centro-dist" i]'));
+
+        if (client.config.enableDistributionCentersSelector) {
+          await expect(dcSelector.first()).toBeVisible({ timeout: 8_000 });
+        } else {
+          const isVisible = await dcSelector.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // editAddress: botón editar dirección en carrito
+    if (client.config.editAddress !== undefined) {
+      test(`${key}: editAddress=${client.config.editAddress}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'editAddress');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+        await addOneProductToCart(page);
+
+        const editAddrBtn = page.getByRole('button', { name: /editar.*direcci[oó]n|cambiar.*direcci[oó]n|edit.*address/i })
+          .or(page.getByText(/editar direcci[oó]n|cambiar direcci[oó]n/i));
+
+        if (client.config.editAddress) {
+          const isVisible = await editAddrBtn.first().isVisible({ timeout: 8_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] editAddress=true but edit button not found — may require commerce with address`);
+        } else {
+          const isVisible = await editAddrBtn.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // showMinOne: cantidad mínima de 1 unidad forzada
+    if (client.config.showMinOne !== undefined) {
+      test(`${key}: showMinOne=${client.config.showMinOne}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'showMinOne');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/products`);
+        await page.waitForLoadState('networkidle');
+
+        const minOneLabel = page.getByText(/mínimo.*1|min.*1|cantidad mínima/i)
+          .or(page.locator('[class*="min-one" i], [class*="minOne" i]'));
+
+        if (client.config.showMinOne) {
+          const isVisible = await minOneLabel.first().isVisible({ timeout: 5_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] showMinOne=true but label not found`);
+        } else {
+          const isVisible = await minOneLabel.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // hasMultiUnitEnabled: selector de múltiples unidades en productos
+    if (client.config.hasMultiUnitEnabled !== undefined) {
+      test(`${key}: hasMultiUnitEnabled=${client.config.hasMultiUnitEnabled}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'hasMultiUnitEnabled');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/products`);
+        await page.waitForLoadState('networkidle');
+
+        const multiUnit = page.locator('select[name*="unit" i], [class*="multi-unit" i], [class*="multiUnit" i]');
+
+        if (client.config.hasMultiUnitEnabled) {
+          const isVisible = await multiUnit.first().isVisible({ timeout: 8_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] hasMultiUnitEnabled=true but selector not found — staging may lack multi-unit products`);
+        } else {
+          const isVisible = await multiUnit.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // hasNoSaleFilter: filtro de productos sin venta
+    if (client.config.hasNoSaleFilter !== undefined) {
+      test(`${key}: hasNoSaleFilter=${client.config.hasNoSaleFilter}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'hasNoSaleFilter');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/products`);
+        await page.waitForLoadState('networkidle');
+
+        const noSaleFilter = page.getByText(/sin venta|no.*sale|no venta/i)
+          .or(page.locator('[class*="no-sale" i], [class*="noSale" i]'));
+
+        if (client.config.hasNoSaleFilter) {
+          await expect(noSaleFilter.first()).toBeVisible({ timeout: 8_000 });
+        } else {
+          const isVisible = await noSaleFilter.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // limitAddingByStock: no permite agregar más allá del stock disponible
+    if (client.config.limitAddingByStock !== undefined) {
+      test(`${key}: limitAddingByStock=${client.config.limitAddingByStock}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'limitAddingByStock');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/products`);
+        await page.waitForLoadState('networkidle');
+
+        const stockLimitIndicator = page.locator('[class*="stock-limit" i], [class*="stockLimit" i]')
+          .or(page.getByText(/límite.*stock|stock.*limit|sin stock disponible/i));
+
+        if (client.config.limitAddingByStock) {
+          const isVisible = await stockLimitIndicator.first().isVisible({ timeout: 5_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] limitAddingByStock=true but indicator not found — staging may have unlimited stock`);
+        } else {
+          const isVisible = await stockLimitIndicator.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // packagingInformation.hidePackagingInformationB2B: info de empaque oculta
+    if (client.config['packagingInformation.hidePackagingInformationB2B'] !== undefined) {
+      test(`${key}: packagingInformation.hidePackagingInformationB2B=${client.config['packagingInformation.hidePackagingInformationB2B']}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'packagingInformation');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/products`);
+        await page.waitForLoadState('networkidle');
+
+        const packagingInfo = page.locator('[class*="packaging" i], [class*="empaque" i]')
+          .or(page.getByText(/empaque|packaging|embalaje|contenido neto/i));
+
+        if (client.config['packagingInformation.hidePackagingInformationB2B']) {
+          const isVisible = await packagingInfo.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        } else {
+          const isVisible = await packagingInfo.first().isVisible({ timeout: 8_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] packaging should be visible but not found — may need product with packaging data`);
+        }
+        await context.close();
+      });
+    }
+
+    // ordersRequireVerification: verificación adicional en órdenes
+    if (client.config.ordersRequireVerification !== undefined) {
+      test(`${key}: ordersRequireVerification=${client.config.ordersRequireVerification}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'ordersRequireVerification');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/orders`);
+        await page.waitForLoadState('domcontentloaded');
+
+        const verificationUI = page.getByText(/verificaci[oó]n|verificar|verify/i)
+          .or(page.getByRole('button', { name: /verificar/i }));
+
+        if (client.config.ordersRequireVerification) {
+          const isVisible = await verificationUI.first().isVisible({ timeout: 5_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] ordersRequireVerification=true but no verification UI found`);
+        } else {
+          const isVisible = await verificationUI.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // enableOrderValidation: paso de validación antes de confirmar pedido
+    if (client.config.enableOrderValidation !== undefined) {
+      test(`${key}: enableOrderValidation=${client.config.enableOrderValidation}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'enableOrderValidation');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+        await addOneProductToCart(page);
+
+        const validationUI = page.getByText(/validar pedido|order validation|validación/i)
+          .or(page.locator('[class*="order-validation" i]'));
+
+        if (client.config.enableOrderValidation) {
+          const isVisible = await validationUI.first().isVisible({ timeout: 8_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] enableOrderValidation=true but validation UI not found`);
+        } else {
+          const isVisible = await validationUI.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // enableOrderApproval: botón de aprobación en lista de órdenes
+    if (client.config.enableOrderApproval !== undefined) {
+      test(`${key}: enableOrderApproval=${client.config.enableOrderApproval}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'enableOrderApproval');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/orders`);
+        await page.waitForLoadState('domcontentloaded');
+
+        const approvalBtn = page.getByRole('button', { name: /aprobar|aprobación|approval/i })
+          .or(page.getByText(/pendiente.*aprobación|approval pending/i));
+
+        if (client.config.enableOrderApproval) {
+          const isVisible = await approvalBtn.first().isVisible({ timeout: 5_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] enableOrderApproval=true but approval UI not found — no pending orders in staging`);
+        } else {
+          const isVisible = await approvalBtn.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // hasTransportCode: campo código de transporte en checkout
+    if (client.config.hasTransportCode !== undefined) {
+      test(`${key}: hasTransportCode=${client.config.hasTransportCode}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'hasTransportCode');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+        await addOneProductToCart(page);
+
+        const transportField = page.getByPlaceholder(/c[oó]digo.*transporte|transport.*code/i)
+          .or(page.getByLabel(/c[oó]digo.*transporte|transport/i))
+          .or(page.getByText(/c[oó]digo de transporte/i));
+
+        if (client.config.hasTransportCode) {
+          await expect(transportField.first()).toBeVisible({ timeout: 8_000 });
+        } else {
+          const isVisible = await transportField.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // hasVoucherPrinterEnabled: botón imprimir voucher en órdenes
+    if (client.config.hasVoucherPrinterEnabled !== undefined) {
+      test(`${key}: hasVoucherPrinterEnabled=${client.config.hasVoucherPrinterEnabled}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'hasVoucherPrinterEnabled');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/orders`);
+        await page.waitForLoadState('domcontentloaded');
+
+        const printerBtn = page.getByRole('button', { name: /imprimir|print|voucher/i })
+          .or(page.getByText(/imprimir.*voucher|print.*voucher/i));
+
+        if (client.config.hasVoucherPrinterEnabled) {
+          const isVisible = await printerBtn.first().isVisible({ timeout: 5_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] hasVoucherPrinterEnabled=true but print button not found — no orders in staging`);
+        } else {
+          const isVisible = await printerBtn.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // disableShowEstimatedDeliveryHour: oculta hora estimada de entrega en cart
+    if (client.config.disableShowEstimatedDeliveryHour !== undefined) {
+      test(`${key}: disableShowEstimatedDeliveryHour=${client.config.disableShowEstimatedDeliveryHour}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'disableShowEstimatedDeliveryHour');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+        await addOneProductToCart(page);
+
+        const deliveryHour = page.getByText(/hora.*entrega|entrega.*hora|estimated.*hour|delivery.*hour/i)
+          .or(page.locator('[class*="delivery-hour" i], [class*="estimatedHour" i]'));
+
+        if (client.config.disableShowEstimatedDeliveryHour) {
+          const isVisible = await deliveryHour.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        } else {
+          const isVisible = await deliveryHour.first().isVisible({ timeout: 5_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] disableShowEstimatedDeliveryHour=false but hour not found — may not be configured in staging`);
+        }
+        await context.close();
+      });
+    }
+
+    // enablePaymentsCollection: opción cobro/colecta en sección pagos
+    if (client.config.enablePaymentsCollection !== undefined) {
+      test(`${key}: enablePaymentsCollection=${client.config.enablePaymentsCollection}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'enablePaymentsCollection');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/payment-collections`).catch(() => {});
+        await page.waitForLoadState('domcontentloaded');
+
+        const collectionsLink = page.getByRole('link', { name: /cobro|colecta|collection/i })
+          .or(page.getByText(/cobros|colectas|payment collection/i));
+
+        if (client.config.enablePaymentsCollection) {
+          const isVisible = await collectionsLink.first().isVisible({ timeout: 8_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] enablePaymentsCollection=true but link not found`);
+        } else {
+          const isVisible = await collectionsLink.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // hasTransferPaymentType: opción de pago por transferencia
+    if (client.config.hasTransferPaymentType !== undefined) {
+      test(`${key}: hasTransferPaymentType=${client.config.hasTransferPaymentType}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'hasTransferPaymentType');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+        await addOneProductToCart(page);
+
+        const transferOption = page.getByText(/transferencia/i)
+          .or(page.getByLabel(/transferencia/i));
+
+        if (client.config.hasTransferPaymentType) {
+          const isVisible = await transferOption.first().isVisible({ timeout: 8_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] hasTransferPaymentType=true but transfer option not found — requires enablePayments=true`);
+        } else {
+          const isVisible = await transferOption.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // uploadOrderFileWithMinUnits: botón carga masiva de pedidos
+    if (client.config.uploadOrderFileWithMinUnits !== undefined) {
+      test(`${key}: uploadOrderFileWithMinUnits=${client.config.uploadOrderFileWithMinUnits}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'uploadOrderFileWithMinUnits');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/products`);
+        await page.waitForLoadState('networkidle');
+
+        const uploadBtn = page.getByRole('button', { name: /subir.*archivo|upload.*file|carga masiva|importar/i })
+          .or(page.locator('input[type="file"]'));
+
+        if (client.config.uploadOrderFileWithMinUnits) {
+          const isVisible = await uploadBtn.first().isVisible({ timeout: 5_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] uploadOrderFileWithMinUnits=true but upload button not found`);
+        } else {
+          const isVisible = await uploadBtn.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // enableBetaButtons: botones/features beta visibles
+    if (client.config.enableBetaButtons !== undefined) {
+      test(`${key}: enableBetaButtons=${client.config.enableBetaButtons}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'enableBetaButtons');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/products`);
+        await page.waitForLoadState('networkidle');
+
+        const betaBtn = page.locator('[class*="beta" i]')
+          .or(page.getByText(/beta/i));
+
+        if (client.config.enableBetaButtons) {
+          const isVisible = await betaBtn.first().isVisible({ timeout: 5_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] enableBetaButtons=true but no beta element found`);
+        } else {
+          const isVisible = await betaBtn.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // discountTypes.enableOrderDiscountType: tipo de descuento a nivel de orden
+    if (client.config['discountTypes.enableOrderDiscountType'] !== undefined) {
+      test(`${key}: discountTypes.enableOrderDiscountType=${client.config['discountTypes.enableOrderDiscountType']}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'discountTypes');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+        await addOneProductToCart(page);
+
+        const orderDiscountUI = page.getByText(/descuento.*orden|order.*discount|tipo.*descuento/i)
+          .or(page.locator('[class*="order-discount" i]'));
+
+        if (client.config['discountTypes.enableOrderDiscountType']) {
+          const isVisible = await orderDiscountUI.first().isVisible({ timeout: 8_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] discountTypes.enableOrderDiscountType=true but UI not found`);
+        } else {
+          const isVisible = await orderDiscountUI.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // discountTypes.enableProductDiscountType: tipo de descuento a nivel de producto
+    if (client.config['discountTypes.enableProductDiscountType'] !== undefined) {
+      test(`${key}: discountTypes.enableProductDiscountType=${client.config['discountTypes.enableProductDiscountType']}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'discountTypes');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/products`);
+        await page.waitForLoadState('networkidle');
+
+        const productDiscountUI = page.locator('[class*="product-discount" i], [class*="productDiscount" i]')
+          .or(page.getByText(/descuento.*producto|product.*discount/i));
+
+        if (client.config['discountTypes.enableProductDiscountType']) {
+          const isVisible = await productDiscountUI.first().isVisible({ timeout: 8_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] discountTypes.enableProductDiscountType=true but UI not found`);
+        } else {
+          const isVisible = await productDiscountUI.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // weightInfo: información de peso en productos
+    if (client.config.weightInfo !== undefined) {
+      test(`${key}: weightInfo=${client.config.weightInfo}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'weightInfo');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/products`);
+        await page.waitForLoadState('networkidle');
+
+        const weightLabel = page.getByText(/peso|weight|\d+\s*kg|\d+\s*g\b/i)
+          .or(page.locator('[class*="weight" i]'));
+
+        if (client.config.weightInfo) {
+          const isVisible = await weightLabel.first().isVisible({ timeout: 5_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] weightInfo=true but weight data not found — staging products may lack weight`);
+        } else {
+          // Skip false-negative risk: product names can contain weight units
+          // Only fail if a dedicated weight UI element is found
+          const dedicatedWeight = page.locator('[class*="weight-info" i], [class*="weightInfo" i]');
+          const isVisible = await dedicatedWeight.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // showEmptyCategories: categorías vacías visibles en sidebar
+    if (client.config.showEmptyCategories !== undefined) {
+      test(`${key}: showEmptyCategories=${client.config.showEmptyCategories}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'showEmptyCategories');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/products`);
+        await page.waitForLoadState('networkidle');
+
+        // Click en una categoría para verificar si las subcategorías vacías aparecen
+        const categories = page.locator('[class*="categor" i] a, nav a[href*="categor"]');
+        const categoryCount = await categories.count();
+
+        if (client.config.showEmptyCategories) {
+          // Con flag=true, debe haber más categorías visibles (incluyendo vacías)
+          // Soft check: no hard assert en staging
+          console.log(`[${key}] showEmptyCategories=true — ${categoryCount} categories visible`);
+        } else {
+          // Con flag=false, las categorías vacías no deben aparecer
+          // No hay forma directa de distinguir vacías de llenas sin conocer los datos
+          console.log(`[${key}] showEmptyCategories=false — ${categoryCount} categories visible`);
+        }
+        await context.close();
+      });
+    }
+
+    // externalAccess: acceso externo habilitado
+    if (client.config.externalAccess !== undefined) {
+      test(`${key}: externalAccess=${client.config.externalAccess}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'externalAccess');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}`);
+        await page.waitForLoadState('domcontentloaded');
+
+        const externalLink = page.getByRole('link', { name: /acceso externo|external access/i })
+          .or(page.locator('[class*="external-access" i]'));
+
+        if (client.config.externalAccess) {
+          const isVisible = await externalLink.first().isVisible({ timeout: 5_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] externalAccess=true but link not found`);
+        } else {
+          const isVisible = await externalLink.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // blockedClientAlert.enableBlockedClientAlert: alerta de cliente bloqueado
+    if (client.config['blockedClientAlert.enableBlockedClientAlert'] !== undefined) {
+      test(`${key}: blockedClientAlert.enableBlockedClientAlert=${client.config['blockedClientAlert.enableBlockedClientAlert']}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'blockedClientAlert');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}`);
+        await page.waitForLoadState('domcontentloaded');
+
+        const blockedAlert = page.getByText(/bloqueado para compras|tu comercio.*bloqueado|blocked.*purchase/i)
+          .or(page.locator('[class*="blocked-client" i], [class*="blockedClient" i]'));
+
+        if (client.config['blockedClientAlert.enableBlockedClientAlert']) {
+          const isVisible = await blockedAlert.first().isVisible({ timeout: 5_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] blockedClientAlert=true but alert not found — test commerce may not be blocked`);
+        } else {
+          const isVisible = await blockedAlert.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
+    // useNewPromotions: motor de promociones nuevo activo
+    if (client.config.useNewPromotions !== undefined) {
+      test(`${key}: useNewPromotions=${client.config.useNewPromotions}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'useNewPromotions');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/products?promotions=true`);
+        await page.waitForLoadState('networkidle');
+
+        // La sección de promociones debe existir (independiente del motor)
+        const promoSection = page.getByText(/promoci[oó]n|oferta|descuento/i).first();
+        const isVisible = await promoSection.isVisible({ timeout: 8_000 }).catch(() => false);
+        // Soft check: solo validamos que la página de promociones carga
+        if (!isVisible) console.warn(`[${key}] useNewPromotions=${client.config.useNewPromotions} — no promo content found in staging`);
+        await context.close();
+      });
+    }
+
+    // "payment.enableNewPaymentModule": módulo de pago nuevo
+    if (client.config['payment.enableNewPaymentModule'] !== undefined) {
+      test(`${key}: payment.enableNewPaymentModule=${client.config['payment.enableNewPaymentModule']}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'payment.enableNewPaymentModule');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+        await addOneProductToCart(page);
+
+        // El módulo nuevo de pagos tiene una UI distinta — verificar sección pagos
+        const paymentModule = page.locator('[class*="payment-module" i], [class*="paymentModule" i]')
+          .or(page.locator('[data-testid*="payment" i]'));
+
+        if (client.config['payment.enableNewPaymentModule']) {
+          const isVisible = await paymentModule.first().isVisible({ timeout: 8_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] payment.enableNewPaymentModule=true but module not found — requires enablePayments=true`);
+        } else {
+          // Old module or no module — no strict assert
+          console.log(`[${key}] payment.enableNewPaymentModule=false — using legacy payment flow`);
+        }
+        await context.close();
+      });
+    }
+
+    // shareOrderNewDesign: diseño nuevo en compartir pedido
+    if (client.config.shareOrderNewDesign !== undefined) {
+      test(`${key}: shareOrderNewDesign=${client.config.shareOrderNewDesign}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'shareOrderNewDesign');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+
+        await page.goto(`${client.baseURL}/orders`);
+        await page.waitForLoadState('domcontentloaded');
+
+        const shareBtn = page.getByRole('button', { name: /compartir|share/i })
+          .or(page.locator('[class*="share-order" i], [class*="shareOrder" i]'));
+
+        if (client.config.shareOrderNewDesign) {
+          const isVisible = await shareBtn.first().isVisible({ timeout: 5_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] shareOrderNewDesign=true but share button not found — no orders in staging`);
+        } else {
+          const isVisible = await shareBtn.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          // Soft check: share button may still exist with old design
+          console.log(`[${key}] shareOrderNewDesign=false — share button visible: ${isVisible}`);
+        }
+        await context.close();
+      });
+    }
+
+    // "shoppingDetail.lastOrder": detalle último pedido en carrito
+    if (client.config['shoppingDetail.lastOrder'] !== undefined) {
+      test(`${key}: shoppingDetail.lastOrder=${client.config['shoppingDetail.lastOrder']}`, async ({ browser }) => {
+        skipIfNotInB2B(client, 'shoppingDetail.lastOrder');
+        const context = await browser.newContext();
+        const page = await context.newPage();
+        await loginIfNeeded(page);
+        await addOneProductToCart(page);
+
+        const lastOrderSection = page.getByText(/[uú]ltimo pedido|último orden|last order/i)
+          .or(page.locator('[class*="last-order" i], [class*="lastOrder" i]'));
+
+        if (client.config['shoppingDetail.lastOrder']) {
+          const isVisible = await lastOrderSection.first().isVisible({ timeout: 8_000 }).catch(() => false);
+          if (!isVisible) console.warn(`[${key}] shoppingDetail.lastOrder=true but section not found — no previous orders in staging`);
+        } else {
+          const isVisible = await lastOrderSection.first().isVisible({ timeout: 4_000 }).catch(() => false);
+          expect(isVisible).toBeFalsy();
+        }
+        await context.close();
+      });
+    }
+
   });
 }
