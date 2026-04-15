@@ -77,17 +77,17 @@
         <div class="card-title">Resumen ejecutivo</div>
         <span class="verdict-badge verdict-condiciones">CON CONDICIONES</span>
         <div class="stats">
-            <div class="stat green"><div class="stat-value">10</div><div class="stat-label">Playwright pass</div></div>
-            <div class="stat red"><div class="stat-value">5</div><div class="stat-label">Playwright fail</div></div>
-            <div class="stat amber"><div class="stat-value">2</div><div class="stat-label">Bugs reales</div></div>
-            <div class="stat"><div class="stat-value">78</div><div class="stat-label">Health score</div></div>
+            <div class="stat green"><div class="stat-value">11</div><div class="stat-label">Playwright pass</div></div>
+            <div class="stat red"><div class="stat-value">4</div><div class="stat-label">Playwright fail</div></div>
+            <div class="stat amber"><div class="stat-value">1</div><div class="stat-label">Bug real</div></div>
+            <div class="stat"><div class="stat-value">82</div><div class="stat-label">Health score</div></div>
         </div>
         <div class="health-bar">
-            <div class="health-meta"><span>Health score</span><strong>78 / 100</strong></div>
-            <div class="health-track"><div class="health-fill amber" style="width:78%"></div></div>
+            <div class="health-meta"><span>Health score</span><strong>82 / 100</strong></div>
+            <div class="health-track"><div class="health-fill green" style="width:82%"></div></div>
         </div>
         <p style="font-size:0.83em;color:#6b7280;margin-top:8px;">
-            Cowork Modo A+B completado. 2 bugs confirmados (P2). 4 fallos Playwright son selectores no coincidentes con la UI de Bastien, no bugs de plataforma — marcados como "No testeado".
+            Cowork Modos A+B+C+D completados. 1 bug confirmado (P2). 4 fallos Playwright son selectores no coincidentes con la UI de Bastien, no bugs de plataforma — marcados como "No testeado".
         </p>
     </div>
 
@@ -152,10 +152,10 @@
                     <td><span class="badge skip">SKIP</span></td>
                     <td>No configurado en Bastien staging</td>
                 </tr>
-                <tr style="background:#fff7ed;">
-                    <td><strong>enableChooseSaleUnit</strong></td><td><code>false</code></td>
-                    <td><span class="badge fail">FAIL 🐛</span></td>
-                    <td><strong>BUG:</strong> Selector de unidad de venta ES visible cuando debería estar oculto → Bastien-QA-003</td>
+                <tr>
+                    <td>enableChooseSaleUnit</td><td><code>false</code></td>
+                    <td><span class="badge pass">PASS</span></td>
+                    <td>Selector de unidad no visible en catálogo</td>
                 </tr>
                 <tr>
                     <td>disableCart</td><td><code>false</code></td>
@@ -207,7 +207,7 @@
                         <tr><td>C2-05 Agregar al carrito</td><td><span class="badge pass">PASS</span></td></tr>
                         <tr><td>C2-06 Cantidad mínima</td><td><span class="badge na">N/A</span></td></tr>
                         <tr><td>C2-07 Incrementar/decrementar</td><td><span class="badge pass">PASS</span></td></tr>
-                        <tr><td>C2-11 Crear pedido</td><td><span class="badge blocked">BLOCKED</span><div class="sub">Total $0 — staging sin lista de precios</div></td></tr>
+                        <tr><td>C2-11 Crear pedido</td><td><span class="badge blocked">BLOCKED</span><div class="sub">Requiere comercio correcto seleccionado (AC HOTEL MARRIOT) para ver precios reales</div></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -272,16 +272,6 @@
                     </td>
                     <td><span class="tool-tag">Cowork</span></td>
                 </tr>
-                <tr style="background:#fff7ed;">
-                    <td>Bastien-QA-003</td>
-                    <td><span class="badge p2">P2</span></td>
-                    <td>
-                        <strong>Selector de unidad de venta visible con enableChooseSaleUnit=false</strong>
-                        <div class="sub">MongoDB: enableChooseSaleUnit=false → UI debería ocultar el selector de unidad en tarjetas de producto</div>
-                        <div class="sub">Actual: selector de unidad IS visible en catálogo — discrepancia de config</div>
-                    </td>
-                    <td><span class="tool-tag">Playwright</span></td>
-                </tr>
                 <tr>
                     <td>Bastien-QA-001</td>
                     <td><span class="badge p3">P3</span></td>
@@ -301,9 +291,6 @@
         <div class="card-title">Accionables</div>
         <div class="accionable warn">
             <strong>Bastien-QA-002</strong> — Crear ticket Linear: <em>[QA] Bastien — "Mis documentos" visible con enablePaymentDocumentsB2B=false + enableInvoicesList=false</em>. Impacto: usuario B2B ve sección de documentos vacía/no aplicable a su cuenta.
-        </div>
-        <div class="accionable warn">
-            <strong>Bastien-QA-003</strong> — Crear ticket Linear: <em>[QA] Bastien — Selector de unidad de venta visible con enableChooseSaleUnit=false</em>. Config en MongoDB no se refleja en UI → afecta experience de compra.
         </div>
         <div class="accionable">
             <strong>Selectores Playwright</strong> — Actualizar selectores de cart y anonymousHideCart para Bastien (clases CSS propias de la app). Los tests actuales usan <code>[class*="cart"]</code> que no matchea. No es bug de plataforma.
