@@ -113,6 +113,7 @@ interface ClientConfig {{
   banners?: Array<{{ title: string; position: string }}>; // From b2b-marketing
   promotions?: Array<any>; // From yom-promotions
   integrations?: {{ segments: any; overrides: any; userSegments: any }}; // From integrations cluster
+  defaultCommerce?: string; // Commerce to select after login (env: {{CLIENT}}_DEFAULT_COMMERCE)
 }}
 
 const clients: Record<string, ClientConfig> = {{
@@ -215,17 +216,21 @@ const clients: Record<string, ClientConfig> = {{
         # Quote client keys that have hyphens or start with numbers (invalid TS identifiers)
         client_key_str = f'"{client_key}"' if '-' in client_key or client_key[0].isdigit() else client_key
 
+        # defaultCommerce: optional env var {CLIENT_KEY_UPPER}_DEFAULT_COMMERCE
+        env_key_upper = client_key.upper().replace('-', '_')
+        default_commerce_line = f'    defaultCommerce: process.env["{env_key_upper}_DEFAULT_COMMERCE"],\n'
+
         entry = f'''  {client_key_str}: {{
     name: "{name}",
     baseURL: "{baseurl}",
     loginPath: "{login_path}",
-    credentials: creds("{client_key.upper().replace('-', '_')}"),
+    credentials: creds("{env_key_upper}"),
     notImplementedInB2B: {not_in_b2b_str},
     coupons: {coupons_str},
     banners: {banners_str},
     promotions: {promotions_str},
     integrations: {integrations_str},
-    {conditional_comment}
+    {default_commerce_line}    {conditional_comment}
     config: {{
 {config_str}
     }},

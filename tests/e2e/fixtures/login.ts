@@ -17,9 +17,21 @@ export async function loginHelper(
   await page.goto(url, { waitUntil: 'domcontentloaded' });
   await page.waitForLoadState('networkidle', { timeout: 15000 }).catch(() => {});
 
-  // Direct name selectors — confirmed working via diagnostic (2 inputs: email + password)
-  const emailInput = page.locator('input[name="email"]').first();
-  const passwordInput = page.locator('input[name="password"]').first();
+  // Resolve email input: use bounding box size to detect MUI hidden inputs (opacity:0, 0x0)
+  const emailByName = page.locator('input[name="email"]').first();
+  const emailBox = await emailByName.boundingBox().catch(() => null);
+  const emailIsReal = emailBox !== null && emailBox.width > 10 && emailBox.height > 10;
+  const emailInput = emailIsReal
+    ? emailByName
+    : page.getByRole('textbox', { name: /correo|email/i }).first();
+
+  // Resolve password input: same approach
+  const pwByName = page.locator('input[name="password"]').first();
+  const pwBox = await pwByName.boundingBox().catch(() => null);
+  const pwIsReal = pwBox !== null && pwBox.width > 10 && pwBox.height > 10;
+  const passwordInput = pwIsReal
+    ? pwByName
+    : page.locator('input[type="password"]').first();
 
   await emailInput.waitFor({ state: 'visible', timeout: 45000 });
 

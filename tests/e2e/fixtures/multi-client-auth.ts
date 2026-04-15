@@ -7,7 +7,36 @@ interface ClientConfig {
   loginPath: string;
   credentials: { email: string; password: string };
   config: Record<string, any>;
+  defaultCommerce?: string;
   [key: string]: any;
+}
+
+/**
+ * Selects a commerce after login via the user menu modal.
+ * Required for clients where prices are $0 without a commerce selected (e.g. Bastien).
+ */
+export async function selectCommerceHelper(page: any, commerceName: string) {
+  await page.locator('text=Eduardo').first().click();
+  await page.waitForTimeout(300);
+  await page.locator('text=Seleccionar comercio').click();
+  await page.waitForTimeout(800);
+
+  // Use the modal-scoped input (avoids strict mode violation when page also has "Buscar comercio")
+  const dialogInput = page.getByRole('dialog').locator('input[placeholder="Buscar comercio"]');
+  const fallbackInput = page.locator('input[placeholder="Buscar comercio"]').first();
+  const searchInput = (await dialogInput.count()) > 0 ? dialogInput : fallbackInput;
+  await searchInput.waitFor({ state: 'visible', timeout: 10_000 });
+
+  // Click + pressSequentially to reliably trigger React autocomplete onChange
+  await searchInput.click();
+  await searchInput.clear();
+  await searchInput.pressSequentially(commerceName, { delay: 60 });
+  await page.waitForTimeout(1500);
+
+  const option = page.locator('[role="option"]').first();
+  await option.waitFor({ state: 'visible', timeout: 12_000 });
+  await option.click();
+  await page.waitForTimeout(1000);
 }
 
 /**
@@ -25,6 +54,12 @@ export function createClientTest(client: ClientConfig) {
       const context = await browser.newContext({ baseURL: client.baseURL });
       const page = await context.newPage();
       await loginHelper(page, client.credentials.email, client.credentials.password, client.loginPath, client.baseURL);
+
+      // Select default commerce if configured (required for price-gated clients like Bastien)
+      if (client.defaultCommerce) {
+        await selectCommerceHelper(page, client.defaultCommerce);
+      }
+
       await use(page);
       await context.close();
     },

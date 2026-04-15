@@ -69,6 +69,7 @@ INTEGRATIONS_URI = ""
 # Includes both production and staging variants
 REAL_CLIENTS = {
     "bastien.youorder.me": "Bastien",
+    "bastien.solopide.me": "Bastien (staging)",
     "cedisur.youorder.me": "Cedisur",
     "coexito.youorder.me": "CoExito",
     "codelpa.youorder.me": "Codelpa",
