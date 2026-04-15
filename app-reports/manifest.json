@@ -1,15 +1,40 @@
 {
   "reports": [
     {
+      "client": "Bastien",
+      "client_slug": "bastien",
+      "date": "2026-04-15",
+      "file": "bastien-2026-04-15.html",
+      "passed": 10,
+      "failed": 5,
+      "skipped": 1,
+      "total": 16,
+      "health": 78,
+      "verdict": "CON CONDICIONES"
+    },
+    {
+      "client": "Prinorte",
+      "client_slug": "prinorte",
+      "date": "2026-04-15",
+      "file": "prinorte-2026-04-15.html",
+      "passed": 0,
+      "manual": 0,
+      "failed": 1,
+      "skipped": 0,
+      "total": 1,
+      "health": 0,
+      "verdict": "BLOQUEADO"
+    },
+    {
       "client": "Prinorte",
       "client_slug": "prinorte",
       "date": "2026-04-14",
       "file": "prinorte-2026-04-14.html",
-      "passed": 8,
-      "failed": 2,
-      "total": 10,
-      "health": 80,
-      "verdict": "CON OBSERVACIONES"
+      "passed": 0,
+      "failed": 1,
+      "total": 1,
+      "health": 0,
+      "verdict": "BLOQUEADO"
     }
   ]
 }
