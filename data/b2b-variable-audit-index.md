@@ -1,0 +1,81 @@
+# B2B Variable Audit — Quick Index
+
+## Backend-Only Variables (35)
+
+1. `blockedClientAlert.enableBlockedClientAlert`
+2. `disableCommerceEdit`
+3. `disableWrongPrices`
+4. `editAddress`
+5. `enableBetaButtons`
+6. `enableChooseSaleUnit`
+7. `enableCoupons`
+8. `enableMassiveOrderSend`
+9. `enableOrderApproval`
+10. `enableOrderValidation`
+11. `enablePayments`
+12. `enablePaymentsCollection`
+13. `enableSellerDiscount`
+14. `enableTask`
+15. `footerCustomContent.useFooterCustomContent`
+16. `hasAllDistributionCenters`
+17. `hasNoSaleFilter`
+18. `hasSingleDistributionCenter`
+19. `hasStockEnabled`
+20. `hideReceiptType`
+21. `includeTaxRateInPrices`
+22. `limitAddingByStock`
+23. `packagingInformation.hidePackagingInformationB2B`
+24. `packagingInformation.hideSingleItemPackagingInformationB2B`
+25. `payment.enableNewPaymentModule`
+26. `payment.requiresFullPayment`
+27. `payment.walletEnabled`
+28. `pendingDocuments`
+29. `purchaseOrderEnabled`
+30. `shoppingDetail.lastOrder`
+31. `showMinOne`
+32. `suggestions.enableSortingByCategories`
+33. `taxes.showSummary`
+34. `useMobileGps`
+35. `useNewPromotions`
+
+## Dead/Unused Variables (39)
+
+1. `blockedClientAlert.blockedClientAlertHtmlContent`
+2. `businessUnits`
+3. `confirmCartText`
+4. `disableCart`
+5. `disablePayments`
+6. `disableShowEstimatedDeliveryHour`
+7. `disableSyncDate`
+8. `discountTypes.discountTypesList`
+9. `discountTypes.enableOrderDiscountType`
+10. `discountTypes.enableProductDiscountType`
+11. `enableAskDeliveryDate`
+12. `enableCreditNotes`
+13. `enableDialogNoSellReason`
+14. `enableNewUI`
+15. `filterGroupedSuggestionsBy`
+16. `hasMultipleBusinessUnit`
+17. `hasTransferPaymentType`
+18. `hasTransportCode`
+19. `hasVoucherPrinterEnabled`
+20. `hidePrices`
+21. `lazyLoadingPrices`
+22. `ordersRequireAuthorization`
+23. `ordersRequireVerification`
+24. `packagingInformation.ignoreUnitOnPackInformationB2B`
+25. `payment.balances`
+26. `paymentsWithoutAccount`
+27. `pointsEnabled`
+28. `priceRoundingDecimals`
+29. `shareOrderNewDesign`
+30. `synchronization.backgroundSyncList`
+31. `synchronization.enableBackgroundSendOrders`
+32. `synchronization.enableBackgroundSync`
+33. `synchronization.enableSyncImages`
+34. `taxes.taxRate`
+35. `uploadOrderFileWithMinUnits`
+36. `validatePaymentFromAdmin`
+37. `weightInfo`
+38. `wrongPrices.block`
+39. `wrongPrices.threshold`
