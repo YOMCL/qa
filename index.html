@@ -1361,7 +1361,13 @@ function showTab(tab) {
     localStorage.setItem('qa-active-tab', tab);
 }
 document.addEventListener('DOMContentLoaded', () => {
-    showTab(localStorage.getItem('qa-active-tab') || 'b2b');
+    // In focus mode skip tab logic — initCollapsibleCards handles it
+    if (!new URLSearchParams(location.search).get('only')) {
+        showTab(localStorage.getItem('qa-active-tab') || 'b2b');
+    } else {
+        // focus mode: make sure tab-b2b is visible so b2bVarsCard is reachable
+        document.getElementById('tab-b2b').style.display = 'block';
+    }
 });
 
 // ── Variables B2B ─────────────────────────────────────────
@@ -1694,8 +1700,27 @@ document.addEventListener('DOMContentLoaded', loadAppReports);
 
 // ── Collapsible cards ──────────────────────────────────────
 function initCollapsibleCards() {
-    // Handle ?only=b2b focus mode
     const focusMode = new URLSearchParams(location.search).get('only');
+
+    // FOCUS MODE: show ONLY the target card, hide everything else
+    if (focusMode === 'b2b') {
+        document.querySelector('header').style.display = 'none';
+        document.querySelector('.tab-bar').style.display = 'none';
+        document.getElementById('tab-app').style.display = 'none';
+        // Hide all cards in tab-b2b except b2bVarsCard
+        document.querySelectorAll('#tab-b2b .card').forEach(card => {
+            if (card.id !== 'b2bVarsCard') card.style.display = 'none';
+        });
+        // Ensure b2bVarsCard is visible (it may have display:none initially)
+        document.getElementById('b2bVarsCard').style.display = 'block';
+        // Add a subtle close button
+        const closeBtn = document.createElement('button');
+        closeBtn.textContent = '✕ Cerrar pestaña';
+        closeBtn.style.cssText = 'position:fixed;top:12px;right:16px;background:#fff;border:1px solid #e5e7eb;border-radius:7px;padding:6px 14px;font-size:12px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.1);z-index:1000;';
+        closeBtn.onclick = () => window.close();
+        document.body.appendChild(closeBtn);
+        return; // skip collapsible init in focus mode
+    }
 
     document.querySelectorAll('.card').forEach((card, i) => {
         const title = card.querySelector('.card-title');
@@ -1717,20 +1742,14 @@ function initCollapsibleCards() {
         arrow.innerHTML = '▾';
         title.appendChild(arrow);
 
-        // Restore or apply collapse state
+        // Restore collapse state from localStorage
         const savedCollapsed = localStorage.getItem(`card-collapsed-${cardId}`) === 'true';
-        // In focus mode: collapse all cards except target
-        const shouldCollapse = focusMode
-            ? cardId !== 'b2bVarsCard'
-            : savedCollapsed;
-
-        if (shouldCollapse) {
+        if (savedCollapsed) {
             body.classList.add('collapsed');
             arrow.classList.add('collapsed');
         }
 
         title.addEventListener('click', (e) => {
-            // Don't collapse if clicking the open-btn
             if (e.target.closest('.card-open-btn')) return;
             const isCollapsed = body.classList.toggle('collapsed');
             arrow.classList.toggle('collapsed', isCollapsed);
@@ -1749,16 +1768,8 @@ function initCollapsibleCards() {
             openBtn.target = '_blank';
             openBtn.title = 'Abrir Variables B2B en pestaña separada';
             openBtn.innerHTML = '↗ Pestaña';
-            // Insert before the arrow
             b2bTitle.insertBefore(openBtn, b2bTitle.querySelector('.card-collapse-arrow'));
         }
-    }
-
-    // In focus mode, activate B2B tab and scroll to target
-    if (focusMode === 'b2b') {
-        showTab('b2b');
-        const target = document.getElementById('b2bVarsCard');
-        if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 200);
     }
 }
 document.addEventListener('DOMContentLoaded', initCollapsibleCards);
