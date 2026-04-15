@@ -253,7 +253,8 @@
         "surtiventas": false
       },
       "implemented": null,
-      "category": "dead"
+      "category": "dead",
+      "category_app_type": true
     },
     "disableCommerceEdit": {
       "clients": {
@@ -328,7 +329,7 @@
         "surtiventas": false
       },
       "implemented": null,
-      "category": "dead"
+      "category": "app"
     },
     "editAddress": {
       "clients": {
@@ -493,7 +494,8 @@
         "surtiventas": true
       },
       "implemented": null,
-      "category": "backend-only"
+      "category": "backend-only",
+      "category_app_type": true
     },
     "enableTask": {
       "clients": {
@@ -592,7 +594,8 @@
         "surtiventas": true
       },
       "implemented": null,
-      "category": "backend-only"
+      "category": "backend-only",
+      "category_app_type": true
     },
     "hasTransferPaymentType": {
       "clients": {
@@ -626,7 +629,8 @@
         "surtiventas": false
       },
       "implemented": null,
-      "category": "dead"
+      "category": "dead",
+      "category_app_type": true
     },
     "hideReceiptType": {
       "clients": {
@@ -664,7 +668,8 @@
         "surtiventas": true
       },
       "implemented": null,
-      "category": "backend-only"
+      "category": "backend-only",
+      "category_app_type": true
     },
     "ordersRequireAuthorization": {
       "clients": {
@@ -983,7 +988,7 @@
         "surtiventas": false
       },
       "implemented": null,
-      "category": "backend-only"
+      "category": "app"
     },
     "showEmptyCategories": {
       "clients": {
@@ -1062,7 +1067,8 @@
         "surtiventas": 0
       },
       "implemented": null,
-      "category": "dead"
+      "category": "dead",
+      "category_app_type": true
     },
     "taxes.useTaxRate": {
       "clients": {
