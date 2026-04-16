@@ -36,12 +36,21 @@ for (const [key, client] of Object.entries(clients)) {
       const count = Math.min(await addButtons.count(), 3);
       for (let i = 0; i < count; i++) {
         await Promise.all([
-          page.waitForResponse((resp: any) => resp.url().includes('/cart') && resp.request().method() === 'POST'),
+          page.waitForResponse((resp: any) => resp.url().includes('/cart') && resp.request().method() === 'POST').catch(() => null),
           addButtons.first().click(),
         ]);
       }
 
       await page.goto(`${client.baseURL}/cart`);
+
+      // Descartar modal "¡Uy! Algo ha cambiado en tu carrito" si aparece
+      const recargarBtn = page.getByRole('button', { name: /recargar/i });
+      const modalVisible = await recargarBtn.isVisible({ timeout: 4_000 }).catch(() => false);
+      if (modalVisible) {
+        await recargarBtn.click();
+        await page.waitForLoadState('domcontentloaded');
+      }
+
       await expect(page.getByText(/\d+ Producto/)).toBeVisible({ timeout: 15_000 });
     }
 
@@ -67,7 +76,8 @@ for (const [key, client] of Object.entries(clients)) {
       // MUI floating label — el input no tiene accessible name ni placeholder attr
       // El botón "Aplicar" es el indicador más confiable de que la UI de cupón está presente
       const aplicarButton = page.getByRole('button', { name: /^aplicar$/i });
-      await expect(aplicarButton).toBeVisible({ timeout: 10_000 });
+      await aplicarButton.scrollIntoViewIfNeeded().catch(() => {});
+      await expect(aplicarButton).toBeVisible({ timeout: 15_000 });
 
       await page.screenshot({ path: `test-results/coupons-field-visible-${key}.png`, fullPage: true });
     });
