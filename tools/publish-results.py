@@ -535,6 +535,55 @@ def update_history_index(history_dir: Path, date: str, run_json: dict) -> None:
         json.dump(index, f, indent=2)
 
 
+def merge_run_json(existing: dict, new: dict) -> dict:
+    """Merge new run results into existing {date}.json, accumulating clients and suites."""
+    merged = dict(existing)
+
+    # Timestamp: use most recent
+    merged["timestamp"] = new["timestamp"]
+
+    # Clients: merge by slug (new data wins if same slug)
+    merged_clients = dict(existing.get("clients", {}))
+    merged_clients.update(new.get("clients", {}))
+    merged["clients"] = merged_clients
+
+    # Suites: merge by name — update if exists, add if new
+    existing_suites = {s["name"]: s for s in existing.get("suites", [])}
+    for suite in new.get("suites", []):
+        existing_suites[suite["name"]] = suite
+    merged["suites"] = list(existing_suites.values())
+
+    # Recalculate totals from merged suites
+    merged["total"]    = sum(s["tests"]  for s in merged["suites"])
+    merged["passed"]   = sum(s["passed"] for s in merged["suites"])
+    merged["failed"]   = sum(s["failed"] for s in merged["suites"])
+    merged["duration"] = existing.get("duration", 0) + new.get("duration", 0)
+
+    # failure_groups: merge by title, deduplicating
+    existing_fg = {g.get("title", g.get("name", str(i))): g
+                   for i, g in enumerate(existing.get("failure_groups", []))}
+    for g in new.get("failure_groups", []):
+        key = g.get("title", g.get("name", ""))
+        existing_fg[key] = g
+    merged["failure_groups"] = list(existing_fg.values())
+
+    # pending_b2b: union deduplicating by slug
+    existing_pb = {p.get("slug", str(p)): p for p in existing.get("pending_b2b", [])}
+    for p in new.get("pending_b2b", []):
+        existing_pb[p.get("slug", str(p))] = p
+    merged["pending_b2b"] = list(existing_pb.values())
+
+    # evidence: concatenate lists
+    merged["evidence"] = {
+        "screenshots": (existing.get("evidence", {}).get("screenshots", []) +
+                        new.get("evidence", {}).get("screenshots", [])),
+        "errors": (existing.get("evidence", {}).get("errors", []) +
+                   new.get("evidence", {}).get("errors", [])),
+    }
+
+    return merged
+
+
 def main():
     """Main entry point."""
     # Parse date argument
@@ -576,8 +625,13 @@ def main():
     # Generate run JSON
     run_json = generate_run_json(results, date, project_root=project_root)
 
-    # Write run details
+    # Write run details — merge with existing if present (accumulate clients across runs)
     run_file = history_dir / f"{date}.json"
+    if run_file.exists():
+        with open(run_file) as f:
+            existing_run = json.load(f)
+        run_json = merge_run_json(existing_run, run_json)
+        print(f"ℹ️  Merged with existing {run_file.name}")
     with open(run_file, "w") as f:
         json.dump(run_json, f, indent=2)
     print(f"✅ Generated {run_file}")
