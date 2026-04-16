@@ -112,18 +112,28 @@ def strip_ansi(text: str) -> str:
     return re.sub(r'\x1b\[[0-9;]*m', '', text)
 
 
+def _clean_title(title: str) -> str:
+    """Remove 'client: ' prefix and test ID (C2-11, PM1-03, etc.) from test title."""
+    # Strip "bastien: " prefix
+    t = re.sub(r'^[a-z0-9_-]+:\s*', '', title)
+    # Strip leading test IDs like "C2-11 ", "PM1-03 ", "PAG-04 "
+    t = re.sub(r'^[A-Z][A-Z0-9]+-\d+\s+', '', t)
+    return t.strip()
+
+
 def classify_error(error: str, annotations: list = None, title: str = "") -> tuple:
     """
     Classify a test error into (category, reason, owner, action).
     owner: 'dev' | 'qa'
-    action: concrete next step
+    action: concrete next step — clear and actionable for the team
+    reason: human-readable, no raw Playwright output
     """
     error = strip_ansi(error)
     annotations = annotations or []
 
-    # Extract annotation text for richer context
     ann_texts = " ".join(a.get("description", "") for a in annotations)
     ann_error_texts = " ".join(a.get("description", "") for a in annotations if a.get("type") == "error")
+    clean = _clean_title(title)
 
     # ── Ambiente: 5xx server errors (detected via annotations) ───────────────
     server_error_match = re.search(r"Requests 5xx:\s*(.+?)(?:\n|$)", ann_error_texts)
@@ -137,25 +147,32 @@ def classify_error(error: str, annotations: list = None, title: str = "") -> tup
                 code, url = parts[0], parts[1]
                 url = re.split(r'\s+Requests', url)[0].strip()
                 if re.match(r'https?://', url):
-                    url_codes[url] = code
+                    # Normalize: strip query params for grouping key
+                    url_codes[url.split("?")[0]] = code
         unique_urls = list(url_codes.keys())
-        url_list = ", ".join(f"`{url}` ({url_codes[url]})" for url in unique_urls[:3])
-        reason = f"Error de servidor (5xx) en: {url_list}"
-        action = (
-            f"Se debe revisar los logs del servidor para el endpoint {', '.join(unique_urls[:3])} "
-            f"(GET, staging). El servidor retorna 500 — se debe identificar y corregir el error interno."
-        )
+        # Use only path for display
+        paths = [re.sub(r'https?://[^/]+', '', u) for u in unique_urls[:2]]
+        path_str = " / ".join(f"`{p}`" for p in paths)
+        reason = f"API devuelve 5xx: {path_str}"
+        action = f"Revisar logs del servidor para {', '.join(unique_urls[:2])} — retorna 500 en staging."
         return ("ambiente", reason, "dev", action)
 
-    # ── Assertion failures enriched by annotations ────────────────────────────
+    # ── Ambiente: test infrastructure error (ENOENT / file not found) ────────
+    e = error.lower()
+    if "enoent" in e or ("no such file or directory" in e):
+        return ("ambiente",
+                "Error de infraestructura del test runner — archivo temporal no encontrado",
+                "qa",
+                "Re-ejecutar los tests en ambiente limpio. Si persiste, revisar espacio en disco o permisos en test-results/.")
+
+    # ── Assertion failures with no error message ─────────────────────────────
     if not error:
         if ann_texts:
-            return ("bug", f"Aserción fallida: {ann_texts[:120]}",
-                    "dev", "Se debe revisar el Trace del test para ver qué devolvió la app e identificar la causa raíz")
-        return ("bug", "Aserción fallida — la app devolvió un valor incorrecto",
-                "dev", "Se debe revisar el Trace del test para ver qué devolvió la app e identificar la causa raíz")
+            return ("bug", f"{clean}: {ann_texts[:100]}" if clean else ann_texts[:120],
+                    "dev", "Revisar el Trace del test — la app devolvió un valor inesperado.")
+        return ("bug", f"Aserción fallida en: {clean}" if clean else "Aserción fallida",
+                "dev", "Revisar el Trace del test para identificar qué devolvió la app.")
 
-    e = error.lower()
     t = title.lower()
 
     # ── UX: toBeDisabled failures ────────────────────────────────────────────
@@ -163,70 +180,109 @@ def classify_error(error: str, annotations: list = None, title: str = "") -> tup
         btn_match = re.search(r"name:\s*/([^/]+)/i?\)", error)
         btn_name = btn_match.group(1) if btn_match else "confirmar pedido"
         return ("ux",
-                f"Botón '{btn_name}' habilitado en estado donde debería estar deshabilitado",
+                f"Botón '{btn_name}' activo cuando debería estar deshabilitado",
                 "dev",
-                f"Se debe agregar validación en el componente para deshabilitar el botón '{btn_name}' cuando no corresponde interactuar.")
+                f"Agregar validación en el componente para deshabilitar '{btn_name}' en el estado correcto.")
 
     # ── Bug: confirmCartText not applied ────────────────────────────────────
     if "confirmcarttext" in t or "pasar a confirmación" in t:
         return ("bug",
-                "confirmCartText no se aplica — texto del botón no coincide con la config",
+                "Texto del botón del carrito no coincide con confirmCartText en config",
                 "dev",
-                "Se debe verificar que el componente del carrito lee confirmCartText desde la config del cliente. "
-                "En MongoDB está configurado como 'Pasar a confirmación del pedido' pero el botón muestra otro texto.")
+                "Verificar que el componente del carrito lee confirmCartText desde la config del cliente.")
+
+    # ── Ambiente: page load timeout (waitForLoadState) ───────────────────────
+    if "waitforloadstate" in e and "timeout" in e:
+        return ("ambiente",
+                f"Página no terminó de cargar — timeout en: {clean}" if clean else "Página no terminó de cargar (timeout)",
+                "qa",
+                "Verificar que staging responde en tiempos normales. Si el problema es solo en staging, puede ser lentitud del ambiente.")
+
+    # ── Ambiente: navigation timeout ─────────────────────────────────────────
+    if "navigation" in e and "timeout" in e:
+        return ("ambiente",
+                f"Timeout de navegación en: {clean}" if clean else "Timeout de navegación",
+                "qa",
+                "Verificar que el ambiente staging esté activo. Si persiste, aumentar navigationTimeout en playwright.config.ts.")
 
     # ── Ambiente: selector / elemento no encontrado ──────────────────────────
     if "element(s) not found" in e or ("not found" in e and "locator" in e):
         match = re.search(r"locator\('([^']+)'\)", error)
-        locator = match.group(1) if match else "locator desconocido"
-        return ("ambiente", f"Elemento no encontrado en staging: `{locator}`",
-                "qa", f"Se debe inspeccionar el sitio staging, buscar el elemento real y actualizar el selector `{locator}` en el spec")
+        locator = match.group(1) if match else "selector desconocido"
+        return ("ambiente", f"Elemento no encontrado: `{locator}`",
+                "qa", f"Inspeccionar staging y actualizar el selector `{locator}` en el spec.")
 
     if "tobevisible" in e and "timeout" in e:
         match = re.search(r"locator\('([^']+)'\)", error)
-        locator = match.group(1) if match else "locator desconocido"
-        return ("ambiente", f"Elemento no visible tras timeout: `{locator}`",
-                "qa", f"Se debe verificar si el elemento `{locator}` existe en staging o si cambió de clase/estructura")
+        locator = match.group(1) if match else None
+        if locator:
+            return ("ambiente", f"Elemento no visible: `{locator}`",
+                    "qa", f"Verificar si `{locator}` existe en staging o si cambió su clase/estructura.")
+        return ("ambiente",
+                f"Elemento esperado no aparece — timeout en: {clean}" if clean else "Elemento no visible (timeout)",
+                "qa", "Verificar en staging que el elemento existe y es visible en el flujo correcto.")
 
     if "waitforresponse" in e and "timeout" in e:
-        return ("ambiente", "Request HTTP esperada nunca ocurrió (botón no se pudo clickear antes)",
-                "qa", "Se resuelve al arreglar el selector del botón de carrito en el grupo anterior")
+        return ("ambiente",
+                "Request HTTP al carrito nunca ocurrió — botón Agregar no respondió",
+                "qa",
+                "Verificar que el botón 'Agregar' dispara el POST a /cart. Puede estar relacionado con otro fallo de selector.")
 
     if "locator.fill" in e or "locator.click" in e:
         match = re.search(r"waiting for (.+?)[\n\r]", error)
-        detail = match.group(1).strip()[:80] if match else "locator desconocido"
+        detail = match.group(1).strip()[:60] if match else "campo desconocido"
         return ("ambiente", f"No se pudo interactuar con: `{detail}`",
-                "qa", "Se debe inspeccionar el sitio staging, verificar que el campo existe con el label/placeholder correcto y actualizar el selector en el spec")
-
-    if "navigation" in e and "timeout" in e:
-        return ("ambiente", "La página tardó demasiado en cargar (timeout de navegación)",
-                "qa", "Se debe verificar que el ambiente staging esté activo. Si persiste, se debe aumentar navigationTimeout en playwright.config.ts")
+                "qa", "Verificar en staging que el campo existe con el label/placeholder correcto y actualizar el selector.")
 
     if "401" in error or "unauthorized" in e:
-        return ("ambiente", "Error de autenticación (401) — credenciales inválidas",
-                "qa", "Se debe verificar que las credenciales en .env sean correctas para este cliente")
+        return ("ambiente", "Error de autenticación (401) — credenciales inválidas o sesión expirada",
+                "qa", "Verificar las credenciales en .env para este cliente.")
 
     # ── Bug: valor incorrecto (expected/received) ────────────────────────────
     if "expected:" in e and "received:" in e:
         m_exp = re.search(r"expected:\s*(.+)", error, re.IGNORECASE)
         m_rec = re.search(r"received:\s*(.+)", error, re.IGNORECASE)
-        exp = m_exp.group(1).strip()[:50] if m_exp else "?"
-        rec = m_rec.group(1).strip()[:50] if m_rec else "?"
-        reason = f"Expected: {exp} → Received: {rec}"
+        exp = m_exp.group(1).strip()[:40] if m_exp else "?"
+        rec = m_rec.group(1).strip()[:40] if m_rec else "?"
         if "no disponible" in e or "disponible" in rec.lower():
-            action = "Se debe verificar el mapeo de estados de pedido para este cliente — hay pedidos con estado 'No disponible' sin mapear en el frontend"
+            reason = f"Estado de pedido 'No disponible' sin mapear en el frontend"
+            action = "Agregar el estado 'No disponible' al mapeo de estados en el componente de historial de pedidos."
+        elif "> 0" in exp and rec in ("0", "0.0"):
+            # Count/price expected > 0 but got 0
+            reason = f"{clean}: se esperaba valor > 0 pero la app devolvió 0"
+            action = f"Verificar en staging que '{clean}' devuelve datos reales. Puede requerir seleccionar un comercio primero."
         elif ann_texts:
-            action = f"{ann_texts[:200]}"
+            reason = f"{clean}: valor incorrecto — {ann_texts[:80]}"
+            action = ann_texts[:200]
         else:
-            action = f"Se debe revisar en staging el comportamiento de '{title}' — la app devolvió un valor inesperado."
+            reason = f"{clean}: esperado {exp}, recibido {rec}" if clean else f"Valor incorrecto — esperado: {exp}, recibido: {rec}"
+            action = f"Verificar en staging el comportamiento de '{clean}'."
         return ("bug", reason, "dev", action)
 
     if "tohaveurl" in e:
-        return ("bug", "La app no redirigió a la URL esperada",
-                "dev", "Se debe revisar el routing de este flujo — la app quedó en la misma URL en lugar de avanzar.")
+        return ("bug",
+                f"Redirección incorrecta en: {clean}" if clean else "La app no redirigió a la URL esperada",
+                "dev",
+                "Revisar el routing — la app quedó en la misma URL en lugar de avanzar al paso siguiente.")
 
-    return ("bug", f"{title}: {error[:80]}" if title else error[:100],
-            "qa", f"Se debe revisar manualmente en staging el test '{title}'." if title else "Se debe revisar manualmente en staging.")
+    # ── Generic fallback — human-readable, no raw error ──────────────────────
+    if "timeout" in e:
+        return ("ambiente",
+                f"Timeout en: {clean}" if clean else "Timeout — elemento o página no respondió",
+                "qa",
+                f"Verificar en staging que '{clean}' funciona. Puede ser lentitud del ambiente.")
+
+    # Catch null / not.toBeNull() assertion
+    if "not.tonull" in e or ("not.tobenull" in e) or ("received: null" in e):
+        return ("bug",
+                f"{clean}: la app devolvió null" if clean else "La app devolvió null",
+                "dev",
+                f"Revisar en staging que '{clean}' retorna el dato correcto.")
+
+    # Absolute fallback — use clean title only, no raw error
+    reason = clean if clean else "Fallo desconocido"
+    action = f"Revisar en staging el flujo '{clean}'." if clean else "Revisar el Trace del test en el reporte Playwright."
+    return ("bug", reason, "qa", action)
 
 
 CATEGORY_ORDER = {"bug": 0, "ux": 1, "ambiente": 2, "flaky": 3}
@@ -559,12 +615,11 @@ def merge_run_json(existing: dict, new: dict) -> dict:
     merged["failed"]   = sum(s["failed"] for s in merged["suites"])
     merged["duration"] = existing.get("duration", 0) + new.get("duration", 0)
 
-    # failure_groups: merge by title, deduplicating
-    existing_fg = {g.get("title", g.get("name", str(i))): g
+    # failure_groups: merge by reason (dedup same error across runs)
+    existing_fg = {g.get("reason", str(i)): g
                    for i, g in enumerate(existing.get("failure_groups", []))}
     for g in new.get("failure_groups", []):
-        key = g.get("title", g.get("name", ""))
-        existing_fg[key] = g
+        existing_fg[g.get("reason", "")] = g
     merged["failure_groups"] = list(existing_fg.values())
 
     # pending_b2b: union deduplicating by slug

@@ -1,10 +1,10 @@
 {
   "date": "2026-04-16",
-  "timestamp": "2026-04-16T15:56:30.102772+00:00",
+  "timestamp": "2026-04-16T16:10:35.009499+00:00",
   "total": 116,
   "passed": 93,
   "failed": 17,
-  "duration": 2442,
+  "duration": 2676,
   "suites": [
     {
       "name": "cart.spec.ts",
@@ -105,52 +105,10 @@
   "failure_groups": [
     {
       "category": "bug",
-      "label": "\ud83d\udd34 Bug",
-      "reason": "bastien: C2-11 Flujo completo catalogo \u2192 carro \u2192 checkout: TimeoutError: page.waitForLoadState: Timeout 60000ms exceeded.",
-      "owner": "qa",
-      "action": "Se debe revisar manualmente en staging el test 'bastien: C2-11 Flujo completo catalogo \u2192 carro \u2192 checkout'.",
-      "count": 1,
-      "tests": [
-        "[checkout.spec.ts] bastien: C2-11 Flujo completo catalogo \u2192 carro \u2192 checkout"
-      ],
-      "clients": [
-        "bastien"
-      ]
-    },
-    {
-      "category": "bug",
-      "label": "\ud83d\udd34 Bug",
-      "reason": "bastien: C2-12 Doble click en crear pedido no genera duplicado: Error: apiRequestContext._wrapApiCall: ENOENT: no such file or directory, open '",
-      "owner": "qa",
-      "action": "Se debe revisar manualmente en staging el test 'bastien: C2-12 Doble click en crear pedido no genera duplicado'.",
-      "count": 1,
-      "tests": [
-        "[checkout.spec.ts] bastien: C2-12 Doble click en crear pedido no genera duplicado"
-      ],
-      "clients": [
-        "bastien"
-      ]
-    },
-    {
-      "category": "bug",
-      "label": "\ud83d\udd34 Bug",
-      "reason": "bastien: C2-13 Pedido aparece en historial: TimeoutError: page.waitForLoadState: Timeout 60000ms exceeded.",
-      "owner": "qa",
-      "action": "Se debe revisar manualmente en staging el test 'bastien: C2-13 Pedido aparece en historial'.",
-      "count": 1,
-      "tests": [
-        "[checkout.spec.ts] bastien: C2-13 Pedido aparece en historial"
-      ],
-      "clients": [
-        "bastien"
-      ]
-    },
-    {
-      "category": "bug",
-      "label": "\ud83d\udd34 Bug",
-      "reason": "Expected: > 0 \u2192 Received: 0",
+      "label": "🔴 Bug",
+      "reason": "anonymousHidePrice=false: se esperaba valor > 0 pero la app devolvió 0",
       "owner": "dev",
-      "action": "Se debe revisar en staging el comportamiento de 'bastien: anonymousHidePrice=false' \u2014 la app devolvi\u00f3 un valor inesperado.",
+      "action": "Verificar en staging que 'anonymousHidePrice=false' devuelve datos reales. Puede requerir seleccionar un comercio primero.",
       "count": 1,
       "tests": [
         "[config-validation.spec.ts] bastien: anonymousHidePrice=false"
@@ -161,13 +119,13 @@
     },
     {
       "category": "bug",
-      "label": "\ud83d\udd34 Bug",
-      "reason": "bastien: PM1-03 Crear orden SIN cup\u00f3n no se rompe por cambios en cupones: Error: expect(received).not.toBeNull()\n\nReceived: null",
-      "owner": "qa",
-      "action": "Se debe revisar manualmente en staging el test 'bastien: PM1-03 Crear orden SIN cup\u00f3n no se rompe por cambios en cupones'.",
+      "label": "🔴 Bug",
+      "reason": "Crear orden SIN cupón no se rompe por cambios en cupones: la app devolvió null",
+      "owner": "dev",
+      "action": "Revisar en staging que 'Crear orden SIN cupón no se rompe por cambios en cupones' retorna el dato correcto.",
       "count": 1,
       "tests": [
-        "[coupons.spec.ts] bastien: PM1-03 Crear orden SIN cup\u00f3n no se rompe por cambios en cupones"
+        "[coupons.spec.ts] bastien: PM1-03 Crear orden SIN cupón no se rompe por cambios en cupones"
       ],
       "clients": [
         "bastien"
@@ -175,13 +133,13 @@
     },
     {
       "category": "bug",
-      "label": "\ud83d\udd34 Bug",
-      "reason": "bastien: C7-INV Link \"Mis documentos\" oculto cuando flag=false: TimeoutError: page.waitForLoadState: Timeout 60000ms exceeded.",
+      "label": "🔴 Bug",
+      "reason": "Catálogo no queda en loading infinito si promotions es lento",
       "owner": "qa",
-      "action": "Se debe revisar manualmente en staging el test 'bastien: C7-INV Link \"Mis documentos\" oculto cuando flag=false'.",
+      "action": "Revisar en staging el flujo 'Catálogo no queda en loading infinito si promotions es lento'.",
       "count": 1,
       "tests": [
-        "[payment-documents.spec.ts] bastien: C7-INV Link \"Mis documentos\" oculto cuando flag=false"
+        "[promotions.spec.ts] bastien: PM5-03 Catálogo no queda en loading infinito si promotions es lento"
       ],
       "clients": [
         "bastien"
@@ -189,41 +147,27 @@
     },
     {
       "category": "bug",
-      "label": "\ud83d\udd34 Bug",
-      "reason": "bastien: PAG-04 Historial de pagos carga correctamente: TimeoutError: page.waitForLoadState: Timeout 60000ms exceeded.",
-      "owner": "qa",
-      "action": "Se debe revisar manualmente en staging el test 'bastien: PAG-04 Historial de pagos carga correctamente'.",
+      "label": "🔴 Bug",
+      "reason": "Pedidos con estado 'No disponible' sin mapear en el frontend",
+      "owner": "dev",
+      "action": "Agregar el estado 'No disponible' al mapeo de estados en el componente de historial de pedidos.",
       "count": 1,
       "tests": [
-        "[payments.spec.ts] bastien: PAG-04 Historial de pagos carga correctamente"
+        "[sonrie.spec.ts] Estados de pedido son válidos (no \"No disponible\") @pedidos @funcional"
       ],
       "clients": [
-        "bastien"
+        "sonrie"
       ]
     },
     {
-      "category": "bug",
-      "label": "\ud83d\udd34 Bug",
-      "reason": "bastien: PAG-16 Montos en historial no muestran valores negativos confusos: TimeoutError: page.waitForLoadState: Timeout 60000ms exceeded.",
+      "category": "ambiente",
+      "label": "🔵 Ambiente / Servidor",
+      "reason": "Error de infraestructura del test runner — archivo temporal no encontrado",
       "owner": "qa",
-      "action": "Se debe revisar manualmente en staging el test 'bastien: PAG-16 Montos en historial no muestran valores negativos confusos'.",
+      "action": "Re-ejecutar los tests en ambiente limpio. Si persiste, revisar espacio en disco o permisos en test-results/.",
       "count": 1,
       "tests": [
-        "[payments.spec.ts] bastien: PAG-16 Montos en historial no muestran valores negativos confusos"
-      ],
-      "clients": [
-        "bastien"
-      ]
-    },
-    {
-      "category": "bug",
-      "label": "\ud83d\udd34 Bug",
-      "reason": "bastien: PM5-03 Cat\u00e1logo no queda en loading infinito si promotions es lento: Error: expect(received).toBeTruthy()\n\nReceived: false",
-      "owner": "qa",
-      "action": "Se debe revisar manualmente en staging el test 'bastien: PM5-03 Cat\u00e1logo no queda en loading infinito si promotions es lento'.",
-      "count": 1,
-      "tests": [
-        "[promotions.spec.ts] bastien: PM5-03 Cat\u00e1logo no queda en loading infinito si promotions es lento"
+        "[checkout.spec.ts] bastien: C2-12 Doble click en crear pedido no genera duplicado"
       ],
       "clients": [
         "bastien"
@@ -231,14 +175,14 @@
     },
     {
       "category": "ambiente",
-      "label": "\ud83d\udd35 Ambiente / Servidor",
-      "reason": "Request HTTP esperada nunca ocurri\u00f3 (bot\u00f3n no se pudo clickear antes)",
+      "label": "🔵 Ambiente / Servidor",
+      "reason": "Request HTTP al carrito nunca ocurrió — botón Agregar no respondió",
       "owner": "qa",
-      "action": "Se resuelve al arreglar el selector del bot\u00f3n de carrito en el grupo anterior",
+      "action": "Verificar que el botón 'Agregar' dispara el POST a /cart. Puede estar relacionado con selector caído en otro test.",
       "count": 3,
       "tests": [
-        "[coupons.spec.ts] bastien: PM1-04 Cup\u00f3n inv\u00e1lido muestra error (no crash)",
-        "[prices.spec.ts] bastien: C3-11 Precio bruto vs neto \u2014 impuestos segun config",
+        "[coupons.spec.ts] bastien: PM1-04 Cupón inválido muestra error (no crash)",
+        "[prices.spec.ts] bastien: C3-11 Precio bruto vs neto — impuestos segun config",
         "[promotions.spec.ts] bastien: PM5-02 Carrito muestra totales con descuentos aplicados"
       ],
       "clients": [
@@ -247,24 +191,10 @@
     },
     {
       "category": "ambiente",
-      "label": "\ud83d\udd35 Ambiente / Servidor",
-      "reason": "Elemento no encontrado en staging: `locator desconocido`",
+      "label": "🔵 Ambiente / Servidor",
+      "reason": "Sección de sugerencias/destacados no encontrada en catálogo",
       "owner": "qa",
-      "action": "Se debe inspeccionar el sitio staging, buscar el elemento real y actualizar el selector `locator desconocido` en el spec",
-      "count": 1,
-      "tests": [
-        "[coupons.spec.ts] bastien: PM2-04 Modal/UI de cup\u00f3n no queda en loading infinito"
-      ],
-      "clients": [
-        "bastien"
-      ]
-    },
-    {
-      "category": "ambiente",
-      "label": "\ud83d\udd35 Ambiente / Servidor",
-      "reason": "Elemento no encontrado en staging: `text=/[Ss]ugerencia|[Rr]ecomendado|[Dd]estacado|[Mm]\u00e1s vendido/`",
-      "owner": "qa",
-      "action": "Se debe inspeccionar el sitio staging, buscar el elemento real y actualizar el selector `text=/[Ss]ugerencia|[Rr]ecomendado|[Dd]estacado|[Mm]\u00e1s vendido/` en el spec",
+      "action": "Verificar si la sección de sugerencias está habilitada para Bastien. Si no, agregar skip condicional al test C5-05.",
       "count": 1,
       "tests": [
         "[prices.spec.ts] bastien: C5-05 Sugerencias se pueden agregar al carro"
@@ -274,59 +204,14 @@
       ]
     },
     {
-      "category": "flaky",
-      "label": "\u26a0\ufe0f Flaky",
-      "reason": "Pasaron en retry \u2014 no son bugs confirmados",
-      "owner": "qa",
-      "action": "Monitorear en pr\u00f3ximas ejecuciones. Si siguen apareciendo, investigar causa de inestabilidad",
-      "count": 2,
-      "tests": [
-        "[cart.spec.ts] bastien: C2-08 Modificar cantidad en carro",
-        "[coupons.spec.ts] bastien: PM1-01 Campo de cup\u00f3n existe y es interactuable"
-      ],
-      "clients": [
-        "bastien"
-      ]
-    },
-    {
-      "category": "flaky",
-      "label": "\u26a0\ufe0f Flaky",
-      "reason": "Pasaron en retry \u2014 no son bugs confirmados",
-      "owner": "qa",
-      "action": "Monitorear en pr\u00f3ximas ejecuciones. Si siguen apareciendo, investigar causa de inestabilidad",
-      "count": 2,
-      "tests": [
-        "[cart.spec.ts] bastien: C2-08 Modificar cantidad en carro",
-        "[coupons.spec.ts] bastien: PM1-01 Campo de cup\u00f3n existe y es interactuable"
-      ],
-      "clients": [
-        "bastien"
-      ]
-    },
-    {
-      "category": "flaky",
-      "label": "\u26a0\ufe0f Flaky",
-      "reason": "Pasaron en retry \u2014 no son bugs confirmados",
-      "owner": "qa",
-      "action": "Monitorear en pr\u00f3ximas ejecuciones. Si siguen apareciendo, investigar causa de inestabilidad",
-      "count": 2,
-      "tests": [
-        "[cart.spec.ts] bastien: C2-08 Modificar cantidad en carro",
-        "[coupons.spec.ts] bastien: PM1-01 Campo de cup\u00f3n existe y es interactuable"
-      ],
-      "clients": [
-        "bastien"
-      ]
-    },
-    {
       "category": "ambiente",
-      "label": "\ud83d\udd35 Ambiente / Servidor",
-      "reason": "Error de servidor (5xx) en: `https://api.solopide.me/api/v2/commerces/delivery` (500)",
-      "owner": "dev",
-      "action": "Se debe revisar los logs del servidor para el endpoint https://api.solopide.me/api/v2/commerces/delivery (GET, staging). El servidor retorna 500 \u2014 se debe identificar y corregir el error interno.",
+      "label": "🔵 Ambiente / Servidor",
+      "reason": "Botón 'Confirmar pedido' no encontrado — no se pudo completar el checkout",
+      "owner": "qa",
+      "action": "Verificar en staging que el botón de confirmar pedido existe y es clickeable. Puede haber cambiado el texto o selector.",
       "count": 1,
       "tests": [
-        "[sonrie.spec.ts] Sin requests 5xx durante navegaci\u00f3n @consola @funcional"
+        "[sonrie.spec.ts] Doble submit — botón se deshabilita después del primer click @cart @crítico"
       ],
       "clients": [
         "sonrie"
@@ -334,13 +219,13 @@
     },
     {
       "category": "ambiente",
-      "label": "\ud83d\udd35 Ambiente / Servidor",
-      "reason": "Error de servidor (5xx) en: `https://api.solopide.me/api/v2/commerces/delivery` (500)",
+      "label": "🔵 Ambiente / Servidor",
+      "reason": "API devuelve 5xx: `/api/v2/commerces/delivery`",
       "owner": "dev",
-      "action": "Se debe revisar los logs del servidor para el endpoint https://api.solopide.me/api/v2/commerces/delivery (GET, staging). El servidor retorna 500 \u2014 se debe identificar y corregir el error interno.",
+      "action": "Revisar logs del servidor para https://api.solopide.me/api/v2/commerces/delivery — retorna 500 en staging.",
       "count": 1,
       "tests": [
-        "[sonrie.spec.ts] Sin requests 5xx durante navegaci\u00f3n @consola @funcional"
+        "[sonrie.spec.ts] Sin requests 5xx durante navegación @consola @funcional"
       ],
       "clients": [
         "sonrie"
@@ -348,16 +233,35 @@
     },
     {
       "category": "ambiente",
-      "label": "\ud83d\udd35 Ambiente / Servidor",
-      "reason": "Error de servidor (5xx) en: `https://api.solopide.me/api/v2/commerces/delivery` (500)",
-      "owner": "dev",
-      "action": "Se debe revisar los logs del servidor para el endpoint https://api.solopide.me/api/v2/commerces/delivery (GET, staging). El servidor retorna 500 \u2014 se debe identificar y corregir el error interno.",
-      "count": 1,
+      "label": "🔵 Ambiente / Servidor",
+      "reason": "Páginas no terminan de cargar en staging — 5 flows con timeout",
+      "owner": "qa",
+      "action": "Verificar que staging esté activo y estable. Flows afectados: Flujo completo catalogo → carro → checkout, Pedido aparece en historial, C7-INV Link \"Mis documentos\" oculto cuando flag=false....",
+      "count": 5,
       "tests": [
-        "[sonrie.spec.ts] Sin requests 5xx durante navegaci\u00f3n @consola @funcional"
+        "[checkout.spec.ts] bastien: C2-11 Flujo completo catalogo → carro → checkout",
+        "[checkout.spec.ts] bastien: C2-13 Pedido aparece en historial",
+        "[payment-documents.spec.ts] bastien: C7-INV Link \"Mis documentos\" oculto cuando flag=false",
+        "[payments.spec.ts] bastien: PAG-04 Historial de pagos carga correctamente",
+        "[payments.spec.ts] bastien: PAG-16 Montos en historial no muestran valores negativos confusos"
       ],
       "clients": [
-        "sonrie"
+        "bastien"
+      ]
+    },
+    {
+      "category": "flaky",
+      "label": "⚠️ Flaky",
+      "reason": "Pasaron en retry — Bastien (no son bugs confirmados)",
+      "owner": "qa",
+      "action": "Monitorear en próximas ejecuciones. Si persisten, investigar causa de inestabilidad.",
+      "count": 2,
+      "tests": [
+        "[cart.spec.ts] bastien: C2-08 Modificar cantidad en carro",
+        "[coupons.spec.ts] bastien: PM1-01 Campo de cupón existe y es interactuable"
+      ],
+      "clients": [
+        "bastien"
       ]
     }
   ],
