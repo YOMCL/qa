@@ -809,34 +809,6 @@
             </div>
         </div>
 
-        <!-- Test suites table -->
-        <div class="card">
-            <div class="card-title">📋 Test Suites</div>
-            <div class="filters-bar">
-                <span class="filter-label">Mostrar:</span>
-                <button class="filter-btn active" onclick="filterSuites('all', this)">Todos</button>
-                <button class="filter-btn" onclick="filterSuites('failed', this)">Solo fallos</button>
-                <button class="filter-btn" onclick="filterSuites('passed', this)">Solo OK</button>
-                <input class="search-input" type="text" placeholder="Buscar suite..." oninput="searchSuites(this.value)" id="suiteSearch">
-                <span class="filter-count" id="suiteFilterCount"></span>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th onclick="sortTable('name')">Suite <span class="sort-icon" id="sort-name">↕</span></th>
-                        <th onclick="sortTable('tests')" style="width:90px;text-align:center;">Tests <span class="sort-icon" id="sort-tests">↕</span></th>
-                        <th onclick="sortTable('passed')" style="width:90px;text-align:center;">Passed <span class="sort-icon" id="sort-passed">↕</span></th>
-                        <th onclick="sortTable('failed')" style="width:90px;text-align:center;">Failed <span class="sort-icon" id="sort-failed">↕</span></th>
-                        <th style="width:160px;">Pass rate</th>
-                        <th style="width:80px;text-align:center;">Estado</th>
-                        <th style="width:110px;text-align:center;">Reporte</th>
-                    </tr>
-                </thead>
-                <tbody id="suitesTableBody">
-                    <tr><td colspan="7" class="loading">Cargando suites...</td></tr>
-                </tbody>
-            </table>
-        </div>
 
         <!-- Cowork QA Reports -->
         <div class="card">
