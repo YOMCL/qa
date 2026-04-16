@@ -1,18 +1,16 @@
-import { test, expect } from '@playwright/test';
-import { loginHelper } from '../fixtures/login';
+import { createClientTest, expect } from '../fixtures/multi-client-auth';
 import clients from '../fixtures/clients';
 
 for (const [key, client] of Object.entries(clients)) {
+  const test = createClientTest(client);
   test.describe(`C2 — Carrito de compras: ${client.name}`, () => {
-    test.use({ baseURL: client.baseURL });
 
-    test.beforeEach(async ({ page }) => {
-      await loginHelper(page, client.credentials.email, client.credentials.password, client.loginPath, client.baseURL);
+    test.beforeEach(async ({ authedPage: page }) => {
       await page.goto(`${client.baseURL}/products`);
       await expect(page.getByRole('button', { name: 'Agregar' }).first()).toBeVisible({ timeout: 30_000 });
     });
 
-    test(`${key}: C2-05 Agregar producto al carro`, async ({ page }) => {
+    test(`${key}: C2-05 Agregar producto al carro`, async ({ authedPage: page }) => {
       const addButton = page.getByRole('button', { name: 'Agregar' }).first();
 
       const [response] = await Promise.all([
@@ -25,7 +23,7 @@ for (const [key, client] of Object.entries(clients)) {
       expect(body).toBeTruthy();
     });
 
-    test(`${key}: C2-06 Cantidad mínima — sistema corrige o bloquea`, async ({ page }) => {
+    test(`${key}: C2-06 Cantidad mínima — sistema corrige o bloquea`, async ({ authedPage: page }) => {
       // Solo aplica si el cliente tiene MinUnit o showMinOne configurado
       const hasMinUnit = client.config.showMinOne || client.config.minUnit || client.config.limitAddingByStock;
       if (!hasMinUnit) {
@@ -62,7 +60,7 @@ for (const [key, client] of Object.entries(clients)) {
       }
     });
 
-    test(`${key}: C2-08 Modificar cantidad en carro`, async ({ page }) => {
+    test(`${key}: C2-08 Modificar cantidad en carro`, async ({ authedPage: page }) => {
       await Promise.all([
         page.waitForResponse(resp => resp.url().includes('/cart') && resp.request().method() === 'POST'),
         page.getByRole('button', { name: 'Agregar' }).first().click(),
@@ -80,7 +78,7 @@ for (const [key, client] of Object.entries(clients)) {
       await expect(quantityInput).toHaveValue('3');
     });
 
-    test(`${key}: C2-09 Eliminar producto del carro`, async ({ page }) => {
+    test(`${key}: C2-09 Eliminar producto del carro`, async ({ authedPage: page }) => {
       await Promise.all([
         page.waitForResponse(resp => resp.url().includes('/cart') && resp.request().method() === 'POST'),
         page.getByRole('button', { name: 'Agregar' }).first().click(),
