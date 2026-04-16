@@ -585,14 +585,35 @@ def merge_run_json(existing: dict, new: dict) -> dict:
 
 
 def main():
-    """Main entry point."""
-    # Parse date argument
+    """Main entry point.
+
+    Usage:
+        python3 tools/publish-results.py [--date YYYY-MM-DD] [--results-file PATH]
+
+    --results-file lets two clients run simultaneously without conflict:
+        # Session A (Sonrie):
+        npx playwright test b2b/sonrie.spec.ts --reporter=json,outputFile=playwright-report/results-sonrie.json
+        python3 tools/publish-results.py --results-file tests/e2e/playwright-report/results-sonrie.json
+
+        # Session B (Bastien) — in parallel, no conflict:
+        npx playwright test b2b/config-validation.spec.ts --reporter=json,outputFile=playwright-report/results-bastien.json
+        python3 tools/publish-results.py --results-file tests/e2e/playwright-report/results-bastien.json
+    """
+    # Parse arguments
     date = None
-    if len(sys.argv) > 1:
-        if sys.argv[1] == "--date" and len(sys.argv) > 2:
-            date = sys.argv[2]
+    custom_results_file: Optional[str] = None
+
+    args = sys.argv[1:]
+    i = 0
+    while i < len(args):
+        if args[i] == "--date" and i + 1 < len(args):
+            date = args[i + 1]
+            i += 2
+        elif args[i] == "--results-file" and i + 1 < len(args):
+            custom_results_file = args[i + 1]
+            i += 2
         else:
-            print(f"Usage: python3 {sys.argv[0]} [--date YYYY-MM-DD]", file=sys.stderr)
+            print(f"Usage: python3 {sys.argv[0]} [--date YYYY-MM-DD] [--results-file PATH]", file=sys.stderr)
             sys.exit(1)
 
     if not date:
@@ -602,8 +623,16 @@ def main():
 
     # Paths
     project_root = Path(__file__).parent.parent
-    results_file = project_root / "tests" / "e2e" / "playwright-report" / "results.json"
-    src_report = project_root / "tests" / "e2e" / "playwright-report"
+
+    if custom_results_file:
+        results_file = Path(custom_results_file)
+        if not results_file.is_absolute():
+            results_file = project_root / results_file
+        # Derive report dir from results file (parent dir)
+        src_report = results_file.parent
+    else:
+        results_file = project_root / "tests" / "e2e" / "playwright-report" / "results.json"
+        src_report = project_root / "tests" / "e2e" / "playwright-report"
     src_test_results = project_root / "tests" / "e2e" / "test-results"
 
     dst_reports = project_root / "public" / "reports"
