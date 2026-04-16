@@ -30,7 +30,7 @@ Suite de QA para la plataforma YOM (You Order Me): B2B web, APP mobile y Admin.
    → actualiza public/manifest.json
    → dashboard GitHub Pages se actualiza automáticamente
 
-5. Playwright (opcional — regresión automatizada)
+5. Playwright (obligatorio — regresión automatizada)
    cd tests/e2e
    npx playwright test --project={cliente} b2b/
    → resultado en playwright-report/index.html (local, no toca el dashboard)
@@ -47,7 +47,7 @@ Suite de QA para la plataforma YOM (You Order Me): B2B web, APP mobile y Admin.
 | Herramienta | Qué mide | Resultado |
 |-------------|----------|-----------|
 | **Cowork** (claude.ai) | Validación visual + flujos reales | Health Score 0–100 → dashboard |
-| **Playwright** (terminal) | Regresión automatizada | % tests pasando → playwright-report/ |
+| **Playwright** (terminal) | Regresión automatizada — **obligatorio** por cliente | % tests pasando → playwright-report/ |
 | **Dashboard** (GitHub Pages) | Historial de reportes Cowork | Lee manifest.json |
 
 > Cowork Health Score ≠ Playwright pass rate. Son métricas independientes.

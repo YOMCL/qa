@@ -5,9 +5,9 @@ Framework: **AI Specs** — roles IA estándar, workflows automatizados, specs r
 
 ## Estrategia de testing
 
-**Cowork (Claude) es la herramienta primaria de QA.** Simula interacción humana real con la app, valida que la configuración del cliente se vea correctamente (banners, fechas, datos, flujos completos). Playwright es complementario: corre regresión automatizada y detecta roturas conocidas (post-mortems).
+**Cowork (Claude) es la herramienta primaria de QA.** Simula interacción humana real con la app, valida que la configuración del cliente se vea correctamente (banners, fechas, datos, flujos completos). Playwright es **obligatorio** por cliente: corre regresión automatizada y detecta roturas conocidas (post-mortems).
 
-Prioridad: Cowork (validación visual + config) > Playwright (regresión E2E) > Maestro (APP mobile) > Checklists manuales (servicios backend)
+Prioridad: Cowork (validación visual + config) > Playwright (regresión E2E — obligatorio) > Maestro (APP mobile) > Checklists manuales (servicios backend)
 
 ## Cuándo usar cada comando
 

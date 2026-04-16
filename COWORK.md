@@ -9,7 +9,7 @@
 | Herramienta | Cuándo se usa | Qué produce | Métrica |
 |-------------|--------------|-------------|---------|
 | **Cowork** (claude.ai) | Validación manual por cliente | HTML report + HANDOFF | Health Score (0–100) |
-| **Playwright** (terminal) | Regresión automatizada, bajo demanda | playwright-report/index.html | % tests pasando |
+| **Playwright** (terminal) | Regresión automatizada — **obligatorio** por cliente | playwright-report/index.html | % tests pasando |
 | **Dashboard** (GitHub Pages) | Historial de reportes Cowork | — | Refleja Health Scores de Cowork |
 
 **Importante:**
@@ -22,7 +22,7 @@
 1. Cowork (claude.ai): Modo A → B → C/D → HANDOFF
 2. Claude Code: `agrega modo X al archivo de sesión de {CLIENTE}`
 3. Claude Code: `/report-qa {CLIENTE} {FECHA}` → genera HTML + actualiza manifest → dashboard se actualiza
-4. Playwright (opcional): `npx playwright test --project={cliente} b2b/` → resultado va a playwright-report/ (local, NO al dashboard)
+4. Playwright (obligatorio): `npx playwright test --project={cliente} b2b/` → resultado va a playwright-report/ (local, NO al dashboard)
 
 ---
 
