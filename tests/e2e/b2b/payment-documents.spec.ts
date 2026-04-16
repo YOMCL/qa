@@ -24,7 +24,8 @@ for (const [key, client] of Object.entries(clients)) {
       }
 
       await page.goto(`${client.baseURL}/products`);
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState('domcontentloaded');
+      await page.waitForTimeout(2_000); // esperar render del menú lateral
 
       // El link/opción de documentos NO debe aparecer en el menú lateral ni en nav
       const docLink = page.getByText(/mis documentos|documentos|facturas|payment.documents/i)
@@ -76,7 +77,8 @@ for (const [key, client] of Object.entries(clients)) {
       }
 
       await page.goto(`${client.baseURL}/products`);
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState('domcontentloaded');
+      await page.waitForTimeout(2_000);
 
       const menuDocOption = page.getByText(/mis documentos|facturas|documentos/i)
         .or(page.locator('nav a[href*="payment-documents"], aside a[href*="payment-documents"]'));

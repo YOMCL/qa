@@ -54,9 +54,11 @@ for (const [key, client] of Object.entries(clients)) {
       const cartPriceCount = await cartPrices.count();
       expect(cartPriceCount).toBeGreaterThan(0);
 
-      // Verificar que hay un total — debe ser específico (resumen o seccion de totales)
-      const totalLabel = page.locator('[class*="total" i], [class*="summary" i]').getByText(/total/i)
-        .or(page.locator('text=/^[\\s]*total[\\s]*\\$\\s*[\\d.,]+/i'));
+      // Verificar que hay una línea de total — texto "Total" cerca de un precio
+      // Soporta layouts donde "Total:" y "$X" son elementos separados
+      const totalLabel = page.getByText(/^total[:\s]*$/i)
+        .or(page.locator('[class*="total" i]').getByText(/total/i))
+        .or(page.getByText(/total.*\$[\d.,]+/i));
       await expect(totalLabel.first()).toBeVisible({ timeout: 5_000 });
 
       await page.screenshot({ path: `test-results/promotions-cart-totals-${key}.png`, fullPage: true });

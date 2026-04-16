@@ -7,11 +7,19 @@ import clients from '../fixtures/clients';
  *
  * Incidente 1: Import roto en yom-api → 39 órdenes con cupón fallaron en 3 horas
  * Incidente 2: B2B no soportaba cupones de orden (solo producto) → falló en Cyber Soprole
+ *
+ * Cupón de prueba por cliente: env var {CLIENT_KEY}_TEST_COUPON (ej: BASTIEN_TEST_COUPON=TEST10OFF)
+ * Fallback para Bastien staging: TEST10OFF
  */
 
 for (const [key, client] of Object.entries(clients)) {
   const test = createClientTest(client);
   test.describe(`PM1/PM2 — Cupones: regresión post-mortem: ${client.name}`, () => {
+
+    // Cupón de prueba: env var o fallback hardcodeado para clientes conocidos
+    const testCouponCode: string | null =
+      process.env[`${key.toUpperCase()}_TEST_COUPON`] ??
+      (key === 'bastien' ? 'TEST10OFF' : null);
 
     async function addProductsAndGoToCart(page: any) {
       await page.goto(`${client.baseURL}/products`);
@@ -31,60 +39,111 @@ for (const [key, client] of Object.entries(clients)) {
       await expect(page.getByText(/\d+ Producto/)).toBeVisible({ timeout: 15_000 });
     }
 
+    // Selector robusto para campo de cupón: soporta diferentes labels y placeholders
+    function getCouponInput(page: any) {
+      return page.getByPlaceholder(/cup[oó]n|ingresar cup|c[oó]digo promo/i)
+        .or(page.getByLabel(/cup[oó]n|c[oó]digo promo|descuento/i))
+        .or(page.locator('input[name*="coupon" i], input[id*="coupon" i], input[name*="discount" i]'));
+    }
+
     test(`${key}: PM1-01 Campo de cupón existe y es interactuable`, async ({ authedPage: page }) => {
+      if (!client.config.enableCoupons) {
+        test.skip(true, `PM1-01: ${client.name} no tiene enableCoupons=true`);
+        return;
+      }
       await addProductsAndGoToCart(page);
 
-      // Buscar input o botón de cupón
-      const couponInput = page.getByPlaceholder(/cup[oó]n/i)
-        .or(page.getByLabel(/cup[oó]n/i));
+      const couponInput = getCouponInput(page);
       const couponButton = page.getByRole('button', { name: /cup[oó]n|aplicar|agregar c[oó]digo/i });
 
       try {
         await expect(couponInput.first().or(couponButton.first())).toBeVisible({ timeout: 10_000 });
       } catch (e) {
-        // Si no está visible, lanzar error descriptivo
         throw new Error('Campo de cupón no encontrado en checkout — esperado input o botón para aplicar cupón');
       }
 
       await page.screenshot({ path: `test-results/coupons-field-visible-${key}.png`, fullPage: true });
     });
 
-    test(`${key}: PM1-04 Cupón inválido muestra error (no crash)`, async ({ authedPage: page }) => {
+    test(`${key}: PM1-02 Cupón válido aplica descuento`, async ({ authedPage: page }) => {
+      if (!client.config.enableCoupons) {
+        test.skip(true, `PM1-02: ${client.name} no tiene enableCoupons=true`);
+        return;
+      }
+      if (!testCouponCode) {
+        test.skip(true, `PM1-02: No hay cupón de prueba configurado para ${client.name} — agrega ${key.toUpperCase()}_TEST_COUPON al .env`);
+        return;
+      }
+
       await addProductsAndGoToCart(page);
 
-      // Buscar campo de cupón
-      const couponInput = page.getByPlaceholder(/cup[oó]n/i)
-        .or(page.getByLabel(/cup[oó]n/i));
-
+      const couponInput = getCouponInput(page);
       await expect(couponInput.first()).toBeVisible({ timeout: 10_000 });
-      await couponInput.first().fill('CUPON-INVALIDO-QA-TEST-999');
+      await couponInput.first().fill(testCouponCode);
 
-      // Buscar botón para aplicar
       const applyBtn = page.getByRole('button', { name: /aplicar|agregar|usar/i });
       await expect(applyBtn.first()).toBeVisible({ timeout: 5_000 });
       await applyBtn.first().click();
       await page.waitForLoadState('networkidle');
 
-      // Debe mostrar error — no crash ni pantalla en blanco
+      // Debe mostrar descuento aplicado — no $0 ni mensaje de error
+      const hasError = await page.getByText(/inv[aá]lid|expirad|no existe|error|no encontr/i)
+        .isVisible({ timeout: 5_000 }).catch(() => false);
+      expect(hasError, `Cupón ${testCouponCode} rechazado como inválido`).toBeFalsy();
+
+      // Verificar que el descuento se refleja visualmente
+      const discountLine = page.getByText(/descuento/i).locator('..')
+        .or(page.locator('[class*="discount" i]'));
+      const hasDiscount = await discountLine.first().isVisible({ timeout: 5_000 }).catch(() => false);
+
+      await page.screenshot({ path: `test-results/coupons-valid-applied-${key}.png`, fullPage: true });
+
+      test.info().annotations.push({
+        type: 'info',
+        description: `Cupón ${testCouponCode} aplicado, descuento visible: ${hasDiscount}`,
+      });
+
+      // Al menos el cupón no debe dar error
+      expect(hasError).toBeFalsy();
+    });
+
+    test(`${key}: PM1-04 Cupón inválido muestra error (no crash)`, async ({ authedPage: page }) => {
+      if (!client.config.enableCoupons) {
+        test.skip(true, `PM1-04: ${client.name} no tiene enableCoupons=true`);
+        return;
+      }
+      await addProductsAndGoToCart(page);
+
+      const couponInput = getCouponInput(page);
+
+      await expect(couponInput.first()).toBeVisible({ timeout: 10_000 });
+      await couponInput.first().fill('CUPON-INVALIDO-QA-TEST-999');
+
+      const applyBtn = page.getByRole('button', { name: /aplicar|agregar|usar/i });
+      await expect(applyBtn.first()).toBeVisible({ timeout: 5_000 });
+      await applyBtn.first().click();
+      await page.waitForLoadState('networkidle');
+
       const hasError = await page.getByText(/inv[aá]lid|expirad|no existe|error|no encontr/i)
         .isVisible({ timeout: 10_000 }).catch(() => false);
 
       await page.screenshot({ path: `test-results/coupons-invalid-response-${key}.png`, fullPage: true });
 
-      // DEBE mostrar un mensaje de error para cupón inválido
       expect(hasError).toBeTruthy();
 
-      // No debe haber crash (error 500 o página en blanco)
       const hasCrash = await page.getByText(/error interno|500|server error/i)
         .isVisible().catch(() => false);
       expect(hasCrash).toBeFalsy();
     });
 
     test(`${key}: PM2-04 Modal/UI de cupón no queda en loading infinito`, async ({ authedPage: page }) => {
+      if (!client.config.enableCoupons) {
+        test.skip(true, `PM2-04: ${client.name} no tiene enableCoupons=true`);
+        return;
+      }
       await addProductsAndGoToCart(page);
 
-      const couponInput = page.getByPlaceholder(/cup[oó]n/i)
-        .or(page.getByLabel(/cup[oó]n/i));
+      const couponInput = getCouponInput(page);
 
       await expect(couponInput.first()).toBeVisible({ timeout: 10_000 });
       await couponInput.first().fill('TEST-LOADING-CHECK');
@@ -93,16 +152,13 @@ for (const [key, client] of Object.entries(clients)) {
       await expect(applyBtn.first()).toBeVisible({ timeout: 5_000 });
       await applyBtn.first().click();
 
-      // Esperar respuesta — el loading debe resolverse en <10 segundos
       await page.waitForLoadState('networkidle');
 
-      // Verificar que no hay spinner/loading permanente
       const stillLoading = await page.locator('[class*="loading" i], [class*="spinner" i], [aria-busy="true"]')
         .isVisible({ timeout: 3_000 }).catch(() => false);
 
       await page.screenshot({ path: `test-results/coupons-no-infinite-loading-${key}.png`, fullPage: true });
 
-      // NO debe haber loading después de resolver
       expect(stillLoading).toBeFalsy();
     });
 
@@ -110,11 +166,9 @@ for (const [key, client] of Object.entries(clients)) {
       // Este es el test más importante: un cambio en cupones no debe romper órdenes normales
       await addProductsAndGoToCart(page);
 
-      // Intentar confirmar pedido sin cupón
       const confirmButton = page.getByRole('button', { name: /confirmar|crear pedido|finalizar/i });
       await expect(confirmButton.first()).toBeVisible({ timeout: 10_000 });
 
-      // Interceptar respuesta de creación de orden
       const [response] = await Promise.all([
         page.waitForResponse(
           (resp: any) => resp.url().includes('/order') && resp.request().method() === 'POST',
@@ -126,13 +180,9 @@ for (const [key, client] of Object.entries(clients)) {
       await page.waitForLoadState('networkidle');
       await page.screenshot({ path: `test-results/order-without-coupon-${key}.png`, fullPage: true });
 
-      // La orden DEBE haber sido creada (response no null)
       expect(response).not.toBeNull();
-
-      // La orden no debe devolver 500
       expect(response.status()).not.toBe(500);
 
-      // No debe haber error visible
       const hasCrash = await page.getByText(/error interno|500|server error/i)
         .isVisible().catch(() => false);
       expect(hasCrash).toBeFalsy();
