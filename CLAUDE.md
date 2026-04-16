@@ -9,20 +9,22 @@ Framework: **AI Specs** — roles IA estándar, workflows automatizados, specs r
 
 Prioridad: Cowork (validación visual + config) > Playwright (regresión E2E) > Maestro (APP mobile) > Checklists manuales (servicios backend)
 
-## Comandos QA disponibles
+## Cuándo usar cada comando
 
-| Comando | Propósito |
-|---------|-----------|
-| `/qa-plan-client {CLIENTE}` | Planificar QA para un cliente: config validation, specs, checklists |
-| `/qa-client-validation {CLIENTE} {ENV}` | Ejecutar suite QA completa para un cliente (MongoDB→Playwright→Maestro→reporte) |
-| `/qa-coverage-analysis` | Comparar casos esperados vs. tests existentes — identificar gaps |
-| `/run-playwright {PROJECT}` | Ejecutar tests Playwright (b2b, admin, staging) |
-| `/report-qa {CLIENTE} {FECHA}` | Generar reporte QA completo con hallazgos |
-| `/audit-maestro {FLOW}` | Auditar flow Maestro en APP |
-| `agrega modo {X} al archivo de sesión de {CLIENTE}` | Agrega el HANDOFF a `QA/{CLIENTE}/{FECHA}/cowork-session.md` |
-| `guarda el handoff modo {X} para {CLIENTE}` | Alias del comando anterior |
+| Situación | Comando |
+|-----------|---------|
+| Onboarding cliente nuevo | `/qa-plan-client {CLIENTE}` |
+| Correr regresión B2B | `/run-playwright b2b` |
+| Suite completa (MongoDB→tests→reporte) | `/qa-client-validation {CLIENTE} staging` |
+| Generar reporte desde sesión Cowork | `/report-qa {CLIENTE} {FECHA}` |
+| Ver gaps de cobertura | `/qa-coverage-analysis` |
+| Auditar flow APP Maestro | `/audit-maestro {FLOW}` |
+| Review de PR/cambio de código | "grillame este PR desde perspectiva QA" (inline) |
+| Guardar hallazgos Cowork | `agrega modo {X} al archivo de sesión de {CLIENTE}` |
 
-Usa `/qa-plan-client Codelpa` para ver ejemplo completo.
+**Cuándo NO re-extraer MongoDB:** si `data/qa-matrix.json` tiene menos de 7 días y no hubo cambios de config en el cliente, saltarse extracción y correr directo `/run-playwright`.
+
+**Cuándo reportar vs solo ver resultados:** generar reporte solo cuando hay una sesión Cowork completa o al cierre de una semana QA. Para debugging rápido, leer el HTML de Playwright directamente.
 
 ## Guardado de HANDOFFs Cowork
 
@@ -83,12 +85,13 @@ QA/{CLIENTE}/{FECHA}/ (reporte HTML)
 - Test case IDs: `{PREFIX}-{NN}` (ej: PM1, ERP-01, CART-01)
 - Issue IDs: `{CLIENTE}-QA-{NNN}` (ej: Soprole-QA-001)
 
-## Roles IA definidos
+## Roles IA (via ai-specs/.agents/)
 
-- **QA Coordinator**: Orquesta planes, mapea cobertura, identifica gaps
-- **Playwright Specialist**: Escribe/audita specs E2E, config validation, fixtures
-- **Maestro Specialist**: Audita flows APP, crea nuevos flows, resuelve sincronización
-- **Test Validator**: Corre tests, interpreta fallos, propone fixes
+Los roles se aplican inline — no son sub-agentes separados. Claude adopta el rol según el contexto:
+
+- **QA Coordinator** (`ai-specs/.agents/qa-coordinator.md`): planificación, cobertura, gaps
+- **Playwright Specialist** (`ai-specs/.agents/playwright-specialist.md`): specs E2E, fixtures
+- **Maestro Specialist** (`ai-specs/.agents/maestro-specialist.md`): flows APP Android
 
 ## Reglas para Claude
 
