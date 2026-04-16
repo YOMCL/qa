@@ -1,6 +1,16 @@
 {
   "reports": [
     {
+      "client": "Sonrie",
+      "client_slug": "sonrie",
+      "date": "2026-04-16",
+      "file": "qa-reports/sonrie-2026-04-16.html",
+      "verdict": "CON_CONDICIONES",
+      "score": 89,
+      "modes_done": ["FULL"],
+      "platform": "b2b"
+    },
+    {
       "client": "Bastien",
       "client_slug": "bastien",
       "date": "2026-04-15",

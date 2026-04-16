@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2B QA — Sonrie — 2026-04-16</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            min-height: 100vh; padding: 40px 20px;
+        }
+        .container { max-width: 860px; margin: 0 auto; }
+        .back-link { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9em; display: inline-block; margin-bottom: 16px; }
+        .back-link:hover { color: white; }
+        header { color: white; margin-bottom: 24px; }
+        header h1 { font-size: 1.9em; margin-bottom: 4px; }
+        header p { opacity: 0.8; font-size: 0.95em; }
+        .card { background: white; border-radius: 14px; padding: 28px; margin-bottom: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.18); }
+        .card-title { font-size: 1.05em; font-weight: 700; color: #111827; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid #e5e7eb; }
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+        .stat { background: linear-gradient(135deg, #0ea5e9, #0284c7); color: white; padding: 14px; border-radius: 10px; text-align: center; }
+        .stat.green { background: linear-gradient(135deg, #10b981, #059669); }
+        .stat.red { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .stat.amber { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .stat.gray { background: linear-gradient(135deg, #9ca3af, #6b7280); }
+        .stat-value { font-size: 1.8em; font-weight: 800; line-height: 1; }
+        .stat-label { font-size: 0.72em; opacity: 0.9; font-weight: 600; margin-top: 4px; }
+        .verdict-badge { display: inline-block; padding: 6px 18px; border-radius: 99px; font-weight: 700; font-size: 0.9em; margin-bottom: 18px; }
+        .verdict-listo { background: #d1fae5; color: #065f46; }
+        .verdict-condiciones { background: #fef3c7; color: #92400e; }
+        .verdict-bloqueado { background: #fee2e2; color: #991b1b; }
+        .health-bar { margin-bottom: 8px; }
+        .health-meta { display: flex; justify-content: space-between; font-size: 0.82em; color: #6b7280; font-weight: 600; margin-bottom: 5px; }
+        .health-meta strong { color: #111827; }
+        .health-track { height: 10px; background: #f3f4f6; border-radius: 99px; overflow: hidden; }
+        .health-fill { height: 100%; border-radius: 99px; }
+        .health-fill.green { background: #10b981; }
+        .health-fill.amber { background: #f59e0b; }
+        .health-fill.red { background: #ef4444; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #f9fafb; text-align: left; padding: 10px 14px; font-size: 0.78em; color: #6b7280; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1.5px solid #e5e7eb; }
+        td { padding: 10px 14px; border-bottom: 1px solid #f3f4f6; font-size: 0.88em; vertical-align: top; }
+        tr:last-child td { border-bottom: none; }
+        .badge { padding: 2px 10px; border-radius: 99px; font-size: 0.75em; font-weight: 700; }
+        .badge.pass { background: #d1fae5; color: #065f46; }
+        .badge.fail { background: #fee2e2; color: #991b1b; }
+        .badge.skip { background: #f3f4f6; color: #6b7280; }
+        .badge.flaky { background: #fef3c7; color: #92400e; }
+        .badge.na { background: #f3f4f6; color: #9ca3af; }
+        .badge.p1 { background: #fee2e2; color: #991b1b; }
+        .badge.p2 { background: #ffedd5; color: #9a3412; }
+        .badge.p3 { background: #fef9c3; color: #713f12; }
+        .issue-row td:first-child { font-weight: 600; color: #374151; }
+        .sub { font-size: 0.8em; color: #6b7280; margin-top: 3px; }
+        .section-label { font-size: 0.7em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #9ca3af; margin-bottom: 6px; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } .stats { grid-template-columns: repeat(2, 1fr); } }
+        footer { color: rgba(255,255,255,0.7); font-size: 0.82em; text-align: center; margin-top: 24px; }
+        .accionable { background: #f0fdf4; border-left: 4px solid #10b981; padding: 10px 14px; border-radius: 0 8px 8px 0; margin-bottom: 10px; font-size: 0.87em; }
+        .accionable.warn { background: #fffbeb; border-left-color: #f59e0b; }
+        .accionable strong { color: #111827; }
+        .tool-tag { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 1px 8px; border-radius: 4px; font-size: 0.72em; font-weight: 700; margin-left: 4px; vertical-align: middle; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a href="../" class="back-link">← Dashboard principal</a>
+    <header>
+        <h1>🌐 B2B QA — Sonrie</h1>
+        <p>Playwright E2E + Cowork · sonrie.solopide.me · 2026-04-16</p>
+    </header>
+
+    <!-- Resumen -->
+    <div class="card">
+        <div class="card-title">Resumen ejecutivo</div>
+        <span class="verdict-badge verdict-condiciones">CON CONDICIONES</span>
+        <div class="stats">
+            <div class="stat green"><div class="stat-value">58</div><div class="stat-label">Playwright pass</div></div>
+            <div class="stat amber"><div class="stat-value">1</div><div class="stat-label">Flaky (red)</div></div>
+            <div class="stat amber"><div class="stat-value">1</div><div class="stat-label">Issue P2</div></div>
+            <div class="stat"><div class="stat-value">89</div><div class="stat-label">Health score</div></div>
+        </div>
+        <div class="health-bar">
+            <div class="health-meta"><span>Health score</span><strong>89 / 100</strong></div>
+            <div class="health-track"><div class="health-fill green" style="width:89%"></div></div>
+        </div>
+        <p style="font-size:0.83em;color:#6b7280;margin-top:8px;">
+            Cowork Modo FULL completado: C1 login, C2 compra (pedido #22, $2.873), C3 precios, C7 documentos, C9 seguimiento, C10 crédito bloqueado, C5 recomendados. 60 tests Playwright: 58 pass, 1 flaky (login transiente red), 1 skip. 1 bug P2 no bloqueante: crédito cuenta prueba agotado.
+        </p>
+    </div>
+
+    <!-- Playwright config-validation -->
+    <div class="card">
+        <div class="card-title">Playwright — Config Validation (60 tests · exit 0)</div>
+        <table>
+            <thead><tr><th>Variable</th><th>Valor config</th><th>Resultado</th><th>Detalle</th></tr></thead>
+            <tbody>
+                <tr><td>anonymousAccess</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Redirige a login sin sesión</td></tr>
+                <tr><td>hidePrices</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Precios visibles en catálogo</td></tr>
+                <tr><td>disableCart</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Botones "Agregar" presentes en catálogo</td></tr>
+                <tr><td>enableCoupons</td><td><code>true</code></td><td><span class="badge pass">PASS</span></td><td>Campo "Ingresar cupón" visible en carrito</td></tr>
+                <tr><td>purchaseOrderEnabled</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Sin campo OC en checkout</td></tr>
+                <tr><td>enableSellerDiscount</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Sin campo descuento vendedor</td></tr>
+                <tr><td>hideReceiptType</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Selector tipo comprobante visible</td></tr>
+                <tr><td>taxes.showSummary</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Sin sección detalle impuesto en carrito</td></tr>
+                <tr><td>taxes.useTaxRate</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>IVA no desglosado (sin tax configurado)</td></tr>
+                <tr><td>includeTaxRateInPrices</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Sin tax configurado — anotado como info</td></tr>
+                <tr><td>lazyLoadingPrices</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Precios disponibles al cargar catálogo</td></tr>
+                <tr><td>enableChooseSaleUnit</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Sin selector de unidad de venta</td></tr>
+                <tr><td>enableAskDeliveryDate</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Sin campo fecha entrega en checkout</td></tr>
+                <tr><td>enableOrderApproval</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Sin botón "Aprobar" en /orders</td></tr>
+                <tr><td>enablePayments</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Sin opción de pago activa</td></tr>
+                <tr><td>editAddress</td><td><code>true</code></td><td><span class="badge pass">PASS</span></td><td>Sección dirección editable en /cart</td></tr>
+                <tr><td>hasStockEnabled</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Sin indicador de stock en tarjetas</td></tr>
+                <tr><td>hasSingleDistributionCenter</td><td><code>true</code></td><td><span class="badge pass">PASS</span></td><td>Sin botón selector de CD</td></tr>
+                <tr><td>enablePaymentDocumentsB2B</td><td><code>true</code></td><td><span class="badge pass">PASS</span></td><td>Tab "Mis documentos" en /orders accesible</td></tr>
+                <tr><td>enableInvoicesList</td><td><code>true</code></td><td><span class="badge pass">PASS</span></td><td>"Documentos" en menú de usuario</td></tr>
+                <tr><td>pendingDocuments</td><td><code>true</code></td><td><span class="badge flaky">FLAKY</span></td><td>Pass en retry — login transiente (network)</td></tr>
+                <tr><td>disableObservationInput</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Campo observaciones visible en /cart</td></tr>
+                <tr><td>disableCommerceEdit</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>"Editar Datos" visible en /profile</td></tr>
+                <tr><td>loginButtons.facebook</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Sin botón Facebook en login</td></tr>
+                <tr><td>loginButtons.google</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Sin botón Google en login</td></tr>
+                <tr><td>suggestions.hide</td><td><code>true</code></td><td><span class="badge pass">PASS</span></td><td>Sección sugerencias oculta en catálogo</td></tr>
+                <tr><td>hasMultipleBusinessUnit</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Sin selector de unidad de negocio</td></tr>
+                <tr><td>enablePriceOracle</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Sin precio estimado con fecha</td></tr>
+                <tr><td>paymentsWithoutAccount</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Sin flujo pago sin cuenta</td></tr>
+                <tr><td>enableNewUI</td><td><code>false</code></td><td><span class="badge pass">PASS</span></td><td>Layout estándar activo</td></tr>
+                <tr><td>usersRequireVerification</td><td><code>false</code></td><td><span class="badge skip">SKIP</span></td><td>No configurado en Sonrie staging</td></tr>
+                <tr style="color:#6b7280;font-style:italic;"><td colspan="4" style="font-size:0.8em;padding:8px 14px;">+ 29 variables adicionales verificadas · todas PASS · ver config-validation.spec.ts para detalle completo</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Cowork Modo FULL -->
+    <div class="card">
+        <div class="card-title">Cowork — Modo FULL (completo)</div>
+        <div class="two-col" style="margin-bottom:18px;">
+            <div>
+                <div class="section-label">C1 — Login</div>
+                <table>
+                    <thead><tr><th>Caso</th><th>Estado</th></tr></thead>
+                    <tbody>
+                        <tr><td>C1-01 Login exitoso</td><td><span class="badge pass">PASS</span></td></tr>
+                        <tr><td>C1-02 Password incorrecto</td><td><span class="badge pass">PASS</span></td></tr>
+                        <tr><td>C1-03 Usuario inexistente</td><td><span class="badge pass">PASS</span></td></tr>
+                        <tr><td>C1-05 Comercio bloqueado</td><td><span class="badge na">N/A</span></td></tr>
+                        <tr><td>C1-07 Sesión persistente</td><td><span class="badge pass">PASS</span></td></tr>
+                        <tr><td>C1-08 Logout</td><td><span class="badge pass">PASS</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <div class="section-label">C2 — Flujo de Compra</div>
+                <table>
+                    <thead><tr><th>Caso</th><th>Estado</th></tr></thead>
+                    <tbody>
+                        <tr><td>C2-01 Catálogo carga</td><td><span class="badge pass">PASS</span></td></tr>
+                        <tr><td>C2-02 Búsqueda</td><td><span class="badge pass">PASS</span></td></tr>
+                        <tr><td>C2-05 Agregar carrito</td><td><span class="badge pass">PASS</span></td></tr>
+                        <tr><td>C2-06 Cantidad mínima</td><td><span class="badge na">N/A</span></td></tr>
+                        <tr><td>C2-11 Crear pedido</td><td><span class="badge pass">PASS</span><div class="sub">Pedido #22 · $2.873 · /confirmation/69e0ef20...</div></td></tr>
+                        <tr><td>C2-12 Doble submit</td><td><span class="badge pass">PASS</span></td></tr>
+                        <tr><td>C2-13 En historial</td><td><span class="badge pass">PASS</span><div class="sub">Pedido #22 al tope de /orders</div></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section-label">C3 — Precios</div>
+        <table style="margin-bottom:16px;">
+            <thead><tr><th>Caso</th><th>Estado</th><th>Detalle</th></tr></thead>
+            <tbody>
+                <tr><td>C3-01 Precio base visible</td><td><span class="badge pass">PASS</span></td><td>$X.XXX CLP consistente en catálogo</td></tr>
+                <tr><td>C3-02 Precio con descuento</td><td><span class="badge na">N/A</span></td><td>Solo badges "Destacado", sin precios tachados</td></tr>
+                <tr><td>C3-14 Cupón válido</td><td><span class="badge na">N/A</span></td><td>Sin código válido en staging</td></tr>
+                <tr><td>C3-15 Cupón inválido</td><td><span class="badge pass">PASS</span></td><td>"Cupón inválido", total sin cambio</td></tr>
+                <tr><td>C3-17/18 Precios por segmento</td><td><span class="badge pass">PASS</span></td><td>30 productos · $2.873–$15.155 CLP</td></tr>
+            </tbody>
+        </table>
+
+        <div class="section-label">C7 · C9 · C10 · C5</div>
+        <table>
+            <thead><tr><th>Flujo</th><th>Estado</th><th>Detalle</th></tr></thead>
+            <tbody>
+                <tr><td>C7 Documentos tributarios</td><td><span class="badge pass">PASS</span></td><td>Tab "Mis documentos" en /orders + "Documentos" en menú. Badge MuiBadge 0 pendientes.</td></tr>
+                <tr><td>C9 Seguimiento de pedido</td><td><span class="badge pass">PASS</span></td><td>Stepper: Ingresado ✓ → Procesada → Despachada → Entregada. Detalle completo.</td></tr>
+                <tr><td>C10 Crédito bloqueado</td><td><span class="badge pass">PASS</span></td><td>Mensaje bloqueo visible. Botón disabled. Crédito $1.576 mostrado. (Testeado con insuficiente)</td></tr>
+                <tr><td>C5 Recomendaciones</td><td><span class="badge pass">PASS</span></td><td>7 productos "Destacados" en /products?featured=true. Filtros sidebar OK.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Issues -->
+    <div class="card">
+        <div class="card-title">Issues encontrados</div>
+        <table>
+            <thead><tr><th>ID</th><th>Prior.</th><th>Descripción</th><th>Fuente</th></tr></thead>
+            <tbody class="issue-row">
+                <tr style="background:#fff7ed;">
+                    <td>sonrie-QA-001</td>
+                    <td><span class="badge p2">P2</span></td>
+                    <td>
+                        <strong>Crédito de cuenta de prueba casi agotado — bloquea checkout en QA</strong>
+                        <div class="sub">Crédito disponible: $1.576. Catálogo mínimo: $2.873. Cualquier compra bloquea con "El crédito disponible es insuficiente para realizar la orden".</div>
+                        <div class="sub">Próximo paso: resetear crédito de eduardo+sonrie@yom.ai en Admin</div>
+                    </td>
+                    <td><span class="tool-tag">Cowork</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Accionables -->
+    <div class="card">
+        <div class="card-title">Accionables</div>
+        <div class="accionable warn">
+            <strong>sonrie-QA-001</strong> — Resetear crédito de <code>eduardo+sonrie@yom.ai</code> en Admin antes del próximo ciclo QA. Pedido #22 dejó $1.576 disponibles; insuficiente para cualquier producto del catálogo.
+        </div>
+        <div class="accionable">
+            <strong>Staging blockers</strong> — Para próximo ciclo: crear comercio con estado BLOQUEADO en staging (C1-05) y activar un cupón válido para la cuenta de prueba (C3-14).
+        </div>
+    </div>
+
+    <!-- Gate de rollout -->
+    <div class="card">
+        <div class="card-title">Gate de Rollout</div>
+        <table>
+            <thead><tr><th>Criterio</th><th>Cumple</th></tr></thead>
+            <tbody>
+                <tr><td>Zero Critical abiertos</td><td><span class="badge pass">✓</span></td></tr>
+                <tr><td>Zero High sin plan</td><td><span class="badge pass">✓</span></td></tr>
+                <tr><td>Compra B2B funcional</td><td><span class="badge pass">✓</span></td></tr>
+                <tr><td>Compra APP funcional</td><td><span class="badge na">N/A</span></td></tr>
+                <tr><td>Catálogo completo</td><td><span class="badge pass">✓</span></td></tr>
+                <tr><td>Health Score ≥ 80%</td><td><span class="badge pass">✓ 89/100</span></td></tr>
+            </tbody>
+        </table>
+        <p style="margin-top:16px;font-weight:700;color:#92400e;">Veredicto: LISTO CON CONDICIONES — Resetear crédito cuenta de prueba</p>
+    </div>
+
+    <footer>
+        2026-04-16 · Sonrie · Eduardo Jiménez · QA Platform YOM
+    </footer>
+</div>
+</body>
+</html>
