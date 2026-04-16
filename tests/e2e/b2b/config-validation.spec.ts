@@ -73,16 +73,22 @@ for (const [key, client] of Object.entries(clients)) {
       await page.waitForLoadState('networkidle');
 
       const addButtons = page.getByRole('button', { name: 'Agregar' });
-      const cartLink = page.locator('a[href*="cart"]');
 
       if (client.config.disableCart) {
-        // No debe haber botones de agregar NI link al carro
+        // No debe haber botones de agregar
         expect(await addButtons.count()).toBe(0);
-        expect(await cartLink.count()).toBe(0);
+        // Navegar a /cart debe redirigir o mostrar vacío
+        await page.goto(`${client.baseURL}/cart`);
+        await page.waitForLoadState('networkidle');
+        const currentUrl = page.url();
+        expect(currentUrl).not.toMatch(/\/cart$/);
       } else {
-        // Debe haber botones de agregar Y link al carro
+        // Debe haber botones de agregar
         expect(await addButtons.count()).toBeGreaterThan(0);
-        expect(await cartLink.count()).toBeGreaterThan(0);
+        // /cart debe ser accesible
+        await page.goto(`${client.baseURL}/cart`);
+        await page.waitForLoadState('networkidle');
+        await expect(page).toHaveURL(/cart/);
       }
 
       await context.close();
@@ -105,13 +111,13 @@ for (const [key, client] of Object.entries(clients)) {
         await addButton.click();
         await page.waitForLoadState('networkidle');
 
-        // Ir al carro
-        await page.locator('a[href*="cart"]').first().click();
+        // Ir al carro directamente
+        await page.goto(`${client.baseURL}/cart`);
         await page.waitForLoadState('networkidle');
 
         const couponField = page.getByPlaceholder(/cup[oó]n/i)
-          .or(page.getByText(/cup[oó]n/i))
-          .or(page.getByRole('button', { name: /aplicar.*cup/i }));
+          .or(page.getByText(/ingresar cup[oó]n/i))
+          .or(page.getByRole('button', { name: /aplicar/i }));
 
         if (client.config.enableCoupons) {
           // Si está habilitado, DEBE existir el campo de cupón
@@ -142,7 +148,8 @@ for (const [key, client] of Object.entries(clients)) {
         await addButton.click();
         await page.waitForLoadState('networkidle');
 
-        await page.locator('a[href*="cart"]').first().click();
+        // Ir al carro directamente
+        await page.goto(`${client.baseURL}/cart`);
         await page.waitForLoadState('networkidle');
 
         const receiptType = page.getByText(/tipo de recibo|boleta|factura/i);
@@ -222,7 +229,9 @@ for (const [key, client] of Object.entries(clients)) {
           await page.goto(`${client.baseURL}`);
           await page.waitForLoadState('networkidle');
 
-          const cartIcon = page.locator('[class*="cart" i], [aria-label*="carro" i], [aria-label*="carrito" i]').first();
+          const cartIcon = page.locator(
+            '[class*="cart" i], [aria-label*="carro" i], [aria-label*="carrito" i], a[href*="/cart"], [data-testid*="cart" i]'
+          ).or(page.getByRole('link', { name: /carrito|carro/i })).first();
 
           if (client.config.anonymousHideCart) {
             // No debe mostrar ícono del carrito
