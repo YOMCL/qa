@@ -4,6 +4,28 @@
 
 ---
 
+## Herramientas y métricas — qué mide qué
+
+| Herramienta | Cuándo se usa | Qué produce | Métrica |
+|-------------|--------------|-------------|---------|
+| **Cowork** (claude.ai) | Validación manual por cliente | HTML report + HANDOFF | Health Score (0–100) |
+| **Playwright** (terminal) | Regresión automatizada, bajo demanda | playwright-report/index.html | % tests pasando |
+| **Dashboard** (GitHub Pages) | Historial de reportes Cowork | — | Refleja Health Scores de Cowork |
+
+**Importante:**
+- Cowork Health Score ≠ Playwright pass rate — son métricas distintas, no se contradicen
+- El dashboard muestra los reportes Cowork (manifest.json) — NO refleja Playwright automáticamente
+- Corregir un test Playwright NO cambia el score del dashboard — hay que re-ejecutar `/report-qa`
+- El dashboard muestra datos históricos — se actualiza solo cuando se corre `/report-qa`
+
+**Flujo para un cliente:**
+1. Cowork (claude.ai): Modo A → B → C/D → HANDOFF
+2. Claude Code: `agrega modo X al archivo de sesión de {CLIENTE}`
+3. Claude Code: `/report-qa {CLIENTE} {FECHA}` → genera HTML + actualiza manifest → dashboard se actualiza
+4. Playwright (opcional): `npx playwright test --project={cliente} b2b/` → resultado va a playwright-report/ (local, NO al dashboard)
+
+---
+
 ## 0. Modo de Sesión
 
 **Antes de hacer cualquier cosa, pregunta:**
@@ -34,6 +56,7 @@ SIGUIENTE MODO: {B / C / D / "FULL completo — emitir veredicto final"}
 Staging blockers: {casos no ejecutables y por qué, o "ninguno"}
 Coverage: Tier 1 ejecutados: {X/Y} · Tier 2: {X/Y}
 Contexto: {credenciales usadas, flags confirmados, estado del carrito}
+Process improvements: {issues sin test Playwright, pasos fuera del playbook, flags nuevos — o "ninguna"}
 ```
 
 **Después de producir el HANDOFF, dile al usuario:**
@@ -504,6 +527,7 @@ SIGUIENTE MODO: {B / C / D / "FULL completo — emitir veredicto final"}
 Staging blockers: {casos no ejecutables: motivo — o "ninguno"}
 Coverage: Tier 1 ejecutados: {X/Y} · Tier 2: {X/Y}
 Contexto: {credenciales usadas, flags confirmados, estado del carrito, algo relevante para continuar}
+Process improvements: {issues sin test Playwright, pasos fuera del playbook, flags nuevos — o "ninguna"}
 ```
 
 **Ejemplo:**
@@ -515,6 +539,32 @@ SIGUIENTE MODO: D
 Staging blockers: C3-14 (sin cupones activos en staging), C10 (sin comercio BLOQUEADO en fixture)
 Coverage: Tier 1 ejecutados: 4/5 · Tier 2: 0/3
 Contexto: Login con eduardo+bastien@yom.ai / laloyom123. JWT commerceId 69dfe43b49e61a9c00a03e25. Carrito limpio.
+Process improvements: Bastien-QA-002 sin test Playwright — agregar a payment-documents.spec.ts
 ```
 
 Para continuar: pegar COWORK.md + el bloque HANDOFF al inicio de la siguiente sesión.
+
+---
+
+## 11. Post-QA — Mejoras al proceso
+
+Ejecutar **después del Veredicto Final** del último modo del día. Cierra el ciclo de feedback para que cada sesión mejore el playbook y los tests.
+
+Responde estas 3 preguntas antes de cerrar la sesión:
+
+**1. ¿Hay issues con ID que no tienen test Playwright?**
+- Ejemplo: "Bastien-QA-002 (link Mis documentos visible con flag=false) — no tiene test de regresión"
+- Si sí → anota en `Process improvements:` del HANDOFF: `"{ID} sin test Playwright — agregar a {spec}.spec.ts"`
+
+**2. ¿Ejecutaste algún paso que no estaba en el playbook?**
+- Ejemplo: validaste que el selector de comercio desaparece si solo hay uno activo — eso no está en ningún modo
+- Si sí → anota: `"Paso X no documentado — agregar a COWORK.md Modo {A/B/C/D}"`
+
+**3. ¿Encontraste flags activos en la config del cliente que no están en la tabla del Modo B?**
+- Ejemplo: `enableCreditNotes=true` pero no aparece en la tabla de flags del Modo B
+- Si sí → anota: `"Flag {nombre} activo en {CLIENTE}, no cubierto en Modo B"`
+
+**Después de anotar, dile al usuario:**
+> "Hay {X} mejoras sugeridas al proceso. Ejecuta `/qa-improve {CLIENTE} {FECHA}` para revisarlas y aplicarlas."
+
+Si no hay nada que mejorar → `Process improvements: ninguna` y cierra.

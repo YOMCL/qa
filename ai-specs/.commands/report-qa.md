@@ -30,6 +30,7 @@ Generate comprehensive QA report for a client: test results summary, issue group
    - Detectar duplicados (mismo bug reportado por Cowork y Playwright)
    - **Extraer Staging Blockers**: del campo `Staging blockers:` de cada HANDOFF, listar qué casos no pudieron ejecutarse y por qué
    - **Calcular cobertura**: del campo `Coverage:` de cada HANDOFF, sumar Tier 1 y Tier 2 ejecutados sobre total esperado
+   - **Extraer mejoras al proceso**: del campo `Process improvements:` de cada HANDOFF, consolidar lista de mejoras sugeridas (tests faltantes, pasos no documentados, flags nuevos)
 
 5. **Cross-reference with sources**
    - Link failures to Linear tickets (deuda técnica, known bugs)
@@ -45,6 +46,7 @@ Generate comprehensive QA report for a client: test results summary, issue group
      - Playwright results: pass rate por spec
      - **Cobertura Ejecutada**: tabla con C1/C2/C3/C7/C5/C9/C10/A2/A3 — estado y Tier 1/2 ejecutados de N
      - **Staging Blockers**: tabla con casos no ejecutables, motivo, qué se necesita para desbloquearlos
+     - **Mejoras sugeridas al proceso**: tabla con mejoras del campo `Process improvements:` — tipo (test/playbook/flag), descripción, acción (`/qa-improve {CLIENTE} {FECHA}`)
      - Issues detallados: ID, severidad, descripción, pasos, evidencia
      - Gate de Rollout con veredicto final
      - Ship Readiness block para Slack
