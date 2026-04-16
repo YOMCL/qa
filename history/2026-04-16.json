@@ -1,10 +1,10 @@
 {
   "date": "2026-04-16",
-  "timestamp": "2026-04-16T15:56:07.296022+00:00",
+  "timestamp": "2026-04-16T15:56:30.102772+00:00",
   "total": 116,
   "passed": 93,
   "failed": 17,
-  "duration": 2208,
+  "duration": 2442,
   "suites": [
     {
       "name": "cart.spec.ts",
@@ -316,6 +316,20 @@
       ],
       "clients": [
         "bastien"
+      ]
+    },
+    {
+      "category": "ambiente",
+      "label": "\ud83d\udd35 Ambiente / Servidor",
+      "reason": "Error de servidor (5xx) en: `https://api.solopide.me/api/v2/commerces/delivery` (500)",
+      "owner": "dev",
+      "action": "Se debe revisar los logs del servidor para el endpoint https://api.solopide.me/api/v2/commerces/delivery (GET, staging). El servidor retorna 500 \u2014 se debe identificar y corregir el error interno.",
+      "count": 1,
+      "tests": [
+        "[sonrie.spec.ts] Sin requests 5xx durante navegaci\u00f3n @consola @funcional"
+      ],
+      "clients": [
+        "sonrie"
       ]
     },
     {
