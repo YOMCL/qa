@@ -353,6 +353,9 @@ def generate_failure_groups(results: dict) -> list:
     groups: dict = defaultdict(list)
     cause_map: dict = {}
     group_clients: dict = defaultdict(set)
+    group_error_sample: dict = {}
+    group_annotations_sample: dict = {}
+    group_spec_file: dict = {}
 
     for t in failed:
         category, reason, owner, action = classify_error(t.get("error", ""), t.get("annotations", []), t.get("title", ""))
@@ -360,6 +363,14 @@ def generate_failure_groups(results: dict) -> list:
         groups[key].append(f"[{t['file']}] {t['title']}")
         cause_map[key] = (category, reason, owner, action)
         group_clients[key].add(extract_client(t))
+        if key not in group_error_sample:
+            group_error_sample[key] = strip_ansi(t.get("error", ""))[:600]
+            group_spec_file[key] = t.get("file", "")
+            group_annotations_sample[key] = [
+                a.get("description", "")
+                for a in t.get("annotations", [])
+                if a.get("type") == "error" and a.get("description")
+            ][:3]
 
     sorted_keys = sorted(groups.keys(), key=lambda k: CATEGORY_ORDER.get(cause_map[k][0], 9))
 
@@ -375,6 +386,9 @@ def generate_failure_groups(results: dict) -> list:
             "count": len(groups[key]),
             "tests": groups[key],
             "clients": sorted(group_clients[key]),
+            "error_sample": group_error_sample.get(key, ""),
+            "annotations_sample": group_annotations_sample.get(key, []),
+            "spec_file": group_spec_file.get(key, ""),
         })
 
     if flaky:
