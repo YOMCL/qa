@@ -37,7 +37,7 @@ for (const [key, client] of Object.entries(clients)) {
         }
       }
 
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState('domcontentloaded');
       await page.screenshot({ path: `test-results/payments-history-${key}.png`, fullPage: true });
 
       // No debe haber errores críticos
@@ -48,7 +48,7 @@ for (const [key, client] of Object.entries(clients)) {
     test(`${key}: PAG-16 Montos en historial no muestran valores negativos confusos`, async ({ authedPage: page }) => {
       // Navegar a pagos
       await page.goto(`${client.baseURL}/payments`);
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState('domcontentloaded');
 
       // Si hay tabla/listado de pagos, verificar que no hay montos negativos visibles al usuario
       const negativeAmounts = page.locator('text=/-\\$[\\d.,]+/');

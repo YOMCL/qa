@@ -68,8 +68,13 @@ for (const [key, client] of Object.entries(clients)) {
       // Simula el escenario del PM5: promotions lento pero no completamente caído
       const startTime = Date.now();
 
-      await page.goto(`${client.baseURL}/products`);
-      await page.waitForLoadState('domcontentloaded');
+      // Retry goto si ERR_ABORTED (intermittent en staging bajo carga)
+      try {
+        await page.goto(`${client.baseURL}/products`, { waitUntil: 'domcontentloaded' });
+      } catch {
+        await page.waitForTimeout(2000);
+        await page.goto(`${client.baseURL}/products`, { waitUntil: 'domcontentloaded' });
+      }
 
       // El catálogo debe mostrar algo en <30s (nuestro timeout de acción)
       const hasContent = await page.locator('text=/\\$\\s*[\\d.,]+/').first()

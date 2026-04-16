@@ -22,16 +22,22 @@ for (const [key, client] of Object.entries(clients)) {
       (key === 'bastien' ? 'TEST10OFF' : null);
 
     async function addProductsAndGoToCart(page: any) {
-      await page.goto(`${client.baseURL}/products`);
-      await page.waitForLoadState('domcontentloaded');
+      // Retry goto /products una vez si ERR_ABORTED
+      try {
+        await page.goto(`${client.baseURL}/products`, { waitUntil: 'domcontentloaded' });
+      } catch {
+        await page.waitForTimeout(1500);
+        await page.goto(`${client.baseURL}/products`, { waitUntil: 'domcontentloaded' });
+      }
       const addButtons = page.getByRole('button', { name: 'Agregar' });
       await addButtons.first().waitFor({ timeout: 30_000 });
 
+      // Siempre first() para evitar reindexado tras cada click
       const count = Math.min(await addButtons.count(), 3);
       for (let i = 0; i < count; i++) {
         await Promise.all([
           page.waitForResponse((resp: any) => resp.url().includes('/cart') && resp.request().method() === 'POST'),
-          addButtons.nth(i).click(),
+          addButtons.first().click(),
         ]);
       }
 

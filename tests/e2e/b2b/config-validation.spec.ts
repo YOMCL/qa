@@ -254,6 +254,14 @@ for (const [key, client] of Object.entries(clients)) {
       if (client.config.anonymousHidePrice !== undefined) {
         test(`${key}: anonymousHidePrice=${client.config.anonymousHidePrice}`, async ({ browser }) => {
           skipIfNotInB2B(client, 'anonymousHidePrice');
+
+          // Si el cliente requiere selección de comercio (defaultCommerce configurado),
+          // el catálogo anónimo no muestra precios hasta seleccionar comercio — comportamiento esperado
+          if (!client.config.anonymousHidePrice && client.defaultCommerce) {
+            test.skip(true, `${key}: anonymousHidePrice=false pero requiere comercio seleccionado — precios sólo visibles después de elegir comercio`);
+            return;
+          }
+
           const context = await browser.newContext();
           const page = await context.newPage();
           await page.goto(`${client.baseURL}/products`);

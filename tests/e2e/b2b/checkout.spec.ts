@@ -8,17 +8,17 @@ for (const [key, client] of Object.entries(clients)) {
 
     async function loginAndAddProducts(page: any) {
       await loginHelper(page, client.credentials.email, client.credentials.password, client.loginPath, client.baseURL);
-      await page.goto(`${client.baseURL}/products`);
-      await page.waitForLoadState('domcontentloaded');
+      await page.goto(`${client.baseURL}/products`, { waitUntil: 'domcontentloaded' });
       const addButtons = page.getByRole('button', { name: 'Agregar' });
       await addButtons.first().waitFor({ timeout: 30_000 });
 
       // Agregar 5 productos para superar monto mínimo ($40.000)
+      // Siempre click en first() para evitar problemas de reindexado tras agregar
       const count = Math.min(await addButtons.count(), 5);
       for (let i = 0; i < count; i++) {
         await Promise.all([
           page.waitForResponse((resp: any) => resp.url().includes('/cart') && resp.request().method() === 'POST'),
-          addButtons.nth(i).click(),
+          addButtons.first().click(),
         ]);
       }
     }
@@ -34,7 +34,7 @@ for (const [key, client] of Object.entries(clients)) {
       await confirmButton.scrollIntoViewIfNeeded();
       await confirmButton.click({ force: true });
 
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState('domcontentloaded');
 
       await page.screenshot({ path: `test-results/checkout-confirm-${key}.png`, fullPage: true });
 
@@ -60,7 +60,7 @@ for (const [key, client] of Object.entries(clients)) {
       await confirmButton.scrollIntoViewIfNeeded();
       await confirmButton.dblclick({ force: true });
 
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState('domcontentloaded');
 
       if (orderRequests.length > 0) {
         expect(orderRequests.length).toBeLessThanOrEqual(1);
@@ -70,7 +70,7 @@ for (const [key, client] of Object.entries(clients)) {
     test(`${key}: C2-13 Pedido aparece en historial`, async ({ page }) => {
       await loginHelper(page, client.credentials.email, client.credentials.password, client.loginPath, client.baseURL);
       await page.goto(`${client.baseURL}/order`);
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState('domcontentloaded');
 
       await expect(page.locator('body')).not.toBeEmpty();
       const bodyText = await page.locator('body').textContent();

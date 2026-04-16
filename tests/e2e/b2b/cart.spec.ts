@@ -31,8 +31,7 @@ for (const [key, client] of Object.entries(clients)) {
         return;
       }
 
-      // Ir al catálogo y buscar un producto con cantidad mínima
-      await page.goto(`${client.baseURL}/products`);
+      // beforeEach ya navegó a /products — no navegar de nuevo para evitar ERR_ABORTED
       await expect(page.getByRole('button', { name: 'Agregar' }).first()).toBeVisible({ timeout: 30_000 });
 
       // Intentar agregar con cantidad 0 o inferior a la mínima
