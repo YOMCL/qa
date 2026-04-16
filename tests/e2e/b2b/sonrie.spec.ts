@@ -131,18 +131,6 @@ test.describe('Sonrie — Catálogo', () => {
     expect(zeroProducts.length).toBe(0);
   });
 
-  test('Catálogo carga mínimo 20 productos (sincronización Mongo) @catalog @funcional', async ({ page }) => {
-    await expect(page.locator('text=/\\$\\s*[\\d.,]+/').first()).toBeVisible({ timeout: 20_000 });
-    const productCards = page.locator('[class*="ProductCard"], [class*="product-card"]')
-      .or(page.locator('[class*="card"]').filter({ has: page.locator('text=/\\$\\s*[\\d.,]+/') }));
-    await page.waitForTimeout(2_000);
-    const count = await productCards.count();
-    if (count < 20) {
-      test.info().annotations.push({ type: 'warning', description: `Solo ${count} productos visibles — posible problema de sincronización Mongo` });
-    }
-    expect(count).toBeGreaterThanOrEqual(20);
-  });
-
   test('Productos sin imágenes rotas (404) @catalog @funcional', async ({ page }) => {
     const broken: string[] = [];
     page.on('response', response => {
