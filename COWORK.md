@@ -43,6 +43,20 @@
 
 Una vez confirmado el modo, ejecuta **solo ese scope**.
 
+**Confirmación de ambiente — obligatoria antes de ejecutar cualquier caso:**
+> "¿Staging (`solopide.me`) o Producción (`youorder.me`)?"
+
+⚠️ **REGLAS POR AMBIENTE** (no negociables):
+
+| Regla | Staging | Producción |
+|-------|---------|------------|
+| Crear pedidos B2B (C2-11, C2-12) | ✓ OK — monto máximo **$100.000 CLP** | ✗ **PROHIBIDO** — marcar `BLOQUEADO-PROD` |
+| Tomar pedidos APP (Maestro) | ✓ OK — monto máximo **$100.000 CLP** | ✗ **PROHIBIDO** — no emitir pedidos |
+| Historial de pedidos (C9) | Usar órdenes propias del test | Usar pedidos históricos existentes |
+| Cambios en Admin (A2/A3) | ✓ OK | ⚠️ Solo observar — no modificar config |
+
+Si el ambiente es **Producción**: C2-11 y C2-12 se marcan `BLOQUEADO-PROD` en el reporte. C9 se valida sobre pedidos históricos del comercio.
+
 **Lógica de modos condicionales:**
 - Después de B: si `enablePaymentDocumentsB2B=false` → saltar C, ir directo a D
 - Modo D incluye Admin (A2/A3) solo si tienes acceso a `admin.youorder.me`
@@ -54,6 +68,7 @@ Completado: [C1 ✓/✗] [C2 ✓/✗] [C3 ✓/✗] [C7 ✓/✗/N/A — enablePay
 Issues encontrados: {lista de IDs o "ninguno"}
 SIGUIENTE MODO: {B / C / D / "FULL completo — emitir veredicto final"}
 Staging blockers: {casos no ejecutables y por qué, o "ninguno"}
+Info-cliente pendiente: {features con PENDIENTE-INFO y qué necesita el cliente, o "ninguno"}
 Coverage: Tier 1 ejecutados: {X/Y} · Tier 2: {X/Y}
 Contexto: {credenciales usadas, flags confirmados, estado del carrito}
 Process improvements: {issues sin test Playwright, pasos fuera del playbook, flags nuevos — o "ninguna"}
@@ -172,6 +187,10 @@ C1-08 Logout: PASS/FAIL — [observación]
 | C2-12 | Doble submit | Click rápido doble en "Confirmar pedido" | Solo 1 orden creada (botón se deshabilita) |
 | C2-13 | Pedido en historial | Ir a `/orders` después de crear orden | Orden recién creada aparece en lista |
 
+> ⚠️ **C2-11 / C2-12 por ambiente:**
+> **Staging** → ejecutar con monto total ≤ $100.000 CLP
+> **Producción** → NO ejecutar — marcar `BLOQUEADO-PROD` en el reporte
+
 **Formato de reporte C2:**
 ```
 [C2] FLUJO DE COMPRA — {CLIENTE}
@@ -180,8 +199,8 @@ C2-04 Fotos: PASS/FAIL/PARCIAL — [N productos sin foto si los hay]
 C2-02 Búsqueda: PASS/FAIL — [término buscado, resultados]
 C2-05 Agregar carrito: PASS/FAIL — [producto agregado]
 C2-06 Cantidad mínima: PASS/FAIL/N/A — [MinUnit del producto, comportamiento]
-C2-11 Crear pedido: PASS/FAIL/BLOCKED — [número de orden o razón del bloqueo]
-C2-12 Doble submit: PASS/FAIL/N/A — [botón se deshabilitó: sí/no]
+C2-11 Crear pedido: PASS/FAIL/BLOQUEADO-PROD — [número de orden y monto, o "prod: no ejecutado"]
+C2-12 Doble submit: PASS/FAIL/N/A/BLOQUEADO-PROD — [botón se deshabilitó: sí/no]
 C2-13 En historial: PASS/FAIL/N/A — [orden visible]
 ```
 
@@ -445,6 +464,33 @@ Screenshot: [imagen]
 | **P1** | Feature importante no funciona, config no se refleja correctamente | Crear ticket Linear con etiqueta QA, continuar |
 | **P2** | Comportamiento incorrecto pero no bloquea | Anotar en reporte, no escalar |
 | **P3** | Cosmético, confuso pero funcional | Anotar en reporte como observación |
+
+### PENDIENTE-INFO-CLIENTE — Feature falla por datos faltantes del cliente
+
+Usar cuando el test falla porque **el cliente no entregó datos, configuración o conexiones requeridas** — no es un bug de software.
+
+Situaciones típicas:
+- Feature habilitada por flag pero sin datos del cliente cargados (ej: `dispatchDate` activo pero sin fechas disponibles en checkout)
+- Integración que necesita credenciales o webhook que el cliente no ha configurado (ej: ERP, conexión de precios)
+- Configuración que depende de información que solo el cliente puede proveer (ej: segmentos de precio, límites de crédito)
+
+**NO usar** si el bug ocurre incluso con datos correctos — ese es P1/P2.
+
+**Formato:**
+```
+{CLIENTE}-INFO-{NNN} | PENDIENTE-INFO | {ID caso} | {Qué se necesita del cliente}
+Contexto: {qué se intentó y qué faltó}
+Acción requerida: {solicitud concreta — qué debe entregar o configurar el cliente}
+Impacto: {qué flujo queda sin validar hasta que el cliente actúe}
+```
+
+**Ejemplo — fecha de despacho:**
+```
+Prinorte-INFO-001 | PENDIENTE-INFO | C2-11 | Fechas de despacho no configuradas
+Contexto: Campo "Fecha de despacho" aparece en checkout pero sin opciones disponibles — no se puede confirmar pedido
+Acción requerida: Cliente debe cargar rango de fechas en Admin → Configuración → Despacho
+Impacto: C2-11 y C9 quedan parcialmente validados
+```
 
 ### Veredicto final
 

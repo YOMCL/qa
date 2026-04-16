@@ -73,6 +73,15 @@ Cada cliente YOM tiene su propia tienda (`{slug}.youorder.me`) con config en Mon
 
 ## 4. Cuándo Usar Cada Herramienta
 
+### Restricciones por ambiente
+
+| Acción | Staging | Producción |
+|--------|---------|------------|
+| Crear pedidos B2B (C2-11, C2-12) | ✓ monto ≤ $100.000 CLP | ✗ Prohibido — marcar `BLOQUEADO-PROD` |
+| Tomar pedidos APP | ✓ monto ≤ $100.000 CLP | ✗ Prohibido — no emitir bajo ninguna circunstancia |
+| Modificar config Admin (A2/A3) | ✓ OK | ⚠️ Solo observar |
+| Validar historial pedidos (C9) | Órdenes propias del test | Pedidos históricos existentes del comercio |
+
 ### En cada deploy a producción
 
 ```

@@ -502,6 +502,7 @@ def extract_config_validation_clients(all_tests_flat: list, staging_urls: dict) 
         clients[client_key] = {
             "name": display_name,
             "url": url,
+            "environment": "staging" if "solopide.me" in url else "production",
             "tests": len(tests) - skipped,  # show only executed tests
             "passed": passed,
             "failed": failed,
@@ -569,9 +570,11 @@ def generate_run_json(results: dict, date: str, project_root: Path = None) -> di
         if stats["tests"] == 0:
             continue
         info = staging_urls.get(suite_name, {})
+        url = info.get("url", f"https://{suite_name}.solopide.me")
         clients[suite_name] = {
             "name": info.get("name", suite_name.capitalize()),
-            "url": info.get("url", f"https://{suite_name}.solopide.me"),
+            "url": url,
+            "environment": "staging" if "solopide.me" in url else "production",
             "tests": stats["tests"],
             "passed": stats["passed"],
             "failed": stats["failed"],

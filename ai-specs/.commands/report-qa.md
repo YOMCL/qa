@@ -59,7 +59,8 @@ Generate comprehensive QA report for a client: test results summary, issue group
    **c) Actualizar `public/manifest.json`** (manifest unificado B2B + APP)
    - Agregar entrada con estructura estándar:
      ```json
-     { "client": "{CLIENT}", "date": "{DATE}", "file": "qa-reports/{CLIENT}-{DATE}.html", "verdict": "{LISTO/CON_CONDICIONES/NO_APTO/BLOQUEADO}", "score": {N}, "modes_done": ["A","B","C","D"], "platform": "b2b" }
+     { "client": "{CLIENT}", "date": "{DATE}", "file": "qa-reports/{CLIENT}-{DATE}.html", "verdict": "{LISTO/CON_CONDICIONES/NO_APTO/BLOQUEADO}", "score": {N}, "modes_done": ["A","B","C","D"], "platform": "b2b", "environment": "{staging|production}" }
+     (usar el ambiente confirmado al inicio de la sesión Cowork — staging = solopide.me, production = youorder.me)
      ```
    - No eliminar entradas anteriores, solo agregar la nueva al array `reports`
    - Si el archivo no existe, crearlo con estructura `{ "reports": [] }`

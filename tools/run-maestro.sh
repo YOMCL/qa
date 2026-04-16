@@ -1,21 +1,51 @@
 #!/bin/bash
 # Corre todos los flows Maestro para un cliente y genera reporte en el dashboard QA
-# Uso: ./tools/run-maestro.sh <cliente>
-# Ejemplo: ./tools/run-maestro.sh prinorte
+# Uso: ./tools/run-maestro.sh <cliente> [--skip-to <flow>] [--interactive]
+# Ejemplos:
+#   ./tools/run-maestro.sh prinorte
+#   ./tools/run-maestro.sh prinorte --skip-to 04-filtros
+#   ./tools/run-maestro.sh prinorte --interactive
+#
+# --skip-to: salta todos los flows hasta encontrar el nombre indicado
+# --interactive: pregunta qué hacer cuando un flow falla (m=manual-pass, r=reintentar, s=skip)
 
 set -euo pipefail
 
-# ── Config ───────────────────────────────────────────────────
+# ── Config ────────────────────────────────────────────────────
 CLIENTE="${1:-}"
 if [ -z "$CLIENTE" ]; then
-    echo "Uso: ./tools/run-maestro.sh <cliente>"
-    echo "Ejemplo: ./tools/run-maestro.sh prinorte"
+    echo "Uso: ./tools/run-maestro.sh <cliente> [--skip-to <flow>] [--interactive] [--env staging|production]"
+    echo "Ejemplo: ./tools/run-maestro.sh prinorte --env production"
     exit 1
 fi
+
+# Parsear flags opcionales (a partir del arg 2)
+SKIP_TO=""
+INTERACTIVE="0"
+ENVIRONMENT="production"   # default: production (APP corre en dispositivo real)
+i=2
+while [ $i -le $# ]; do
+    arg="${!i}"
+    case "$arg" in
+        --skip-to)
+            i=$((i+1))
+            SKIP_TO="${!i:-}"
+            ;;
+        --interactive)
+            INTERACTIVE="1"
+            ;;
+        --env)
+            i=$((i+1))
+            ENVIRONMENT="${!i:-production}"
+            ;;
+    esac
+    i=$((i+1))
+done
 
 DATE=$(date +%Y-%m-%d)
 QA_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 ENV_FILE="$QA_ROOT/tests/app/config/env.${CLIENTE}.yaml"
+CONFIG_FILE="$QA_ROOT/tests/app/config/config.${CLIENTE}.yaml"
 FLOWS_DIR="$QA_ROOT/tests/app/flows"
 CLIENTE_CAP=$(python3 -c "print('${CLIENTE}'.capitalize())")
 OUTPUT_DIR="$QA_ROOT/QA/${CLIENTE_CAP}/${DATE}"
@@ -26,16 +56,24 @@ REPORT_PATH="$PUBLIC_DIR/${REPORT_FILE}"
 RAW_LOG="${OUTPUT_DIR}/maestro.log"
 
 # ── Validaciones ──────────────────────────────────────────────
-if [ ! -f "$ENV_FILE" ]; then
-    echo "❌ Env file no encontrado: $ENV_FILE"
+if [ ! -f "$ENV_FILE" ] && [ ! -f "$CONFIG_FILE" ]; then
+    echo "❌ Config file no encontrado"
     echo "   Esperado: tests/app/config/env.${CLIENTE}.yaml"
+    echo "   o:        tests/app/config/config.${CLIENTE}.yaml"
     exit 1
 fi
 
-FLOW_COUNT=$(ls "$FLOWS_DIR"/${CLIENTE}-[0-9]*.yaml 2>/dev/null | wc -l | tr -d ' ')
+SESSION_FILE="$FLOWS_DIR/${CLIENTE}-session.yaml"
+if [ -f "$SESSION_FILE" ]; then
+    FLOW_COUNT=1
+    FLOW_DESC="session"
+else
+    FLOW_COUNT=$(ls "$FLOWS_DIR"/${CLIENTE}-[0-9]*.yaml 2>/dev/null | wc -l | tr -d ' ')
+    FLOW_DESC="flows individuales"
+fi
 if [ "$FLOW_COUNT" -eq 0 ]; then
     echo "❌ No hay flows para: $CLIENTE"
-    echo "   Esperado: tests/app/flows/${CLIENTE}-NN-*.yaml"
+    echo "   Esperado: tests/app/flows/${CLIENTE}-session.yaml"
     exit 1
 fi
 
@@ -47,7 +85,9 @@ export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 mkdir -p "$OUTPUT_DIR" "$PUBLIC_DIR"
 
 echo "📱 Maestro QA — ${CLIENTE_CAP} — ${DATE}"
-echo "   ${FLOW_COUNT} flows encontrados"
+echo "   ${FLOW_COUNT} ${FLOW_DESC} encontrado(s)"
+[ -n "$SKIP_TO" ] && echo "   ⏭ Saltando hasta: ${SKIP_TO}"
+[ "$INTERACTIVE" = "1" ] && echo "   👤 Modo interactivo activo"
 echo ""
 
 # ── Verificar dispositivo ─────────────────────────────────────
@@ -57,30 +97,57 @@ if ! adb devices 2>/dev/null | grep -q "device$"; then
     exit 1
 fi
 
-# ── Correr flows (Python maneja quoting de --env args) ────────
-echo "▶ Iniciando flows (máx 3 intentos por flow)..."
-python3 - "$ENV_FILE" "$FLOWS_DIR" "$CLIENTE" "$RAW_LOG" <<'PYEOF'
-import sys, yaml, subprocess, os, glob, re
+# ── Correr flows ──────────────────────────────────────────────
+echo "▶ Iniciando flows (máx 3 intentos automáticos + opción manual)..."
+python3 - "$ENV_FILE" "$FLOWS_DIR" "$CLIENTE" "$RAW_LOG" "$CONFIG_FILE" "$INTERACTIVE" "$SKIP_TO" <<'PYEOF'
+import sys, yaml, subprocess, os, glob, re, select
 
-env_file  = sys.argv[1]
-flows_dir = sys.argv[2]
-cliente   = sys.argv[3]
-log_file  = sys.argv[4]
+env_file    = sys.argv[1]
+flows_dir   = sys.argv[2]
+cliente     = sys.argv[3]
+log_file    = sys.argv[4]
+config_file = sys.argv[5]
+interactive = len(sys.argv) > 6 and sys.argv[6] == '1'
+skip_to     = sys.argv[7] if len(sys.argv) > 7 else ''
 
-with open(env_file) as f:
-    env_data = yaml.safe_load(f) or {}
-
+# ── Construir comando base ────────────────────────────────────
+# Si existe config.{cliente}.yaml → leer su sección env: (solo vars usadas en los flows)
+# Si no → inyectar todas las vars de env.{cliente}.yaml como --env (modo legacy)
 base_cmd = ['maestro', 'test']
-for k, v in env_data.items():
+if os.path.exists(config_file):
+    with open(config_file) as f:
+        config_data = yaml.safe_load(f) or {}
+    env_vars = config_data.get('env', {})
+    print(f"  ⚙  Config: {os.path.basename(config_file)} ({len(env_vars)} vars)")
+else:
+    with open(env_file) as f:
+        env_vars = yaml.safe_load(f) or {}
+    print(f"  ⚙  Env: {os.path.basename(env_file)} ({len(env_vars)} vars)")
+
+for k, v in env_vars.items():
     if v is not None and str(k).strip():
         base_cmd.extend(['--env', f'{k}={v}'])
 
-flows = sorted(glob.glob(os.path.join(flows_dir, f'{cliente}-[0-9]*.yaml')))
+# ── TTY para modo interactivo ─────────────────────────────────
+tty = None
+if interactive:
+    try:
+        tty = open('/dev/tty', 'r')
+    except Exception:
+        print("  ⚠  No se pudo abrir /dev/tty — modo interactivo desactivado")
+        interactive = False
+
+# ── Lista de flows ────────────────────────────────────────────
+session = os.path.join(flows_dir, f'{cliente}-session.yaml')
+flows = [session] if os.path.exists(session) else sorted(
+    glob.glob(os.path.join(flows_dir, f'{cliente}-[0-9]*.yaml'))
+)
 
 log_lines = []
+skipping = bool(skip_to)
 
 for flow_path in flows:
-    # Extraer nombre del campo name: en el YAML, fallback al basename
+    # Nombre legible desde campo name: del YAML
     flow_name = os.path.splitext(os.path.basename(flow_path))[0]
     try:
         with open(flow_path) as f:
@@ -90,42 +157,105 @@ for flow_path in flows:
     except Exception:
         pass
 
+    # Lógica --skip-to
+    if skipping:
+        if skip_to in os.path.basename(flow_path):
+            skipping = False
+        else:
+            print(f"  ⏭  Saltando: {flow_name}")
+            log_lines.append(f'[Skipped] {flow_name} (-)')
+            continue
+
     print(f"\n{'─'*50}")
     print(f"▶ {flow_name}")
 
     passed = False
     last_output = ''
-    last_error = ''
+    last_error = 'Error desconocido'
 
-    for attempt in range(1, 4):
-        result = subprocess.run(
+    # Reintentos: 1 para session flows (clearState+launchApp hace que reiniciar sea muy costoso)
+    # 3 para flows individuales (flakiness de UI tolerable)
+    is_session = cliente + '-session' in os.path.basename(flow_path)
+    max_attempts = 1 if is_session else 3
+
+    for attempt in range(1, max_attempts + 1):
+        proc = subprocess.Popen(
             base_cmd + [flow_path],
             stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
         )
-        last_output = result.stdout
-        print(last_output, end='')
+        output_lines = []
+        for line in proc.stdout:
+            print(line, end='', flush=True)
+            output_lines.append(line)
+        proc.wait()
+        last_output = ''.join(output_lines)
 
-        if result.returncode == 0:
+        if proc.returncode == 0:
             passed = True
             break
         else:
             non_empty = [l for l in last_output.splitlines() if l.strip()]
             last_error = ' | '.join(non_empty[-3:]) if non_empty else 'Error desconocido'
-            if attempt < 3:
-                print(f"  ↺ Intento {attempt}/3 fallido — reintentando...")
+            if attempt < max_attempts:
+                print(f"  ↺ Intento {attempt}/{max_attempts} fallido — reintentando...")
             else:
-                print(f"  ✗ 3 intentos fallidos — marcando como FAILED")
+                print(f"  ✗ {max_attempts} intento(s) fallido(s)")
 
-    # Extraer duración del output (formato "3s 234ms" o "3.234s")
+    # ── Intervención humana ───────────────────────────────────
+    manual = False
+    if not passed and interactive and tty:
+        flow_short = flow_name[:30]
+        print(f"\n╔{'═'*48}╗")
+        print(f"║  Flow FALLÓ: {flow_short:<36}║")
+        print(f"║  Revisa el device. ¿Funciona visualmente?  ║")
+        print(f"║  [m] Manual-Pass   [r] Reintentar   [s] Skip║")
+        print(f"╚{'═'*48}╝")
+        print("Respuesta (30s → auto-skip): ", end='', flush=True)
+
+        rlist, _, _ = select.select([tty], [], [], 30)
+        if rlist:
+            choice = tty.readline().strip().lower()[:1]
+        else:
+            choice = 's'
+            print('s (timeout)')
+
+        if choice == 'm':
+            manual = True
+            print(f"  👤 Marcado como MANUAL-PASS")
+        elif choice == 'r':
+            print(f"  ↺ Reintento manual...")
+            proc = subprocess.Popen(
+                base_cmd + [flow_path],
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
+            )
+            output_lines = []
+            for line in proc.stdout:
+                print(line, end='', flush=True)
+                output_lines.append(line)
+            proc.wait()
+            last_output = ''.join(output_lines)
+            if proc.returncode == 0:
+                passed = True
+                print(f"  ✅ Reintento exitoso")
+            else:
+                print(f"  ✗ Reintento manual también falló — marcando FAILED")
+        else:
+            print(f"  ⏭ Skip — marcando FAILED")
+
+    # ── Extraer duración del output ───────────────────────────
     dur_match = re.search(r'(\d+s \d+ms|\d+\.\d+s|\d+ms)', last_output)
     duration = dur_match.group(1) if dur_match else '?'
 
     if passed:
         log_lines.append(f'[Passed] {flow_name} ({duration})')
+    elif manual:
+        log_lines.append(f'[Manual-Pass] {flow_name} ({duration})')
     else:
-        # Limpiar error para que no rompa el parser de HTML (una sola línea)
         error_clean = last_error.replace('\n', ' ').replace('\r', '')[:120]
         log_lines.append(f'[Failed] {flow_name} ({duration}) ({error_clean})')
+
+if tty:
+    tty.close()
 
 combined_log = '\n'.join(log_lines)
 print(f"\n{'─'*50}")
@@ -137,18 +267,19 @@ PYEOF
 echo ""
 
 # ── Generar reporte HTML + actualizar manifest ────────────────
-python3 - "$CLIENTE_CAP" "$CLIENTE" "$DATE" "$RAW_LOG" "$REPORT_PATH" "$MANIFEST_FILE" "$REPORT_FILE" <<'PYEOF'
+python3 - "$CLIENTE_CAP" "$CLIENTE" "$DATE" "$RAW_LOG" "$REPORT_PATH" "$MANIFEST_FILE" "$REPORT_FILE" "$ENVIRONMENT" <<'PYEOF'
 import sys, re, json, os
 from datetime import datetime
 from html import escape
 
-client_cap   = sys.argv[1]
-client_slug  = sys.argv[2]
-date_str     = sys.argv[3]
-log_file     = sys.argv[4]
-report_path  = sys.argv[5]
+client_cap    = sys.argv[1]
+client_slug   = sys.argv[2]
+date_str      = sys.argv[3]
+log_file      = sys.argv[4]
+report_path   = sys.argv[5]
 manifest_file = sys.argv[6]
-report_file  = sys.argv[7]
+report_file   = sys.argv[7]
+environment   = sys.argv[8] if len(sys.argv) > 8 else 'production'
 
 # ── Parsear log ───────────────────────────────────────────────
 with open(log_file) as f:
@@ -156,19 +287,22 @@ with open(log_file) as f:
 
 flows = []
 for line in lines:
-    m = re.match(r'\[(Passed|Failed)\]\s+(.+?)\s+\(([^)]+)\)(?:\s+\((.+)\))?', line.strip())
+    m = re.match(r'\[(Passed|Failed|Manual-Pass|Skipped)\]\s+(.+?)\s+\(([^)]*)\)(?:\s+\((.+)\))?', line.strip())
     if m:
         flows.append({
             'name':     m.group(2),
-            'status':   m.group(1).lower(),
+            'status':   m.group(1).lower().replace('-', '_'),
             'duration': m.group(3),
             'error':    m.group(4) or '',
         })
 
-passed  = sum(1 for f in flows if f['status'] == 'passed')
-failed  = len(flows) - passed
-total   = len(flows)
-health  = round(passed / total * 100) if total > 0 else 0
+passed      = sum(1 for f in flows if f['status'] == 'passed')
+manual      = sum(1 for f in flows if f['status'] == 'manual_pass')
+failed      = sum(1 for f in flows if f['status'] == 'failed')
+skipped     = sum(1 for f in flows if f['status'] == 'skipped')
+total       = len(flows)
+effective   = total - skipped
+health      = round((passed + manual) / effective * 100) if effective > 0 else 0
 
 health_color = '#10b981' if health >= 80 else '#f59e0b' if health >= 60 else '#ef4444'
 verdict      = 'LISTO' if health == 100 else 'CON OBSERVACIONES' if health >= 70 else 'BLOQUEADO'
@@ -177,16 +311,26 @@ verdict_cls  = 'listo' if health == 100 else 'condiciones' if health >= 70 else 
 # ── Filas de la tabla ─────────────────────────────────────────
 rows = ''
 for f in flows:
-    icon      = '✅' if f['status'] == 'passed' else '❌'
-    badge_cls = 'pass' if f['status'] == 'passed' else 'fail'
-    err_html  = f'<div class="flow-error">{escape(f["error"])}</div>' if f['error'] else ''
+    s = f['status']
+    if s == 'passed':
+        icon, badge_cls, label = '✅', 'pass', 'PASSED'
+    elif s == 'manual_pass':
+        icon, badge_cls, label = '👤', 'manual', 'MANUAL-PASS'
+    elif s == 'skipped':
+        icon, badge_cls, label = '⏭', 'skip', 'SKIPPED'
+    else:
+        icon, badge_cls, label = '❌', 'fail', 'FAILED'
+    err_html = f'<div class="flow-error">{escape(f["error"])}</div>' if f['error'] else ''
     rows += f"""
         <tr>
             <td><span class="flow-icon">{icon}</span> {escape(f['name'])}{err_html}</td>
-            <td><span class="badge {badge_cls}">{f['status'].upper()}</span></td>
+            <td><span class="badge {badge_cls}">{label}</span></td>
             <td class="duration">{escape(f['duration'])}</td>
         </tr>"""
 
+# ── Estadísticas adicionales ──────────────────────────────────
+manual_note = f' <span style="color:#6b7280;font-size:0.8em">(incl. {manual} manual)</span>' if manual else ''
+skip_note   = f' <span style="color:#6b7280;font-size:0.8em">({skipped} saltados)</span>' if skipped else ''
 generated_at = datetime.now().strftime("%Y-%m-%d %H:%M")
 
 # ── HTML ──────────────────────────────────────────────────────
@@ -211,17 +355,19 @@ html = f"""<!DOCTYPE html>
         header p {{ opacity: 0.8; font-size: 0.95em; }}
         .card {{ background: white; border-radius: 14px; padding: 28px; margin-bottom: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.18); }}
         .card-title {{ font-size: 1.05em; font-weight: 700; color: #111827; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 2px solid #e5e7eb; }}
-        .stats {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }}
+        .stats {{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px; }}
         .stat {{ background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 14px; border-radius: 10px; text-align: center; }}
-        .stat.green {{ background: linear-gradient(135deg, #10b981, #059669); }}
-        .stat.red {{ background: linear-gradient(135deg, #ef4444, #dc2626); }}
-        .stat.amber {{ background: linear-gradient(135deg, #f59e0b, #d97706); }}
-        .stat-value {{ font-size: 1.8em; font-weight: 800; line-height: 1; }}
-        .stat-label {{ font-size: 0.72em; opacity: 0.9; font-weight: 600; margin-top: 4px; }}
+        .stat.green  {{ background: linear-gradient(135deg, #10b981, #059669); }}
+        .stat.red    {{ background: linear-gradient(135deg, #ef4444, #dc2626); }}
+        .stat.amber  {{ background: linear-gradient(135deg, #f59e0b, #d97706); }}
+        .stat.blue   {{ background: linear-gradient(135deg, #3b82f6, #2563eb); }}
+        .stat.gray   {{ background: linear-gradient(135deg, #9ca3af, #6b7280); }}
+        .stat-value {{ font-size: 1.6em; font-weight: 800; line-height: 1; }}
+        .stat-label {{ font-size: 0.68em; opacity: 0.9; font-weight: 600; margin-top: 4px; }}
         .verdict-badge {{ display: inline-block; padding: 6px 18px; border-radius: 99px; font-weight: 700; font-size: 0.9em; margin-bottom: 18px; }}
-        .verdict-listo {{ background: #d1fae5; color: #065f46; }}
+        .verdict-listo      {{ background: #d1fae5; color: #065f46; }}
         .verdict-condiciones {{ background: #fef3c7; color: #92400e; }}
-        .verdict-bloqueado {{ background: #fee2e2; color: #991b1b; }}
+        .verdict-bloqueado  {{ background: #fee2e2; color: #991b1b; }}
         .health-bar {{ margin-bottom: 8px; }}
         .health-meta {{ display: flex; justify-content: space-between; font-size: 0.82em; color: #6b7280; font-weight: 600; margin-bottom: 5px; }}
         .health-meta strong {{ color: #111827; }}
@@ -232,8 +378,10 @@ html = f"""<!DOCTYPE html>
         td {{ padding: 10px 14px; border-bottom: 1px solid #f3f4f6; font-size: 0.88em; vertical-align: top; }}
         tr:last-child td {{ border-bottom: none; }}
         .badge {{ padding: 2px 10px; border-radius: 99px; font-size: 0.75em; font-weight: 700; }}
-        .badge.pass {{ background: #d1fae5; color: #065f46; }}
-        .badge.fail {{ background: #fee2e2; color: #991b1b; }}
+        .badge.pass   {{ background: #d1fae5; color: #065f46; }}
+        .badge.manual {{ background: #dbeafe; color: #1e40af; }}
+        .badge.skip   {{ background: #f3f4f6; color: #6b7280; }}
+        .badge.fail   {{ background: #fee2e2; color: #991b1b; }}
         .flow-error {{ font-size: 0.8em; color: #9ca3af; margin-top: 3px; font-style: italic; }}
         .duration {{ color: #9ca3af; white-space: nowrap; }}
         footer {{ color: rgba(255,255,255,0.7); font-size: 0.82em; text-align: center; margin-top: 24px; }}
@@ -252,12 +400,16 @@ html = f"""<!DOCTYPE html>
         <span class="verdict-badge verdict-{verdict_cls}">{verdict}</span>
         <div class="stats">
             <div class="stat"><div class="stat-value">{total}</div><div class="stat-label">Total flows</div></div>
-            <div class="stat green"><div class="stat-value">{passed}</div><div class="stat-label">Passed</div></div>
+            <div class="stat green"><div class="stat-value">{passed}</div><div class="stat-label">Auto-Pass</div></div>
+            <div class="stat blue"><div class="stat-value">{manual}</div><div class="stat-label">Manual-Pass</div></div>
             <div class="stat red"><div class="stat-value">{failed}</div><div class="stat-label">Failed</div></div>
-            <div class="stat amber"><div class="stat-value">{health}%</div><div class="stat-label">Health</div></div>
+            <div class="stat amber"><div class="stat-value">{health}%</div><div class="stat-label">Health{'' if not skipped else f' ({skipped} skip)'}</div></div>
         </div>
         <div class="health-bar">
-            <div class="health-meta"><span>Health score</span><strong>{health}%</strong></div>
+            <div class="health-meta">
+                <span>Health score{manual_note}{skip_note}</span>
+                <strong>{health}%</strong>
+            </div>
             <div class="health-track"><div class="health-fill" style="width:{health}%"></div></div>
         </div>
     </div>
@@ -270,7 +422,7 @@ html = f"""<!DOCTYPE html>
         </table>
     </div>
 
-    <footer>Generado {generated_at} · Maestro + YOM QA</footer>
+    <footer>Generado {generated_at} · Maestro + YOM QA · 👤 Manual-Pass = tester confirmó visualmente</footer>
 </div>
 </body>
 </html>"""
@@ -296,8 +448,12 @@ manifest['reports'].append({
     'client_slug':  client_slug,
     'date':         date_str,
     'file':         report_file,
+    'platform':     'app',
+    'environment':  environment,
     'passed':       passed,
+    'manual':       manual,
     'failed':       failed,
+    'skipped':      skipped,
     'total':        total,
     'health':       health,
     'verdict':      verdict,
@@ -308,7 +464,7 @@ with open(manifest_file, 'w') as f:
     json.dump(manifest, f, indent=2, ensure_ascii=False)
 
 print(f"✅  Reporte: public/app-reports/{report_file}")
-print(f"📊  {passed}/{total} flows pasaron · Health {health}% · {verdict}")
+print(f"📊  {passed}✅ {manual}👤 {failed}❌ {skipped}⏭ · Health {health}% · {verdict}")
 PYEOF
 
 echo ""
