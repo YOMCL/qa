@@ -51,12 +51,15 @@ for (const [key, client] of Object.entries(clients)) {
       await page.waitForLoadState('domcontentloaded');
 
       const prices = page.locator('text=/\\$\\s*[\\d.,]+/');
-      const priceCount = await prices.count();
 
       if (client.config.hidePrices) {
-        expect(priceCount).toBe(0);
+        // With prices hidden: wait briefly then assert none visible
+        await page.waitForTimeout(3_000);
+        expect(await prices.count()).toBe(0);
       } else {
-        expect(priceCount).toBeGreaterThan(0);
+        // Without hidden prices: wait for SPA to render products
+        await expect(prices.first()).toBeVisible({ timeout: 20_000 });
+        expect(await prices.count()).toBeGreaterThan(0);
       }
 
       await context.close();
@@ -76,6 +79,7 @@ for (const [key, client] of Object.entries(clients)) {
 
       if (client.config.disableCart) {
         // No debe haber botones de agregar
+        await page.waitForTimeout(3_000);
         expect(await addButtons.count()).toBe(0);
         // Navegar a /cart debe redirigir o mostrar vacío
         await page.goto(`${client.baseURL}/cart`);
@@ -83,7 +87,8 @@ for (const [key, client] of Object.entries(clients)) {
         const currentUrl = page.url();
         expect(currentUrl).not.toMatch(/\/cart$/);
       } else {
-        // Debe haber botones de agregar
+        // Debe haber botones de agregar — wait for SPA to render products
+        await expect(addButtons.first()).toBeVisible({ timeout: 20_000 });
         expect(await addButtons.count()).toBeGreaterThan(0);
         // /cart debe ser accesible
         await page.goto(`${client.baseURL}/cart`);
@@ -357,9 +362,14 @@ for (const [key, client] of Object.entries(clients)) {
           const hasIvaSeparado = /\+\s*iva|\+\s*impuesto|precio neto/i.test(bodyText || '');
           expect(hasIvaSeparado).toBeFalsy();
         } else {
-          // El resumen SÍ debe mostrar IVA como línea adicional
-          const hasIvaLinea = /iva|impuesto|tax/i.test(bodyText || '');
-          expect(hasIvaLinea).toBeTruthy();
+          // El resumen SÍ debe mostrar IVA si el cliente tiene impuesto configurado
+          const hasTaxConfig = client.config['taxes.useTaxRate'] && Number(client.config['taxes.taxRate'] || 0) > 0;
+          if (hasTaxConfig) {
+            const hasIvaLinea = /iva|impuesto|tax/i.test(bodyText || '');
+            expect(hasIvaLinea).toBeTruthy();
+          } else {
+            test.info().annotations.push({ type: 'info', description: 'No tax rate configured (taxes.useTaxRate=false) — IVA line not expected' });
+          }
         }
 
         await context.close();
@@ -392,8 +402,9 @@ for (const [key, client] of Object.entries(clients)) {
           expect(priceRequests.length).toBeGreaterThan(0);
         } else {
           // Sin lazy loading, los precios deben estar disponibles al cargar
-          await page.waitForLoadState('domcontentloaded');
           const prices = page.locator('text=/\\$\\s*[\\d.,]+/');
+          // SPA still needs to render products — wait for first price
+          await expect(prices.first()).toBeVisible({ timeout: 20_000 });
           expect(await prices.count()).toBeGreaterThan(0);
         }
 
