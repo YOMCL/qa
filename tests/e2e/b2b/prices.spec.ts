@@ -133,7 +133,8 @@ for (const [key, client] of Object.entries(clients)) {
           .or(page.getByText(/aplicar/i))
           .first();
         await applyBtn.click();
-        await page.waitForLoadState('networkidle');
+        await page.waitForLoadState('domcontentloaded');
+        await page.waitForTimeout(2_000);
 
         // Debe mostrar un mensaje de error claro — no aplicar descuento silenciosamente
         const errorMsg = page.getByText(/inv[aá]lido|no existe|vencido|error|incorrecto/i)

@@ -1,19 +1,16 @@
-import { test, expect } from '@playwright/test';
-import { loginHelper } from '../fixtures/login';
+import { createClientTest, expect } from '../fixtures/multi-client-auth';
 import clients from '../fixtures/clients';
 
 for (const [key, client] of Object.entries(clients)) {
+  const test = createClientTest(client);
   test.describe(`C2 — Checkout / crear pedido: ${client.name}`, () => {
-    test.use({ baseURL: client.baseURL });
 
-    async function loginAndAddProducts(page: any) {
-      await loginHelper(page, client.credentials.email, client.credentials.password, client.loginPath, client.baseURL);
+    async function addProducts(page: any) {
       await page.goto(`${client.baseURL}/products`, { waitUntil: 'domcontentloaded' });
       const addButtons = page.getByRole('button', { name: 'Agregar' });
       await addButtons.first().waitFor({ timeout: 30_000 });
 
       // Agregar 3 productos — suficiente para superar monto mínimo
-      // Limitar a 3 para no agotar los botones Agregar visibles en la primera vista
       const count = Math.min(await addButtons.count(), 3);
       for (let i = 0; i < count; i++) {
         await Promise.all([
@@ -23,8 +20,8 @@ for (const [key, client] of Object.entries(clients)) {
       }
     }
 
-    test(`${key}: C2-11 Flujo completo catalogo → carro → checkout`, async ({ page }) => {
-      await loginAndAddProducts(page);
+    test(`${key}: C2-11 Flujo completo catalogo → carro → checkout`, async ({ authedPage: page }) => {
+      await addProducts(page);
 
       await page.goto(`${client.baseURL}/cart`);
       await expect(page.getByText(/\d+ Producto/)).toBeVisible({ timeout: 15_000 });
@@ -42,8 +39,8 @@ for (const [key, client] of Object.entries(clients)) {
       expect(hasCriticalError).toBeFalsy();
     });
 
-    test(`${key}: C2-12 Doble click en crear pedido no genera duplicado`, async ({ page }) => {
-      await loginAndAddProducts(page);
+    test(`${key}: C2-12 Doble click en crear pedido no genera duplicado`, async ({ authedPage: page }) => {
+      await addProducts(page);
 
       await page.goto(`${client.baseURL}/cart`);
       await expect(page.getByText(/\d+ Producto/)).toBeVisible({ timeout: 15_000 });
@@ -67,8 +64,7 @@ for (const [key, client] of Object.entries(clients)) {
       }
     });
 
-    test(`${key}: C2-13 Pedido aparece en historial`, async ({ page }) => {
-      await loginHelper(page, client.credentials.email, client.credentials.password, client.loginPath, client.baseURL);
+    test(`${key}: C2-13 Pedido aparece en historial`, async ({ authedPage: page }) => {
       await page.goto(`${client.baseURL}/order`);
       await page.waitForLoadState('domcontentloaded');
 

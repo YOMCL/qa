@@ -15,9 +15,10 @@ for (const [key, client] of Object.entries(clients)) {
       expect(hasOrders || hasEmpty).toBeTruthy();
     });
 
-    test(`${key}: Estados de pedido son válidos (no "No disponible") @orders @funcional`, async ({ authedPage: page }) => {
+    test(`${key}: Estados de pedido son válidos (no "No disponible") @orders @funcional`, async () => {
       // KNOWN BEHAVIOR: pedidos sin fecha de despacho asignada muestran "No disponible"
       // Esto es esperado en staging — no es un error del sistema
+      // Nota: sin fixture authedPage para evitar intento de login antes del skip
       test.skip(true, 'Comportamiento conocido: pedidos sin fecha de despacho muestran "No disponible" — no es un bug');
     });
 
