@@ -2,11 +2,46 @@
   "running": true,
   "startTime": "2026-04-17T14:02:50.237Z",
   "total": 106,
-  "passed": 47,
+  "passed": 54,
   "failed": 0,
   "skipped": 2,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie: blockedClientAlert.enableBlockedClientAlert=false",
+      "status": "passed",
+      "duration": 6142
+    },
+    {
+      "title": "sonrie: useNewPromotions=false",
+      "status": "passed",
+      "duration": 4785
+    },
+    {
+      "title": "sonrie: externalAccess=true",
+      "status": "passed",
+      "duration": 4516
+    },
+    {
+      "title": "sonrie: showEmptyCategories=false",
+      "status": "passed",
+      "duration": 4725
+    },
+    {
+      "title": "sonrie: discountTypes.enableOrderDiscountType=false",
+      "status": "passed",
+      "duration": 7225
+    },
+    {
+      "title": "sonrie: weightInfo=false",
+      "status": "passed",
+      "duration": 4671
+    },
+    {
+      "title": "sonrie: discountTypes.enableProductDiscountType=false",
+      "status": "passed",
+      "duration": 4716
+    },
     {
       "title": "sonrie: enableBetaButtons=false",
       "status": "passed",
@@ -71,41 +106,6 @@
       "title": "sonrie: hasNoSaleFilter=false",
       "status": "passed",
       "duration": 4901
-    },
-    {
-      "title": "sonrie: editAddress=true",
-      "status": "passed",
-      "duration": 7518
-    },
-    {
-      "title": "sonrie: hasMultiUnitEnabled=false",
-      "status": "passed",
-      "duration": 4709
-    },
-    {
-      "title": "sonrie: showMinOne=false",
-      "status": "passed",
-      "duration": 4709
-    },
-    {
-      "title": "sonrie: enableDistributionCentersSelector=false",
-      "status": "passed",
-      "duration": 5380
-    },
-    {
-      "title": "sonrie: enableCreditNotes=false",
-      "status": "passed",
-      "duration": 4573
-    },
-    {
-      "title": "sonrie: enableTask=false",
-      "status": "passed",
-      "duration": 4992
-    },
-    {
-      "title": "sonrie: pointsEnabled=false",
-      "status": "passed",
-      "duration": 4674
     }
   ]
 }
