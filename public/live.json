@@ -2,11 +2,51 @@
   "running": true,
   "startTime": "2026-04-17T13:51:35.460Z",
   "total": 106,
-  "passed": 60,
+  "passed": 68,
   "failed": 0,
   "skipped": 2,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie: disableObservationInput=false",
+      "status": "passed",
+      "duration": 7528
+    },
+    {
+      "title": "sonrie: disableCommerceEdit=false",
+      "status": "passed",
+      "duration": 6704
+    },
+    {
+      "title": "sonrie: enableInvoicesList=false",
+      "status": "passed",
+      "duration": 6535
+    },
+    {
+      "title": "sonrie: enableNewUI=false",
+      "status": "passed",
+      "duration": 7659
+    },
+    {
+      "title": "sonrie: enablePaymentDocumentsB2B=false",
+      "status": "passed",
+      "duration": 6686
+    },
+    {
+      "title": "sonrie: paymentsWithoutAccount=false",
+      "status": "passed",
+      "duration": 6782
+    },
+    {
+      "title": "sonrie: enablePriceOracle=false",
+      "status": "passed",
+      "duration": 7654
+    },
+    {
+      "title": "sonrie: hasMultipleBusinessUnit=false",
+      "status": "passed",
+      "duration": 7733
+    },
     {
       "title": "sonrie: suggestions.hide=true",
       "status": "passed",
@@ -66,46 +106,6 @@
       "title": "sonrie: weightInfo=false",
       "status": "passed",
       "duration": 4663
-    },
-    {
-      "title": "sonrie: discountTypes.enableProductDiscountType=false",
-      "status": "passed",
-      "duration": 4897
-    },
-    {
-      "title": "sonrie: enableBetaButtons=false",
-      "status": "passed",
-      "duration": 4622
-    },
-    {
-      "title": "sonrie: uploadOrderFileWithMinUnits=false",
-      "status": "passed",
-      "duration": 5191
-    },
-    {
-      "title": "sonrie: hasTransferPaymentType=false",
-      "status": "passed",
-      "duration": 7405
-    },
-    {
-      "title": "sonrie: disableShowEstimatedDeliveryHour=false",
-      "status": "passed",
-      "duration": 7605
-    },
-    {
-      "title": "sonrie: hasTransportCode=false",
-      "status": "passed",
-      "duration": 8405
-    },
-    {
-      "title": "sonrie: enablePaymentsCollection=false",
-      "status": "passed",
-      "duration": 4462
-    },
-    {
-      "title": "sonrie: hasVoucherPrinterEnabled=false",
-      "status": "passed",
-      "duration": 4673
     }
   ]
 }
