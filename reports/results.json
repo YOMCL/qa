@@ -10,18 +10,14 @@
     "grep": {},
     "grepInvert": null,
     "maxFailures": 0,
-    "metadata": {
-      "actualWorkers": 1
-    },
+    "metadata": {},
     "preserveOutput": "always",
     "projects": [
       {
         "outputDir": "/Users/lalojimenez/qa/tests/e2e/test-results",
         "repeatEach": 1,
         "retries": 1,
-        "metadata": {
-          "actualWorkers": 1
-        },
+        "metadata": {},
         "id": "b2b",
         "name": "b2b",
         "testDir": "/Users/lalojimenez/qa/tests/e2e/b2b",
@@ -35,9 +31,7 @@
         "outputDir": "/Users/lalojimenez/qa/tests/e2e/test-results",
         "repeatEach": 1,
         "retries": 1,
-        "metadata": {
-          "actualWorkers": 1
-        },
+        "metadata": {},
         "id": "admin",
         "name": "admin",
         "testDir": "/Users/lalojimenez/qa/tests/e2e/admin",
@@ -82,156 +76,27 @@
     "updateSourceMethod": "patch",
     "version": "1.58.2",
     "workers": 4,
-    "webServer": null
+    "webServer": {
+      "command": "python3 -m http.server 8080 --directory ../../public",
+      "url": "http://localhost:8080",
+      "reuseExistingServer": true,
+      "stdout": "ignore",
+      "stderr": "pipe"
+    }
   },
-  "suites": [
+  "suites": [],
+  "errors": [
     {
-      "title": "b2b/cart.spec.ts",
-      "file": "b2b/cart.spec.ts",
-      "column": 0,
-      "line": 0,
-      "specs": [],
-      "suites": [
-        {
-          "title": "C2 — Carrito de compras: Sonrie (staging)",
-          "file": "b2b/cart.spec.ts",
-          "line": 6,
-          "column": 8,
-          "specs": [
-            {
-              "title": "sonrie: C2-09 Eliminar producto del carro",
-              "ok": false,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 120000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "b2b",
-                  "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "failed",
-                      "duration": 95160,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Agregar' }).first()\nExpected: visible\nTimeout: 30000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Agregar' }).first()\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Agregar' }).first()\nExpected: visible\nTimeout: 30000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Agregar' }).first()\u001b[22m\n\n    at /Users/lalojimenez/qa/tests/e2e/b2b/cart.spec.ts:15:75",
-                        "location": {
-                          "file": "/Users/lalojimenez/qa/tests/e2e/b2b/cart.spec.ts",
-                          "column": 75,
-                          "line": 15
-                        },
-                        "snippet": "  13 |         await page.goto(`${client.baseURL}/products`, { waitUntil: 'domcontentloaded' });\n  14 |       }\n> 15 |       await expect(page.getByRole('button', { name: 'Agregar' }).first()).toBeVisible({ timeout: 30_000 });\n     |                                                                           ^\n  16 |     });\n  17 |\n  18 |     test(`${key}: C2-05 Agregar producto al carro`, async ({ authedPage: page }) => {"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/b2b/cart.spec.ts",
-                            "column": 75,
-                            "line": 15
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Agregar' }).first()\nExpected: visible\nTimeout: 30000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Agregar' }).first()\u001b[22m\n\n\n  13 |         await page.goto(`${client.baseURL}/products`, { waitUntil: 'domcontentloaded' });\n  14 |       }\n> 15 |       await expect(page.getByRole('button', { name: 'Agregar' }).first()).toBeVisible({ timeout: 30_000 });\n     |                                                                           ^\n  16 |     });\n  17 |\n  18 |     test(`${key}: C2-05 Agregar producto al carro`, async ({ authedPage: page }) => {\n    at /Users/lalojimenez/qa/tests/e2e/b2b/cart.spec.ts:15:75"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-17T13:45:24.425Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/cart-C2-—-Carrito-de-compr-9f469-Eliminar-producto-del-carro-b2b/test-failed-1.png"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/cart-C2-—-Carrito-de-compr-9f469-Eliminar-producto-del-carro-b2b/error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/b2b/cart.spec.ts",
-                        "column": 75,
-                        "line": 15
-                      }
-                    },
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 0,
-                      "status": "failed",
-                      "duration": 95238,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Agregar' }).first()\nExpected: visible\nTimeout: 30000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Agregar' }).first()\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Agregar' }).first()\nExpected: visible\nTimeout: 30000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Agregar' }).first()\u001b[22m\n\n    at /Users/lalojimenez/qa/tests/e2e/b2b/cart.spec.ts:15:75",
-                        "location": {
-                          "file": "/Users/lalojimenez/qa/tests/e2e/b2b/cart.spec.ts",
-                          "column": 75,
-                          "line": 15
-                        },
-                        "snippet": "  13 |         await page.goto(`${client.baseURL}/products`, { waitUntil: 'domcontentloaded' });\n  14 |       }\n> 15 |       await expect(page.getByRole('button', { name: 'Agregar' }).first()).toBeVisible({ timeout: 30_000 });\n     |                                                                           ^\n  16 |     });\n  17 |\n  18 |     test(`${key}: C2-05 Agregar producto al carro`, async ({ authedPage: page }) => {"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/b2b/cart.spec.ts",
-                            "column": 75,
-                            "line": 15
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('button', { name: 'Agregar' }).first()\nExpected: visible\nTimeout: 30000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 30000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('button', { name: 'Agregar' }).first()\u001b[22m\n\n\n  13 |         await page.goto(`${client.baseURL}/products`, { waitUntil: 'domcontentloaded' });\n  14 |       }\n> 15 |       await expect(page.getByRole('button', { name: 'Agregar' }).first()).toBeVisible({ timeout: 30_000 });\n     |                                                                           ^\n  16 |     });\n  17 |\n  18 |     test(`${key}: C2-05 Agregar producto al carro`, async ({ authedPage: page }) => {\n    at /Users/lalojimenez/qa/tests/e2e/b2b/cart.spec.ts:15:75"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 1,
-                      "startTime": "2026-04-17T13:47:00.766Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/cart-C2-—-Carrito-de-compr-9f469-Eliminar-producto-del-carro-b2b-retry1/test-failed-1.png"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/cart-C2-—-Carrito-de-compr-9f469-Eliminar-producto-del-carro-b2b-retry1/error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/cart-C2-—-Carrito-de-compr-9f469-Eliminar-producto-del-carro-b2b-retry1/trace.zip"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/b2b/cart.spec.ts",
-                        "column": 75,
-                        "line": 15
-                      }
-                    }
-                  ],
-                  "status": "unexpected"
-                }
-              ],
-              "id": "1981448f0b79506fb670-d5c191d876d10ed42129",
-              "file": "b2b/cart.spec.ts",
-              "line": 85,
-              "column": 5
-            }
-          ]
-        }
-      ]
+      "message": "Error: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments.",
+      "stack": "Error: No tests found.\nMake sure that arguments are regular expressions matching test files.\nYou may need to escape symbols like \"$\" or \"*\" and quote the arguments."
     }
   ],
-  "errors": [],
   "stats": {
-    "startTime": "2026-04-17T13:45:23.174Z",
-    "duration": 194624.396,
+    "startTime": "2026-04-17T14:08:38.624Z",
+    "duration": 1772.837,
     "expected": 0,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 0,
     "flaky": 0
   }
 }
