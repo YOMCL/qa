@@ -2,11 +2,46 @@
   "running": true,
   "startTime": "2026-04-17T16:17:07.404Z",
   "total": 106,
-  "passed": 54,
+  "passed": 61,
   "failed": 0,
   "skipped": 2,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie: enableCreditNotes=false",
+      "status": "passed",
+      "duration": 4415
+    },
+    {
+      "title": "sonrie: enableTask=false",
+      "status": "passed",
+      "duration": 4617
+    },
+    {
+      "title": "sonrie: paymentsWithoutAccount=false",
+      "status": "passed",
+      "duration": 6792
+    },
+    {
+      "title": "sonrie: pointsEnabled=false",
+      "status": "passed",
+      "duration": 4586
+    },
+    {
+      "title": "sonrie: payment.enableNewPaymentModule=false",
+      "status": "passed",
+      "duration": 7416
+    },
+    {
+      "title": "sonrie: hasTransferPaymentType=false",
+      "status": "passed",
+      "duration": 7929
+    },
+    {
+      "title": "sonrie: discountTypes.enableOrderDiscountType=false",
+      "status": "passed",
+      "duration": 7711
+    },
     {
       "title": "sonrie: discountTypes.enableProductDiscountType=false",
       "status": "passed",
@@ -71,41 +106,6 @@
       "title": "sonrie: enableOrderApproval=false",
       "status": "passed",
       "duration": 4710
-    },
-    {
-      "title": "sonrie: ordersRequireVerification=false",
-      "status": "passed",
-      "duration": 4694
-    },
-    {
-      "title": "sonrie: ordersRequireAuthorization=false",
-      "status": "passed",
-      "duration": 5123
-    },
-    {
-      "title": "sonrie: enablePriceOracle=false",
-      "status": "passed",
-      "duration": 7872
-    },
-    {
-      "title": "sonrie: enableDistributionCentersSelector=false",
-      "status": "passed",
-      "duration": 4729
-    },
-    {
-      "title": "sonrie: hasMultipleBusinessUnit=false",
-      "status": "passed",
-      "duration": 7825
-    },
-    {
-      "title": "sonrie: uploadOrderFileWithMinUnits=false",
-      "status": "passed",
-      "duration": 4737
-    },
-    {
-      "title": "sonrie: showEmptyCategories=false",
-      "status": "passed",
-      "duration": 4697
     }
   ]
 }
