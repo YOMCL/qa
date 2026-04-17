@@ -2,11 +2,51 @@
   "running": true,
   "startTime": "2026-04-17T20:20:38.946Z",
   "total": 106,
-  "passed": 46,
+  "passed": 54,
   "failed": 0,
   "skipped": 2,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie: discountTypes.enableProductDiscountType=false",
+      "status": "passed",
+      "duration": 3324
+    },
+    {
+      "title": "sonrie: includeTaxRateInPrices=false",
+      "status": "passed",
+      "duration": 5785
+    },
+    {
+      "title": "sonrie: taxes.showSummary=true",
+      "status": "passed",
+      "duration": 7016
+    },
+    {
+      "title": "sonrie: enableSellerDiscount=false",
+      "status": "passed",
+      "duration": 6012
+    },
+    {
+      "title": "sonrie: enablePaymentsCollection=false",
+      "status": "passed",
+      "duration": 3356
+    },
+    {
+      "title": "sonrie: enablePayments=false",
+      "status": "passed",
+      "duration": 5706
+    },
+    {
+      "title": "sonrie: disableCommerceEdit=false",
+      "status": "passed",
+      "duration": 6354
+    },
+    {
+      "title": "sonrie: enablePaymentDocumentsB2B=false",
+      "status": "passed",
+      "duration": 5547
+    },
     {
       "title": "sonrie: enableInvoicesList=false",
       "status": "passed",
@@ -66,46 +106,6 @@
       "title": "sonrie: weightInfo=false",
       "status": "passed",
       "duration": 4494
-    },
-    {
-      "title": "sonrie: packagingInformation.hidePackagingInformationB2B=true",
-      "status": "passed",
-      "duration": 4583
-    },
-    {
-      "title": "sonrie: showEmptyCategories=false",
-      "status": "passed",
-      "duration": 3441
-    },
-    {
-      "title": "sonrie: hasNoSaleFilter=false",
-      "status": "passed",
-      "duration": 3480
-    },
-    {
-      "title": "sonrie: hasStockEnabled=false",
-      "status": "passed",
-      "duration": 4737
-    },
-    {
-      "title": "sonrie: enableChooseSaleUnit=false",
-      "status": "passed",
-      "duration": 4503
-    },
-    {
-      "title": "sonrie: shoppingDetail.lastOrder=false",
-      "status": "passed",
-      "duration": 12529
-    },
-    {
-      "title": "sonrie: hasMultiUnitEnabled=false",
-      "status": "passed",
-      "duration": 3515
-    },
-    {
-      "title": "sonrie: disableObservationInput=false",
-      "status": "passed",
-      "duration": 11429
     }
   ]
 }
