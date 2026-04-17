@@ -6,6 +6,7 @@ for (const [key, client] of Object.entries(clients)) {
   test.describe(`C3 — Precios y descuentos: ${client.name}`, () => {
 
     test(`${key}: C3-01 Precios visibles en catalogo anonimo (formato CLP)`, async ({ page }) => {
+      test.skip(!client.config.anonymousAccess, `${client.name} requiere login — catálogo anónimo no aplica`);
       await page.goto(client.baseURL);
       await expect(page.locator('text=/\\$\\s*[\\d.,]+/')).toBeVisible({ timeout: 15_000 });
 
@@ -15,6 +16,7 @@ for (const [key, client] of Object.entries(clients)) {
     });
 
     test(`${key}: C3-02 Detectar productos con precio $0`, async ({ page }) => {
+      test.skip(!client.config.anonymousAccess, `${client.name} requiere login — catálogo anónimo no aplica`);
       await page.goto(client.baseURL);
       await expect(page.locator('text=/\\$\\s*[\\d.,]+/')).toBeVisible({ timeout: 15_000 });
 
@@ -67,6 +69,7 @@ for (const [key, client] of Object.entries(clients)) {
     });
 
     test(`${key}: C3-04 Descuento visible en catalogo`, async ({ page }) => {
+      test.skip(!client.config.anonymousAccess, `${client.name} requiere login — catálogo anónimo no aplica`);
       // enableSellerDiscount=true + disableShowDiscount=false
       await page.goto(client.baseURL);
       await expect(page.locator('text=/\\$\\s*[\\d.,]+/')).toBeVisible({ timeout: 15_000 });

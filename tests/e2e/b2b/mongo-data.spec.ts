@@ -24,7 +24,7 @@ for (const [key, client] of Object.entries(clients)) {
       await page.goto(client.baseURL);
       await page.waitForLoadState('domcontentloaded');
       if (!client.config.anonymousAccess) {
-        await loginHelper(page, client.credentials.email, client.credentials.password, client.loginPath);
+        await loginHelper(page, client.credentials.email, client.credentials.password, client.loginPath, client.baseURL);
       }
     }
 
