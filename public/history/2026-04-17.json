@@ -1,8 +1,8 @@
 {
   "date": "2026-04-17",
-  "timestamp": "2026-04-17T19:02:02.184516+00:00",
-  "total": 99,
-  "passed": 89,
+  "timestamp": "2026-04-17T19:26:29.375571+00:00",
+  "total": 497,
+  "passed": 77,
   "failed": 0,
   "duration": 710,
   "suites": [
@@ -43,8 +43,8 @@
     },
     {
       "name": "cv-cart.spec.ts",
-      "tests": 12,
-      "passed": 12,
+      "tests": 410,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
