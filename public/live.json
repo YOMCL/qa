@@ -1,0 +1,111 @@
+{
+  "running": true,
+  "startTime": "2026-04-17T13:57:17.185Z",
+  "total": 106,
+  "passed": 83,
+  "failed": 2,
+  "skipped": 7,
+  "currentTest": null,
+  "recentTests": [
+    {
+      "title": "sonrie: C3-01 Precios visibles en catalogo anonimo (formato CLP)",
+      "status": "failed",
+      "duration": 16400
+    },
+    {
+      "title": "sonrie: PAG-16 Montos en historial no muestran valores negativos confusos",
+      "status": "passed",
+      "duration": 9526
+    },
+    {
+      "title": "sonrie: Pipeline API catálogo devuelve productos con nombre y pricing @catalog @critico",
+      "status": "failed",
+      "duration": 49027
+    },
+    {
+      "title": "sonrie: PAG-04 Historial de pagos carga correctamente",
+      "status": "passed",
+      "duration": 9374
+    },
+    {
+      "title": "sonrie: C7-12 /payment-documents carga sin error cuando flag=true",
+      "status": "skipped",
+      "duration": 9317
+    },
+    {
+      "title": "sonrie: C7-11 Opción de facturas en menú lateral cuando flag=true",
+      "status": "skipped",
+      "duration": 9346
+    },
+    {
+      "title": "sonrie: C7-10 Facturas visibles en /orders cuando flag=true",
+      "status": "skipped",
+      "duration": 9302
+    },
+    {
+      "title": "sonrie: C7-INV /payment-documents no accesible cuando flag=false",
+      "status": "passed",
+      "duration": 10022
+    },
+    {
+      "title": "sonrie: C7-INV Link \"Mis documentos\" oculto cuando flag=false",
+      "status": "passed",
+      "duration": 11800
+    },
+    {
+      "title": "sonrie: Historial de pedidos carga @orders @funcional",
+      "status": "passed",
+      "duration": 12812
+    },
+    {
+      "title": "sonrie: No hay productos con precio $0",
+      "status": "passed",
+      "duration": 9798
+    },
+    {
+      "title": "sonrie: Estados de pedido son válidos (no \"No disponible\") @orders @funcional",
+      "status": "skipped",
+      "duration": 0
+    },
+    {
+      "title": "sonrie: Agregar producto al carro",
+      "status": "passed",
+      "duration": 6161
+    },
+    {
+      "title": "sonrie: Catálogo muestra productos con precios",
+      "status": "passed",
+      "duration": 4716
+    },
+    {
+      "title": "sonrie: Login exitoso",
+      "status": "passed",
+      "duration": 4578
+    },
+    {
+      "title": "sonrie: Sin acceso anónimo redirige a login",
+      "status": "passed",
+      "duration": 3446
+    },
+    {
+      "title": "sonrie: PM1-03 Crear orden SIN cupón no se rompe por cambios en cupones",
+      "status": "passed",
+      "duration": 14586
+    },
+    {
+      "title": "sonrie: PM2-04 Modal/UI de cupón no queda en loading infinito",
+      "status": "passed",
+      "duration": 15561
+    },
+    {
+      "title": "sonrie: PM1-04 Cupón inválido muestra error (no crash)",
+      "status": "passed",
+      "duration": 15590
+    },
+    {
+      "title": "sonrie: PM1-01 Campo de cupón existe y es interactuable",
+      "status": "passed",
+      "duration": 13486
+    }
+  ]
+}
