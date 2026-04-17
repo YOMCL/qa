@@ -5,6 +5,8 @@ import path from 'path';
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 export default defineConfig({
+  globalSetup: './global-setup.ts',
+  globalTeardown: './global-teardown.ts',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 1,
@@ -13,7 +15,7 @@ export default defineConfig({
     ['html', { open: 'never' }],
     ['json', { outputFile: 'playwright-report/results.json' }],
     ['list'],
-    ...(process.env.LIVE ? [['../../tools/live-reporter.js'] as ['../../tools/live-reporter.js']] : []),
+    ...(!process.env.CI ? [['../../tools/live-reporter.js'] as ['../../tools/live-reporter.js']] : []),
   ],
   use: {
     baseURL: process.env.BASE_URL || 'https://tienda.youorder.me',
