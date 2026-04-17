@@ -2,11 +2,51 @@
   "running": true,
   "startTime": "2026-04-17T13:51:35.460Z",
   "total": 106,
-  "passed": 71,
+  "passed": 78,
   "failed": 0,
-  "skipped": 3,
+  "skipped": 4,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie: No hay productos con precio $0",
+      "status": "passed",
+      "duration": 9767
+    },
+    {
+      "title": "sonrie: Estados de pedido son válidos (no \"No disponible\") @orders @funcional",
+      "status": "skipped",
+      "duration": 1
+    },
+    {
+      "title": "sonrie: Agregar producto al carro",
+      "status": "passed",
+      "duration": 5953
+    },
+    {
+      "title": "sonrie: Catálogo muestra productos con precios",
+      "status": "passed",
+      "duration": 4260
+    },
+    {
+      "title": "sonrie: Login exitoso",
+      "status": "passed",
+      "duration": 4475
+    },
+    {
+      "title": "sonrie: Sin acceso anónimo redirige a login",
+      "status": "passed",
+      "duration": 3403
+    },
+    {
+      "title": "sonrie: PM1-03 Crear orden SIN cupón no se rompe por cambios en cupones",
+      "status": "passed",
+      "duration": 14630
+    },
+    {
+      "title": "sonrie: PM2-04 Modal/UI de cupón no queda en loading infinito",
+      "status": "passed",
+      "duration": 15461
+    },
     {
       "title": "sonrie: PM1-04 Cupón inválido muestra error (no crash)",
       "status": "passed",
@@ -66,46 +106,6 @@
       "title": "sonrie: hasMultipleBusinessUnit=false",
       "status": "passed",
       "duration": 7733
-    },
-    {
-      "title": "sonrie: suggestions.hide=true",
-      "status": "passed",
-      "duration": 7660
-    },
-    {
-      "title": "sonrie: shoppingDetail.lastOrder=false",
-      "status": "passed",
-      "duration": 7229
-    },
-    {
-      "title": "sonrie: shareOrderNewDesign=false",
-      "status": "passed",
-      "duration": 4833
-    },
-    {
-      "title": "sonrie: payment.enableNewPaymentModule=false",
-      "status": "passed",
-      "duration": 7371
-    },
-    {
-      "title": "sonrie: loginButtons.google=false",
-      "status": "passed",
-      "duration": 1404
-    },
-    {
-      "title": "sonrie: loginButtons.facebook=false",
-      "status": "passed",
-      "duration": 1497
-    },
-    {
-      "title": "sonrie: useNewPromotions=false",
-      "status": "passed",
-      "duration": 4571
-    },
-    {
-      "title": "sonrie: externalAccess=true",
-      "status": "passed",
-      "duration": 4557
     }
   ]
 }
