@@ -2,11 +2,51 @@
   "running": true,
   "startTime": "2026-04-17T13:51:35.460Z",
   "total": 106,
-  "passed": 37,
+  "passed": 45,
   "failed": 0,
   "skipped": 2,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie: hasTransferPaymentType=false",
+      "status": "passed",
+      "duration": 7405
+    },
+    {
+      "title": "sonrie: disableShowEstimatedDeliveryHour=false",
+      "status": "passed",
+      "duration": 7605
+    },
+    {
+      "title": "sonrie: hasTransportCode=false",
+      "status": "passed",
+      "duration": 8405
+    },
+    {
+      "title": "sonrie: enablePaymentsCollection=false",
+      "status": "passed",
+      "duration": 4462
+    },
+    {
+      "title": "sonrie: hasVoucherPrinterEnabled=false",
+      "status": "passed",
+      "duration": 4673
+    },
+    {
+      "title": "sonrie: enableOrderValidation=false",
+      "status": "passed",
+      "duration": 7401
+    },
+    {
+      "title": "sonrie: enableOrderApproval=false",
+      "status": "passed",
+      "duration": 4798
+    },
+    {
+      "title": "sonrie: ordersRequireVerification=false",
+      "status": "passed",
+      "duration": 4819
+    },
     {
       "title": "sonrie: packagingInformation.hidePackagingInformationB2B=true",
       "status": "passed",
@@ -66,46 +106,6 @@
       "title": "sonrie: taxes.showSummary=true",
       "status": "passed",
       "duration": 7435
-    },
-    {
-      "title": "sonrie: purchaseOrderEnabled=false",
-      "status": "passed",
-      "duration": 8363
-    },
-    {
-      "title": "sonrie: enableSellerDiscount=false",
-      "status": "passed",
-      "duration": 7233
-    },
-    {
-      "title": "sonrie: hasStockEnabled=false",
-      "status": "passed",
-      "duration": 4875
-    },
-    {
-      "title": "sonrie: enableAskDeliveryDate=false",
-      "status": "passed",
-      "duration": 6088
-    },
-    {
-      "title": "sonrie: lazyLoadingPrices=false",
-      "status": "passed",
-      "duration": 5487
-    },
-    {
-      "title": "sonrie: enableChooseSaleUnit=false",
-      "status": "passed",
-      "duration": 5085
-    },
-    {
-      "title": "sonrie: includeTaxRateInPrices=false",
-      "status": "passed",
-      "duration": 6102
-    },
-    {
-      "title": "sonrie: enablePayments=false",
-      "status": "passed",
-      "duration": 5938
     }
   ]
 }
