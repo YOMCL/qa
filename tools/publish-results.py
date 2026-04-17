@@ -702,10 +702,12 @@ def merge_run_json(existing: dict, new: dict) -> dict:
     # Timestamp: use most recent
     merged["timestamp"] = new["timestamp"]
 
-    # Clients: merge by slug — new data wins only if it has real results (passed+failed > 0)
+    # Clients: merge by slug — new data wins only if it ran at least as many tests as existing
     merged_clients = dict(existing.get("clients", {}))
     for slug, new_client in new.get("clients", {}).items():
-        if new_client.get("passed", 0) + new_client.get("failed", 0) > 0:
+        new_active = new_client.get("passed", 0) + new_client.get("failed", 0)
+        existing_active = merged_clients.get(slug, {}).get("passed", 0) + merged_clients.get(slug, {}).get("failed", 0)
+        if new_active > 0 and new_active >= existing_active:
             merged_clients[slug] = new_client
         elif slug not in merged_clients:
             merged_clients[slug] = new_client  # new client with no results yet — add anyway
