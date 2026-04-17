@@ -2,11 +2,26 @@
   "running": true,
   "startTime": "2026-04-17T14:02:50.237Z",
   "total": 106,
-  "passed": 83,
-  "failed": 2,
+  "passed": 84,
+  "failed": 4,
   "skipped": 7,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie: C3-01 Precios visibles en catalogo anonimo (formato CLP)",
+      "status": "failed",
+      "duration": 16942
+    },
+    {
+      "title": "sonrie: C3-02 Detectar productos con precio $0",
+      "status": "failed",
+      "duration": 16582
+    },
+    {
+      "title": "sonrie: C3-03 Precios consistentes catalogo vs carro",
+      "status": "passed",
+      "duration": 12940
+    },
     {
       "title": "sonrie: C3-01 Precios visibles en catalogo anonimo (formato CLP)",
       "status": "failed",
@@ -91,21 +106,6 @@
       "title": "sonrie: Sin acceso anónimo redirige a login",
       "status": "passed",
       "duration": 3662
-    },
-    {
-      "title": "sonrie: PM1-04 Cupón inválido muestra error (no crash)",
-      "status": "passed",
-      "duration": 15466
-    },
-    {
-      "title": "sonrie: PM2-04 Modal/UI de cupón no queda en loading infinito",
-      "status": "passed",
-      "duration": 15436
-    },
-    {
-      "title": "sonrie: PM1-01 Campo de cupón existe y es interactuable",
-      "status": "passed",
-      "duration": 13275
     }
   ]
 }
