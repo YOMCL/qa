@@ -1342,6 +1342,7 @@ function getReportEnv(rep) {
 function enterEnv(env) {
     selectedEnv = env;
     localStorage.setItem('qa-selected-env', env);
+    document.querySelector('.env-landing').style.display = 'none';
     updateEnvBadge();
     document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
     if (latestRun) updateClients();
@@ -1362,6 +1363,7 @@ function backToLanding() {
     selectedEnv = null;
     localStorage.removeItem('qa-selected-env');
     updateEnvBadge();
+    document.querySelector('.env-landing').style.display = '';
     document.querySelector('.env-landing').scrollIntoView({ behavior: 'smooth' });
     if (latestRun) updateClients();
     loadCoworkReports();
@@ -1989,10 +1991,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('tab-b2b').style.display = 'block';
     }
 
-    // Restaurar env seleccionado — saltarse el landing si ya eligió antes
+    // Restaurar env seleccionado — ocultar landing si ya eligió antes
     const savedEnv = localStorage.getItem('qa-selected-env');
     if (savedEnv) {
         selectedEnv = savedEnv;
+        document.querySelector('.env-landing').style.display = 'none';
         updateEnvBadge();
         document.querySelector('.container').scrollIntoView({ behavior: 'instant' });
     }
