@@ -2,7 +2,17 @@ import { execSync } from 'child_process';
 import { readFileSync, unlinkSync, existsSync } from 'fs';
 import { join } from 'path';
 
+const PID_FILE = join(__dirname, '../../.http-server.pid');
+
 export default async function globalTeardown() {
+  // Belt-and-suspenders: kill anything holding port 8080
+  // (webServer config handles this normally; this is the fallback)
+  try {
+    execSync('lsof -ti:8080 | xargs kill -9 2>/dev/null || true', { shell: '/bin/bash' });
+  } catch {}
+  // Clean up stale PID file if it somehow exists
+  try { unlinkSync(PID_FILE); } catch {}
+
   // Publicar resultados al dashboard
   const root = join(__dirname, '../..');
   try {

@@ -7,6 +7,13 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 export default defineConfig({
   globalSetup: './global-setup.ts',
   globalTeardown: './global-teardown.ts',
+  webServer: process.env.CI ? undefined : {
+    command: 'python3 -m http.server 8080 --directory ../../public',
+    url: 'http://localhost:8080',
+    reuseExistingServer: true,
+    stdout: 'ignore',
+    stderr: 'pipe',
+  },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 1,
