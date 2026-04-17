@@ -1,35 +1,14 @@
 {
   "date": "2026-04-17",
-  "timestamp": "2026-04-17T16:01:00.853154+00:00",
-  "total": 3788,
-  "passed": 59,
+  "timestamp": "2026-04-17T16:22:55.527955+00:00",
+  "total": 3728,
+  "passed": 0,
   "failed": 0,
-  "duration": 2374,
+  "duration": 0,
   "suites": [
-    {
-      "name": "config-validation.spec.ts",
-      "tests": 60,
-      "passed": 59,
-      "failed": 0,
-      "reportUrl": "reports/index.html"
-    },
     {
       "name": "cart.spec.ts",
       "tests": 160,
-      "passed": 0,
-      "failed": 0,
-      "reportUrl": "reports/index.html"
-    },
-    {
-      "name": "prices.spec.ts",
-      "tests": 400,
-      "passed": 0,
-      "failed": 0,
-      "reportUrl": "reports/index.html"
-    },
-    {
-      "name": "mongo-data.spec.ts",
-      "tests": 40,
       "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
@@ -98,6 +77,13 @@
       "reportUrl": "reports/index.html"
     },
     {
+      "name": "mongo-data.spec.ts",
+      "tests": 40,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html"
+    },
+    {
       "name": "multi-client.spec.ts",
       "tests": 200,
       "passed": 0,
@@ -126,6 +112,13 @@
       "reportUrl": "reports/index.html"
     },
     {
+      "name": "prices.spec.ts",
+      "tests": 400,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html"
+    },
+    {
       "name": "promotions.spec.ts",
       "tests": 120,
       "passed": 0,
@@ -141,25 +134,41 @@
     }
   ],
   "clients": {
-    "sonrie": {
-      "name": "Sonrie (staging)",
-      "url": "https://sonrie.solopide.me",
-      "environment": "staging",
-      "tests": 0,
-      "passed": 0,
-      "failed": 0,
-      "reportUrl": "reports/sonrie/index.html",
-      "last_tested": "2026-04-17"
-    },
     "bastien": {
       "name": "Bastien (staging)",
       "url": "https://bastien.solopide.me",
-      "environment": "staging",
-      "tests": 0,
-      "passed": 0,
+      "tests": 100,
+      "passed": 100,
       "failed": 0,
       "reportUrl": "reports/index.html",
-      "last_tested": "2026-04-17"
+      "last_tested": "2026-04-16"
+    },
+    "sonrie": {
+      "name": "Sonrie (staging)",
+      "url": "https://sonrie.solopide.me",
+      "tests": 101,
+      "passed": 55,
+      "failed": 46,
+      "reportUrl": "reports/index.html",
+      "last_tested": "2026-04-16"
+    },
+    "codelpa": {
+      "name": "Codelpa",
+      "url": "https://beta-codelpa.solopide.me",
+      "tests": 32,
+      "passed": 26,
+      "failed": 4,
+      "reportUrl": "reports/index.html",
+      "last_tested": "2026-04-07"
+    },
+    "surtiventas": {
+      "name": "Surtiventas",
+      "url": "https://surtiventas.solopide.me",
+      "tests": 25,
+      "passed": 20,
+      "failed": 5,
+      "reportUrl": "reports/index.html",
+      "last_tested": "2026-04-07"
     },
     "andina": {
       "name": "Andina (staging)",
@@ -324,16 +333,6 @@
     "watts-scjohnson-cencocal": {
       "name": "Watts Scjohnson Cencocal (staging)",
       "url": "https://watts-scjohnson-cencocal.solopide.me",
-      "environment": "staging",
-      "tests": 0,
-      "passed": 0,
-      "failed": 0,
-      "reportUrl": "reports/index.html",
-      "last_tested": "2026-04-17"
-    },
-    "codelpa": {
-      "name": "Codelpa (staging)",
-      "url": "https://codelpa.solopide.me",
       "environment": "staging",
       "tests": 0,
       "passed": 0,
