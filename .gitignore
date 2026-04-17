@@ -22,6 +22,12 @@ test-results/
 # OS
 *.DS_Store
 
+# QA result directories — only committed results should be in version control
+QA/*/
+
+# Runtime PID file (cleaned up by run-live.sh exit trap)
+.http-server.pid
+
 # Large Playwright artifacts (videos, traces) — not needed for dashboard
 public/reports/data/*.webm
 public/reports/data/*.zip
