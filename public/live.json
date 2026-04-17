@@ -2,9 +2,15 @@
   "running": true,
   "startTime": "2026-04-17T18:55:41.163Z",
   "total": 106,
-  "passed": 0,
+  "passed": 1,
   "failed": 0,
   "skipped": 0,
   "currentTest": null,
-  "recentTests": []
+  "recentTests": [
+    {
+      "title": "sonrie: C2-09 Eliminar producto del carro",
+      "status": "passed",
+      "duration": 21470
+    }
+  ]
 }
