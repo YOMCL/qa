@@ -50,15 +50,39 @@ export async function selectCommerceHelper(page: any, commerceName: string) {
 
 /**
  * Clears the cart before each test to avoid stale state from previous sessions or Cowork runs.
- * Navigates to /cart and clicks "Eliminar todos" if the button is present.
+ * Tries multiple strategies: "Eliminar todos" button, per-item delete buttons, API call.
  */
 export async function clearCartHelper(page: any, baseURL: string) {
   try {
-    await page.goto(`${baseURL}/cart`, { waitUntil: 'domcontentloaded' });
-    const deleteAll = page.getByRole('button', { name: /eliminar todos/i });
-    if (await deleteAll.isVisible({ timeout: 5_000 }).catch(() => false)) {
-      await deleteAll.click();
-      await page.waitForTimeout(1_000);
+    await page.goto(`${baseURL}/cart`, { waitUntil: 'networkidle' });
+
+    // Strategy 1: "Eliminar todos" / "Limpiar carrito" / "Vaciar" button
+    const deleteAllSelectors = [
+      page.getByRole('button', { name: /eliminar todos/i }),
+      page.getByRole('button', { name: /limpiar carrito/i }),
+      page.getByRole('button', { name: /vaciar carrito/i }),
+      page.getByText(/eliminar todos/i),
+    ];
+    for (const btn of deleteAllSelectors) {
+      if (await btn.isVisible({ timeout: 2_000 }).catch(() => false)) {
+        await btn.click();
+        await page.waitForTimeout(1_500);
+        // Handle confirmation modal if appears
+        const confirm = page.getByRole('button', { name: /confirmar|aceptar|sí|yes/i });
+        if (await confirm.isVisible({ timeout: 2_000 }).catch(() => false)) {
+          await confirm.click();
+          await page.waitForTimeout(1_000);
+        }
+        return;
+      }
+    }
+
+    // Strategy 2: per-item delete buttons (aria-label or trash icon)
+    const deleteButtons = page.locator('[aria-label*="eliminar" i], [aria-label*="delete" i], [aria-label*="remove" i], button[class*="delete" i], button[class*="trash" i]');
+    const count = await deleteButtons.count();
+    for (let i = 0; i < count; i++) {
+      await deleteButtons.first().click({ force: true }).catch(() => {});
+      await page.waitForTimeout(500);
     }
   } catch {
     // Cart clear is best-effort — don't fail the test if it errors
@@ -76,7 +100,7 @@ export async function clearCartHelper(page: any, baseURL: string) {
  */
 export function createClientTest(client: ClientConfig) {
   return base.extend<{ authedPage: typeof base['prototype']['page'] }>({
-    authedPage: async ({ browser }, use) => {
+    authedPage: async ({ browser }: { browser: import('@playwright/test').Browser }, use: (page: import('@playwright/test').Page) => Promise<void>) => {
       const context = await browser.newContext({ baseURL: client.baseURL });
       const page = await context.newPage();
       await loginHelper(page, client.credentials.email, client.credentials.password, client.loginPath, client.baseURL);
