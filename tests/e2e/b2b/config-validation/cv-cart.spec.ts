@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { skipIfNotInB2B } from '../../fixtures/b2b-feature';
 import clients from '../../fixtures/clients';
-import { loginIfNeeded, addOneProductToCart } from './helpers';
+import { loginIfNeeded, addOneProductToCart, clearCartForTest } from './helpers';
 import { SELECTORS } from './selectors';
 
 for (const [key, client] of Object.entries(clients)) {
@@ -37,6 +37,7 @@ for (const [key, client] of Object.entries(clients)) {
         const context = await browser.newContext();
         const page = await context.newPage();
         await loginIfNeeded(page, client);
+        await clearCartForTest(page, client);
         await page.goto(`${client.baseURL}/products`);
         await page.waitForLoadState('domcontentloaded');
         const addButton = page.getByRole('button', { name: SELECTORS.ADD_BUTTON_LABEL }).first();
@@ -63,6 +64,7 @@ for (const [key, client] of Object.entries(clients)) {
         const context = await browser.newContext();
         const page = await context.newPage();
         await loginIfNeeded(page, client);
+        await clearCartForTest(page, client);
         await page.goto(`${client.baseURL}/products`);
         await page.waitForLoadState('domcontentloaded');
         const addButton = page.getByRole('button', { name: SELECTORS.ADD_BUTTON_LABEL }).first();
@@ -87,6 +89,7 @@ for (const [key, client] of Object.entries(clients)) {
         const context = await browser.newContext();
         const page = await context.newPage();
         await loginIfNeeded(page, client);
+        await clearCartForTest(page, client);
         await page.goto(`${client.baseURL}/products`);
         await page.waitForLoadState('domcontentloaded');
         const addButton = page.getByRole('button', { name: SELECTORS.ADD_BUTTON_LABEL }).first();
@@ -112,6 +115,7 @@ for (const [key, client] of Object.entries(clients)) {
         const context = await browser.newContext();
         const page = await context.newPage();
         await loginIfNeeded(page, client);
+        await clearCartForTest(page, client);
         await page.goto(`${client.baseURL}/products`);
         await page.waitForLoadState('domcontentloaded');
         const addButton = page.getByRole('button', { name: SELECTORS.ADD_BUTTON_LABEL }).first();
@@ -139,6 +143,7 @@ for (const [key, client] of Object.entries(clients)) {
         const context = await browser.newContext();
         const page = await context.newPage();
         await loginIfNeeded(page, client);
+        await clearCartForTest(page, client);
         await addOneProductToCart(page, client);
         const ocField = page.getByPlaceholder(SELECTORS.PURCHASE_ORDER_PLACEHOLDER)
           .or(page.getByLabel(/orden de compra|purchase order/i))
@@ -159,6 +164,7 @@ for (const [key, client] of Object.entries(clients)) {
         const context = await browser.newContext();
         const page = await context.newPage();
         await loginIfNeeded(page, client);
+        await clearCartForTest(page, client);
         await addOneProductToCart(page, client);
         const editAddrBtn = page.getByRole('button', { name: SELECTORS.EDIT_ADDRESS_TEXT })
           .or(page.getByText(SELECTORS.EDIT_ADDRESS_TEXT));
@@ -199,6 +205,7 @@ for (const [key, client] of Object.entries(clients)) {
         const context = await browser.newContext();
         const page = await context.newPage();
         await loginIfNeeded(page, client);
+        await clearCartForTest(page, client);
         await addOneProductToCart(page, client);
         const transportField = page.getByPlaceholder(SELECTORS.TRANSPORT_CODE_PLACEHOLDER)
           .or(page.getByLabel(SELECTORS.TRANSPORT_CODE_PLACEHOLDER))
@@ -219,6 +226,7 @@ for (const [key, client] of Object.entries(clients)) {
         const context = await browser.newContext();
         const page = await context.newPage();
         await loginIfNeeded(page, client);
+        await clearCartForTest(page, client);
         await addOneProductToCart(page, client);
         const deliveryHour = page.getByText(SELECTORS.DELIVERY_HOUR_TEXT)
           .or(page.locator('[class*="delivery-hour" i], [class*="estimatedHour" i]'));
@@ -239,6 +247,7 @@ for (const [key, client] of Object.entries(clients)) {
         const context = await browser.newContext();
         const page = await context.newPage();
         await loginIfNeeded(page, client);
+        await clearCartForTest(page, client);
         await addOneProductToCart(page, client);
         const dcSelector = page.getByText(SELECTORS.DC_CART_TEXT)
           .or(page.locator('[class*="distribution-center" i], [class*="distributionCenter" i]'));
@@ -259,6 +268,7 @@ for (const [key, client] of Object.entries(clients)) {
         const context = await browser.newContext();
         const page = await context.newPage();
         await loginIfNeeded(page, client);
+        await clearCartForTest(page, client);
         await addOneProductToCart(page, client);
         const observationInput = page.getByLabel(SELECTORS.OBSERVATION_LABEL)
           .or(page.getByPlaceholder(/observaci[oó]n|observation/i));
@@ -280,6 +290,7 @@ for (const [key, client] of Object.entries(clients)) {
         const context = await browser.newContext();
         const page = await context.newPage();
         await loginIfNeeded(page, client);
+        await clearCartForTest(page, client);
         await addOneProductToCart(page, client);
         const lastOrderSection = page.getByText(SELECTORS.LAST_ORDER_TEXT)
           .or(page.locator('[class*="last-order" i], [class*="lastOrder" i]'));
