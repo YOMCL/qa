@@ -2,11 +2,51 @@
   "running": true,
   "startTime": "2026-04-17T13:57:17.185Z",
   "total": 106,
-  "passed": 19,
+  "passed": 27,
   "failed": 0,
   "skipped": 2,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie: taxes.showSummary=true",
+      "status": "passed",
+      "duration": 8288
+    },
+    {
+      "title": "sonrie: pendingDocuments=false",
+      "status": "passed",
+      "duration": 4488
+    },
+    {
+      "title": "sonrie: enableSellerDiscount=false",
+      "status": "passed",
+      "duration": 8278
+    },
+    {
+      "title": "sonrie: purchaseOrderEnabled=false",
+      "status": "passed",
+      "duration": 7246
+    },
+    {
+      "title": "sonrie: hasStockEnabled=false",
+      "status": "passed",
+      "duration": 4683
+    },
+    {
+      "title": "sonrie: enableAskDeliveryDate=false",
+      "status": "passed",
+      "duration": 6177
+    },
+    {
+      "title": "sonrie: lazyLoadingPrices=false",
+      "status": "passed",
+      "duration": 5673
+    },
+    {
+      "title": "sonrie: includeTaxRateInPrices=false",
+      "status": "passed",
+      "duration": 7067
+    },
     {
       "title": "sonrie: enableChooseSaleUnit=false",
       "status": "passed",
@@ -66,46 +106,6 @@
       "title": "sonrie: anonymousAccess=false",
       "status": "passed",
       "duration": 3430
-    },
-    {
-      "title": "sonrie: C2-11 Flujo completo catalogo → carro → checkout",
-      "status": "passed",
-      "duration": 13676
-    },
-    {
-      "title": "sonrie: C2-03 Búsqueda sin resultados muestra mensaje @catalog @funcional",
-      "status": "passed",
-      "duration": 20538
-    },
-    {
-      "title": "sonrie: C2-02 Búsqueda por nombre devuelve resultados o mensaje @catalog @funcional",
-      "status": "passed",
-      "duration": 20842
-    },
-    {
-      "title": "sonrie: C2-04 Sin imágenes rotas (404) en catálogo @catalog @funcional",
-      "status": "passed",
-      "duration": 13362
-    },
-    {
-      "title": "sonrie: C2-01 Catálogo muestra productos con precio @catalog @funcional",
-      "status": "passed",
-      "duration": 10326
-    },
-    {
-      "title": "sonrie: C2-08 Modificar cantidad en carro",
-      "status": "passed",
-      "duration": 13877
-    },
-    {
-      "title": "sonrie: C2-09 Eliminar producto del carro",
-      "status": "passed",
-      "duration": 13625
-    },
-    {
-      "title": "sonrie: C2-05 Agregar producto al carro",
-      "status": "passed",
-      "duration": 12181
     }
   ]
 }
