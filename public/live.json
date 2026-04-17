@@ -1,6 +1,6 @@
 {
   "running": true,
-  "startTime": "2026-04-17T13:57:17.185Z",
+  "startTime": "2026-04-17T14:02:50.237Z",
   "total": 106,
   "passed": 94,
   "failed": 8,
@@ -10,102 +10,102 @@
     {
       "title": "sonrie: PM4-02 Agregar producto con cantidad > 1 muestra precio correcto",
       "status": "passed",
-      "duration": 72385
+      "duration": 72317
     },
     {
       "title": "sonrie: PM4-01 Productos con step pricing muestran escalones",
       "status": "passed",
-      "duration": 16729
+      "duration": 11504
     },
     {
       "title": "sonrie: PM5-02 Carrito muestra totales con descuentos aplicados",
       "status": "passed",
-      "duration": 13300
+      "duration": 13511
     },
     {
       "title": "sonrie: PM5-03 Catálogo no queda en loading infinito si promotions es lento",
       "status": "passed",
-      "duration": 9244
+      "duration": 9487
     },
     {
       "title": "sonrie: PM5-01 Catálogo carga productos con precios (promotions funcional)",
       "status": "passed",
-      "duration": 11253
+      "duration": 10601
     },
     {
       "title": "sonrie: C5-05 Sugerencias se pueden agregar al carro",
       "status": "passed",
-      "duration": 11908
-    },
-    {
-      "title": "sonrie: Catálogo carga con productos visibles @catalog @calidad",
-      "status": "passed",
-      "duration": 12103
+      "duration": 11902
     },
     {
       "title": "sonrie: Sin imágenes rotas en catálogo @catalog @calidad",
       "status": "passed",
-      "duration": 9711
+      "duration": 9393
+    },
+    {
+      "title": "sonrie: Catálogo carga con productos visibles @catalog @calidad",
+      "status": "passed",
+      "duration": 11310
     },
     {
       "title": "sonrie: C3-11 Precio bruto vs neto — impuestos segun config",
       "status": "passed",
-      "duration": 13838
+      "duration": 13887
     },
     {
       "title": "sonrie: Pipeline API catálogo devuelve productos con nombre y pricing @catalog @critico",
       "status": "failed",
-      "duration": 49146
+      "duration": 49615
     },
     {
       "title": "sonrie: C3-04 Descuento visible en catalogo",
       "status": "failed",
-      "duration": 16904
+      "duration": 16884
     },
     {
       "title": "sonrie: C3-15 Cupon invalido muestra error claro",
       "status": "skipped",
-      "duration": 13218
+      "duration": 12873
     },
     {
       "title": "sonrie: C3-14 Campo de cupon visible en carro (enableCoupons)",
       "status": "passed",
-      "duration": 12820
+      "duration": 12947
     },
     {
       "title": "sonrie: C3-02 Detectar productos con precio $0",
       "status": "failed",
-      "duration": 16762
+      "duration": 16869
     },
     {
       "title": "sonrie: C3-04 Descuento visible en catalogo",
       "status": "failed",
-      "duration": 16501
+      "duration": 16388
     },
     {
       "title": "sonrie: C3-01 Precios visibles en catalogo anonimo (formato CLP)",
       "status": "failed",
-      "duration": 16782
+      "duration": 16942
     },
     {
       "title": "sonrie: C3-02 Detectar productos con precio $0",
       "status": "failed",
-      "duration": 16503
+      "duration": 16582
     },
     {
       "title": "sonrie: C3-03 Precios consistentes catalogo vs carro",
       "status": "passed",
-      "duration": 13035
+      "duration": 12940
     },
     {
       "title": "sonrie: C3-01 Precios visibles en catalogo anonimo (formato CLP)",
       "status": "failed",
-      "duration": 16400
+      "duration": 16479
     },
     {
       "title": "sonrie: PAG-16 Montos en historial no muestran valores negativos confusos",
       "status": "passed",
-      "duration": 9526
+      "duration": 9558
     }
   ]
 }

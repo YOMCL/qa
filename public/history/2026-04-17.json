@@ -1,10 +1,10 @@
 {
   "date": "2026-04-17",
-  "timestamp": "2026-04-17T14:02:41.386923+00:00",
+  "timestamp": "2026-04-17T14:08:10.581902+00:00",
   "total": 106,
   "passed": 94,
   "failed": 4,
-  "duration": 1727,
+  "duration": 2052,
   "suites": [
     {
       "name": "cart.spec.ts",
@@ -487,20 +487,6 @@
       "error_sample": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('text=/\\\\$\\\\s*[\\\\d.,]+/')\nExpected: visible\nTimeout: 15000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" with timeout 15000ms\n  - waiting for locator('text=/\\\\$\\\\s*[\\\\d.,]+/')\n",
       "annotations_sample": [],
       "spec_file": "prices.spec.ts"
-    },
-    {
-      "category": "flaky",
-      "label": "\u26a0\ufe0f Flaky",
-      "reason": "Pasaron en retry \u2014 no son bugs confirmados",
-      "owner": "qa",
-      "action": "Monitorear en pr\u00f3ximas ejecuciones. Si siguen apareciendo, investigar causa de inestabilidad",
-      "count": 1,
-      "tests": [
-        "[promotions.spec.ts] sonrie: PM5-03 Cat\u00e1logo no queda en loading infinito si promotions es lento"
-      ],
-      "clients": [
-        "sonrie"
-      ]
     }
   ],
   "pending_b2b": [],
