@@ -2,11 +2,31 @@
   "running": true,
   "startTime": "2026-04-17T18:55:41.163Z",
   "total": 106,
-  "passed": 1,
-  "failed": 0,
-  "skipped": 0,
+  "passed": 3,
+  "failed": 1,
+  "skipped": 1,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie: C2-01 Catálogo muestra productos con precio @catalog @funcional",
+      "status": "passed",
+      "duration": 10367
+    },
+    {
+      "title": "sonrie: C2-08 Modificar cantidad en carro",
+      "status": "failed",
+      "duration": 31260
+    },
+    {
+      "title": "sonrie: C2-06 Cantidad mínima — sistema corrige o bloquea",
+      "status": "skipped",
+      "duration": 23619
+    },
+    {
+      "title": "sonrie: C2-05 Agregar producto al carro",
+      "status": "passed",
+      "duration": 21521
+    },
     {
       "title": "sonrie: C2-09 Eliminar producto del carro",
       "status": "passed",
