@@ -54,7 +54,8 @@ export async function selectCommerceHelper(page: any, commerceName: string) {
  */
 export async function clearCartHelper(page: any, baseURL: string) {
   try {
-    await page.goto(`${baseURL}/cart`, { waitUntil: 'networkidle' });
+    await page.goto(`${baseURL}/cart`, { waitUntil: 'domcontentloaded' });
+    await page.waitForTimeout(2_000);
 
     // Strategy 1: "Eliminar todos" / "Limpiar carrito" / "Vaciar" button
     const deleteAllSelectors = [
