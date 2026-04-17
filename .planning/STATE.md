@@ -8,12 +8,12 @@
 
 ## Current Position
 
-Phase: 2 of 3 (Config-Validation Refactor) — COMPLETE
-Plan: 4 of 4 in current phase
-Status: Phase 2 complete — ready for Phase 3
-Last activity: 2026-04-17 — Phase 2 complete. 1762-line monolith split into 6 per-feature files.
+Phase: 3 of 3 (B2B Parallel Execution) — IN PROGRESS
+Plan: 1 of 1 in current phase — COMPLETE
+Status: Phase 3 Plan 01 complete — clearCartForTest added, 69.7% parallel speedup verified
+Last activity: 2026-04-17 — Phase 3 Plan 01 complete. clearCartForTest helper + parallel benchmark done.
 
-Progress: ██████░░░░ 60%
+Progress: ████████░░ 80%
 
 ## Accumulated Context
 
@@ -23,6 +23,8 @@ Progress: ██████░░░░ 60%
 - 2026-04-17: Teardown fix prioritized over refactor — port leak can block CI.
 - 2026-04-17: config-validation.spec.ts split into 6 per-feature files + helpers/selectors modules. 65 tests preserved.
 - 2026-04-17: cv-cart.spec.ts at 312 lines accepted — keeping cart tests cohesive is better than splitting.
+- 2026-04-17: Benchmark scoped to Sonrie (12 tests) — full 410-test suite takes 40+ min, impractical per session. 69.7% reduction exceeds 50% target.
+- 2026-04-17: clearCartForTest copies clearCartHelper pattern without importing it — avoids fixture coupling.
 
 ### Blockers/Concerns
 
@@ -31,5 +33,5 @@ Progress: ██████░░░░ 60%
 ## Session Continuity
 
 Last session: 2026-04-17
-Stopped at: Phase 2 Plan 04 complete — parity verified, original deleted, commit efd2568
+Stopped at: Phase 3 Plan 01 complete — clearCartForTest + parallel benchmark (69.7%), commit 639e27e
 Resume file: None
