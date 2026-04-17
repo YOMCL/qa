@@ -45,16 +45,17 @@ Plans:
 - [ ] 02-04-PLAN.md — Verify test count parity and delete original file
 
 ### Phase 3: B2B Parallel Execution
-**Goal**: B2B config validation runs across clients in parallel, not sequentially
+**Goal**: B2B config validation runs across clients in parallel, not sequentially — with >=50% time reduction vs sequential and no test isolation issues
 **Depends on**: Phase 2
 **Requirements**: REQ-05
+**Plans:** 1 plan
 **Success Criteria** (what must be TRUE):
   1. `npx playwright test --workers=4` runs B2B specs without race conditions
   2. Total B2B suite execution time reduced by at least 50% vs. sequential baseline
   3. No test isolation issues between parallel workers
 
 Plans:
-- [ ] 03-01: Configure Playwright workers and verify test isolation
+- [ ] 03-01-PLAN.md — Measure baseline, add cart isolation fix, verify parallel >=50% reduction
 
 ## Progress
 
