@@ -60,11 +60,13 @@ Declarado desde los valores existentes del dashboard:
 | Label / metadata | 11px (0.72em) | 400 | 1.4 |
 | Client name | 14px | 700 | 1.3 |
 | Badge text | 11px | 700 | 1 |
+| UI control / selector | 12px | 400 | 1.4 |
 
 **Uso en esta fase:**
 - `client-name`: 14px weight 700 — no cambia
 - `last_tested` fecha visible: 11px weight 400, color `#9ca3af` — texto inline debajo del nombre
 - Badge "Hace N días": 11px weight 700 — pill con fondo ámbar
+- `.run-nav-label` y `.run-select`: 12px weight 400 — controles UI del selector de historial
 
 **Fuente:** Existente en index.html — `.client-name { font-weight: 700; color: #111827 }`, `.client-url { font-size: 0.78em; color: #9ca3af }`, `.mq-badge { font-size: 11px; font-weight: 600 }`.
 
@@ -88,6 +90,12 @@ Sistema de color existente (sin dark mode en el QA dashboard — usa fondo degra
 
 ---
 
+## Visual Hierarchy
+
+El focal point del card header es el `pass-rate-badge` (primary) — concentra la atención del usuario como indicador principal de salud del cliente. El `freshness-badge` ámbar es un indicador secundario de alerta que solo compite visualmente cuando `diffDays > 2`: en ese caso atrae la atención del usuario como señal de advertencia de dato potencialmente desactualizado. Cuando `diffDays <= 2`, el badge no se renderiza y la jerarquía queda dominada exclusivamente por el pass-rate. El `client-last-tested` (11px, `#9ca3af`) es siempre terciario — confirma la fecha sin competir con los badges superiores.
+
+---
+
 ## Component Inventory — Nuevos elementos
 
 ### 1. Fecha visible `last_tested` (DASH-02)
@@ -106,7 +114,7 @@ Sistema de color existente (sin dark mode en el QA dashboard — usa fondo degra
     font-size: 11px;
     color: #9ca3af;
     font-weight: 400;
-    margin-top: 2px;
+    margin-top: 4px;
 }
 ```
 
@@ -136,7 +144,7 @@ Sistema de color existente (sin dark mode en el QA dashboard — usa fondo degra
 .freshness-badge {
     display: inline-flex;
     align-items: center;
-    padding: 2px 8px;
+    padding: 4px 8px;
     border-radius: 9999px;
     font-size: 11px;
     font-weight: 700;
@@ -183,16 +191,16 @@ Sistema de color existente (sin dark mode en el QA dashboard — usa fondo degra
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 .run-nav-label {
     font-size: 12px;
     color: #6b7280;
-    font-weight: 600;
+    font-weight: 400;
     white-space: nowrap;
 }
 .run-select {
-    padding: 4px 10px;
+    padding: 4px 8px;
     border: 1.5px solid #d1d5db;
     border-radius: 8px;
     font-size: 12px;
