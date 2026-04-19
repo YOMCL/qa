@@ -30,7 +30,11 @@ Parameters:
 
 3. **Extract MongoDB config (if stale)**
    ```bash
-   python3 data/mongo-extractor.py --client {slug}
+   # Staging (solopide.me — default day-to-day)
+   python3 data/mongo-extractor.py --env staging --output data/qa-matrix-staging.json
+
+   # Prod (youorder.me)
+   python3 data/mongo-extractor.py --env production
    ```
    Extracts from: yom-stores, yom-production, yom-promotions, b2b-marketing
 

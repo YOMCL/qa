@@ -11,13 +11,17 @@ Usage:
     # Prod (youorder.me — run extractor first)
     python3 tools/sync-clients.py
 
-Workflow:
-    1. python3 data/mongo-extractor.py --input data/qa-matrix-staging.json   # MongoDB → qa-matrix-staging.json
-    2. python3 tools/sync-clients.py --input data/qa-matrix-staging.json      # → clients.ts (AUTO-GENERATED)
+Workflow (staging):
+    1. python3 data/mongo-extractor.py --env staging --output data/qa-matrix-staging.json
+    2. python3 tools/sync-clients.py --input data/qa-matrix-staging.json
     3. cd tests/e2e && npx playwright test
 
-Note: data/qa-matrix.json (no --input) is the prod matrix and may be empty if prod extraction
-hasn't run. qa-matrix-staging.json is the active matrix for day-to-day QA.
+Workflow (production):
+    1. python3 data/mongo-extractor.py --env production   # → data/qa-matrix.json (gitignored)
+    2. python3 tools/sync-clients.py
+
+Note: data/qa-matrix.json is the prod matrix (gitignored). qa-matrix-staging.json is
+committed and is the active matrix for day-to-day QA.
 """
 
 import json

@@ -60,22 +60,24 @@ QA/{CLIENTE}/{FECHA}/       # Resultados por cliente y fecha
 ## Pipeline QA — Cómo funciona
 
 ```
-MongoDB (yom-stores, yom-production, yom-promotions, b2b-marketing)
-    ↓ (mongo-extractor.py --input data/qa-matrix-staging.json)   ← STAGING (day-to-day)
-    ↓ (mongo-extractor.py)                                        ← PROD (youorder.me)
-data/qa-matrix-staging.json  /  data/qa-matrix.json (gitignored)
-    ↓ (sync-clients.py --input data/qa-matrix-staging.json)
+MongoDB STAGING (solopide.me)          MongoDB PROD (youorder.me)
+    ↓ mongo-extractor.py                   ↓ mongo-extractor.py
+      --env staging                           --env production
+      --output data/qa-matrix-staging.json    (→ data/qa-matrix.json, gitignored)
+data/qa-matrix-staging.json  ←── day-to-day QA
+    ↓ sync-clients.py --input data/qa-matrix-staging.json
 tests/e2e/fixtures/clients.ts (AUTO-GENERADO)
-    ↓ (loginHelper + tests multi-cliente)
-Playwright E2E + Maestro flows
+    ↓
+Playwright E2E (--project=b2b) → luego Cowork → luego Maestro
     ↓
 QA/{CLIENTE}/{FECHA}/ (reporte HTML)
 ```
 
 **Puntos clave:**
 - `clients.ts` es **AUTO-GENERADO** — NO EDITAR MANUALMENTE
-- Para staging: `sync-clients.py --input data/qa-matrix-staging.json`
-- Para prod: `sync-clients.py` (lee `qa-matrix.json`, generado por extractor sin `--input`)
+- Staging: `mongo-extractor.py --env staging --output data/qa-matrix-staging.json`
+- Prod:    `mongo-extractor.py --env production` (escribe a `qa-matrix.json`, gitignored)
+- Sync:    `sync-clients.py --input data/qa-matrix-staging.json` (staging) / `sync-clients.py` (prod)
 - Credenciales en `.env`, nunca en código
 - Cada cliente tiene su propia rama de staging (`{slug}.solopide.me`)
 
