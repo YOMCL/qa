@@ -36,7 +36,9 @@ Each phase produces a visible, testable outcome. No phase leaves the dashboard i
   2. Between Playwright runs, `public/live.json` shows a clean "no active run" sentinel (`running: false, total: 0`) — never carries over stale counts like `total: 2932, passed: 0`
   3. Dashboard live panel does not render a misleading "finished run" state when no run is in progress
   4. No existing Playwright, Cowork, or Maestro flow is broken by the fix (backward-compatible manifest read paths)
-**Plans**: TBD
+**Plans:** 2 plans
+- [ ] 01-01-PLAN.md — PIPE-01: run-maestro.sh writes unified manifest to public/manifest.json
+- [ ] 01-02-PLAN.md — PIPE-02: live-reporter.js onBegin full-state reset + run-live.sh pre-run sentinel
 
 ### Phase 2: Data Freshness Signals
 **Goal**: Users can tell at a glance whether a client card reflects today's run or data seeded from previous days
@@ -102,7 +104,7 @@ Each phase produces a visible, testable outcome. No phase leaves the dashboard i
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Pipeline Bug Fixes | 0/? | Not started | - |
+| 1. Pipeline Bug Fixes | 0/2 | Not started | - |
 | 2. Data Freshness Signals | 0/? | Not started | - |
 | 3. Unified QA Status View | 0/? | Not started | - |
 | 4. Triage Persistence | 0/? | Not started | - |
