@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: QA Pipeline & Dashboard v2
 status: active
-stopped_at: Roadmap created — awaiting Phase 1 planning
+stopped_at: Phase 1 complete — awaiting Phase 2 planning
 last_updated: "2026-04-19"
-last_activity: 2026-04-19 — Roadmap with 6 phases and 18 v1 requirements created
+last_activity: 2026-04-19 — Phase 1 (Pipeline Bug Fixes) executed and verified — 2/2 plans complete
 progress:
   total_phases: 6
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  completed_phases: 1
+  total_plans: 2
+  completed_plans: 2
+  percent: 17
 ---
 
 # STATE — QA Pipeline & Dashboard v2
@@ -26,43 +26,52 @@ progress:
 
 ## Current Position
 
-**Phase:** Phase 1 — Pipeline Bug Fixes (not started)
+**Phase:** Phase 2 — Data Freshness Signals (not started)
 **Plan:** None yet
-**Status:** Roadmap created, awaiting first plan
-**Progress:** 0/6 phases complete
+**Status:** Phase 1 complete — PIPE-01 and PIPE-02 fixed
+**Progress:** 1/6 phases complete
 
 ```
-[░░░░░░░░░░░░░░░░░░░░] 0%
-Phase 1 ──▶ Phase 2 ──▶ Phase 3 ──▶ Phase 4 ──▶ Phase 5 ──▶ Phase 6
+[███░░░░░░░░░░░░░░░░░] 17%
+Phase 1 ✓ ──▶ Phase 2 ──▶ Phase 3 ──▶ Phase 4 ──▶ Phase 5 ──▶ Phase 6
 ```
 
 ## Active Requirements (v1)
 
 **Total:** 18 requirements across 6 phases
 **Mapped:** 18/18
-**Completed:** 0
+**Completed:** 2 (PIPE-01, PIPE-02)
 
 ## Performance Metrics
 
 | Metric | Value |
 |--------|-------|
 | Phases defined | 6 |
-| Phases complete | 0 |
-| Plans executed | 0 |
-| Requirements closed | 0/18 |
+| Phases complete | 1 |
+| Plans executed | 2 |
+| Requirements closed | 2/18 |
 
 ## Accumulated Context
 
 ### Key Decisions
 
-- **Unified manifest in `public/manifest.json`:** `run-maestro.sh` will write to the single manifest the dashboard already reads. Simplest fix; avoids teaching the dashboard two sources.
+- **Unified manifest in `public/manifest.json`:** `run-maestro.sh` now writes to the single manifest the dashboard reads. Simplest fix; avoids teaching the dashboard two sources.
 - **Unified view as additive section:** New "Estado QA por Cliente" section sits alongside existing B2B and APP tabs. No replacement, no regression for current workflows.
 - **Triage as committed markdown:** `QA/{CLIENT}/{DATE}/triage-{date}.md` mirrors the existing `cowork-session.md` pattern — easy to find, easy to commit.
 - **Vanilla JS only:** Dashboard stays a single static HTML file. No bundler, no framework.
+- **live.json sentinel via EXIT trap:** `run-live.sh` uses a pre-run heredoc to reset sentinel AND the existing EXIT trap handles cleanup. Full reset in `onBegin()` covers any case where sentinel is absent.
+
+### Phase 1 — Completed Changes
+
+- `tools/run-maestro.sh`: `MANIFEST_FILE` now points to `$QA_ROOT/public/manifest.json`; Python section adds `"platform": "app"` and prefixes file path with `app-reports/`
+- `tools/verify-maestro-manifest.sh`: New smoke test for PIPE-01
+- `public/app-reports/manifest.json`: Deleted (orphaned duplicate)
+- `tools/live-reporter.js`: `onBegin()` does full state replacement — resets `passed`, `failed`, `skipped`, `currentTest`, `recentTests`
+- `tools/run-live.sh`: Pre-run heredoc writes sentinel (`running: false, total: 0`) before Playwright starts
 
 ### Open Todos
 
-- Begin Phase 1 planning (`/gsd-plan-phase 1`)
+- Begin Phase 2 planning (`/gsd-plan-phase 2`)
 
 ### Blockers
 
@@ -76,8 +85,8 @@ Phase 1 ──▶ Phase 2 ──▶ Phase 3 ──▶ Phase 4 ──▶ Phase 5 
 
 ## Session Continuity
 
-**Last session:** 2026-04-19 — Project initialization, roadmap created
-**Next session:** Run `/gsd-plan-phase 1` to decompose Phase 1 (Pipeline Bug Fixes) into executable plans
+**Last session:** 2026-04-19 — Phase 1 executed (PIPE-01, PIPE-02), both plans merged to main
+**Next session:** Run `/gsd-plan-phase 2` to decompose Phase 2 (Data Freshness Signals) into executable plans
 **Resume file:** None
 
 **Files for orientation:**
@@ -89,3 +98,4 @@ Phase 1 ──▶ Phase 2 ──▶ Phase 3 ──▶ Phase 4 ──▶ Phase 5 
 
 ---
 *State initialized: 2026-04-19*
+*Phase 1 completed: 2026-04-19*

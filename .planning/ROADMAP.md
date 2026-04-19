@@ -18,7 +18,7 @@ Each phase produces a visible, testable outcome. No phase leaves the dashboard i
 
 ## Phases
 
-- [ ] **Phase 1: Pipeline Bug Fixes** — Fix manifest path and stale live.json so downstream dashboard data is trustworthy
+- [x] **Phase 1: Pipeline Bug Fixes** — Fix manifest path and stale live.json so downstream dashboard data is trustworthy
 - [ ] **Phase 2: Data Freshness Signals** — Make stale client cards visually obvious so users trust (or distrust) what they see
 - [ ] **Phase 3: Unified QA Status View** — Deliver the core value — one row per client showing all three pipelines + per-client trend
 - [ ] **Phase 4: Triage Persistence** — Capture triage decisions as committed files so history is auditable
@@ -37,8 +37,8 @@ Each phase produces a visible, testable outcome. No phase leaves the dashboard i
   3. Dashboard live panel does not render a misleading "finished run" state when no run is in progress
   4. No existing Playwright, Cowork, or Maestro flow is broken by the fix (backward-compatible manifest read paths)
 **Plans:** 2 plans
-- [ ] 01-01-PLAN.md — PIPE-01: run-maestro.sh writes unified manifest to public/manifest.json
-- [ ] 01-02-PLAN.md — PIPE-02: live-reporter.js onBegin full-state reset + run-live.sh pre-run sentinel
+- [x] 01-01-PLAN.md — PIPE-01: run-maestro.sh writes unified manifest to public/manifest.json
+- [x] 01-02-PLAN.md — PIPE-02: live-reporter.js onBegin full-state reset + run-live.sh pre-run sentinel
 
 ### Phase 2: Data Freshness Signals
 **Goal**: Users can tell at a glance whether a client card reflects today's run or data seeded from previous days
@@ -104,7 +104,7 @@ Each phase produces a visible, testable outcome. No phase leaves the dashboard i
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Pipeline Bug Fixes | 0/2 | Not started | - |
+| 1. Pipeline Bug Fixes | 2/2 | Complete ✓ | 2026-04-19 |
 | 2. Data Freshness Signals | 0/? | Not started | - |
 | 3. Unified QA Status View | 0/? | Not started | - |
 | 4. Triage Persistence | 0/? | Not started | - |
