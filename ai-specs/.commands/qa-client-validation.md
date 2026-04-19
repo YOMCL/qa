@@ -36,18 +36,18 @@ Parameters:
 
 4. **Sync clients.ts**
    ```bash
+   # Staging (most common — solopide.me clients)
+   python3 tools/sync-clients.py --input data/qa-matrix-staging.json
+
+   # Prod (youorder.me clients — run extractor first)
    python3 tools/sync-clients.py
    ```
-   Regenerates `tests/e2e/fixtures/clients.ts` and `tests/e2e/fixtures/clients-staging.ts`
+   Regenerates `tests/e2e/fixtures/clients.ts` from the specified matrix.
    **Note:** This file is AUTO-GENERATED — never edit manually.
 
 5. **Run Playwright tests**
    ```bash
-   # Prod
    npx playwright test --project=b2b -g "{CLIENT_SLUG}"
-
-   # Staging
-   npx playwright test --project=staging -g "{CLIENT_SLUG}"
    ```
    Collect: pass/fail counts, failure reasons, screenshots
 

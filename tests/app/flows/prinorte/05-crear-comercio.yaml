@@ -35,12 +35,28 @@ name: "PRINORTE: 05 — Crear comercio"
     text: ".*[Aa]ntofagasta.*|.*[Mm]etropolitana.*|.*[Vv]alparaíso.*|.*[Tt]arapac[aá].*|.*[Rr]egi[oó]n.*"
     optional: true
 
-# Cerrar formulario con el botón X (resource-id confirmado)
-- tapOn:
-    id: "me.youorder.yomventas:id/close_dialog"
+# Descartar cualquier popup de permisos (mic, etc.)
+- runFlow:
+    when:
+      visible:
+        text: ".*[Dd]eny.*|.*[Aa]llow.*|.*[Pp]ermission.*"
+    commands:
+      - tapOn:
+          text: "Deny"
+          optional: true
+      - waitForAnimationToEnd
 
-# Esperar que vuelva la lista de comercios
+# Cerrar teclado primero
+- pressKey: Back
+- waitForAnimationToEnd
+
+# Tapar X del form (título visible, sin teclado encima)
+- tapOn:
+    point: "93%,4%"
+- waitForAnimationToEnd
+
+# Esperar título de lista
 - extendedWaitUntil:
     visible:
-      id: "me.youorder.yomventas:id/filters_button"
-    timeout: 15000
+      text: "Listado de comercios"
+    timeout: 20000

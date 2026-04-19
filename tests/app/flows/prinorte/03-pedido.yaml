@@ -27,7 +27,7 @@ name: "PRINORTE: 03 — Armado de pedido"
 # Esperar que cargue el resumen del pedido
 - extendedWaitUntil:
     visible:
-      text: ".*[Ss]ubtotal.*|.*[Tt]otal.*|.*[Rr]esumen.*|.*[Pp]roducto.*"
+      text: ".*[Pp]roducto.*|.*\\$.*|.*[Aa]gregar.*"
     timeout: 30000
 
 # Verificar que hay al menos un producto en el carro
@@ -40,6 +40,9 @@ name: "PRINORTE: 03 — Armado de pedido"
     text: ".*[Dd]escuento.*[Vv]endedor.*|.*[Dd]escuento.*[Mm]anual.*|.*[Dd]scto.*"
     optional: true
 
+# Scrollear hacia abajo para ver el total
+- scroll
+
 # Verificar resumen visible — STOP: no tocar Confirmar/Enviar/Finalizar
 - assertVisible:
-    text: ".*[Ss]ubtotal.*|.*[Tt]otal.*"
+    text: ".*[Tt]otal.*[Aa].*[Pp]agar.*|.*[Tt]otal a pagar.*"

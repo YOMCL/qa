@@ -23,6 +23,26 @@ appId: ${APP_PACKAGE}
           text: ".*[Cc]ancelar.*|.*[Nn]ot now.*|.*[Nn]o gracias.*"
           optional: true
 
+# Google Password Manager popup (emulador) — cerrar con Back
+- runFlow:
+    when:
+      visible:
+        text: ".*Google Password Manager.*|.*Use your saved password.*|.*saved password.*|.*No thanks.*"
+    commands:
+      - pressKey: Back
+      - waitForAnimationToEnd
+
+# Si se abrió la app de Password Manager, volver a YOM
+- runFlow:
+    when:
+      visible:
+        text: ".*Accounts.*|.*Checkup.*|.*Add password.*"
+    commands:
+      - pressKey: Back
+      - waitForAnimationToEnd
+      - pressKey: Back
+      - waitForAnimationToEnd
+
 - tapOn:
     text: ".*[Ee]ntrar.*"
     optional: true

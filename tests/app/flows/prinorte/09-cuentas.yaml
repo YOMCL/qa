@@ -27,26 +27,76 @@ name: "PRINORTE: 09 — Cuentas bancarias"
     text: ".*Banco.*Estado.*|.*Banco.*Chile.*|.*Scotiabank.*|.*BCI.*|.*Santander.*|.*Itaú.*"
     optional: true
 
-# Volver — back progresivo hasta llegar al tab bar principal
-# (el formulario y el selector de banco pueden estar en pantallas distintas)
+# Descartar permisos si aparecieron (mic, etc.)
+- runFlow:
+    when:
+      visible:
+        text: ".*[Dd]eny.*|.*[Pp]ermission.*"
+    commands:
+      - tapOn:
+          text: "Deny"
+          optional: true
+      - waitForAnimationToEnd
+
+# Cerrar el formulario: Back cierra teclado si está abierto
 - pressKey: Back
 - waitForAnimationToEnd
+
+# Si el formulario sigue abierto (teclado era lo que se cerró), Back lo cierra
+- runFlow:
+    when:
+      visible:
+        text: "Agregar cuenta nueva"
+    commands:
+      - pressKey: Back
+      - waitForAnimationToEnd
+
+# Salir de datos-comercio → commerce detail → listado
+# Stack profundo requiere hasta 5 Backs condicionales
 - runFlow:
     when:
       notVisible:
-        text: "COMERCIOS|Listado de comercios"
+        text: "Listado de comercios"
     commands:
       - pressKey: Back
       - waitForAnimationToEnd
 - runFlow:
     when:
       notVisible:
-        text: "COMERCIOS|Listado de comercios"
+        text: "Listado de comercios"
+    commands:
+      - pressKey: Back
+      - waitForAnimationToEnd
+- runFlow:
+    when:
+      notVisible:
+        text: "Listado de comercios"
+    commands:
+      - pressKey: Back
+      - waitForAnimationToEnd
+- runFlow:
+    when:
+      notVisible:
+        text: "Listado de comercios"
+    commands:
+      - pressKey: Back
+      - waitForAnimationToEnd
+- runFlow:
+    when:
+      notVisible:
+        text: "Listado de comercios"
+    commands:
+      - pressKey: Back
+      - waitForAnimationToEnd
+- runFlow:
+    when:
+      notVisible:
+        text: "Listado de comercios"
     commands:
       - pressKey: Back
       - waitForAnimationToEnd
 
 - extendedWaitUntil:
     visible:
-      text: "COMERCIOS|Listado de comercios"
-    timeout: 15000
+      text: "Listado de comercios"
+    timeout: 20000

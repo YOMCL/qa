@@ -5,12 +5,19 @@ Generates tests/e2e/fixtures/clients.ts from data/qa-matrix.json
 Ensures clients.ts is always in sync with MongoDB via the extractor.
 
 Usage:
+    # Staging (solopide.me — most common)
+    python3 tools/sync-clients.py --input data/qa-matrix-staging.json
+
+    # Prod (youorder.me — run extractor first)
     python3 tools/sync-clients.py
 
 Workflow:
-    1. python3 data/mongo-extractor.py   # MongoDB → qa-matrix.json
-    2. python3 tools/sync-clients.py     # qa-matrix.json → clients.ts (AUTO-GENERATED)
+    1. python3 data/mongo-extractor.py --input data/qa-matrix-staging.json   # MongoDB → qa-matrix-staging.json
+    2. python3 tools/sync-clients.py --input data/qa-matrix-staging.json      # → clients.ts (AUTO-GENERATED)
     3. cd tests/e2e && npx playwright test
+
+Note: data/qa-matrix.json (no --input) is the prod matrix and may be empty if prod extraction
+hasn't run. qa-matrix-staging.json is the active matrix for day-to-day QA.
 """
 
 import json
