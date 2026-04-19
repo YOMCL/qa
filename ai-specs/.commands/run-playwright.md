@@ -35,10 +35,11 @@ Execute Playwright E2E tests across configured clients and generate results.
    - Extract failure reasons (assertion, timeout, auth)
    - Note client-specific failures (config issue vs. code bug)
 
-5. **Generate report**
-   - Create `QA/{CLIENT}/{DATE}/playwright-report.html`
-   - Summarize findings: critical failures, deprecations, data inconsistencies
-   - Link failures to Linear tickets if known regressions
+5. **Revisar resultados publicados**
+   - `global-teardown.ts` ejecuta `publish-results.py` automáticamente al terminar el run
+   - Los resultados se publican en `public/history/{date}.json` y el reporte HTML en `public/reports/`
+   - Ver resultados en `public/index.html` (dashboard) o directamente en `public/reports/index.html`
+   - Si hay fallos → `/triage-playwright` antes de continuar con Cowork
 
 6. **Prioritize failures**
    - **P0 (Critical)**: Auth broken, payment gateway down, checkout impossible
@@ -57,7 +58,7 @@ Execute Playwright E2E tests across configured clients and generate results.
 If tests fail:
 
 1. Check `.env` credentials: `{CLIENTE}_EMAIL` / `{CLIENTE}_PASSWORD` por cliente activo
-2. Verify MongoDB config is current (run `mongo-extractor.py --input data/qa-matrix-staging.json`)
+2. Verify MongoDB config is current (run `python3 data/mongo-extractor.py --env staging --output data/qa-matrix-staging.json`)
 3. Check if selectors need updating (UI changed? run `playwright codegen {URL}`)
 4. Look for timeout issues (staging performance, network)
 
