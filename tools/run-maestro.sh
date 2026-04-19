@@ -49,10 +49,10 @@ CONFIG_FILE="$QA_ROOT/tests/app/config/config.${CLIENTE}.yaml"
 FLOWS_DIR="$QA_ROOT/tests/app/flows"
 CLIENTE_CAP=$(python3 -c "print('${CLIENTE}'.capitalize())")
 OUTPUT_DIR="$QA_ROOT/QA/${CLIENTE_CAP}/${DATE}"
-PUBLIC_DIR="$QA_ROOT/public/app-reports"
-MANIFEST_FILE="$PUBLIC_DIR/manifest.json"
+HTML_DIR="$QA_ROOT/public/app-reports"
+MANIFEST_FILE="$QA_ROOT/public/manifest.json"
 REPORT_FILE="${CLIENTE}-${DATE}.html"
-REPORT_PATH="$PUBLIC_DIR/${REPORT_FILE}"
+REPORT_PATH="$HTML_DIR/${REPORT_FILE}"
 RAW_LOG="${OUTPUT_DIR}/maestro.log"
 
 # ── Validaciones ──────────────────────────────────────────────
@@ -95,7 +95,7 @@ JAVA_PREFIX=$(brew --prefix openjdk@17 2>/dev/null || true)
 [ -n "$JAVA_PREFIX" ] && export JAVA_HOME="$JAVA_PREFIX" && export PATH="$JAVA_HOME/bin:$PATH"
 export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 
-mkdir -p "$OUTPUT_DIR" "$PUBLIC_DIR"
+mkdir -p "$OUTPUT_DIR" "$HTML_DIR"
 
 echo "📱 Maestro QA — ${CLIENTE_CAP} — ${DATE}"
 echo "   ${FLOW_COUNT} ${FLOW_DESC} encontrado(s)"
@@ -460,7 +460,7 @@ manifest['reports'].append({
     'client':       client_cap,
     'client_slug':  client_slug,
     'date':         date_str,
-    'file':         report_file,
+    'file':         f'app-reports/{report_file}',
     'platform':     'app',
     'environment':  environment,
     'passed':       passed,
