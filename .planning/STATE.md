@@ -1,53 +1,91 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: complete
-stopped_at: All 4 phases complete — codebase audit improvements shipped 2026-04-17
-last_updated: "2026-04-17"
-last_activity: 2026-04-17 — All phases complete. Roadmap tracking reconciled.
+milestone: v2.0
+milestone_name: QA Pipeline & Dashboard v2
+status: active
+stopped_at: Roadmap created — awaiting Phase 1 planning
+last_updated: "2026-04-19"
+last_activity: 2026-04-19 — Roadmap with 6 phases and 18 v1 requirements created
 progress:
-  total_phases: 4
-  completed_phases: 4
-  total_plans: 7
-  completed_plans: 7
-  percent: 100
+  total_phases: 6
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
-# Project State
+# STATE — QA Pipeline & Dashboard v2
 
 ## Project Reference
 
-**Project:** YOM QA Repo Improvements
-**Core value:** Reliable, fast, maintainable QA pipeline
-**Current focus:** All phases complete — codebase audit improvements done
+**Project:** QA Pipeline & Dashboard v2
+**Core Value:** El equipo puede ver en un solo lugar si un cliente está QA-listo para deploy, con datos frescos de las tres herramientas.
+**Mode:** yolo
+**Granularity:** standard
+**Model profile:** quality
 
 ## Current Position
 
-Phase: 4 of 4 — ALL COMPLETE
-Status: Roadmap closed. All improvements from 2026-04-17 codebase audit shipped.
-Last activity: 2026-04-17 — Phase 4 complete. All 4 phases verified and tracking reconciled.
+**Phase:** Phase 1 — Pipeline Bug Fixes (not started)
+**Plan:** None yet
+**Status:** Roadmap created, awaiting first plan
+**Progress:** 0/6 phases complete
 
-Progress: ████████░░ 80%
+```
+[░░░░░░░░░░░░░░░░░░░░] 0%
+Phase 1 ──▶ Phase 2 ──▶ Phase 3 ──▶ Phase 4 ──▶ Phase 5 ──▶ Phase 6
+```
+
+## Active Requirements (v1)
+
+**Total:** 18 requirements across 6 phases
+**Mapped:** 18/18
+**Completed:** 0
+
+## Performance Metrics
+
+| Metric | Value |
+|--------|-------|
+| Phases defined | 6 |
+| Phases complete | 0 |
+| Plans executed | 0 |
+| Requirements closed | 0/18 |
 
 ## Accumulated Context
 
-### Decisions
+### Key Decisions
 
-- 2026-04-17: Codebase mapped. 18 Prinorte flows migrated. .gitignore fixed.
-- 2026-04-17: Teardown fix prioritized over refactor — port leak can block CI.
-- 2026-04-17: config-validation.spec.ts split into 6 per-feature files + helpers/selectors modules. 65 tests preserved.
-- 2026-04-17: cv-cart.spec.ts at 312 lines accepted — keeping cart tests cohesive is better than splitting.
-- 2026-04-17: Benchmark scoped to Sonrie (12 tests) — full 410-test suite takes 40+ min, impractical per session. 69.7% reduction exceeds 50% target.
-- 2026-04-17: clearCartForTest copies clearCartHelper pattern without importing it — avoids fixture coupling.
-- [Phase 04-live-reporter-race-condition]: POSIX rename(2) pattern chosen for atomic write in live-reporter.js _save() — no new dependencies required
+- **Unified manifest in `public/manifest.json`:** `run-maestro.sh` will write to the single manifest the dashboard already reads. Simplest fix; avoids teaching the dashboard two sources.
+- **Unified view as additive section:** New "Estado QA por Cliente" section sits alongside existing B2B and APP tabs. No replacement, no regression for current workflows.
+- **Triage as committed markdown:** `QA/{CLIENT}/{DATE}/triage-{date}.md` mirrors the existing `cowork-session.md` pattern — easy to find, easy to commit.
+- **Vanilla JS only:** Dashboard stays a single static HTML file. No bundler, no framework.
 
-### Blockers/Concerns
+### Open Todos
 
-- No production environment in Playwright — out of scope for these phases.
+- Begin Phase 1 planning (`/gsd-plan-phase 1`)
+
+### Blockers
+
+- None
+
+### Risks / Watch List
+
+- Dashboard is ~2600 lines of vanilla JS in a single file — large changes risk regressions. Each phase must keep existing tabs/cards working.
+- `publish-results.py` has complex merge logic (`merge_run_json`, `load_previous_clients`). Triage file integration in Phase 4 must not disturb that logic.
+- `live.json` is pushed via GitHub Contents API, not git — Phase 1 reset behavior must play nicely with the live-reporter push cadence.
 
 ## Session Continuity
 
-Last session: 2026-04-17T20:20:24.735Z
-Stopped at: Phase 04 Plan 01 complete — atomic write fix in live-reporter.js, commits 398b287 17d9555
-Resume file: None
+**Last session:** 2026-04-19 — Project initialization, roadmap created
+**Next session:** Run `/gsd-plan-phase 1` to decompose Phase 1 (Pipeline Bug Fixes) into executable plans
+**Resume file:** None
+
+**Files for orientation:**
+- `.planning/PROJECT.md` — core value, constraints, key decisions
+- `.planning/REQUIREMENTS.md` — all 18 v1 requirements + traceability table
+- `.planning/ROADMAP.md` — 6 phases with success criteria
+- `.planning/codebase/ARCHITECTURE.md` — pipeline layers (Playwright, Maestro, Cowork)
+- `.planning/codebase/CONCERNS.md` — known gaps and concerns driving this project
+
+---
+*State initialized: 2026-04-19*
