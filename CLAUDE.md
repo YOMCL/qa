@@ -22,7 +22,7 @@ Prioridad: Cowork (validación visual + config) > Playwright (regresión E2E —
 | Review de PR/cambio de código | "grillame este PR desde perspectiva QA" (inline) |
 | Guardar hallazgos Cowork | `agrega modo {X} al archivo de sesión de {CLIENTE}` |
 
-**Cuándo NO re-extraer MongoDB:** si `data/qa-matrix.json` tiene menos de 7 días y no hubo cambios de config en el cliente, saltarse extracción y correr directo `/run-playwright`.
+**Cuándo NO re-extraer MongoDB:** si `data/qa-matrix-staging.json` tiene menos de 7 días y no hubo cambios de config en el cliente, saltarse extracción y correr directo `/run-playwright`.
 
 **Cuándo reportar vs solo ver resultados:** generar reporte solo cuando hay una sesión Cowork completa o al cierre de una semana QA. Para debugging rápido, leer el HTML de Playwright directamente.
 
@@ -61,9 +61,10 @@ QA/{CLIENTE}/{FECHA}/       # Resultados por cliente y fecha
 
 ```
 MongoDB (yom-stores, yom-production, yom-promotions, b2b-marketing)
-    ↓ (mongo-extractor.py)
-data/qa-matrix.json
-    ↓ (sync-clients.py)
+    ↓ (mongo-extractor.py --input data/qa-matrix-staging.json)   ← STAGING (day-to-day)
+    ↓ (mongo-extractor.py)                                        ← PROD (youorder.me)
+data/qa-matrix-staging.json  /  data/qa-matrix.json (gitignored)
+    ↓ (sync-clients.py --input data/qa-matrix-staging.json)
 tests/e2e/fixtures/clients.ts (AUTO-GENERADO)
     ↓ (loginHelper + tests multi-cliente)
 Playwright E2E + Maestro flows
@@ -73,14 +74,15 @@ QA/{CLIENTE}/{FECHA}/ (reporte HTML)
 
 **Puntos clave:**
 - `clients.ts` es **AUTO-GENERADO** — NO EDITAR MANUALMENTE
-- Siempre correr `sync-clients.py` después de cambios en `qa-matrix.json`
+- Para staging: `sync-clients.py --input data/qa-matrix-staging.json`
+- Para prod: `sync-clients.py` (lee `qa-matrix.json`, generado por extractor sin `--input`)
 - Credenciales en `.env`, nunca en código
 - Cada cliente tiene su propia rama de staging (`{slug}.solopide.me`)
 
 ## Convenciones de nombres
 
 - E2E specs: `{feature}.spec.ts` (ej: `cart.spec.ts`, `prices.spec.ts`)
-- Maestro flows: `{NN}-{feature}.yaml` (ej: `05-pedido.yaml`)
+- Maestro flows: `{cliente}-session.yaml` → `{cliente}/NN-{feature}.yaml` + `helpers/`
 - Checklists: `checklist-{categoría}-{área}.md`
 - Test case IDs: `{PREFIX}-{NN}` (ej: PM1, ERP-01, CART-01)
 - Issue IDs: `{CLIENTE}-QA-{NNN}` (ej: Soprole-QA-001)

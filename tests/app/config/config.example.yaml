@@ -1,0 +1,37 @@
+# Maestro config — TEMPLATE
+# Copiar a config.{cliente}.yaml y completar con datos reales
+# NUNCA commitear config.{cliente}.yaml (está en .gitignore)
+#
+# Este archivo define solo las variables que referencian los flows con ${...}
+# Más liviano que env.{cliente}.yaml (que tiene las 100+ variables de feature flags)
+#
+# Uso en run-maestro.sh:
+#   ./tools/run-maestro.sh {cliente}
+#   El script detecta config.{cliente}.yaml automáticamente
+
+env:
+  # ── Credenciales APP ────────────────────────────────────────
+  APP_PACKAGE: "me.youorder.yomventas"        # package name de la app YOM Ventas
+  TEST_SELLER_EMAIL: "vendedor@cliente.com"   # email del usuario vendedor de prueba
+  TEST_SELLER_PASSWORD: "password-here"       # contraseña del vendedor
+
+  # ── Datos del cliente de prueba ─────────────────────────────
+  TEST_CLIENT_NAME: "Nombre Cliente"          # texto esperado post-login en el helper
+
+  # ── Producto de prueba ──────────────────────────────────────
+  TEST_PRODUCT_NAME: "Nombre Producto"
+  TEST_PRODUCT_SKU: "SKU-001"
+  TEST_PRODUCT_PRICE: "1000"                  # precio en CLP (entero)
+  TEST_PRODUCT_UNIT: "UND"
+  TEST_PRODUCT_MIN_UNIT: "1"
+  TEST_PRODUCT_STEP: "1"
+
+  # ── Comercio de prueba ──────────────────────────────────────
+  TEST_COMMERCE_NAME: "Nombre Comercio Test"
+  TEST_COMMERCE_RUT: "00000000-0"
+
+  # ── Categorías ──────────────────────────────────────────────
+  TEST_CATEGORY_COUNT: "1"                    # número total de categorías
+  TEST_CATEGORY_FIRST: "Primera Categoría"
+
+  # Agregar aquí las variables adicionales que usen los flows de este cliente
