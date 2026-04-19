@@ -22,6 +22,14 @@ trap "kill $SERVER_PID 2>/dev/null; rm -f public/live.json public/live.json.tmp"
 # Open browser (macOS)
 sleep 0.5 && open "http://localhost:${PORT}" &
 
+# Reset live.json to clean idle sentinel BEFORE Playwright boots the reporter.
+# Without this, the dashboard's 3s pollLive() can observe the prior run's
+# counters during the ~1s window before live-reporter.js onBegin() fires.
+# Fixes PIPE-02 gap closed by Option C in 01-RESEARCH.md.
+cat > public/live.json <<'JSON'
+{"running":false,"total":0,"passed":0,"failed":0,"skipped":0,"currentTest":null,"recentTests":[]}
+JSON
+
 # Run tests with live reporter (capture exit code — don't fail on test failures)
 cd tests/e2e
 LIVE=1 npx playwright test $SPECS --project=b2b "$@" || PLAYWRIGHT_EXIT=$?
