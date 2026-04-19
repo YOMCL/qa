@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: QA Pipeline & Dashboard v2
 status: active
-stopped_at: Phase 1 complete — awaiting Phase 2 planning
+stopped_at: Phase 2 planned — ready to execute
 last_updated: "2026-04-19"
-last_activity: 2026-04-19 — Phase 1 (Pipeline Bug Fixes) executed and verified — 2/2 plans complete
+last_activity: 2026-04-19 — Phase 2 (Data Freshness Signals) planned — 2 plans in 2 waves
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 2
+  total_plans: 4
   completed_plans: 2
   percent: 17
 ---
