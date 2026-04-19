@@ -4,22 +4,13 @@
 
 ---
 
-## 🔴 Seguridad — Acción requerida
+## 🔴 Seguridad — Solo si el repo tiene acceso externo
 
-### 1. Rotar credenciales MongoDB Atlas
-Las URIs de producción quedaron en el historial de git en commits `5f86f09` y `1e53e70`:
-- Usuario: `eduardo_jimenez`
-- Password expuesta: `WGXXD4oruVe6iXH1`
-- Clusters afectados: `legacy-production-v6`, `microservices-product-v`
+Las siguientes credenciales quedaron en historial git. Si el repo es **privado y solo lo ve el equipo YOM**, el riesgo es bajo y no es urgente actuar. Si alguna vez se hace público o hay colaboradores externos, rotar antes:
 
-**Acción:** Cambiar password del usuario `eduardo_jimenez` en MongoDB Atlas → actualizar `.env` local.
-
-**Opcional:** Si el repo tiene acceso externo, limpiar historial con `git filter-repo` o BFG Repo Cleaner.
-
-### 2. Rotar password de eduardo@yom.ai (app)
-La password `laloyom123` quedó en el historial en commits `6b86b77` (env.prinorte.yaml) y `bb0dd3e` (config.prinorte.yaml).
-
-**Acción:** Cambiar password en la plataforma YOM para el usuario `eduardo@yom.ai`.
+- MongoDB Atlas `eduardo_jimenez` / `WGXXD4oruVe6iXH1` → commits `5f86f09`, `1e53e70`
+- Password `laloyom123` de `eduardo@yom.ai` → commits `6b86b77`, `bb0dd3e`
+- `.gitignore` ya previene que vuelva a ocurrir
 
 ---
 
