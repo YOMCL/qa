@@ -789,6 +789,12 @@ def generate_run_json(results: dict, date: str, project_root: Path = None) -> di
     for k in clients:
         clients[k]["last_tested"] = date
 
+    # Generate failure groups and apply optional triage overlay (Phase 4 / PROC-02).
+    # Overlay MUST run before merge_run_json so triage survives per-client merge
+    # (see Common Pitfall #3 in 04-RESEARCH.md).
+    failure_groups = generate_failure_groups(results)
+    _apply_triage_overlay(failure_groups, date, project_root)
+
     return {
         "date": date,
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -798,7 +804,7 @@ def generate_run_json(results: dict, date: str, project_root: Path = None) -> di
         "duration": duration,
         "suites": suites,
         "clients": clients,
-        "failure_groups": generate_failure_groups(results),
+        "failure_groups": failure_groups,
         "pending_b2b": generate_pending_b2b(results),
         "evidence": {
             "screenshots": [],
