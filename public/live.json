@@ -2,11 +2,46 @@
   "running": true,
   "startTime": "2026-04-20T19:25:44.817Z",
   "total": 212,
-  "passed": 63,
+  "passed": 69,
   "failed": 2,
-  "skipped": 4,
+  "skipped": 5,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "bastien: enableChooseSaleUnit=false",
+      "status": "passed",
+      "duration": 4682
+    },
+    {
+      "title": "bastien: hidePrices=false",
+      "status": "passed",
+      "duration": 5781
+    },
+    {
+      "title": "sonrie: enableDistributionCentersSelector=false",
+      "status": "passed",
+      "duration": 8377
+    },
+    {
+      "title": "sonrie: enablePriceOracle=false",
+      "status": "passed",
+      "duration": 10901
+    },
+    {
+      "title": "bastien: currency=undefined",
+      "status": "skipped",
+      "duration": 0
+    },
+    {
+      "title": "sonrie: hasMultipleBusinessUnit=false",
+      "status": "passed",
+      "duration": 12596
+    },
+    {
+      "title": "sonrie: uploadOrderFileWithMinUnits=false",
+      "status": "passed",
+      "duration": 8009
+    },
     {
       "title": "sonrie: showEmptyCategories=false",
       "status": "passed",
@@ -71,41 +106,6 @@
       "title": "bastien: disableObservationInput=false",
       "status": "passed",
       "duration": 41196
-    },
-    {
-      "title": "bastien: hasSingleDistributionCenter=true",
-      "status": "passed",
-      "duration": 41242
-    },
-    {
-      "title": "bastien: hasTransportCode=false",
-      "status": "failed",
-      "duration": 58291
-    },
-    {
-      "title": "bastien: disableShowEstimatedDeliveryHour=false",
-      "status": "passed",
-      "duration": 40942
-    },
-    {
-      "title": "bastien: editAddress=true",
-      "status": "passed",
-      "duration": 41194
-    },
-    {
-      "title": "bastien: purchaseOrderEnabled=false",
-      "status": "passed",
-      "duration": 40834
-    },
-    {
-      "title": "bastien: limitAddingByStock=false",
-      "status": "passed",
-      "duration": 13221
-    },
-    {
-      "title": "bastien: orderObservations=",
-      "status": "passed",
-      "duration": 40197
     }
   ]
 }
