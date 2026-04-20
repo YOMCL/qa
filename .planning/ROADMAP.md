@@ -20,7 +20,7 @@ Each phase produces a visible, testable outcome. No phase leaves the dashboard i
 
 - [x] **Phase 1: Pipeline Bug Fixes** — Fix manifest path and stale live.json so downstream dashboard data is trustworthy
 - [x] **Phase 2: Data Freshness Signals** — Make stale client cards visually obvious so users trust (or distrust) what they see
-- [ ] **Phase 3: Unified QA Status View** — Deliver the core value — one row per client showing all three pipelines + per-client trend
+- [x] **Phase 3: Unified QA Status View** — Deliver the core value — one row per client showing all three pipelines + per-client trend
 - [ ] **Phase 4: Triage Persistence** — Capture triage decisions as committed files so history is auditable
 - [ ] **Phase 5: QA LISTO Weekly Status** — Give Tech a deploy-readiness signal driven by objective criteria
 - [ ] **Phase 6: Actionable Reports & Agent Precision** — Make HTML reports useful to stakeholders and make Claude agents consistent in triage/classification
@@ -65,9 +65,9 @@ Each phase produces a visible, testable outcome. No phase leaves the dashboard i
   4. Selecting "All clients" (or leaving the filter empty) preserves the existing aggregate trend behavior — no regression for current users
   5. Existing B2B tab, APP tab, and Cowork reports card continue to render unchanged (unified view is additive)
 **Plans:** 3 plans
-- [ ] 03-01-PLAN.md — CSS foundations + HTML skeleton (unified table, filter pills, trend header wrap)
-- [ ] 03-02-PLAN.md — updateUnifiedQaTable + 3 badge renderers + filter pills wiring + #runSelector integration (DASH-03, DASH-04)
-- [ ] 03-03-PLAN.md — populateTrendClientSelector + updateTrendChart(filterSlug) + Chart.getChart destroy + lazy-load allRunsDetailed (DASH-05)
+- [x] 03-01-PLAN.md — CSS foundations + HTML skeleton (unified table, filter pills, trend header wrap)
+- [x] 03-02-PLAN.md — updateUnifiedQaTable + 3 badge renderers + filter pills wiring + #runSelector integration (DASH-03, DASH-04)
+- [x] 03-03-PLAN.md — populateTrendClientSelector + updateTrendChart(filterSlug) + Chart.getChart destroy + lazy-load allRunsDetailed (DASH-05)
 **UI hint**: yes
 
 ### Phase 4: Triage Persistence
@@ -111,7 +111,7 @@ Each phase produces a visible, testable outcome. No phase leaves the dashboard i
 |-------|----------------|--------|-----------|
 | 1. Pipeline Bug Fixes | 2/2 | Complete ✓ | 2026-04-19 |
 | 2. Data Freshness Signals | 2/2 | Complete ✓ | 2026-04-19 |
-| 3. Unified QA Status View | 0/3 | In progress | - |
+| 3. Unified QA Status View | 3/3 | Complete ✓ | 2026-04-20 |
 | 4. Triage Persistence | 0/? | Not started | - |
 | 5. QA LISTO Weekly Status | 0/? | Not started | - |
 | 6. Actionable Reports & Agent Precision | 0/? | Not started | - |
