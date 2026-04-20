@@ -2,11 +2,46 @@
   "running": true,
   "startTime": "2026-04-20T19:25:44.817Z",
   "total": 212,
-  "passed": 110,
+  "passed": 117,
   "failed": 2,
   "skipped": 5,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "bastien: paymentsWithoutAccount=false",
+      "status": "passed",
+      "duration": 6839
+    },
+    {
+      "title": "bastien: hasTransferPaymentType=false",
+      "status": "passed",
+      "duration": 9298
+    },
+    {
+      "title": "bastien: discountTypes.enableProductDiscountType=false",
+      "status": "passed",
+      "duration": 5098
+    },
+    {
+      "title": "bastien: discountTypes.enableOrderDiscountType=false",
+      "status": "passed",
+      "duration": 8066
+    },
+    {
+      "title": "bastien: includeTaxRateInPrices=false",
+      "status": "passed",
+      "duration": 8759
+    },
+    {
+      "title": "bastien: enablePaymentsCollection=false",
+      "status": "passed",
+      "duration": 4662
+    },
+    {
+      "title": "bastien: enableSellerDiscount=false",
+      "status": "passed",
+      "duration": 9206
+    },
     {
       "title": "bastien: taxes.showSummary=false",
       "status": "passed",
@@ -71,41 +106,6 @@
       "title": "bastien: disableCommerceEdit=false",
       "status": "passed",
       "duration": 7887
-    },
-    {
-      "title": "bastien: enablePaymentDocumentsB2B=false",
-      "status": "passed",
-      "duration": 7716
-    },
-    {
-      "title": "bastien: enableInvoicesList=false",
-      "status": "passed",
-      "duration": 6744
-    },
-    {
-      "title": "bastien: enableOrderValidation=false",
-      "status": "passed",
-      "duration": 11301
-    },
-    {
-      "title": "bastien: shareOrderNewDesign=false",
-      "status": "passed",
-      "duration": 4849
-    },
-    {
-      "title": "bastien: hasVoucherPrinterEnabled=false",
-      "status": "passed",
-      "duration": 4932
-    },
-    {
-      "title": "bastien: enableOrderApproval=false",
-      "status": "passed",
-      "duration": 4839
-    },
-    {
-      "title": "bastien: ordersRequireVerification=false",
-      "status": "passed",
-      "duration": 5786
     }
   ]
 }
