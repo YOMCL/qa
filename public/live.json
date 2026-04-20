@@ -2,11 +2,36 @@
   "running": true,
   "startTime": "2026-04-20T19:25:44.817Z",
   "total": 212,
-  "passed": 178,
-  "failed": 4,
-  "skipped": 16,
+  "passed": 181,
+  "failed": 5,
+  "skipped": 17,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "bastien: C3-11 Precio bruto vs neto — impuestos segun config",
+      "status": "passed",
+      "duration": 21551
+    },
+    {
+      "title": "bastien: C3-04 Descuento visible en catalogo",
+      "status": "passed",
+      "duration": 5486
+    },
+    {
+      "title": "bastien: C3-15 Cupon invalido muestra error claro",
+      "status": "skipped",
+      "duration": 20882
+    },
+    {
+      "title": "bastien: C3-14 Campo de cupon visible en carro (enableCoupons)",
+      "status": "passed",
+      "duration": 20633
+    },
+    {
+      "title": "bastien: C3-04 Descuento visible en catalogo",
+      "status": "failed",
+      "duration": 19379
+    },
     {
       "title": "bastien: C3-03 Precios consistentes catalogo vs carro",
       "status": "passed",
@@ -81,31 +106,6 @@
       "title": "sonrie: C3-02 Detectar productos con precio $0",
       "status": "skipped",
       "duration": 47
-    },
-    {
-      "title": "sonrie: C3-01 Precios visibles en catalogo anonimo (formato CLP)",
-      "status": "skipped",
-      "duration": 51
-    },
-    {
-      "title": "sonrie: PAG-04 Historial de pagos carga correctamente",
-      "status": "passed",
-      "duration": 12823
-    },
-    {
-      "title": "bastien: C7-12 /payment-documents carga sin error cuando flag=true",
-      "status": "skipped",
-      "duration": 17395
-    },
-    {
-      "title": "bastien: C7-11 Opción de facturas en menú lateral cuando flag=true",
-      "status": "skipped",
-      "duration": 17476
-    },
-    {
-      "title": "bastien: C7-INV /payment-documents no accesible cuando flag=false",
-      "status": "passed",
-      "duration": 19086
     }
   ]
 }
