@@ -2,11 +2,26 @@
   "running": true,
   "startTime": "2026-04-20T19:25:44.817Z",
   "total": 212,
-  "passed": 141,
+  "passed": 144,
   "failed": 2,
   "skipped": 6,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "bastien: PM1-01 Campo de cupón existe y es interactuable",
+      "status": "passed",
+      "duration": 21323
+    },
+    {
+      "title": "sonrie: PM1-03 Crear orden SIN cupón no se rompe por cambios en cupones",
+      "status": "passed",
+      "duration": 17497
+    },
+    {
+      "title": "sonrie: PM2-04 Modal/UI de cupón no queda en loading infinito",
+      "status": "passed",
+      "duration": 18878
+    },
     {
       "title": "sonrie: PM1-04 Cupón inválido muestra error (no crash)",
       "status": "passed",
@@ -91,21 +106,6 @@
       "title": "sonrie: useNewPromotions=false",
       "status": "passed",
       "duration": 7848
-    },
-    {
-      "title": "sonrie: blockedClientAlert.enableBlockedClientAlert=false",
-      "status": "passed",
-      "duration": 7745
-    },
-    {
-      "title": "sonrie: externalAccess=true",
-      "status": "passed",
-      "duration": 7413
-    },
-    {
-      "title": "sonrie: showMinOne=false",
-      "status": "passed",
-      "duration": 7832
     }
   ]
 }
