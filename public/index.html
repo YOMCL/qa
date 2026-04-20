@@ -613,6 +613,130 @@
             cursor: pointer;
         }
         .run-select:focus { outline: none; border-color: #667eea; }
+
+        /* ── Unified QA Status View (Phase 3) ── */
+        .unified-subtitle {
+            color: #6b7280;
+            font-size: 13px;
+            margin: 0 0 16px;
+        }
+        .unified-table-wrapper {
+            overflow-x: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+        .unified-qa-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .unified-qa-table thead { background: #f9fafb; }
+        .unified-qa-table th {
+            text-align: left;
+            padding: 8px 16px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .unified-qa-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f3f4f6;
+            vertical-align: middle;
+        }
+        .unified-qa-table tbody tr:last-child td { border-bottom: none; }
+        .unified-qa-table tbody tr:hover { background: #f9fafb; }
+        .u-col-client { width: 30%; }
+        .u-col-badge { width: 23.33%; }
+        .u-client-name {
+            font-weight: 700;
+            color: #111827;
+            font-size: 14px;
+        }
+        .u-client-slug {
+            font-size: 11px;
+            color: #9ca3af;
+            font-weight: 400;
+            margin-top: 2px;
+        }
+
+        /* Badges (Playwright / Cowork / Maestro) */
+        .u-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+        .u-badge-stale-suffix {
+            font-size: 11px;
+            font-weight: 600;
+            color: #92400e;
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 9999px;
+            margin-left: 6px;
+        }
+        .u-badge.pw-ok        { background: #d1fae5; color: #065f46; }
+        .u-badge.pw-warn      { background: #fef3c7; color: #92400e; }
+        .u-badge.pw-fail      { background: #fee2e2; color: #991b1b; }
+        .u-badge.cw-listo       { background: #d1fae5; color: #065f46; }
+        .u-badge.cw-condiciones { background: #fef3c7; color: #92400e; }
+        .u-badge.cw-bloqueado   { background: #fee2e2; color: #991b1b; }
+        .u-badge.cw-sin-reporte { background: #f3f4f6; color: #9ca3af; border: 1px solid #e5e7eb; }
+        .u-badge.mt-ok        { background: #d1fae5; color: #065f46; }
+        .u-badge.mt-warn      { background: #fef3c7; color: #92400e; }
+        .u-badge.mt-fail      { background: #fee2e2; color: #991b1b; }
+        .u-badge.u-na         { background: #f3f4f6; color: #9ca3af; border: 1px solid #e5e7eb; }
+
+        /* Filter pills (D-08 a D-12) */
+        .unified-filter-pills {
+            display: flex;
+            gap: 8px;
+            margin: 0 0 16px;
+            flex-wrap: wrap;
+        }
+        .unified-filter-pill {
+            padding: 6px 14px;
+            border-radius: 9999px;
+            border: none;
+            background: #f3f4f6;
+            color: #6b7280;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.15s, color 0.15s;
+        }
+        .unified-filter-pill:hover { background: #e5e7eb; }
+        .unified-filter-pill.active {
+            background: #667eea;
+            color: #ffffff;
+        }
+        /* Client-side filter toggle via class on tbody (Pattern 4 Approach A) */
+        #unifiedQaBody.filter-problemas tr:not([data-problemas="true"]) { display: none; }
+        #unifiedQaBody.filter-stale     tr:not([data-stale="true"])    { display: none; }
+
+        /* Trend header (wraps card-title + client selector) */
+        .trend-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .trend-client-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
         .pass-rate-badge {
             font-weight: 800;
             font-size: 1.1em;
@@ -1363,9 +1487,41 @@
             </div>
         </div>
 
+        <!-- Unified QA Status per Client (Phase 3) -->
+        <div class="card">
+            <div class="card-title">🎯 Estado QA por Cliente</div>
+            <p class="unified-subtitle">Resumen de las tres pipelines por cliente. N/A = pipeline no aplica a este cliente.</p>
+            <div class="unified-filter-pills" id="unifiedFilterPills" role="tablist">
+                <button class="unified-filter-pill active" data-filter="all" type="button">Todos</button>
+                <button class="unified-filter-pill" data-filter="problemas" type="button">Con problemas</button>
+                <button class="unified-filter-pill" data-filter="stale" type="button">Stale</button>
+            </div>
+            <div class="unified-table-wrapper">
+                <table class="unified-qa-table">
+                    <thead>
+                        <tr>
+                            <th class="u-col-client">Cliente</th>
+                            <th class="u-col-badge">Playwright</th>
+                            <th class="u-col-badge">Cowork</th>
+                            <th class="u-col-badge">Maestro</th>
+                        </tr>
+                    </thead>
+                    <tbody id="unifiedQaBody">
+                        <tr><td colspan="4" class="loading">Cargando estado unificado…</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- Trend chart -->
         <div class="card">
-            <div class="card-title">📈 Tendencia Histórica</div>
+            <div class="trend-header">
+                <div class="card-title">📈 Tendencia Histórica</div>
+                <div class="trend-client-nav">
+                    <span class="run-nav-label">Cliente:</span>
+                    <select id="trendClientSelector" class="run-select"></select>
+                </div>
+            </div>
             <div class="chart-grid">
                 <div>
                     <p class="chart-subtitle" id="chartTitle"></p>
