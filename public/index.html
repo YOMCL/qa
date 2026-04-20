@@ -1604,6 +1604,52 @@ function staleSuffixHtml(runDate, sourceDate) {
     return ` <span class="u-badge-stale-suffix">${label}</span>`;
 }
 
+// ── Phase 3 DASH-05: Per-client trend chart ──
+let allRunsDetailed = null;          // lazy cache: array of full run objects with clients{}
+let allRunsDetailedPromise = null;   // in-flight cache: previene race condition entre llamadas concurrentes
+
+async function loadAllRunDetails() {
+    if (allRunsDetailed) return allRunsDetailed;
+    if (allRunsDetailedPromise) return allRunsDetailedPromise;
+    if (!Array.isArray(allRuns) || allRuns.length === 0) return [];
+    allRunsDetailedPromise = Promise.all(
+        allRuns.map(r => loadRunDetails(r.date).catch(() => null))
+    ).then(results => {
+        allRunsDetailed = results.filter(Boolean);
+        return allRunsDetailed;
+    });
+    return allRunsDetailedPromise;
+}
+
+async function populateTrendClientSelector() {
+    const sel = document.getElementById('trendClientSelector');
+    if (!sel) return;
+
+    // W5 mitigation: mostrar placeholder de loading mientras el lazy-load está en vuelo.
+    // Durante 1-2s el usuario ve "Cargando clientes…" disabled en vez de un dropdown vacío.
+    sel.innerHTML = [
+        '<option value="" selected>Todos los clientes (agregado)</option>',
+        '<option disabled>Cargando clientes…</option>'
+    ].join('');
+
+    // D-04: union de clients[slug].name observados en los últimos 30 runs (allRuns)
+    const detailed = await loadAllRunDetails();
+    const clientMap = {};  // { slug: name }
+    for (const run of detailed) {
+        if (!run || !run.clients) continue;
+        for (const [slug, c] of Object.entries(run.clients)) {
+            if (!clientMap[slug]) clientMap[slug] = c.name || slug;
+        }
+    }
+    const options = [
+        '<option value="" selected>Todos los clientes (agregado)</option>',
+        ...Object.entries(clientMap)
+            .sort(([, a], [, b]) => a.localeCompare(b))  // D-04: alfabético por name
+            .map(([slug, name]) => `<option value="${escapeHtml(slug)}">${escapeHtml(name)}</option>`)
+    ];
+    sel.innerHTML = options.join('');  // reemplaza el placeholder con la lista real
+}
+
 function renderPlaywrightBadge(c, runDate) {
     if (!c || !c.tests) {
         return '<span class="u-badge u-na">N/A</span>';
