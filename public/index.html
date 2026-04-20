@@ -648,8 +648,8 @@
         }
         .unified-qa-table tbody tr:last-child td { border-bottom: none; }
         .unified-qa-table tbody tr:hover { background: #f9fafb; }
-        .u-col-client { width: 30%; }
-        .u-col-badge { width: 23.33%; }
+        .u-col-client { width: 24%; }
+        .u-col-badge { width: 18%; }
         .u-client-name {
             font-weight: 700;
             color: #111827;
@@ -694,6 +694,14 @@
         .u-badge.mt-warn      { background: #fef3c7; color: #92400e; }
         .u-badge.mt-fail      { background: #fee2e2; color: #991b1b; }
         .u-badge.u-na         { background: #f3f4f6; color: #9ca3af; border: 1px solid #e5e7eb; }
+
+        /* Phase 5: Estado column + badges */
+        .u-col-estado { width: 14%; }
+        .u-badge.estado-listo      { background: #d1fae5; color: #065f46; }
+        .u-badge.estado-pendiente  { background: #fef3c7; color: #92400e; }
+        .u-badge.estado-bloqueado  { background: #fee2e2; color: #991b1b; }
+        .u-badge.estado-sin-dato   { background: #f3f4f6; color: #9ca3af; border: 1px solid #e5e7eb; }
+        #unifiedQaBody.filter-bloqueado tr:not([data-estado="bloqueado"]) { display: none; }
 
         /* Filter pills (D-08 a D-12) */
         .unified-filter-pills {
@@ -1495,6 +1503,7 @@
                 <button class="unified-filter-pill active" data-filter="all" type="button">Todos</button>
                 <button class="unified-filter-pill" data-filter="problemas" type="button">Con problemas</button>
                 <button class="unified-filter-pill" data-filter="stale" type="button">Stale</button>
+                <button class="unified-filter-pill" data-filter="bloqueado" type="button">Bloqueados</button>
             </div>
             <div class="unified-table-wrapper">
                 <table class="unified-qa-table">
@@ -1504,10 +1513,11 @@
                             <th class="u-col-badge">Playwright</th>
                             <th class="u-col-badge">Cowork</th>
                             <th class="u-col-badge">Maestro</th>
+                            <th class="u-col-estado">Estado</th>
                         </tr>
                     </thead>
                     <tbody id="unifiedQaBody">
-                        <tr><td colspan="4" class="loading">Cargando estado unificado…</td></tr>
+                        <tr><td colspan="5" class="loading">Cargando estado unificado…</td></tr>
                     </tbody>
                 </table>
             </div>
