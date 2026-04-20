@@ -2,11 +2,16 @@
   "running": true,
   "startTime": "2026-04-20T19:25:44.817Z",
   "total": 212,
-  "passed": 191,
+  "passed": 192,
   "failed": 6,
   "skipped": 17,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "bastien: PM5-03 Catálogo no queda en loading infinito si promotions es lento",
+      "status": "passed",
+      "duration": 15797
+    },
     {
       "title": "bastien: PM5-03 Catálogo no queda en loading infinito si promotions es lento",
       "status": "failed",
@@ -101,11 +106,6 @@
       "title": "bastien: C3-02 Detectar productos con precio $0",
       "status": "passed",
       "duration": 5632
-    },
-    {
-      "title": "bastien: C3-01 Precios visibles en catalogo anonimo (formato CLP)",
-      "status": "passed",
-      "duration": 5827
     }
   ]
 }
