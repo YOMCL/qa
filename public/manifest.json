@@ -12,8 +12,8 @@
       "environment": "staging"
     },
     {
-      "client": "Bastien",
-      "client_slug": "bastien",
+      "client": "Sonrie Market",
+      "client_slug": "sonrie-market",
       "date": "2026-04-20",
       "file": "qa-reports/bastien-2026-04-20.html",
       "verdict": "CON_CONDICIONES",
