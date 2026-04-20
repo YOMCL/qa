@@ -2,11 +2,36 @@
   "running": true,
   "startTime": "2026-04-20T19:25:44.817Z",
   "total": 212,
-  "passed": 58,
+  "passed": 63,
   "failed": 2,
   "skipped": 4,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie: showEmptyCategories=false",
+      "status": "passed",
+      "duration": 7811
+    },
+    {
+      "title": "sonrie: weightInfo=false",
+      "status": "passed",
+      "duration": 7430
+    },
+    {
+      "title": "bastien: hasTransportCode=false",
+      "status": "passed",
+      "duration": 41532
+    },
+    {
+      "title": "sonrie: packagingInformation.hidePackagingInformationB2B=true",
+      "status": "passed",
+      "duration": 7678
+    },
+    {
+      "title": "sonrie: hasNoSaleFilter=false",
+      "status": "passed",
+      "duration": 8347
+    },
     {
       "title": "sonrie: hasMultiUnitEnabled=false",
       "status": "passed",
@@ -81,31 +106,6 @@
       "title": "bastien: orderObservations=",
       "status": "passed",
       "duration": 40197
-    },
-    {
-      "title": "bastien: enableAskDeliveryDate=false",
-      "status": "passed",
-      "duration": 39874
-    },
-    {
-      "title": "bastien: hideReceiptType=false",
-      "status": "passed",
-      "duration": 40185
-    },
-    {
-      "title": "bastien: enableCoupons=true",
-      "status": "passed",
-      "duration": 39909
-    },
-    {
-      "title": "sonrie: shoppingDetail.lastOrder=false",
-      "status": "passed",
-      "duration": 16033
-    },
-    {
-      "title": "sonrie: disableObservationInput=false",
-      "status": "passed",
-      "duration": 17839
     }
   ]
 }
