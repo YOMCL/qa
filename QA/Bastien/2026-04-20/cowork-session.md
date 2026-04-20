@@ -134,3 +134,51 @@ Justificación: Flujos core funcionan (login, catálogo, compra, historial, docu
 Issues: Bastien-QA-001 (P2), Bastien-QA-002 (P3), Bastien-QA-003 (P3), Bastien-QA-004 (P3), Bastien-INFO-001
 Staging blockers: C2-06, C2-12, C3-14/15, C10 sin datos disponibles
 Próximos pasos: Cargar imágenes faltantes · Validar correlativo en confirmación · Cliente configura fechas despacho · Ejecutar Modo D
+
+---
+
+## [MODO D] TIER 2 + PM REGRESSIONS — Bastien
+
+### C5 — Recomendados
+C5: N/A — Sin sección de productos recomendados visible en B2B (no aplica para Bastien)
+
+### C9 — Seguimiento de pedido
+C9-01 PASS — Página /orders/69e695dfc51b5ae6070baa0d muestra sección "Seguimiento de pedido" con 4 estados: Ingresado ✓, Procesada ✓, Despachada (pendiente), Entregada (pendiente)
+C9-02 PASS — Estado "Procesada" reflejado correctamente
+C9-03 OBS — "Fecha estimada de entrega: No disponible" (consistente con Bastien-INFO-001)
+C9-04 OBS — "Número de pedido: #69e695dfc51b5ae6070baa0d" en detalle de pedido (consistente con Bastien-QA-002)
+
+### C10 — Comercio bloqueado
+C10: STAGING BLOCKER — Sin credenciales de comercio bloqueado en fixture. No ejecutado.
+
+### PM5 — Badge Promoción / Precio tachado
+PM5: N/A — Sin productos con badge "Oferta" o "Promoción" en staging. Sin precios tachados. El filtro "Ofertas" existe en UI pero no retorna productos distintos (30 productos mostrados con mismo set). No hay regresión detectable.
+
+### PM7 — lazyLoadingPrices
+PM7: N/A — Flag lazyLoadingPrices no activo en Bastien staging. Precios cargan de forma directa en todos los productos.
+
+### A2/A3 — Admin
+A2/A3: Fuera de scope para esta sesión.
+
+---
+
+## VEREDICTO FINAL ACTUALIZADO — Bastien — 2026-04-20 (Modos A+B+C+D)
+
+| Flujo | Estado | Issues |
+|-------|--------|--------|
+| C1 Login | ✓ PASS | — |
+| C2 Catálogo + Compra | ✓ PASS con obs. | QA-001, QA-002, QA-004 |
+| C7 Documentos | ✓ PASS | — |
+| Banners Home | ✓ PASS con obs. | QA-003 |
+| C9 Seguimiento | ✓ PASS con obs. | INFO-001 (fecha entrega N/A) |
+| C5 Recomendados | N/A — no aplica | — |
+| C10 Comercio bloqueado | STAGING BLOCKER | Sin datos en fixture |
+| PM5 Precios promo | N/A — sin ofertas activas | — |
+| PM7 lazyLoadingPrices | N/A — flag inactivo | — |
+| A2/A3 Admin | Fuera de scope | — |
+
+**VEREDICTO FINAL: LISTO CON CONDICIONES**
+
+Issues activos: Bastien-QA-001 (P2), Bastien-QA-002 (P3), Bastien-QA-003 (P3), Bastien-QA-004 (P3), Bastien-INFO-001
+Staging blockers: C10 (sin fixture), C2-06 (sin MinUnit), C2-12 (no ejecutado), C3-14/15 (sin cupones)
+Próximos pasos: Cargar imágenes faltantes · Validar correlativo en /confirmation · Cliente configura fechas despacho · Admin configura ofertas para validar PM5
