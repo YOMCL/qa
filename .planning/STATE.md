@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: QA Pipeline & Dashboard v2
 status: active
-stopped_at: Phase 4 complete — awaiting Phase 5 planning
+stopped_at: Phase 5 complete — awaiting Phase 6 planning
 last_updated: "2026-04-21"
-last_activity: 2026-04-21 — Phase 4 (Triage Persistence) executed — 2/2 plans complete in 1 wave
+last_activity: 2026-04-21 — Phase 5 (QA LISTO Weekly Status) executed — 2/2 plans complete in 1 wave
 progress:
   total_phases: 6
-  completed_phases: 4
-  total_plans: 9
-  completed_plans: 9
-  percent: 67
+  completed_phases: 5
+  total_plans: 11
+  completed_plans: 11
+  percent: 83
 ---
 
 # STATE — QA Pipeline & Dashboard v2
@@ -26,14 +26,14 @@ progress:
 
 ## Current Position
 
-**Phase:** Phase 5 — QA LISTO Weekly Status (not started)
+**Phase:** Phase 6 — Actionable Reports & Agent Precision (not started)
 **Plan:** None yet
-**Status:** Phase 4 complete — PROC-01 and PROC-02 closed. Next: /gsd-plan-phase 5
-**Progress:** 4/6 phases complete
+**Status:** Phase 5 complete — PROC-03 and PROC-04 closed. Next: /gsd-plan-phase 6
+**Progress:** 5/6 phases complete
 
 ```
-[█████████████░░░░░░░] 67%
-Phase 1 ✓ ──▶ Phase 2 ✓ ──▶ Phase 3 ✓ ──▶ Phase 4 ✓ ──▶ Phase 5 ──▶ Phase 6
+[████████████████░░░░] 83%
+Phase 1 ✓ ──▶ Phase 2 ✓ ──▶ Phase 3 ✓ ──▶ Phase 4 ✓ ──▶ Phase 5 ✓ ──▶ Phase 6
 ```
 
 ## Active Requirements (v1)
@@ -47,9 +47,9 @@ Phase 1 ✓ ──▶ Phase 2 ✓ ──▶ Phase 3 ✓ ──▶ Phase 4 ✓ �
 | Metric | Value |
 |--------|-------|
 | Phases defined | 6 |
-| Phases complete | 1 |
-| Plans executed | 2 |
-| Requirements closed | 2/18 |
+| Phases complete | 5 |
+| Plans executed | 11 |
+| Requirements closed | 11/18 |
 
 ## Accumulated Context
 
@@ -85,9 +85,9 @@ Phase 1 ✓ ──▶ Phase 2 ✓ ──▶ Phase 3 ✓ ──▶ Phase 4 ✓ �
 
 ## Session Continuity
 
-**Last session:** 2026-04-20 — Phase 3 executed (DASH-03/04/05), client cleanup applied (17 active via ACTIVE_CLIENTS allowlist in sync-clients.py), Phase 4 discuss-phase complete. End-of-day pause.
-**Next session:** Run `/gsd-plan-phase 4` to generate research + plans for Phase 4 (Triage Persistence). CONTEXT.md already captured 17 decisions (YAML frontmatter format, per-client file, overlay strategy, commit+push immediate).
-**Resume file:** `.planning/phases/04-triage-persistence/04-CONTEXT.md`
+**Last session:** 2026-04-21 — Phase 5 executed (PROC-03/04): evaluate-qa-listo.py + weekly-status.json + dashboard Estado column. 2/2 plans complete, verified 4/4 success criteria.
+**Next session:** Run `/gsd-plan-phase 6` to plan Phase 6 (Actionable Reports & Agent Precision).
+**Resume file:** `.planning/phases/05-qa-listo-weekly-status/05-VERIFICATION.md`
 
 **Files for orientation:**
 - `.planning/PROJECT.md` — core value, constraints, key decisions

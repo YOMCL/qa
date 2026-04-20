@@ -93,8 +93,8 @@ Each phase produces a visible, testable outcome. No phase leaves the dashboard i
   3. The thresholds used for classification are documented (in the script and/or in `ai-specs/`) so the team can adjust them without reverse-engineering the code
   4. Re-running the script with updated source data (new Playwright run, new Cowork report) changes the card state without manual dashboard edits
 **Plans:** 2 plans
-- [ ] 05-01-PLAN.md — PROC-03: tools/evaluate-qa-listo.py + ai-specs/specs/qa-listo-criteria.mdc
-- [ ] 05-02-PLAN.md — PROC-04: public/index.html — columna Estado en tabla unificada (CSS + HTML + JS)
+- [x] 05-01-PLAN.md — PROC-03: tools/evaluate-qa-listo.py + ai-specs/specs/qa-listo-criteria.mdc
+- [x] 05-02-PLAN.md — PROC-04: public/index.html — columna Estado en tabla unificada (CSS + HTML + JS)
 **UI hint**: yes
 
 ### Phase 6: Actionable Reports & Agent Precision
@@ -117,7 +117,7 @@ Each phase produces a visible, testable outcome. No phase leaves the dashboard i
 | 2. Data Freshness Signals | 2/2 | Complete ✓ | 2026-04-19 |
 | 3. Unified QA Status View | 3/3 | Complete ✓ | 2026-04-20 |
 | 4. Triage Persistence | 2/2 | Complete ✓ | 2026-04-21 |
-| 5. QA LISTO Weekly Status | 0/2 | Not started | - |
+| 5. QA LISTO Weekly Status | 2/2 | Complete ✓ | 2026-04-21 |
 | 6. Actionable Reports & Agent Precision | 0/? | Not started | - |
 
 ## Coverage Validation
