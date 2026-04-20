@@ -1834,6 +1834,8 @@ async function initDashboard() {
         populateRunSelector();
         wireUnifiedQaRunListener();                   // Phase 3: listener adicional sobre #runSelector (D-01) — después de populateRunSelector
         updateTrendChart();
+        populateTrendClientSelector();                // Phase 3 DASH-05: popula el dropdown (placeholder "Cargando clientes…" inmediato, luego lista tras 1-2s)
+        wireTrendClientListener();                    // Phase 3 DASH-05: wire change handler
     } catch (e) {
         console.error(e);
     }
@@ -2317,6 +2319,17 @@ function wireUnifiedQaRunListener() {
                 // resetUnifiedFilterPills ya se invoca dentro de updateUnifiedQaTable (D-12)
             }
         });
+    });
+}
+
+// Phase 3 DASH-05: trend client selector change handler
+function wireTrendClientListener() {
+    const sel = document.getElementById('trendClientSelector');
+    if (!sel || sel.dataset.wired === 'true') return;
+    sel.dataset.wired = 'true';
+    sel.addEventListener('change', (e) => {
+        const slug = e.target.value || null;  // "" → null (aggregate)
+        updateTrendChart(slug);
     });
 }
 
