@@ -29,14 +29,16 @@ for (const [key, client] of Object.entries(clients)) {
       const confirmButton = page.getByRole('button', { name: 'Confirmar pedido' });
       await expect(confirmButton).toBeVisible({ timeout: 10_000 });
       await confirmButton.scrollIntoViewIfNeeded();
-      await confirmButton.click({ force: true });
 
-      await page.waitForLoadState('domcontentloaded');
+      await Promise.all([
+        page.waitForURL(/\/confirmation\//, { timeout: 30_000 }),
+        confirmButton.click({ force: true }),
+      ]);
 
       await page.screenshot({ path: `test-results/checkout-confirm-${key}.png`, fullPage: true });
 
-      const hasCriticalError = await page.getByText(/error interno|500|server error/i).isVisible().catch(() => false);
-      expect(hasCriticalError).toBeFalsy();
+      // El redirect a /confirmation/{orderId} confirma que el pedido fue generado
+      expect(page.url()).toMatch(/\/confirmation\//);
     });
 
     test(`${key}: C2-12 Doble click en crear pedido no genera duplicado`, async ({ authedPage: page }) => {
