@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: QA Pipeline & Dashboard v2
 status: active
-stopped_at: Phase 3 complete — awaiting Phase 4 planning
+stopped_at: Phase 4 CONTEXT.md captured — resume with /gsd-plan-phase 4
 last_updated: "2026-04-20"
-last_activity: 2026-04-20 — Phase 3 (Unified QA Status View) executed — 3/3 plans complete
+last_activity: 2026-04-20 — Phase 4 discuss-phase complete. 17 CONTEXT decisions locked. Client cleanup (17 active) also done. End-of-day pause.
 progress:
   total_phases: 6
   completed_phases: 3
@@ -26,14 +26,14 @@ progress:
 
 ## Current Position
 
-**Phase:** Phase 4 — Triage Persistence (not started)
+**Phase:** Phase 4 — Triage Persistence (CONTEXT.md captured, awaiting plan-phase)
 **Plan:** None yet
-**Status:** Phase 3 complete — DASH-03, DASH-04, DASH-05 closed. Next: /gsd-plan-phase 4
+**Status:** Phase 3 complete. Phase 4 discuss done (17 decisions locked). Next: /gsd-plan-phase 4
 **Progress:** 3/6 phases complete
 
 ```
 [██████████░░░░░░░░░░] 50%
-Phase 1 ✓ ──▶ Phase 2 ✓ ──▶ Phase 3 ✓ ──▶ Phase 4 ──▶ Phase 5 ──▶ Phase 6
+Phase 1 ✓ ──▶ Phase 2 ✓ ──▶ Phase 3 ✓ ──▶ Phase 4 (CONTEXT ✓) ──▶ Phase 5 ──▶ Phase 6
 ```
 
 ## Active Requirements (v1)
@@ -85,9 +85,9 @@ Phase 1 ✓ ──▶ Phase 2 ✓ ──▶ Phase 3 ✓ ──▶ Phase 4 ──
 
 ## Session Continuity
 
-**Last session:** 2026-04-19 — Phase 2 executed (DASH-01, DASH-02) + Phase 3 UI-SPEC approved. End-of-day pause.
-**Next session:** Run `/gsd-discuss-phase 3` to capture implementation decisions for Phase 3 (Unified QA Status View) before planning. UI-SPEC already done.
-**Resume file:** `.planning/phases/03-unified-qa-status-view/03-UI-SPEC.md`
+**Last session:** 2026-04-20 — Phase 3 executed (DASH-03/04/05), client cleanup applied (17 active via ACTIVE_CLIENTS allowlist in sync-clients.py), Phase 4 discuss-phase complete. End-of-day pause.
+**Next session:** Run `/gsd-plan-phase 4` to generate research + plans for Phase 4 (Triage Persistence). CONTEXT.md already captured 17 decisions (YAML frontmatter format, per-client file, overlay strategy, commit+push immediate).
+**Resume file:** `.planning/phases/04-triage-persistence/04-CONTEXT.md`
 
 **Files for orientation:**
 - `.planning/PROJECT.md` — core value, constraints, key decisions
