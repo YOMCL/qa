@@ -2,11 +2,21 @@
   "running": true,
   "startTime": "2026-04-20T19:25:44.817Z",
   "total": 212,
-  "passed": 10,
+  "passed": 12,
   "failed": 0,
   "skipped": 2,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie: C2-11 Flujo completo catalogo → carro → checkout",
+      "status": "passed",
+      "duration": 17801
+    },
+    {
+      "title": "bastien: C2-01 Catálogo muestra productos con precio @catalog @funcional",
+      "status": "passed",
+      "duration": 14226
+    },
     {
       "title": "sonrie: C2-03 Búsqueda sin resultados muestra mensaje @catalog @funcional",
       "status": "passed",
