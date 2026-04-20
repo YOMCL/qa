@@ -23,7 +23,7 @@ Each phase produces a visible, testable outcome. No phase leaves the dashboard i
 - [x] **Phase 3: Unified QA Status View** — Deliver the core value — one row per client showing all three pipelines + per-client trend
 - [x] **Phase 4: Triage Persistence** — Capture triage decisions as committed files so history is auditable
 - [x] **Phase 5: QA LISTO Weekly Status** — Give Tech a deploy-readiness signal driven by objective criteria
-- [ ] **Phase 6: Actionable Reports & Agent Precision** — Make HTML reports useful to stakeholders and make Claude agents consistent in triage/classification
+- [x] **Phase 6: Actionable Reports & Agent Precision** — Make HTML reports useful to stakeholders and make Claude agents consistent in triage/classification
 
 ## Phase Details
 
@@ -108,10 +108,10 @@ Each phase produces a visible, testable outcome. No phase leaves the dashboard i
   4. `/triage-playwright` command documentation includes the timeout classification rubric (<5s = selector issue, 5-30s = red/staging, >30s = bug or infinite loop) and uses it during triage
   5. `ai-specs/.agents/maestro-specialist.md` defines the protocol for a flow that fails its 3 auto-retries, and manual-pass decisions are recorded with their reason in the run log (not only as an HTML badge)
 **Plans:** 4 plans
-- [ ] 06-01-PLAN.md — PROC-05 + PROC-06: report-qa.md — resumen ejecutivo 3 líneas + sección Accionables P0/P1
-- [ ] 06-02-PLAN.md — AGENT-01 + AGENT-02: playwright-specialist.md — Error Classification + Retry vs Escalate
-- [ ] 06-03-PLAN.md — AGENT-03: triage-playwright.md — rúbrica de timeout por duración
-- [ ] 06-04-PLAN.md — AGENT-04 + AGENT-05: maestro-specialist.md — 3-Retry Protocol + Manual-Pass Logging
+- [x] 06-01-PLAN.md — PROC-05 + PROC-06: report-qa.md — resumen ejecutivo 3 líneas + sección Accionables P0/P1
+- [x] 06-02-PLAN.md — AGENT-01 + AGENT-02: playwright-specialist.md — Error Classification + Retry vs Escalate
+- [x] 06-03-PLAN.md — AGENT-03: triage-playwright.md — rúbrica de timeout por duración
+- [x] 06-04-PLAN.md — AGENT-04 + AGENT-05: maestro-specialist.md — 3-Retry Protocol + Manual-Pass Logging
 
 ## Progress
 
@@ -122,7 +122,7 @@ Each phase produces a visible, testable outcome. No phase leaves the dashboard i
 | 3. Unified QA Status View | 3/3 | Complete ✓ | 2026-04-20 |
 | 4. Triage Persistence | 2/2 | Complete ✓ | 2026-04-21 |
 | 5. QA LISTO Weekly Status | 2/2 | Complete ✓ | 2026-04-21 |
-| 6. Actionable Reports & Agent Precision | 0/4 | Not started | - |
+| 6. Actionable Reports & Agent Precision | 4/4 | Complete ✓ | 2026-04-21 |
 
 ## Coverage Validation
 
