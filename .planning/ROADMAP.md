@@ -79,7 +79,9 @@ Each phase produces a visible, testable outcome. No phase leaves the dashboard i
   2. `tools/publish-results.py` detects `QA/{CLIENT}/{DATE}/triage-{date}.md` when present and incorporates triage decisions into `public/history/{date}.json` (e.g., as a `triage` field per failure or per client)
   3. If no triage file exists, `publish-results.py` continues to work exactly as before — no failure, no regression
   4. A user inspecting `public/history/{date}.json` for a past date can see which failures were triaged and how, without opening chat history
-**Plans**: TBD
+**Plans:** 2 plans
+- [ ] 04-01-PLAN.md — publish-results.py: triage overlay (3 helpers + generate_run_json wiring) — PROC-02
+- [ ] 04-02-PLAN.md — /triage-playwright command: Step 5 persistir archivo + commit+push — PROC-01
 
 ### Phase 5: QA LISTO Weekly Status
 **Goal**: Tech has an objective, dashboard-visible signal of whether each client is ready to deploy, derived from the three pipelines
