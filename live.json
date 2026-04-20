@@ -2,11 +2,21 @@
   "running": true,
   "startTime": "2026-04-20T19:25:44.817Z",
   "total": 212,
-  "passed": 145,
+  "passed": 147,
   "failed": 3,
   "skipped": 6,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "bastien: PM1-03 Crear orden SIN cupón no se rompe por cambios en cupones",
+      "status": "passed",
+      "duration": 22526
+    },
+    {
+      "title": "bastien: PM2-04 Modal/UI de cupón no queda en loading infinito",
+      "status": "passed",
+      "duration": 23363
+    },
     {
       "title": "bastien: PM1-04 Cupón inválido muestra error (no crash)",
       "status": "passed",
@@ -96,16 +106,6 @@
       "title": "bastien: pointsEnabled=false",
       "status": "passed",
       "duration": 5577
-    },
-    {
-      "title": "bastien: pendingDocuments=false",
-      "status": "passed",
-      "duration": 5060
-    },
-    {
-      "title": "sonrie: suggestions.hide=true",
-      "status": "passed",
-      "duration": 10875
     }
   ]
 }
