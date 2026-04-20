@@ -1,11 +1,11 @@
 {
   "reports": [
     {
-      "client": "Bastien",
+      "client": "Bastien (Sonrie Market)",
       "date": "2026-04-20",
       "file": "bastien-2026-04-20.html",
       "verdict": "CON CONDICIONES",
-      "score": 44,
+      "score": 78,
       "modes_done": ["A", "B", "C", "D"],
       "platform": "b2b",
       "environment": "staging"

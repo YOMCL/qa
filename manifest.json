@@ -17,7 +17,7 @@
       "date": "2026-04-20",
       "file": "qa-reports/bastien-2026-04-20.html",
       "verdict": "CON_CONDICIONES",
-      "score": 44,
+      "score": 78,
       "modes_done": ["A", "B", "C", "D"],
       "platform": "b2b",
       "environment": "staging"
