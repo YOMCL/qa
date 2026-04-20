@@ -2,11 +2,31 @@
   "running": true,
   "startTime": "2026-04-20T19:25:44.817Z",
   "total": 212,
-  "passed": 164,
+  "passed": 165,
   "failed": 4,
-  "skipped": 9,
+  "skipped": 12,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "bastien: C7-12 /payment-documents carga sin error cuando flag=true",
+      "status": "skipped",
+      "duration": 17395
+    },
+    {
+      "title": "bastien: C7-11 Opción de facturas en menú lateral cuando flag=true",
+      "status": "skipped",
+      "duration": 17476
+    },
+    {
+      "title": "bastien: C7-INV /payment-documents no accesible cuando flag=false",
+      "status": "passed",
+      "duration": 19086
+    },
+    {
+      "title": "bastien: C7-10 Facturas visibles en /orders cuando flag=true",
+      "status": "skipped",
+      "duration": 18304
+    },
     {
       "title": "bastien: C7-INV Link \"Mis documentos\" oculto cuando flag=false",
       "status": "passed",
@@ -86,26 +106,6 @@
       "title": "sonrie: Catálogo muestra productos con precios",
       "status": "passed",
       "duration": 9744
-    },
-    {
-      "title": "bastien: PM1-02 Cupón válido aplica descuento",
-      "status": "failed",
-      "duration": 24059
-    },
-    {
-      "title": "sonrie: Login exitoso",
-      "status": "passed",
-      "duration": 8035
-    },
-    {
-      "title": "sonrie: Sin acceso anónimo redirige a login",
-      "status": "passed",
-      "duration": 6699
-    },
-    {
-      "title": "bastien: Pipeline API catálogo devuelve productos con nombre y pricing @catalog @critico",
-      "status": "passed",
-      "duration": 7871
     }
   ]
 }
