@@ -74,6 +74,14 @@ Generate comprehensive QA report for a client: test results summary, issue group
    - Resumen ejecutivo en las primeras 3 líneas visibles del body: `{VEREDICTO} | Score {N}/100 | {X} issues críticos (P0: {N}, P1: {M})` — mismo contenido que el .md, en un `<div class="executive-summary">` antes del primer `<section>`
    - Estructura: header con cliente/fecha/veredicto, secciones colapsables por modo, tabla de issues con colores por severidad
    - Incluir enlace "← Dashboard" a `../`
+   - La tabla de Hallazgos por severidad DEBE usar `<table class="issue-table">` con este CSS en el `<style>`:
+     ```css
+     .issue-table { table-layout: fixed; width: 100%; }
+     .issue-table th:nth-child(1) { width: 90px; }   /* ID */
+     .issue-table th:nth-child(2) { width: 70px; }   /* Sev. */
+     .issue-table th:nth-child(3) { width: 105px; }  /* Área */
+     .issue-table td { word-break: break-word; }      /* Descripción ocupa el resto */
+     ```
 
    **c) Actualizar `public/manifest.json`** (manifest unificado B2B + APP)
    - Agregar entrada con estructura estándar:
