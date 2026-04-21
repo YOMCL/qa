@@ -1,6 +1,6 @@
 {
   "running": true,
-  "startTime": "2026-04-21T18:58:30.923Z",
+  "startTime": "2026-04-21T18:58:40.654Z",
   "total": 660,
   "passed": 660,
   "failed": 0,
@@ -8,22 +8,22 @@
   "currentTest": null,
   "recentTests": [
     {
+      "title": "taxes.taxRate must be number in [0, 1]",
+      "status": "passed",
+      "duration": 0
+    },
+    {
       "title": "fixture shape: name, baseURL, config",
       "status": "passed",
       "duration": 0
     },
     {
-      "title": "taxes.taxRate must be number in [0, 1]",
-      "status": "passed",
-      "duration": 1
-    },
-    {
-      "title": "weightInfo must be boolean (got boolean false)",
+      "title": "useMobileGps must be boolean (got boolean false)",
       "status": "passed",
       "duration": 0
     },
     {
-      "title": "useMobileGps must be boolean (got boolean false)",
+      "title": "weightInfo must be boolean (got boolean false)",
       "status": "passed",
       "duration": 0
     },
