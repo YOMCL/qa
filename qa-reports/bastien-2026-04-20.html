@@ -90,7 +90,7 @@
         <div class="card-title">📋 Accionables prioritarios</div>
         <div class="accionable critical">
             <strong>🔴 URGENTE — BAS-QA-006: Bug de impuestos crítico (1900% IVA)</strong><br>
-            <span class="sub">Neto $6.434 → Impuestos $122.252 → Total $128.686. Debería ser ~$1.222 (19%). <code>taxes.useTaxRate=false</code> y <code>taxes.taxRate=0</code> ignorados. El dato incorrecto se almacena en el pedido. · <strong>Dueño:</strong> Tech · <strong>Plazo:</strong> Urgente</span>
+            <span class="sub"><code>product.taxes[].taxRate = 19</code> en MongoDB en vez de <code>0.19</code> — el sistema lo aplica literalmente (1900%). Fix: actualizar el campo en todos los productos del comercio. · <strong>Dueño:</strong> Ops/Data · <strong>Plazo:</strong> Urgente</span>
         </div>
         <div class="accionable">
             <strong>BAS-QA-011 — Tab "Mis documentos" visible con flag=false</strong><br>
@@ -119,8 +119,9 @@
                 <td>BAS-QA-006</td>
                 <td><span class="badge p1">P1</span></td>
                 <td>Pricing</td>
-                <td>Cálculo de impuestos erróneo. Neto $6.434 → Impuestos $122.252 → Total $128.686 (~1.900%). IVA 19% correcto = ~$1.222. <code>taxes.useTaxRate=false</code> y <code>taxes.taxRate=0</code> ignorados. Dato incorrecto almacenado en pedido.
-                    <a class="btn-linear" href="https://linear.app/yom-tech/new?title=%5BQA%5D%20BAS-QA-006%20%E2%80%94%20Bug%20cr%C3%ADtico%20impuestos%20%281900%25%20IVA%29&description=taxes.useTaxRate%3Dfalse%20y%20taxes.taxRate%3D0%20en%20config%20pero%20se%20aplican%20impuestos%20incorrectamente%2C%20inflando%20el%20total%20~1900%25.%0A%0A1.%20Neto%20%246.434%20%E2%86%92%20Impuestos%20%24122.252%20%E2%86%92%20Total%20%24128.686%20%28IVA%2019%25%20correcto%20ser%C3%ADa%20~%241.222%29%0A2.%20El%20flag%20taxes.useTaxRate%3Dfalse%20es%20ignorado%20por%20la%20plataforma%0A3.%20El%20precio%20corrupto%20se%20almacena%20en%20el%20pedido%20%E2%80%94%20dato%20irrecuperable%20post-compra%0A%0AImpact%3A%20Cada%20pedido%20en%20Bastien%20staging%20se%20registra%20con%20monto%20~20x%20inflado%0AReal%20case%3A%20Cualquier%20SKU%2C%20pedido%20%2310%2C%20bastien.solopide.me%0ACliente%3A%20Bastien%20%28bastien.solopide.me%29%0AID%20QA%3A%20BAS-QA-006%20%C2%B7%20Severidad%3A%20P1%20CR%C3%8DTICO" target="_blank">🔗 Crear ticket</a>
+                <td><code>product.taxes[].taxRate = 19</code> en MongoDB en vez de <code>0.19</code>. El sistema aplica 1900% de impuesto. Neto $6.434 → Total $128.686 (correcto: ~$7.656).
+                    <div class="sub">Fix: actualizar taxRate de 19 → 0.19 en MongoDB para todos los productos del comercio. No es bug de código.</div>
+                    <a class="btn-linear" href="https://linear.app/yom-tech/new?title=%5BQA%5D%20BAS-QA-006%20%E2%80%94%20product.taxes%5B%5D.taxRate%20%3D%2019%20en%20vez%20de%200.19%20en%20MongoDB&description=El%20campo%20product.taxes%5B%5D.taxRate%20tiene%20el%20valor%2019%20%28entero%29%20en%20vez%20de%200.19%20%28decimal%29%20en%20los%20productos%20de%20Bastien.%20El%20sistema%20lo%20aplica%20literalmente%2C%20inflando%20el%20total%20~1900%25.%0A%0A1.%20product.taxes%5B%5D.taxRate%20%3D%2019%20%E2%86%92%20sistema%20aplica%201900%25%20de%20impuesto%0A2.%20Valor%20correcto%3A%20product.taxes%5B%5D.taxRate%20%3D%200.19%20%28IVA%2019%25%29%0A3.%20Resultado%3A%20Neto%20%246.434%20%E2%86%92%20Impuestos%20%24122.252%20%E2%86%92%20Total%20%24128.686%20en%20vez%20de%20~%247.656%0A%0AImpact%3A%20Todos%20los%20pedidos%20en%20Bastien%20staging%20se%20registran%20con%20monto%20~20x%20inflado.%20Dato%20corrupto%20persistido%20en%20BD.%0AReal%20case%3A%20Cualquier%20SKU%2C%20pedido%20%2310%2C%20bastien.solopide.me%0AFix%3A%20Actualizar%20product.taxes%5B%5D.taxRate%20de%2019%20a%200.19%20en%20MongoDB%20para%20todos%20los%20productos%20de%20este%20comercio%0ACliente%3A%20Bastien%20%28bastien.solopide.me%29%0AID%20QA%3A%20BAS-QA-006%20%C2%B7%20Severidad%3A%20P1%20%E2%80%94%20Data%20fix%20%28MongoDB%29" target="_blank">🔗 Crear ticket</a>
                 </td>
             </tr>
             <tr class="issue-row">
