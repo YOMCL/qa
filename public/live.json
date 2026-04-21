@@ -1,6 +1,6 @@
 {
-  "running": false,
-  "startTime": "2026-04-21T18:58:40.654Z",
+  "running": true,
+  "startTime": "2026-04-21T18:57:57.021Z",
   "total": 660,
   "passed": 660,
   "failed": 0,
@@ -8,17 +8,12 @@
   "currentTest": null,
   "recentTests": [
     {
-      "title": "taxes.taxRate must be number in [0, 1]",
-      "status": "passed",
-      "duration": 0
-    },
-    {
       "title": "fixture shape: name, baseURL, config",
       "status": "passed",
       "duration": 0
     },
     {
-      "title": "useMobileGps must be boolean (got boolean false)",
+      "title": "taxes.taxRate must be number in [0, 1]",
       "status": "passed",
       "duration": 0
     },
@@ -29,6 +24,11 @@
     },
     {
       "title": "taxes.useTaxRate must be boolean (got boolean true)",
+      "status": "passed",
+      "duration": 0
+    },
+    {
+      "title": "useMobileGps must be boolean (got boolean false)",
       "status": "passed",
       "duration": 0
     },
@@ -53,17 +53,12 @@
       "duration": 0
     },
     {
-      "title": "pointsEnabled must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
       "title": "pendingDocuments must be boolean (got boolean false)",
       "status": "passed",
       "duration": 0
     },
     {
-      "title": "ordersRequireVerification must be boolean (got boolean false)",
+      "title": "pointsEnabled must be boolean (got boolean false)",
       "status": "passed",
       "duration": 0
     },
@@ -73,12 +68,17 @@
       "duration": 0
     },
     {
-      "title": "lazyLoadingPrices must be boolean (got boolean false)",
+      "title": "ordersRequireVerification must be boolean (got boolean false)",
       "status": "passed",
       "duration": 0
     },
     {
       "title": "includeTaxRateInPrices must be boolean (got boolean false)",
+      "status": "passed",
+      "duration": 0
+    },
+    {
+      "title": "lazyLoadingPrices must be boolean (got boolean false)",
       "status": "passed",
       "duration": 0
     },
@@ -93,20 +93,19 @@
       "duration": 0
     },
     {
-      "title": "hooks.stockHook must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
       "title": "hooks.shippingHook must be boolean (got boolean false)",
       "status": "passed",
       "duration": 0
     },
     {
-      "title": "hooks.getPendingDocumentsHook must be boolean (got boolean false)",
+      "title": "hooks.stockHook must be boolean (got boolean false)",
+      "status": "passed",
+      "duration": 0
+    },
+    {
+      "title": "hooks.cartShoppingHook must be boolean (got boolean false)",
       "status": "passed",
       "duration": 0
     }
-  ],
-  "endTime": "2026-04-21T18:58:43.268Z"
+  ]
 }
