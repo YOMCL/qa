@@ -877,6 +877,38 @@
         .report-score span { font-size: 0.55em; color: #9ca3af; font-weight: 600; }
         .reports-empty { color: #9ca3af; font-size: 0.88em; padding: 8px 0; }
 
+        /* ── Cowork client accordion ── */
+        .cowork-client-section { border:1px solid #e5e7eb; border-radius:10px; overflow:hidden; }
+        .cowork-client-card {
+            display:flex; align-items:center; gap:12px; padding:0;
+            text-decoration:none; color:inherit;
+        }
+        .cowork-client-card:hover .cowork-card-inner { border-color:#6366f1; box-shadow:0 4px 16px rgba(99,102,241,0.12); }
+        .cowork-card-inner {
+            flex:1; border:none; border-radius:0; padding:16px;
+            display:flex; flex-direction:column; gap:8px;
+            transition:border-color 0.2s, box-shadow 0.2s;
+        }
+        .cowork-history-toggle {
+            display:flex; align-items:center; justify-content:center;
+            width:36px; min-width:36px; height:100%; cursor:pointer;
+            background:#f9fafb; border-left:1px solid #e5e7eb;
+            color:#9ca3af; font-size:14px; transition:background 0.15s, color 0.15s;
+            align-self:stretch; padding:0 10px;
+        }
+        .cowork-history-toggle:hover { background:#f3f4f6; color:#6366f1; }
+        .cowork-history-toggle .toggle-arrow { transition:transform 0.2s; display:inline-block; }
+        .cowork-history-toggle.open .toggle-arrow { transform:rotate(180deg); }
+        .cowork-history-body { display:none; padding:10px 14px; border-top:1px solid #e5e7eb; background:#fafafa; }
+        .cowork-history-body.open { display:block; }
+        .cowork-history-item {
+            display:flex; align-items:center; gap:8px; padding:6px 10px;
+            border-radius:7px; background:#fff; text-decoration:none;
+            font-size:12px; color:#374151; margin-bottom:4px;
+            border:1px solid #e5e7eb;
+        }
+        .cowork-history-item:hover { border-color:#6366f1; }
+
         @media (max-width: 1100px) {
             .summary-row { grid-template-columns: repeat(2, 1fr); }
         }
@@ -2807,6 +2839,31 @@ document.addEventListener('DOMContentLoaded', loadB2bVariables);
 
 // ── Cowork Reports ────────────────────────────────────────
 
+function toggleCoworkHistory(btn) {
+    const section = btn.closest('.cowork-client-section');
+    const body = section.querySelector('.cowork-history-body');
+    const isOpen = body.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+}
+
+function coworkReportCardHtml(rep) {
+    const v = rep.verdict || '';
+    const verdictClass = v === 'LISTO' ? 'verdict-listo'
+        : (v === 'CON CONDICIONES' || v === 'CON_CONDICIONES') ? 'verdict-condiciones'
+        : (v === 'BLOQUEADO' || v === 'NO_APTO') ? 'verdict-bloqueado'
+        : 'verdict-pending';
+    const verdictLabel = v.replace(/_/g, ' ');
+    const modesHtml = ['A','B','C','D','FULL'].map(m => {
+        const done = (rep.modes_done || []).some(d => d === m || (m === 'FULL' && (rep.modes_done || []).includes('FULL')));
+        return done ? `<span class="mode-badge done">${m}</span>` : '';
+    }).filter(Boolean).join('') || ['A','B','C','D'].map(m => {
+        const done = (rep.modes_done || []).includes(m);
+        return `<span class="mode-badge ${done ? 'done' : ''}">${m}</span>`;
+    }).join('');
+    const scoreHtml = rep.score ? `<div class="report-score">${rep.score}<span>/100</span></div>` : '';
+    return { verdictClass, verdictLabel, modesHtml, scoreHtml };
+}
+
 async function loadCoworkReports() {
     const grid = document.getElementById('coworkReportsGrid');
     try {
@@ -2821,32 +2878,58 @@ async function loadCoworkReports() {
             grid.innerHTML = '<p class="reports-empty">Sin reportes aún. Ejecuta <code>/report-qa {CLIENTE} {FECHA}</code> para generar el primero.</p>';
             return;
         }
-        grid.innerHTML = reports.map(rep => {
-            const v = rep.verdict || '';
-            const verdictClass = v === 'LISTO' ? 'verdict-listo'
-                : (v === 'CON CONDICIONES' || v === 'CON_CONDICIONES') ? 'verdict-condiciones'
-                : (v === 'BLOQUEADO' || v === 'NO_APTO') ? 'verdict-bloqueado'
-                : 'verdict-pending';
-            const verdictLabel = v.replace(/_/g, ' ');
-            const modesHtml = ['A','B','C','D','FULL'].map(m => {
-                const done = (rep.modes_done || []).some(d => d === m || (m === 'FULL' && (rep.modes_done || []).includes('FULL')));
-                return done ? `<span class="mode-badge done">${m}</span>` : '';
-            }).filter(Boolean).join('') || ['A','B','C','D'].map(m => {
-                const done = (rep.modes_done || []).includes(m);
-                return `<span class="mode-badge ${done ? 'done' : ''}">${m}</span>`;
+
+        // Group by client, latest first
+        const byClient = {};
+        reports.forEach(rep => {
+            const key = rep.client;
+            if (!byClient[key]) byClient[key] = [];
+            byClient[key].push(rep);
+        });
+
+        grid.innerHTML = Object.entries(byClient).map(([client, reps]) => {
+            const latest = reps[0];
+            const { verdictClass, verdictLabel, modesHtml, scoreHtml } = coworkReportCardHtml(latest);
+
+            const historyItems = reps.slice(1).map(rep => {
+                const { verdictClass: vc, verdictLabel: vl } = coworkReportCardHtml(rep);
+                const scoreStr = rep.score ? `<span style="font-weight:700;color:#374151;">${rep.score}/100</span>` : '';
+                return `<a class="cowork-history-item" href="${rep.file}">
+                    <span style="color:#9ca3af;min-width:82px;">${rep.date}</span>
+                    ${scoreStr}
+                    <span class="report-verdict ${vc}" style="margin-left:auto;font-size:10px;padding:1px 8px;">${vl || 'En progreso'}</span>
+                </a>`;
             }).join('');
-            const scoreHtml = rep.score ? `<div class="report-score">${rep.score}<span>/100</span></div>` : '';
-            return `<a class="report-card" href="${rep.file}">
-                <div class="report-card-header">
-                    <div>
-                        <div class="report-client">${escapeHtml(rep.client)}</div>
-                        <div class="report-date">${rep.date}</div>
-                    </div>
-                    ${scoreHtml}
+
+            const hasHistory = reps.length > 1;
+            const toggleBtn = hasHistory
+                ? `<div class="cowork-history-toggle" onclick="toggleCoworkHistory(this)" title="${reps.length - 1} reporte${reps.length > 2 ? 's' : ''} anterior${reps.length > 2 ? 'es' : ''}">
+                    <span class="toggle-arrow">▾</span>
+                   </div>`
+                : '';
+            const historyBody = hasHistory
+                ? `<div class="cowork-history-body">${historyItems}</div>`
+                : '';
+
+            return `<div class="cowork-client-section">
+                <div style="display:flex;align-items:stretch;">
+                    <a class="cowork-client-card" href="${latest.file}" style="flex:1;text-decoration:none;color:inherit;">
+                        <div class="cowork-card-inner">
+                            <div class="report-card-header">
+                                <div>
+                                    <div class="report-client">${escapeHtml(client)}</div>
+                                    <div class="report-date">${latest.date}</div>
+                                </div>
+                                ${scoreHtml}
+                            </div>
+                            <div class="report-modes">${modesHtml}</div>
+                            <span class="report-verdict ${verdictClass}">${verdictLabel || 'En progreso'}</span>
+                        </div>
+                    </a>
+                    ${toggleBtn}
                 </div>
-                <div class="report-modes">${modesHtml}</div>
-                <span class="report-verdict ${verdictClass}">${verdictLabel || 'En progreso'}</span>
-            </a>`;
+                ${historyBody}
+            </div>`;
         }).join('');
     } catch {
         grid.innerHTML = '<p class="reports-empty">Sin reportes aún. Ejecuta <code>/report-qa {CLIENTE} {FECHA}</code> para generar el primero.</p>';
