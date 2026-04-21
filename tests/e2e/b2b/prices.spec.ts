@@ -148,6 +148,56 @@ for (const [key, client] of Object.entries(clients)) {
       }
     });
 
+    test(`${key}: C3-PM8 Sanity impuestos — impuesto no excede 30% del neto`, async ({ authedPage: page }) => {
+      // PM8: detecta product.taxes[].taxRate = 19 (entero) en vez de 0.19 (decimal)
+      // Descubierto en Bastien 2026-04-20 — aplica a todos los clientes
+
+      await page.goto(`${client.baseURL}/products`);
+      await expect(page.getByRole('button', { name: 'Agregar' }).first()).toBeVisible({ timeout: 30_000 });
+
+      await Promise.all([
+        page.waitForResponse(resp => resp.url().includes('/cart') && resp.request().method() === 'POST'),
+        page.getByRole('button', { name: 'Agregar' }).first().click(),
+      ]);
+
+      await page.goto(`${client.baseURL}/cart`);
+      await expect(page.getByText(/\d+ Producto/)).toBeVisible({ timeout: 15_000 });
+
+      const bodyText = (await page.locator('body').textContent()) || '';
+
+      const hasImpuesto = /impuesto|iva|tax/i.test(bodyText);
+      const hasNeto = /neto|subtotal/i.test(bodyText);
+
+      if (!hasImpuesto || !hasNeto) {
+        test.info().annotations.push({ type: 'info', description: 'Sin desglose neto/impuesto visible en /cart — skipping sanity check' });
+        return;
+      }
+
+      // Parsear CLP: $1.234.567 → 1234567
+      const parseCLP = (s: string) => parseInt(s.replace(/[^0-9]/g, ''), 10);
+
+      // Extraer valor numérico que sigue a un label
+      const extractAfterLabel = (label: RegExp): number | null => {
+        const match = bodyText.match(new RegExp(label.source + '[^$]*\\$\\s*([\\d.]+)', 'i'));
+        return match ? parseCLP(match[1]) : null;
+      };
+
+      const neto = extractAfterLabel(/neto|subtotal/);
+      const impuesto = extractAfterLabel(/impuesto|iva|tax/);
+
+      if (neto === null || impuesto === null || neto === 0) {
+        test.info().annotations.push({ type: 'info', description: `No se pudieron parsear montos: neto=${neto}, impuesto=${impuesto}` });
+        return;
+      }
+
+      const ratio = impuesto / neto;
+      test.info().annotations.push({ type: 'info', description: `neto=$${neto} impuesto=$${impuesto} ratio=${(ratio * 100).toFixed(1)}%` });
+
+      // Impuesto no debe superar 30% del neto (IVA Chile = 19%, margen 30% por redondeo)
+      // Si falla: revisar product.taxes[].taxRate en MongoDB — probable valor entero (19) en vez de decimal (0.19)
+      expect(ratio, `Impuesto ${(ratio * 100).toFixed(0)}% del neto — revisar product.taxes[].taxRate en MongoDB (debe ser 0.19, no 19)`).toBeLessThanOrEqual(0.30);
+    });
+
     test(`${key}: C3-11 Precio bruto vs neto — impuestos segun config`, async ({ authedPage: page }) => {
       // Verificar que el desglose de impuestos en el carro es coherente con la config
       await page.goto(`${client.baseURL}/products`);
