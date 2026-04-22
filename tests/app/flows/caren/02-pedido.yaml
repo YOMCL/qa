@@ -103,12 +103,23 @@ name: "CAREN: 02 — Pedido completo (staging — SE ENVÍA)"
     optional: true
 
 - waitForAnimationToEnd
+
+# Diálogo de confirmación "¿Estás seguro de enviar el pedido?"
+- runFlow:
+    when:
+      visible:
+        text: ".*[Ee]st[aá]s seguro.*|.*ACEPTAR.*"
+    commands:
+      - tapOn:
+          text: "ACEPTAR"
+      - waitForAnimationToEnd
+
 - takeScreenshot: /tmp/caren-pedido-confirmacion
 
 # Esperar confirmación exitosa o retorno al listado
 - extendedWaitUntil:
     visible:
-      text: ".*[Pp]edido.*[Ee]nviado.*|.*[Ee]xitoso.*|.*[Cc]onfirmado.*|.*[Gg]racias.*|.*Listado de comercios.*|.*[Ff]inalizar.*|.*[Cc]omercio.*"
+      text: ".*[Pp]edido.*[Ee]nviado.*|.*[Ee]xitoso.*|.*[Cc]onfirmado.*|.*[Gg]racias.*|.*Listado de comercios.*|.*Seleccionar filtros.*|.*[Cc]omercio.*"
     timeout: 30000
 
 - takeScreenshot: /tmp/caren-pedido-resultado
