@@ -39,10 +39,11 @@ name: "CAREN: 02 — Pedido completo (staging — SE ENVÍA)"
 
 - takeScreenshot: /tmp/caren-pedido-catalogo
 
-# Agregar primer producto al carro
+# Agregar primer producto al carro (optional — puede ya estar en cart de run anterior)
 - tapOn:
     text: ".*[Aa]gregar.*"
     index: 0
+    optional: true
 
 - waitForAnimationToEnd
 - takeScreenshot: /tmp/caren-pedido-producto-agregado
