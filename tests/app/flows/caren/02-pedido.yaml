@@ -46,24 +46,15 @@ name: "CAREN: 02 — Pedido completo (staging — SE ENVÍA)"
     text: ".*[Dd]escuento [Vv]endedor.*|.*[Aa]plicar [Dd]escuento.*"
     optional: true
 
-# Ir al carro
+# Ir al pedido — tab "Mi pedido" en la parte superior del Tomador de Pedido
 - tapOn:
-    text: ".*[Cc]arro.*|.*[Vv]er [Pp]edido.*|.*[Cc]arrito.*"
+    text: "Mi pedido"
     optional: true
-
-- runFlow:
-    when:
-      notVisible:
-        text: ".*[Cc]onfirmar.*[Pp]edido.*|.*[Ee]nviar.*[Pp]edido.*|.*[Rr]esumen.*"
-    commands:
-      - tapOn:
-          id: "${APP_PACKAGE}:id/cart_button"
-          optional: true
-      - waitForAnimationToEnd
+- waitForAnimationToEnd
 
 - extendedWaitUntil:
     visible:
-      text: ".*[Cc]onfirmar.*|.*[Rr]esumen.*|.*[Ee]nviar.*|.*[Tt]otal.*"
+      text: ".*[Cc]onfirmar.*|.*[Rr]esumen.*|.*[Ee]nviar.*|.*[Tt]otal.*|.*[Mm]i pedido.*"
     timeout: 20000
 
 - takeScreenshot: /tmp/caren-pedido-resumen
@@ -90,4 +81,4 @@ name: "CAREN: 02 — Pedido completo (staging — SE ENVÍA)"
 
 - takeScreenshot: /tmp/caren-pedido-resultado
 
-- runFlow: caren/helpers-volver-lista.yaml
+- runFlow: helpers-volver-lista.yaml
