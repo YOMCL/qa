@@ -110,23 +110,18 @@ appId: ${APP_PACKAGE}
       text: "Listado de comercios|.*[Cc]omercio.*|.*[Cc]liente.*"
     timeout: 30000
 
-# ── RECUPERAR DATOS si el sync dejó lista vacía ──────────────────────────────
+# ── Descartar "Restauración de datos" si aparece (beta — no usarla) ──────────
 - runFlow:
     when:
       visible:
-        text: ".*[Nn]o se encontraron.*comercios.*|.*[Ss]in comercios.*"
+        text: ".*[Rr]estauración de datos.*|.*[Rr]espalda.*|.*backup.*"
     commands:
       - tapOn:
-          text: "RECUPERAR DATOS"
+          text: "CANCELAR"
           optional: true
       - waitForAnimationToEnd
-      - extendedWaitUntil:
-          notVisible:
-            text: ".*[Nn]o se encontraron.*"
-          timeout: 30000
-      - waitForAnimationToEnd
 
-# Verificar que hay comercios (el sync trajo datos)
+# Verificar que hay comercios cargados
 - extendedWaitUntil:
     visible:
       text: "Listado de comercios|.*[Cc]omercio.*|.*[Cc]liente.*"
