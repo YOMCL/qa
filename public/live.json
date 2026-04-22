@@ -2,11 +2,21 @@
   "running": true,
   "startTime": "2026-04-22T13:22:18.070Z",
   "total": 292,
-  "passed": 222,
-  "failed": 5,
+  "passed": 223,
+  "failed": 6,
   "skipped": 6,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "bastien: PM2-04 Modal/UI de cupón no queda en loading infinito",
+      "status": "passed",
+      "duration": 20174
+    },
+    {
+      "title": "bastien: PM1-02 Cupón válido aplica descuento",
+      "status": "failed",
+      "duration": 20386
+    },
     {
       "title": "bastien: PM1-01 Campo de cupón existe y es interactuable",
       "status": "passed",
@@ -96,16 +106,6 @@
       "title": "sonrie: suggestions.hide=true",
       "status": "passed",
       "duration": 7856
-    },
-    {
-      "title": "bastien: pendingDocuments=false",
-      "status": "passed",
-      "duration": 1596
-    },
-    {
-      "title": "sonrie: enableBetaButtons=false",
-      "status": "passed",
-      "duration": 4690
     }
   ]
 }
