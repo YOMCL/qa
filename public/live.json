@@ -2,11 +2,31 @@
   "running": true,
   "startTime": "2026-04-22T13:22:18.070Z",
   "total": 292,
-  "passed": 80,
+  "passed": 83,
   "failed": 1,
-  "skipped": 1,
+  "skipped": 2,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie: C2-08 Modificar cantidad en carro",
+      "status": "passed",
+      "duration": 13873
+    },
+    {
+      "title": "bastien: C2-08 Modificar cantidad en carro",
+      "status": "passed",
+      "duration": 17898
+    },
+    {
+      "title": "bastien: C2-05 Agregar producto al carro",
+      "status": "passed",
+      "duration": 16746
+    },
+    {
+      "title": "bastien: C2-06 Cantidad mínima — sistema corrige o bloquea",
+      "status": "skipped",
+      "duration": 16167
+    },
     {
       "title": "sonrie: C2-08 Modificar cantidad en carro",
       "status": "failed",
@@ -84,26 +104,6 @@
     },
     {
       "title": "ordersRequireVerification must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
-      "title": "ordersRequireAuthorization must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
-      "title": "lazyLoadingPrices must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
-      "title": "includeTaxRateInPrices must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
-      "title": "inMaintenance must be boolean (got boolean false)",
       "status": "passed",
       "duration": 0
     }
