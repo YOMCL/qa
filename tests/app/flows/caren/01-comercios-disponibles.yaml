@@ -39,7 +39,7 @@ name: "CAREN: 01 — Catálogo comercios DISPONIBLES"
 
 - extendedWaitUntil:
     visible:
-      text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Cc]ategor.*"
+      text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Cc]ategor.*|Filtrar|Sugerencias|Tomador de Pedido"
     timeout: 20000
 
 - takeScreenshot: /tmp/caren-catalogo-disponible-1-top
@@ -72,7 +72,7 @@ name: "CAREN: 01 — Catálogo comercios DISPONIBLES"
           optional: true
       - extendedWaitUntil:
           visible:
-            text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Cc]ategor.*"
+            text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Cc]ategor.*|Filtrar|Sugerencias|Tomador de Pedido"
           timeout: 20000
       - takeScreenshot: /tmp/caren-catalogo-disponible-2-top
       - swipe:
@@ -102,7 +102,7 @@ name: "CAREN: 01 — Catálogo comercios DISPONIBLES"
           optional: true
       - extendedWaitUntil:
           visible:
-            text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Cc]ategor.*"
+            text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Cc]ategor.*|Filtrar|Sugerencias|Tomador de Pedido"
           timeout: 20000
       - takeScreenshot: /tmp/caren-catalogo-disponible-3-top
       - swipe:
@@ -132,7 +132,7 @@ name: "CAREN: 01 — Catálogo comercios DISPONIBLES"
           optional: true
       - extendedWaitUntil:
           visible:
-            text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Cc]ategor.*"
+            text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Cc]ategor.*|Filtrar|Sugerencias|Tomador de Pedido"
           timeout: 20000
       - takeScreenshot: /tmp/caren-catalogo-disponible-4-top
       - swipe:
