@@ -12,8 +12,8 @@
       "failed": 0,
       "skipped": 0,
       "total": 10,
-      "health": 100,
-      "verdict": "LISTO"
+      "health": 30,
+      "verdict": "CON BUGS CRÍTICOS"
     },
     {
       "client": "Prinorte",
