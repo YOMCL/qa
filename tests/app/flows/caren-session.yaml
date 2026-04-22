@@ -14,7 +14,7 @@ name: "CAREN: Sesión Vendedor Completa (Staging)"
 - runFlow: helpers/login.yaml
 
 # ── Sincronizar ───────────────────────────────────────────────────────────────
-- runFlow: helpers/sync.yaml
+- runFlow: caren/helpers-sync.yaml
 
 # ── 01: Catálogo comercios disponibles (4 comercios) ─────────────────────────
 # Documenta cuántos productos muestra cada comercio disponible

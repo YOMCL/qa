@@ -15,7 +15,7 @@ name: "CAREN: 04 — Verificación features ON/OFF"
 - takeScreenshot: /tmp/caren-features-lista-comercios
 
 # ── Entrar a comercio disponible para verificar features en catálogo ───────────
-- runFlow: caren/helpers-filtro-disponible.yaml
+- runFlow: helpers-filtro-disponible.yaml
 
 - tapOn:
     text: ".*\\d{7,8}-\\d.*"
@@ -69,7 +69,7 @@ name: "CAREN: 04 — Verificación features ON/OFF"
 
 - takeScreenshot: /tmp/caren-features-carro
 
-- runFlow: caren/helpers-volver-lista.yaml
+- runFlow: helpers-volver-lista.yaml
 
 # ── Verificar login — sin botones sociales ─────────────────────────────────────
 # (se verifica indirectamente: el login ya se hizo sin Google/Facebook disponibles)

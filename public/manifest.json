@@ -1,6 +1,21 @@
 {
   "reports": [
     {
+      "client": "Caren",
+      "client_slug": "caren",
+      "date": "2026-04-22",
+      "file": "app-reports/caren-2026-04-22.html",
+      "platform": "app",
+      "environment": "staging",
+      "passed": 4,
+      "manual": 0,
+      "failed": 0,
+      "skipped": 0,
+      "total": 4,
+      "health": 100,
+      "verdict": "LISTO"
+    },
+    {
       "client": "Prinorte",
       "client_slug": "prinorte",
       "date": "2026-04-21",
@@ -13,24 +28,18 @@
       "environment": "production"
     },
     {
-      "client": "Sonrie",
-      "client_slug": "sonrie",
-      "date": "2026-04-16",
-      "file": "qa-reports/sonrie-2026-04-16.html",
-      "verdict": "CON_CONDICIONES",
-      "score": 87,
-      "modes_done": ["FULL"],
-      "platform": "b2b",
-      "environment": "staging"
-    },
-    {
       "client": "Bastien",
       "client_slug": "bastien",
       "date": "2026-04-20",
       "file": "qa-reports/bastien-2026-04-20.html",
       "verdict": "CON_CONDICIONES",
       "score": 44,
-      "modes_done": ["A", "B", "C", "D"],
+      "modes_done": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
       "platform": "b2b",
       "environment": "staging"
     },
@@ -41,7 +50,25 @@
       "file": "qa-reports/sonrie-market-2026-04-20.html",
       "verdict": "CON_CONDICIONES",
       "score": 78,
-      "modes_done": ["A", "B", "C", "D"],
+      "modes_done": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ],
+      "platform": "b2b",
+      "environment": "staging"
+    },
+    {
+      "client": "Sonrie",
+      "client_slug": "sonrie",
+      "date": "2026-04-16",
+      "file": "qa-reports/sonrie-2026-04-16.html",
+      "verdict": "CON_CONDICIONES",
+      "score": 87,
+      "modes_done": [
+        "FULL"
+      ],
       "platform": "b2b",
       "environment": "staging"
     },
@@ -52,7 +79,11 @@
       "file": "qa-reports/bastien-2026-04-15.html",
       "verdict": "CON_CONDICIONES",
       "score": 82,
-      "modes_done": ["A", "B", "D"],
+      "modes_done": [
+        "A",
+        "B",
+        "D"
+      ],
       "platform": "b2b",
       "environment": "staging"
     },
@@ -63,7 +94,10 @@
       "file": "qa-reports/new-soprole-2026-04-08.html",
       "verdict": "CON_CONDICIONES",
       "score": 72,
-      "modes_done": ["A", "B"],
+      "modes_done": [
+        "A",
+        "B"
+      ],
       "platform": "b2b",
       "environment": "staging"
     }
