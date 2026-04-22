@@ -2,11 +2,26 @@
   "running": true,
   "startTime": "2026-04-22T13:22:18.070Z",
   "total": 292,
-  "passed": 258,
+  "passed": 261,
   "failed": 11,
   "skipped": 17,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "bastien: Sin imágenes rotas en catálogo @catalog @calidad",
+      "status": "passed",
+      "duration": 14269
+    },
+    {
+      "title": "bastien: Catálogo carga con productos visibles @catalog @calidad",
+      "status": "passed",
+      "duration": 16618
+    },
+    {
+      "title": "bastien: C3-11 Precio bruto vs neto — impuestos segun config",
+      "status": "passed",
+      "duration": 19105
+    },
     {
       "title": "bastien: C3-PM8 Sanity impuestos — impuesto no excede 30% del neto",
       "status": "failed",
@@ -91,21 +106,6 @@
       "title": "sonrie: C3-03 Precios consistentes catalogo vs carro",
       "status": "passed",
       "duration": 12957
-    },
-    {
-      "title": "bastien: PAG-04 Historial de pagos carga correctamente",
-      "status": "passed",
-      "duration": 14744
-    },
-    {
-      "title": "sonrie: C3-04 Descuento visible en catalogo",
-      "status": "skipped",
-      "duration": 40
-    },
-    {
-      "title": "sonrie: PAG-16 Montos en historial no muestran valores negativos confusos",
-      "status": "passed",
-      "duration": 9594
     }
   ]
 }
