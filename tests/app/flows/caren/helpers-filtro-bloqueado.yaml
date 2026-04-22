@@ -1,25 +1,49 @@
 appId: ${APP_PACKAGE}
 # Helper: aplica filtro "Bloqueado" desde la lista de comercios
-# Precondición: estar en pantalla "Listado de comercios"
+# Precondición: estar en pantalla "Listado de comercios" con datos
 ---
+# Intento 1: ID con package debug
 - tapOn:
-    id: "${APP_PACKAGE}:id/filters_button"
+    id: "me.youorder.yomventas.debug:id/filters_button"
     optional: true
+- waitForAnimationToEnd
 
+# Intento 2: ID con package producción
 - runFlow:
     when:
       notVisible:
-        text: ".*[Bb]loqueado.*"
+        text: ".*[Dd]isponible.*|.*[Bb]loqueado.*|.*[Aa]dvertencia.*"
     commands:
       - tapOn:
-          text: ".*[Ff]iltrar.*|.*[Ff]iltros.*"
+          id: "me.youorder.yomventas:id/filters_button"
           optional: true
+      - waitForAnimationToEnd
+
+# Intento 3: por texto
+- runFlow:
+    when:
+      notVisible:
+        text: ".*[Dd]isponible.*|.*[Bb]loqueado.*|.*[Aa]dvertencia.*"
+    commands:
+      - tapOn:
+          text: ".*[Ff]iltrar.*|.*[Ff]iltros.*|.*[Ff]ilter.*"
+          optional: true
+      - waitForAnimationToEnd
+
+# Intento 4: hamburger ≡ top-right (coordenada)
+- runFlow:
+    when:
+      notVisible:
+        text: ".*[Dd]isponible.*|.*[Bb]loqueado.*|.*[Aa]dvertencia.*"
+    commands:
+      - tapOn:
+          point: "93%,4%"
       - waitForAnimationToEnd
 
 - extendedWaitUntil:
     visible:
-      text: ".*[Bb]loqueado.*"
-    timeout: 10000
+      text: ".*[Dd]isponible.*|.*[Bb]loqueado.*"
+    timeout: 15000
 
 - tapOn:
     text: "Bloqueado"

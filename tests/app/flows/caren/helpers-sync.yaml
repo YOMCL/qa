@@ -1,0 +1,133 @@
+appId: ${APP_PACKAGE}
+# Sync helper para Caren staging
+# Caren tiene múltiples fases de sync secuenciales:
+#   "Sincronizando..." → "Sincronizando precios..." → "Sincronizando comercios..." → (más?)
+# Estrategia: esperar que TODAS las fases completen naturalmente (no cancelar)
+# "Sincronizando comercios..." es CRÍTICO — cancelarlo deja la lista vacía
+---
+- tapOn:
+    text: ".*SINCRONIZAR.*|.*[Ss]incronizar.*"
+    optional: true
+
+# Descartar popup "nueva versión" antes del sync
+- runFlow:
+    when:
+      visible:
+        text: ".*ACTUALIZAR.*|.*[Nn]ueva.*versi[oó]n.*"
+    commands:
+      - tapOn:
+          text: "CANCELAR"
+          optional: true
+      - waitForAnimationToEnd
+
+# Reintento 1 si falla sync principal
+- runFlow:
+    when:
+      visible:
+        text: ".*[Vv]olver a sincronizar.*"
+    commands:
+      - tapOn:
+          text: "Volver a sincronizar"
+      - waitForAnimationToEnd
+
+# Reintento 2 si vuelve a fallar
+- runFlow:
+    when:
+      visible:
+        text: ".*[Vv]olver a sincronizar.*"
+    commands:
+      - tapOn:
+          text: "Volver a sincronizar"
+      - waitForAnimationToEnd
+
+# Seguir sin sincronizar si persiste el error
+- runFlow:
+    when:
+      visible:
+        text: ".*[Ss]eguir sin sincronizar.*|.*[Vv]olver a sincronizar.*"
+    commands:
+      - tapOn:
+          text: "Seguir sin sincronizar"
+          optional: true
+      - waitForAnimationToEnd
+
+# ── ESPERAR TODAS LAS FASES DE SYNC (hasta 15 min total) ────────────────────
+# Fase 1: sync principal
+- extendedWaitUntil:
+    notVisible:
+      text: ".*[Ss]incronizando.*"
+    timeout: 300000
+
+# Fase 2: sync precios (si aparece, esperar que termine)
+- runFlow:
+    when:
+      visible:
+        text: ".*[Ss]incronizando.*"
+    commands:
+      - extendedWaitUntil:
+          notVisible:
+            text: ".*[Ss]incronizando.*"
+          timeout: 600000
+
+# Fase 3: sync comercios (CRÍTICO — no cancelar)
+- runFlow:
+    when:
+      visible:
+        text: ".*[Ss]incronizando.*"
+    commands:
+      - extendedWaitUntil:
+          notVisible:
+            text: ".*[Ss]incronizando.*"
+          timeout: 600000
+
+# Fase 4: cualquier otra fase adicional
+- runFlow:
+    when:
+      visible:
+        text: ".*[Ss]incronizando.*"
+    commands:
+      - extendedWaitUntil:
+          notVisible:
+            text: ".*[Ss]incronizando.*"
+          timeout: 600000
+
+# Descartar "nueva versión" post-sync
+- runFlow:
+    when:
+      visible:
+        text: ".*ACTUALIZAR.*|.*[Nn]ueva.*versi[oó]n.*"
+    commands:
+      - tapOn:
+          text: "CANCELAR"
+          optional: true
+      - waitForAnimationToEnd
+
+- waitForAnimationToEnd
+
+# Confirmar listado de comercios
+- extendedWaitUntil:
+    visible:
+      text: "Listado de comercios|.*[Cc]omercio.*|.*[Cc]liente.*"
+    timeout: 30000
+
+# ── RECUPERAR DATOS si el sync dejó lista vacía ──────────────────────────────
+- runFlow:
+    when:
+      visible:
+        text: ".*[Nn]o se encontraron.*comercios.*|.*[Ss]in comercios.*"
+    commands:
+      - tapOn:
+          text: "RECUPERAR DATOS"
+          optional: true
+      - waitForAnimationToEnd
+      - extendedWaitUntil:
+          notVisible:
+            text: ".*[Nn]o se encontraron.*"
+          timeout: 30000
+      - waitForAnimationToEnd
+
+# Verificar que hay comercios (el sync trajo datos)
+- extendedWaitUntil:
+    visible:
+      text: "Listado de comercios|.*[Cc]omercio.*|.*[Cc]liente.*"
+    timeout: 15000
