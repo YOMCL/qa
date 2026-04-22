@@ -2,11 +2,36 @@
   "running": true,
   "startTime": "2026-04-22T13:22:18.070Z",
   "total": 292,
-  "passed": 240,
+  "passed": 243,
   "failed": 8,
-  "skipped": 9,
+  "skipped": 11,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "bastien: C7-11 Opción de facturas en menú lateral cuando flag=true",
+      "status": "skipped",
+      "duration": 9822
+    },
+    {
+      "title": "bastien: C7-10 Facturas visibles en /orders cuando flag=true",
+      "status": "skipped",
+      "duration": 14098
+    },
+    {
+      "title": "bastien: Login exitoso",
+      "status": "passed",
+      "duration": 4611
+    },
+    {
+      "title": "bastien: C7-INV /payment-documents no accesible cuando flag=false",
+      "status": "passed",
+      "duration": 14333
+    },
+    {
+      "title": "bastien: C7-INV Link \"Mis documentos\" oculto cuando flag=false",
+      "status": "passed",
+      "duration": 16083
+    },
     {
       "title": "bastien: Login exitoso",
       "status": "failed",
@@ -81,31 +106,6 @@
       "title": "sonrie: Agregar producto al carro",
       "status": "passed",
       "duration": 6113
-    },
-    {
-      "title": "sonrie: Catálogo muestra productos con precios",
-      "status": "passed",
-      "duration": 4463
-    },
-    {
-      "title": "bastien: PM1-04 Cupón inválido muestra error (no crash)",
-      "status": "passed",
-      "duration": 44663
-    },
-    {
-      "title": "sonrie: Sin acceso anónimo redirige a login",
-      "status": "passed",
-      "duration": 3299
-    },
-    {
-      "title": "sonrie: Login exitoso",
-      "status": "passed",
-      "duration": 4540
-    },
-    {
-      "title": "bastien: PM1-02 Cupón válido aplica descuento",
-      "status": "failed",
-      "duration": 20733
     }
   ]
 }
