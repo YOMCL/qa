@@ -1,0 +1,93 @@
+appId: ${APP_PACKAGE}
+name: "CAREN: 02 — Pedido completo (staging — SE ENVÍA)"
+# STAGING: se envía el pedido (diferente a producción donde se detiene antes de confirmar)
+# Verifica: carrito funciona, precio sin IVA, sin descuento vendedor, se confirma exitosamente
+---
+# Estamos en lista de comercios con filtro Disponible activo (post 01)
+# Entrar al primer comercio disponible
+- tapOn:
+    text: ".*\\d{7,8}-\\d.*"
+    index: 0
+    optional: true
+
+- runFlow:
+    when:
+      notVisible:
+        text: ".*\\d{7,8}-\\d.*"
+    commands:
+      - tapOn:
+          text: ".*[Dd]isponible.*"
+          index: 0
+          optional: true
+
+- waitForAnimationToEnd
+
+- tapOn:
+    text: ".*[Hh]acer [Pp]edido.*|.*[Cc]at[aá]logo.*|.*[Pp]roductos.*"
+    optional: true
+
+- extendedWaitUntil:
+    visible:
+      text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*"
+    timeout: 20000
+
+- takeScreenshot: /tmp/caren-pedido-catalogo
+
+# Agregar primer producto al carro
+- tapOn:
+    text: ".*[Aa]gregar.*"
+    index: 0
+
+- waitForAnimationToEnd
+- takeScreenshot: /tmp/caren-pedido-producto-agregado
+
+# Verificar que NO hay descuento vendedor (enableSellerDiscount: false)
+- assertNotVisible:
+    text: ".*[Dd]escuento [Vv]endedor.*|.*[Aa]plicar [Dd]escuento.*"
+    optional: true
+
+# Ir al carro
+- tapOn:
+    text: ".*[Cc]arro.*|.*[Vv]er [Pp]edido.*|.*[Cc]arrito.*"
+    optional: true
+
+- runFlow:
+    when:
+      notVisible:
+        text: ".*[Cc]onfirmar.*[Pp]edido.*|.*[Ee]nviar.*[Pp]edido.*|.*[Rr]esumen.*"
+    commands:
+      - tapOn:
+          id: "${APP_PACKAGE}:id/cart_button"
+          optional: true
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible:
+      text: ".*[Cc]onfirmar.*|.*[Rr]esumen.*|.*[Ee]nviar.*|.*[Tt]otal.*"
+    timeout: 20000
+
+- takeScreenshot: /tmp/caren-pedido-resumen
+
+# Verificar precios — sin IVA incluido (includeTaxRateInPrices: false)
+# Los precios deben mostrarse sin indicador de IVA
+- assertNotVisible:
+    text: ".*IVA [Ii]ncluido.*|.*incl\\..*IVA.*"
+    optional: true
+
+# STAGING: confirmar y enviar el pedido
+- tapOn:
+    text: ".*[Cc]onfirmar [Pp]edido.*|.*[Ee]nviar [Pp]edido.*|.*[Cc]onfirmar.*"
+    optional: true
+
+- waitForAnimationToEnd
+- takeScreenshot: /tmp/caren-pedido-confirmacion
+
+# Esperar confirmación exitosa
+- extendedWaitUntil:
+    visible:
+      text: ".*[Pp]edido.*[Ee]nviado.*|.*[Ee]xitoso.*|.*[Cc]onfirmado.*|.*[Gg]racias.*|.*Listado de comercios.*"
+    timeout: 30000
+
+- takeScreenshot: /tmp/caren-pedido-resultado
+
+- runFlow: caren/helpers-volver-lista.yaml

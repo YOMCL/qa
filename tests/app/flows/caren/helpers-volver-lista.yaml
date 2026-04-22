@@ -1,0 +1,36 @@
+appId: ${APP_PACKAGE}
+# Helper: vuelve al listado de comercios desde cualquier pantalla dentro de un comercio
+---
+- tapOn:
+    text: "COMERCIOS"
+    optional: true
+- waitForAnimationToEnd
+
+- runFlow:
+    when:
+      notVisible:
+        text: "Listado de comercios"
+    commands:
+      - pressKey: Back
+      - waitForAnimationToEnd
+
+- runFlow:
+    when:
+      notVisible:
+        text: "Listado de comercios"
+    commands:
+      - pressKey: Back
+      - waitForAnimationToEnd
+
+- runFlow:
+    when:
+      notVisible:
+        text: "Listado de comercios"
+    commands:
+      - pressKey: Back
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible:
+      text: "Listado de comercios"
+    timeout: 20000

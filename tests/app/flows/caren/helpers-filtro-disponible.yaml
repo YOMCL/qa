@@ -1,0 +1,39 @@
+appId: ${APP_PACKAGE}
+# Helper: aplica filtro "Disponible" desde la lista de comercios
+# Precondición: estar en pantalla "Listado de comercios"
+---
+- tapOn:
+    id: "${APP_PACKAGE}:id/filters_button"
+    optional: true
+
+- runFlow:
+    when:
+      notVisible:
+        text: ".*[Dd]isponible.*"
+    commands:
+      - tapOn:
+          text: ".*[Ff]iltrar.*|.*[Ff]iltros.*"
+          optional: true
+      - waitForAnimationToEnd
+
+- extendedWaitUntil:
+    visible:
+      text: ".*[Dd]isponible.*"
+    timeout: 10000
+
+- tapOn:
+    text: "Disponible"
+
+- swipe:
+    direction: UP
+    duration: 300
+
+- tapOn:
+    point: "50%,93%"
+
+- extendedWaitUntil:
+    notVisible:
+      text: ".*[Aa]plicar [Ff]iltros.*|.*[Aa]plicar filtros.*"
+    timeout: 15000
+
+- waitForAnimationToEnd
