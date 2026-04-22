@@ -16,10 +16,10 @@ for (const [key, client] of Object.entries(clients)) {
   const test = createClientTest(client);
   test.describe(`PM1/PM2 — Cupones: regresión post-mortem: ${client.name}`, () => {
 
-    // Cupón de prueba: env var o fallback hardcodeado para clientes conocidos
+    // Cupón de prueba: env var o primer cupón activo de MongoDB
     const testCouponCode: string | null =
       process.env[`${key.toUpperCase()}_TEST_COUPON`] ??
-      (key === 'bastien' ? 'TEST10OFF' : null);
+      (client.coupons?.[0]?.code ?? null);
 
     async function addProductsAndGoToCart(page: any) {
       // Retry goto /products una vez si ERR_ABORTED
