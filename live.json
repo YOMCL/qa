@@ -3,10 +3,25 @@
   "startTime": "2026-04-22T13:22:18.070Z",
   "total": 292,
   "passed": 240,
-  "failed": 7,
-  "skipped": 7,
+  "failed": 8,
+  "skipped": 9,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "bastien: Login exitoso",
+      "status": "failed",
+      "duration": 50935
+    },
+    {
+      "title": "sonrie: C7-12 /payment-documents carga sin error cuando flag=true",
+      "status": "skipped",
+      "duration": 9218
+    },
+    {
+      "title": "sonrie: C7-11 Opción de facturas en menú lateral cuando flag=true",
+      "status": "skipped",
+      "duration": 9639
+    },
     {
       "title": "sonrie: C7-10 Facturas visibles en /orders cuando flag=true",
       "status": "skipped",
@@ -91,21 +106,6 @@
       "title": "bastien: PM1-02 Cupón válido aplica descuento",
       "status": "failed",
       "duration": 20733
-    },
-    {
-      "title": "bastien: Pipeline API catálogo devuelve productos con nombre y pricing @catalog @critico",
-      "status": "passed",
-      "duration": 4655
-    },
-    {
-      "title": "sonrie: Pipeline API catálogo devuelve productos con nombre y pricing @catalog @critico",
-      "status": "passed",
-      "duration": 7500
-    },
-    {
-      "title": "bastien: PM2-04 Modal/UI de cupón no queda en loading infinito",
-      "status": "passed",
-      "duration": 20174
     }
   ]
 }
