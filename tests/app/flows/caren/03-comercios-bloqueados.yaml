@@ -1,12 +1,13 @@
 appId: ${APP_PACKAGE}
-name: "CAREN: 03 — Catálogo comercios BLOQUEADOS (4 comercios)"
+name: "CAREN: 03 — Catálogo comercios BLOQUEADOS"
 # OBJETIVO: documentar cuántos productos muestra cada comercio bloqueado
 # BUG SOSPECHADO: comercios bloqueados muestran catálogo completo (vs ~5 en disponibles)
 # Verificar ADEMÁS que no se puede hacer pedido en ningún bloqueado
+# Visita hasta 4 bloqueados; los que no existan se saltean automáticamente
 ---
 
-# ─── COMERCIO BLOQUEADO 1 (index 0) ───────────────────────────────────────────
-- runFlow: caren/helpers-filtro-bloqueado.yaml
+# ─── COMERCIO BLOQUEADO 1 (obligatorio) ───────────────────────────────────────
+- runFlow: helpers-filtro-bloqueado.yaml
 
 - takeScreenshot: /tmp/caren-bloqueados-lista
 
@@ -26,112 +27,112 @@ name: "CAREN: 03 — Catálogo comercios BLOQUEADOS (4 comercios)"
     timeout: 20000
 
 - takeScreenshot: /tmp/caren-catalogo-bloqueado-1-top
-
-# Scroll para ver cuántos productos/categorías hay
-- scroll:
+- swipe:
     direction: DOWN
     duration: 1000
 - takeScreenshot: /tmp/caren-catalogo-bloqueado-1-mid
-- scroll:
+- swipe:
     direction: DOWN
     duration: 1000
 - takeScreenshot: /tmp/caren-catalogo-bloqueado-1-bottom
 
-# Verificar que NO se puede agregar al carro (test negativo)
 - assertNotVisible:
     text: ".*[Cc]onfirmar [Pp]edido.*|.*[Ee]nviar [Pp]edido.*"
 
-- runFlow: caren/helpers-volver-lista.yaml
+- runFlow: helpers-volver-lista.yaml
 
-# ─── COMERCIO BLOQUEADO 2 (index 1) ───────────────────────────────────────────
+# ─── COMERCIO BLOQUEADO 2 (condicional) ───────────────────────────────────────
 - tapOn:
     text: ".*[Bb]loqueado.*"
     index: 1
-
+    optional: true
 - waitForAnimationToEnd
 
-- tapOn:
-    text: ".*[Hh]acer [Pp]edido.*|.*[Cc]at[aá]logo.*|.*[Pp]roductos.*"
-    optional: true
+- runFlow:
+    when:
+      notVisible:
+        text: "Seleccionar filtros"
+    commands:
+      - tapOn:
+          text: ".*[Hh]acer [Pp]edido.*|.*[Cc]at[aá]logo.*|.*[Pp]roductos.*"
+          optional: true
+      - extendedWaitUntil:
+          visible:
+            text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Bb]loqueado.*|.*[Cc]ategor.*"
+          timeout: 20000
+      - takeScreenshot: /tmp/caren-catalogo-bloqueado-2-top
+      - swipe:
+          direction: DOWN
+          duration: 1000
+      - takeScreenshot: /tmp/caren-catalogo-bloqueado-2-mid
+      - swipe:
+          direction: DOWN
+          duration: 1000
+      - takeScreenshot: /tmp/caren-catalogo-bloqueado-2-bottom
+      - assertNotVisible:
+          text: ".*[Cc]onfirmar [Pp]edido.*|.*[Ee]nviar [Pp]edido.*"
+      - runFlow: helpers-volver-lista.yaml
 
-- extendedWaitUntil:
-    visible:
-      text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Bb]loqueado.*|.*[Cc]ategor.*"
-    timeout: 20000
-
-- takeScreenshot: /tmp/caren-catalogo-bloqueado-2-top
-- scroll:
-    direction: DOWN
-    duration: 1000
-- takeScreenshot: /tmp/caren-catalogo-bloqueado-2-mid
-- scroll:
-    direction: DOWN
-    duration: 1000
-- takeScreenshot: /tmp/caren-catalogo-bloqueado-2-bottom
-
-- assertNotVisible:
-    text: ".*[Cc]onfirmar [Pp]edido.*|.*[Ee]nviar [Pp]edido.*"
-
-- runFlow: caren/helpers-volver-lista.yaml
-
-# ─── COMERCIO BLOQUEADO 3 (index 2) ───────────────────────────────────────────
+# ─── COMERCIO BLOQUEADO 3 (condicional) ───────────────────────────────────────
 - tapOn:
     text: ".*[Bb]loqueado.*"
     index: 2
-
+    optional: true
 - waitForAnimationToEnd
 
-- tapOn:
-    text: ".*[Hh]acer [Pp]edido.*|.*[Cc]at[aá]logo.*|.*[Pp]roductos.*"
-    optional: true
+- runFlow:
+    when:
+      notVisible:
+        text: "Seleccionar filtros"
+    commands:
+      - tapOn:
+          text: ".*[Hh]acer [Pp]edido.*|.*[Cc]at[aá]logo.*|.*[Pp]roductos.*"
+          optional: true
+      - extendedWaitUntil:
+          visible:
+            text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Bb]loqueado.*|.*[Cc]ategor.*"
+          timeout: 20000
+      - takeScreenshot: /tmp/caren-catalogo-bloqueado-3-top
+      - swipe:
+          direction: DOWN
+          duration: 1000
+      - takeScreenshot: /tmp/caren-catalogo-bloqueado-3-mid
+      - swipe:
+          direction: DOWN
+          duration: 1000
+      - takeScreenshot: /tmp/caren-catalogo-bloqueado-3-bottom
+      - assertNotVisible:
+          text: ".*[Cc]onfirmar [Pp]edido.*|.*[Ee]nviar [Pp]edido.*"
+      - runFlow: helpers-volver-lista.yaml
 
-- extendedWaitUntil:
-    visible:
-      text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Bb]loqueado.*|.*[Cc]ategor.*"
-    timeout: 20000
-
-- takeScreenshot: /tmp/caren-catalogo-bloqueado-3-top
-- scroll:
-    direction: DOWN
-    duration: 1000
-- takeScreenshot: /tmp/caren-catalogo-bloqueado-3-mid
-- scroll:
-    direction: DOWN
-    duration: 1000
-- takeScreenshot: /tmp/caren-catalogo-bloqueado-3-bottom
-
-- assertNotVisible:
-    text: ".*[Cc]onfirmar [Pp]edido.*|.*[Ee]nviar [Pp]edido.*"
-
-- runFlow: caren/helpers-volver-lista.yaml
-
-# ─── COMERCIO BLOQUEADO 4 (index 3) ───────────────────────────────────────────
+# ─── COMERCIO BLOQUEADO 4 (condicional) ───────────────────────────────────────
 - tapOn:
     text: ".*[Bb]loqueado.*"
     index: 3
-
+    optional: true
 - waitForAnimationToEnd
 
-- tapOn:
-    text: ".*[Hh]acer [Pp]edido.*|.*[Cc]at[aá]logo.*|.*[Pp]roductos.*"
-    optional: true
-
-- extendedWaitUntil:
-    visible:
-      text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Bb]loqueado.*|.*[Cc]ategor.*"
-    timeout: 20000
-
-- takeScreenshot: /tmp/caren-catalogo-bloqueado-4-top
-- scroll:
-    direction: DOWN
-    duration: 1000
-- takeScreenshot: /tmp/caren-catalogo-bloqueado-4-mid
-- scroll:
-    direction: DOWN
-    duration: 1000
-- takeScreenshot: /tmp/caren-catalogo-bloqueado-4-bottom
-
-- assertNotVisible:
-    text: ".*[Cc]onfirmar [Pp]edido.*|.*[Ee]nviar [Pp]edido.*"
-
-- runFlow: caren/helpers-volver-lista.yaml
+- runFlow:
+    when:
+      notVisible:
+        text: "Seleccionar filtros"
+    commands:
+      - tapOn:
+          text: ".*[Hh]acer [Pp]edido.*|.*[Cc]at[aá]logo.*|.*[Pp]roductos.*"
+          optional: true
+      - extendedWaitUntil:
+          visible:
+            text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Bb]loqueado.*|.*[Cc]ategor.*"
+          timeout: 20000
+      - takeScreenshot: /tmp/caren-catalogo-bloqueado-4-top
+      - swipe:
+          direction: DOWN
+          duration: 1000
+      - takeScreenshot: /tmp/caren-catalogo-bloqueado-4-mid
+      - swipe:
+          direction: DOWN
+          duration: 1000
+      - takeScreenshot: /tmp/caren-catalogo-bloqueado-4-bottom
+      - assertNotVisible:
+          text: ".*[Cc]onfirmar [Pp]edido.*|.*[Ee]nviar [Pp]edido.*"
+      - runFlow: helpers-volver-lista.yaml

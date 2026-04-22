@@ -1,11 +1,12 @@
 appId: ${APP_PACKAGE}
-name: "CAREN: 01 — Catálogo comercios DISPONIBLES (4 comercios)"
+name: "CAREN: 01 — Catálogo comercios DISPONIBLES"
 # OBJETIVO: documentar cuántos productos muestra cada comercio disponible
 # BUG SOSPECHADO: comercios disponibles muestran solo ~5 productos (debería ser catálogo completo)
+# Visita hasta 4 comercios disponibles; los que no existan se saltean automáticamente
 ---
 
-# ─── COMERCIO DISPONIBLE 1 (index 0) ──────────────────────────────────────────
-- runFlow: caren/helpers-filtro-disponible.yaml
+# ─── COMERCIO DISPONIBLE 1 (obligatorio — debe existir al menos 1) ─────────────
+- runFlow: helpers-filtro-disponible.yaml
 
 - takeScreenshot: /tmp/caren-disponibles-lista
 
@@ -36,122 +37,104 @@ name: "CAREN: 01 — Catálogo comercios DISPONIBLES (4 comercios)"
     timeout: 20000
 
 - takeScreenshot: /tmp/caren-catalogo-disponible-1-top
-- scrollUntilVisible:
-    text: ".*[Ss]in.*productos.*|.*[Aa]gregar.*"
+- swipe:
     direction: DOWN
-    timeout: 10000
-    optional: true
+    duration: 1500
+- takeScreenshot: /tmp/caren-catalogo-disponible-1-mid
+- swipe:
+    direction: DOWN
+    duration: 1500
 - takeScreenshot: /tmp/caren-catalogo-disponible-1-bottom
 
-- runFlow: caren/helpers-volver-lista.yaml
+- runFlow: helpers-volver-lista.yaml
 
-# ─── COMERCIO DISPONIBLE 2 (index 1) ──────────────────────────────────────────
+# ─── COMERCIO DISPONIBLE 2 (condicional — solo si existe) ─────────────────────
 - tapOn:
-    text: ".*\\d{7,8}-\\d.*"
+    text: ".*[Dd]isponible.*"
     index: 1
     optional: true
+- waitForAnimationToEnd
 
+# Si entramos al comercio ("Seleccionar filtros" ya no visible), documentar catálogo
 - runFlow:
     when:
       notVisible:
-        text: ".*\\d{7,8}-\\d.*"
+        text: "Seleccionar filtros"
     commands:
       - tapOn:
-          text: ".*[Dd]isponible.*"
-          index: 1
+          text: ".*[Hh]acer [Pp]edido.*|.*[Cc]at[aá]logo.*|.*[Pp]roductos.*"
           optional: true
+      - extendedWaitUntil:
+          visible:
+            text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Cc]ategor.*"
+          timeout: 20000
+      - takeScreenshot: /tmp/caren-catalogo-disponible-2-top
+      - swipe:
+          direction: DOWN
+          duration: 1500
+      - takeScreenshot: /tmp/caren-catalogo-disponible-2-mid
+      - swipe:
+          direction: DOWN
+          duration: 1500
+      - takeScreenshot: /tmp/caren-catalogo-disponible-2-bottom
+      - runFlow: helpers-volver-lista.yaml
 
-- waitForAnimationToEnd
-
+# ─── COMERCIO DISPONIBLE 3 (condicional) ──────────────────────────────────────
 - tapOn:
-    text: ".*[Hh]acer [Pp]edido.*|.*[Cc]at[aá]logo.*|.*[Pp]roductos.*"
-    optional: true
-
-- extendedWaitUntil:
-    visible:
-      text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Cc]ategor.*"
-    timeout: 20000
-
-- takeScreenshot: /tmp/caren-catalogo-disponible-2-top
-- scrollUntilVisible:
-    text: ".*[Ss]in.*productos.*|.*[Aa]gregar.*"
-    direction: DOWN
-    timeout: 10000
-    optional: true
-- takeScreenshot: /tmp/caren-catalogo-disponible-2-bottom
-
-- runFlow: caren/helpers-volver-lista.yaml
-
-# ─── COMERCIO DISPONIBLE 3 (index 2) ──────────────────────────────────────────
-- tapOn:
-    text: ".*\\d{7,8}-\\d.*"
+    text: ".*[Dd]isponible.*"
     index: 2
     optional: true
+- waitForAnimationToEnd
 
 - runFlow:
     when:
       notVisible:
-        text: ".*\\d{7,8}-\\d.*"
+        text: "Seleccionar filtros"
     commands:
       - tapOn:
-          text: ".*[Dd]isponible.*"
-          index: 2
+          text: ".*[Hh]acer [Pp]edido.*|.*[Cc]at[aá]logo.*|.*[Pp]roductos.*"
           optional: true
+      - extendedWaitUntil:
+          visible:
+            text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Cc]ategor.*"
+          timeout: 20000
+      - takeScreenshot: /tmp/caren-catalogo-disponible-3-top
+      - swipe:
+          direction: DOWN
+          duration: 1500
+      - takeScreenshot: /tmp/caren-catalogo-disponible-3-mid
+      - swipe:
+          direction: DOWN
+          duration: 1500
+      - takeScreenshot: /tmp/caren-catalogo-disponible-3-bottom
+      - runFlow: helpers-volver-lista.yaml
 
-- waitForAnimationToEnd
-
+# ─── COMERCIO DISPONIBLE 4 (condicional) ──────────────────────────────────────
 - tapOn:
-    text: ".*[Hh]acer [Pp]edido.*|.*[Cc]at[aá]logo.*|.*[Pp]roductos.*"
-    optional: true
-
-- extendedWaitUntil:
-    visible:
-      text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Cc]ategor.*"
-    timeout: 20000
-
-- takeScreenshot: /tmp/caren-catalogo-disponible-3-top
-- scrollUntilVisible:
-    text: ".*[Ss]in.*productos.*|.*[Aa]gregar.*"
-    direction: DOWN
-    timeout: 10000
-    optional: true
-- takeScreenshot: /tmp/caren-catalogo-disponible-3-bottom
-
-- runFlow: caren/helpers-volver-lista.yaml
-
-# ─── COMERCIO DISPONIBLE 4 (index 3) ──────────────────────────────────────────
-- tapOn:
-    text: ".*\\d{7,8}-\\d.*"
+    text: ".*[Dd]isponible.*"
     index: 3
     optional: true
+- waitForAnimationToEnd
 
 - runFlow:
     when:
       notVisible:
-        text: ".*\\d{7,8}-\\d.*"
+        text: "Seleccionar filtros"
     commands:
       - tapOn:
-          text: ".*[Dd]isponible.*"
-          index: 3
+          text: ".*[Hh]acer [Pp]edido.*|.*[Cc]at[aá]logo.*|.*[Pp]roductos.*"
           optional: true
-
-- waitForAnimationToEnd
-
-- tapOn:
-    text: ".*[Hh]acer [Pp]edido.*|.*[Cc]at[aá]logo.*|.*[Pp]roductos.*"
-    optional: true
-
-- extendedWaitUntil:
-    visible:
-      text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Cc]ategor.*"
-    timeout: 20000
-
-- takeScreenshot: /tmp/caren-catalogo-disponible-4-top
-- scrollUntilVisible:
-    text: ".*[Ss]in.*productos.*|.*[Aa]gregar.*"
-    direction: DOWN
-    timeout: 10000
-    optional: true
-- takeScreenshot: /tmp/caren-catalogo-disponible-4-bottom
-
-- runFlow: caren/helpers-volver-lista.yaml
+      - extendedWaitUntil:
+          visible:
+            text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|.*[Ss]in.*productos.*|.*[Cc]ategor.*"
+          timeout: 20000
+      - takeScreenshot: /tmp/caren-catalogo-disponible-4-top
+      - swipe:
+          direction: DOWN
+          duration: 1500
+      - takeScreenshot: /tmp/caren-catalogo-disponible-4-mid
+      - swipe:
+          direction: DOWN
+          duration: 1500
+      - takeScreenshot: /tmp/caren-catalogo-disponible-4-bottom
+      - runFlow: helpers-volver-lista.yaml
