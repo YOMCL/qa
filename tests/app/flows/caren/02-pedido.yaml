@@ -97,18 +97,18 @@ name: "CAREN: 02 — Pedido completo (staging — SE ENVÍA)"
 
 - takeScreenshot: /tmp/caren-pedido-confirmacion-scroll
 
-# STAGING: confirmar y enviar el pedido
+# STAGING: finalizar y enviar el pedido
 - tapOn:
-    text: ".*[Cc]onfirmar [Pp]edido.*|.*[Ee]nviar [Pp]edido.*|.*[Cc]onfirmar.*|.*ENVIAR.*|.*CONFIRMAR.*"
+    text: "Finalizar pedido"
     optional: true
 
 - waitForAnimationToEnd
 - takeScreenshot: /tmp/caren-pedido-confirmacion
 
-# Esperar confirmación exitosa
+# Esperar confirmación exitosa o retorno al listado
 - extendedWaitUntil:
     visible:
-      text: ".*[Pp]edido.*[Ee]nviado.*|.*[Ee]xitoso.*|.*[Cc]onfirmado.*|.*[Gg]racias.*|.*Listado de comercios.*|.*[Pp]edido.*[Ee]nviado.*"
+      text: ".*[Pp]edido.*[Ee]nviado.*|.*[Ee]xitoso.*|.*[Cc]onfirmado.*|.*[Gg]racias.*|.*Listado de comercios.*|.*[Ff]inalizar.*|.*[Cc]omercio.*"
     timeout: 30000
 
 - takeScreenshot: /tmp/caren-pedido-resultado
