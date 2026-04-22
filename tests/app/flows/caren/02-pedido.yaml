@@ -34,7 +34,7 @@ name: "CAREN: 02 — Pedido completo (staging — SE ENVÍA)"
 
 - extendedWaitUntil:
     visible:
-      text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*"
+      text: ".*[Aa]gregar.*|.*[Cc]at[aá]logo.*|.*[Pp]roducto.*|Filtrar|Sugerencias|Tomador de Pedido"
     timeout: 20000
 
 - takeScreenshot: /tmp/caren-pedido-catalogo
