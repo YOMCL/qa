@@ -2,11 +2,61 @@
   "running": true,
   "startTime": "2026-04-22T13:22:18.070Z",
   "total": 292,
-  "passed": 208,
+  "passed": 217,
   "failed": 5,
-  "skipped": 5,
+  "skipped": 6,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie: PM1-02 Cupón válido aplica descuento",
+      "status": "skipped",
+      "duration": 9243
+    },
+    {
+      "title": "bastien: enableNewUI=false",
+      "status": "passed",
+      "duration": 4856
+    },
+    {
+      "title": "bastien: enableBetaButtons=false",
+      "status": "passed",
+      "duration": 1664
+    },
+    {
+      "title": "bastien: useNewPromotions=true",
+      "status": "passed",
+      "duration": 1885
+    },
+    {
+      "title": "bastien: blockedClientAlert.enableBlockedClientAlert=false",
+      "status": "passed",
+      "duration": 1996
+    },
+    {
+      "title": "bastien: showMinOne=false",
+      "status": "passed",
+      "duration": 1697
+    },
+    {
+      "title": "bastien: externalAccess=false",
+      "status": "passed",
+      "duration": 1465
+    },
+    {
+      "title": "sonrie: taxes.showSummary=true",
+      "status": "passed",
+      "duration": 7363
+    },
+    {
+      "title": "bastien: pointsEnabled=false",
+      "status": "passed",
+      "duration": 5946
+    },
+    {
+      "title": "bastien: enableCreditNotes=false",
+      "status": "passed",
+      "duration": 1644
+    },
     {
       "title": "sonrie: enableNewUI=false",
       "status": "passed",
@@ -56,56 +106,6 @@
       "title": "sonrie: externalAccess=true",
       "status": "passed",
       "duration": 4511
-    },
-    {
-      "title": "sonrie: enableCreditNotes=false",
-      "status": "passed",
-      "duration": 4694
-    },
-    {
-      "title": "sonrie: enableTask=false",
-      "status": "passed",
-      "duration": 4464
-    },
-    {
-      "title": "sonrie: pointsEnabled=false",
-      "status": "passed",
-      "duration": 4626
-    },
-    {
-      "title": "sonrie: pendingDocuments=false",
-      "status": "passed",
-      "duration": 4660
-    },
-    {
-      "title": "bastien: paymentsWithoutAccount=false",
-      "status": "passed",
-      "duration": 3680
-    },
-    {
-      "title": "bastien: payment.enableNewPaymentModule=false",
-      "status": "passed",
-      "duration": 4439
-    },
-    {
-      "title": "bastien: discountTypes.enableProductDiscountType=false",
-      "status": "passed",
-      "duration": 1881
-    },
-    {
-      "title": "bastien: taxes.showSummary=false",
-      "status": "passed",
-      "duration": 10248
-    },
-    {
-      "title": "bastien: discountTypes.enableOrderDiscountType=false",
-      "status": "passed",
-      "duration": 4270
-    },
-    {
-      "title": "bastien: hasTransferPaymentType=false",
-      "status": "passed",
-      "duration": 4272
     }
   ]
 }
