@@ -1,21 +1,11 @@
 {
-  "running": true,
-  "startTime": "2026-04-23T16:28:14.496Z",
-  "total": 1,
+  "running": false,
+  "startTime": "2026-04-23T16:32:39.697Z",
+  "total": 85,
   "passed": 0,
-  "failed": 2,
+  "failed": 0,
   "skipped": 0,
   "currentTest": null,
-  "recentTests": [
-    {
-      "title": "sonrie-prod: Login exitoso",
-      "status": "failed",
-      "duration": 49053
-    },
-    {
-      "title": "sonrie-prod: Login exitoso",
-      "status": "failed",
-      "duration": 48645
-    }
-  ]
+  "recentTests": [],
+  "endTime": "2026-04-23T16:32:39.716Z"
 }

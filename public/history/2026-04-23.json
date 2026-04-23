@@ -1,6 +1,6 @@
 {
   "date": "2026-04-23",
-  "timestamp": "2026-04-23T16:29:55.389299+00:00",
+  "timestamp": "2026-04-23T16:36:31.786245+00:00",
   "total": 254,
   "passed": 240,
   "failed": 12,
@@ -9,7 +9,7 @@
     {
       "name": "00-contract.spec.ts",
       "tests": 39,
-      "passed": 39,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
@@ -87,14 +87,14 @@
       "name": "mongo-data.spec.ts",
       "tests": 1,
       "passed": 0,
-      "failed": 1,
+      "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "multi-client.spec.ts",
       "tests": 5,
-      "passed": 1,
-      "failed": 4,
+      "passed": 0,
+      "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
