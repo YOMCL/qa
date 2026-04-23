@@ -2,11 +2,26 @@
   "running": true,
   "startTime": "2026-04-23T20:57:28.615Z",
   "total": 145,
-  "passed": 124,
+  "passed": 127,
   "failed": 4,
   "skipped": 13,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie-prod: Sin imágenes rotas en catálogo @catalog @calidad",
+      "status": "passed",
+      "duration": 40800
+    },
+    {
+      "title": "sonrie-prod: C5-05 Sugerencias se pueden agregar al carro",
+      "status": "passed",
+      "duration": 20281
+    },
+    {
+      "title": "sonrie-prod: PM5-01 Catálogo carga productos con precios (promotions funcional)",
+      "status": "passed",
+      "duration": 17572
+    },
     {
       "title": "sonrie-prod: C3-PM8 Sanity impuestos — impuesto no excede 30% del neto",
       "status": "failed",
@@ -91,21 +106,6 @@
       "title": "sonrie-prod: C7-INV /payment-documents no accesible cuando flag=false",
       "status": "passed",
       "duration": 12535
-    },
-    {
-      "title": "sonrie-prod: Historial de pedidos carga @orders @funcional",
-      "status": "passed",
-      "duration": 15177
-    },
-    {
-      "title": "sonrie-prod: No hay productos con precio $0",
-      "status": "passed",
-      "duration": 12040
-    },
-    {
-      "title": "sonrie-prod: PM1-04 Cupón inválido muestra error (no crash)",
-      "status": "passed",
-      "duration": 47328
     }
   ]
 }
