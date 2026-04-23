@@ -2,11 +2,31 @@
   "running": true,
   "startTime": "2026-04-23T16:41:54.656Z",
   "total": 145,
-  "passed": 39,
+  "passed": 43,
   "failed": 0,
   "skipped": 1,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie-prod: C2-01 Catálogo muestra productos con precio @catalog @funcional",
+      "status": "passed",
+      "duration": 10251
+    },
+    {
+      "title": "sonrie-prod: C2-08 Modificar cantidad en carro",
+      "status": "passed",
+      "duration": 24122
+    },
+    {
+      "title": "sonrie-prod: C2-09 Eliminar producto del carro",
+      "status": "passed",
+      "duration": 15685
+    },
+    {
+      "title": "sonrie-prod: C2-05 Agregar producto al carro",
+      "status": "passed",
+      "duration": 14803
+    },
     {
       "title": "sonrie-prod: C2-06 Cantidad mínima — sistema corrige o bloquea",
       "status": "skipped",
@@ -84,26 +104,6 @@
     },
     {
       "title": "includeTaxRateInPrices must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
-      "title": "inMaintenance must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
-      "title": "hooks.updateTrafficLightHook must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
-      "title": "hooks.stockHook must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
-      "title": "hooks.getPendingDocumentsHook must be boolean (got boolean false)",
       "status": "passed",
       "duration": 0
     }
