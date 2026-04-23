@@ -2,11 +2,21 @@
   "running": true,
   "startTime": "2026-04-23T19:02:01.442Z",
   "total": 145,
-  "passed": 40,
-  "failed": 1,
+  "passed": 41,
+  "failed": 2,
   "skipped": 0,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie-prod: C2-06 Cantidad mínima — sistema corrige o bloquea",
+      "status": "failed",
+      "duration": 42988
+    },
+    {
+      "title": "sonrie-prod: C2-01 Catálogo muestra productos con precio @catalog @funcional",
+      "status": "passed",
+      "duration": 12618
+    },
     {
       "title": "sonrie-prod: C2-08 Modificar cantidad en carro",
       "status": "failed",
@@ -96,16 +106,6 @@
       "title": "lazyLoadingPrices must be boolean (got boolean false)",
       "status": "passed",
       "duration": 1
-    },
-    {
-      "title": "hooks.updateTrafficLightHook must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
-      "title": "hooks.stockHook must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
     }
   ]
 }
