@@ -1,112 +1,111 @@
 {
-  "running": false,
-  "startTime": "2026-04-22T13:22:18.070Z",
-  "endTime": "2026-04-22T13:34:18.070Z",
-  "total": 292,
-  "passed": 272,
-  "failed": 14,
-  "skipped": 17,
+  "running": true,
+  "startTime": "2026-04-23T16:20:16.290Z",
+  "total": 85,
+  "passed": 40,
+  "failed": 1,
+  "skipped": 16,
   "currentTest": null,
   "recentTests": [
     {
-      "title": "bastien: PM5-03 Catálogo no queda en loading infinito si promotions es lento",
-      "status": "passed",
-      "duration": 14954
-    },
-    {
-      "title": "bastien: PM4-02 Agregar producto con cantidad > 1 muestra precio correcto",
-      "status": "passed",
-      "duration": 77668
-    },
-    {
-      "title": "bastien: PM5-03 Catálogo no queda en loading infinito si promotions es lento",
+      "title": "sonrie-prod: Login exitoso",
       "status": "failed",
-      "duration": 105999
+      "duration": 48850
     },
     {
-      "title": "sonrie: PM4-02 Agregar producto con cantidad > 1 muestra precio correcto",
+      "title": "sonrie-prod: Sin acceso anónimo redirige a login",
       "status": "passed",
-      "duration": 72365
+      "duration": 4767
     },
     {
-      "title": "bastien: PM4-01 Productos con step pricing muestran escalones",
-      "status": "passed",
-      "duration": 16475
-    },
-    {
-      "title": "bastien: PM4-02 Agregar producto con cantidad > 1 muestra precio correcto",
-      "status": "failed",
-      "duration": 9774
-    },
-    {
-      "title": "bastien: PM5-02 Carrito muestra totales con descuentos aplicados",
-      "status": "passed",
-      "duration": 18603
-    },
-    {
-      "title": "sonrie: PM4-01 Productos con step pricing muestran escalones",
-      "status": "passed",
-      "duration": 11434
-    },
-    {
-      "title": "bastien: PM5-01 Catálogo carga productos con precios (promotions funcional)",
-      "status": "passed",
-      "duration": 15178
-    },
-    {
-      "title": "sonrie: PM5-03 Catálogo no queda en loading infinito si promotions es lento",
-      "status": "passed",
-      "duration": 9405
-    },
-    {
-      "title": "bastien: C5-05 Sugerencias se pueden agregar al carro",
-      "status": "passed",
-      "duration": 16566
-    },
-    {
-      "title": "sonrie: PM5-02 Carrito muestra totales con descuentos aplicados",
-      "status": "passed",
-      "duration": 13336
-    },
-    {
-      "title": "sonrie: PM5-01 Catálogo carga productos con precios (promotions funcional)",
-      "status": "passed",
-      "duration": 10344
-    },
-    {
-      "title": "bastien: C3-PM8 Sanity impuestos — impuesto no excede 30% del neto",
-      "status": "failed",
-      "duration": 18021
-    },
-    {
-      "title": "bastien: Sin imágenes rotas en catálogo @catalog @calidad",
-      "status": "passed",
-      "duration": 14269
-    },
-    {
-      "title": "bastien: Catálogo carga con productos visibles @catalog @calidad",
-      "status": "passed",
-      "duration": 16618
-    },
-    {
-      "title": "bastien: C3-11 Precio bruto vs neto — impuestos segun config",
-      "status": "passed",
-      "duration": 19105
-    },
-    {
-      "title": "bastien: C3-PM8 Sanity impuestos — impuesto no excede 30% del neto",
-      "status": "failed",
-      "duration": 17936
-    },
-    {
-      "title": "bastien: C3-15 Cupon invalido muestra error claro",
+      "title": "sonrie-prod: PM1-03 Crear orden SIN cupón no se rompe por cambios en cupones",
       "status": "skipped",
-      "duration": 17858
+      "duration": 0
     },
     {
-      "title": "bastien: C3-14 Campo de cupon visible en carro (enableCoupons)",
+      "title": "sonrie-prod: C2-08 Modificar cantidad en carro",
+      "status": "skipped",
+      "duration": 1
+    },
+    {
+      "title": "sonrie-prod: PM2-04 Modal/UI de cupón no queda en loading infinito",
+      "status": "skipped",
+      "duration": 0
+    },
+    {
+      "title": "sonrie-prod: PM1-04 Cupón inválido muestra error (no crash)",
+      "status": "skipped",
+      "duration": 1
+    },
+    {
+      "title": "sonrie-prod: PM1-02 Cupón válido aplica descuento",
+      "status": "skipped",
+      "duration": 1
+    },
+    {
+      "title": "sonrie-prod: PM1-01 Campo de cupón existe y es interactuable",
+      "status": "skipped",
+      "duration": 0
+    },
+    {
+      "title": "sonrie-prod: C2-13 Pedido aparece en historial",
+      "status": "skipped",
+      "duration": 1
+    },
+    {
+      "title": "sonrie-prod: C2-09 Eliminar producto del carro",
+      "status": "skipped",
+      "duration": 1
+    },
+    {
+      "title": "sonrie-prod: C2-12 Doble click en crear pedido no genera duplicado",
+      "status": "skipped",
+      "duration": 1
+    },
+    {
+      "title": "sonrie-prod: C2-11 Flujo completo catalogo → carro → checkout",
+      "status": "skipped",
+      "duration": 1
+    },
+    {
+      "title": "sonrie-prod: C2-04 Sin imágenes rotas (404) en catálogo @catalog @funcional",
+      "status": "skipped",
+      "duration": 0
+    },
+    {
+      "title": "sonrie-prod: C2-05 Agregar producto al carro",
+      "status": "skipped",
+      "duration": 0
+    },
+    {
+      "title": "sonrie-prod: C2-03 Búsqueda sin resultados muestra mensaje @catalog @funcional",
+      "status": "skipped",
+      "duration": 0
+    },
+    {
+      "title": "sonrie-prod: C2-02 Búsqueda por nombre devuelve resultados o mensaje @catalog @funcional",
+      "status": "skipped",
+      "duration": 0
+    },
+    {
+      "title": "sonrie-prod: C2-01 Catálogo muestra productos con precio @catalog @funcional",
+      "status": "skipped",
+      "duration": 0
+    },
+    {
+      "title": "sonrie-prod: C2-06 Cantidad mínima — sistema corrige o bloquea",
+      "status": "skipped",
+      "duration": 0
+    },
+    {
+      "title": "taxes.taxRate must be number in [0, 1]",
       "status": "passed",
-      "duration": 17730
+      "duration": 1
+    },
+    {
+      "title": "fixture shape: name, baseURL, config",
+      "status": "passed",
+      "duration": 1
     }
   ]
 }
