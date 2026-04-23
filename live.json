@@ -2,11 +2,36 @@
   "running": true,
   "startTime": "2026-04-23T19:02:01.442Z",
   "total": 145,
-  "passed": 82,
+  "passed": 87,
   "failed": 4,
   "skipped": 4,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie-prod: taxes.showSummary=false",
+      "status": "passed",
+      "duration": 9572
+    },
+    {
+      "title": "sonrie-prod: enablePayments=false",
+      "status": "passed",
+      "duration": 9691
+    },
+    {
+      "title": "sonrie-prod: disableCommerceEdit=false",
+      "status": "passed",
+      "duration": 8121
+    },
+    {
+      "title": "sonrie-prod: enablePaymentDocumentsB2B=false",
+      "status": "passed",
+      "duration": 8214
+    },
+    {
+      "title": "sonrie-prod: enableInvoicesList=false",
+      "status": "passed",
+      "duration": 8878
+    },
     {
       "title": "sonrie-prod: shareOrderNewDesign=false",
       "status": "passed",
@@ -81,31 +106,6 @@
       "title": "sonrie-prod: hasNoSaleFilter=false",
       "status": "passed",
       "duration": 7450
-    },
-    {
-      "title": "sonrie-prod: hasMultiUnitEnabled=false",
-      "status": "passed",
-      "duration": 8694
-    },
-    {
-      "title": "sonrie-prod: hasTransportCode=false",
-      "status": "failed",
-      "duration": 48792
-    },
-    {
-      "title": "sonrie-prod: hasStockEnabled=false",
-      "status": "passed",
-      "duration": 8396
-    },
-    {
-      "title": "sonrie-prod: lazyLoadingPrices=false",
-      "status": "passed",
-      "duration": 11251
-    },
-    {
-      "title": "sonrie-prod: enableChooseSaleUnit=false",
-      "status": "passed",
-      "duration": 6007
     }
   ]
 }
