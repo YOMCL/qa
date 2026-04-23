@@ -13,12 +13,16 @@ Si Playwright encuentra un P0 (auth roto, checkout imposible), no continuar con 
 
 ## Cuándo usar cada comando
 
+Comandos activos como slash commands en Claude Code (vía `.claude/commands/` → `ai-specs/.commands/`):
+
 | Situación | Comando |
 |-----------|---------|
 | Onboarding cliente nuevo | `/qa-plan-client {CLIENTE}` |
 | Correr regresión B2B | `/run-playwright b2b` |
+| Triagear fallos post-run Playwright | `/triage-playwright` o `/triage-playwright {FECHA}` |
 | Suite completa (MongoDB→tests→reporte) | `/qa-client-validation {CLIENTE} staging` |
 | Generar reporte desde sesión Cowork | `/report-qa {CLIENTE} {FECHA}` |
+| Extraer mejoras al proceso QA | `/qa-improve {CLIENTE} {FECHA}` |
 | Ver gaps de cobertura | `/qa-coverage-analysis` |
 | Auditar flow APP Maestro | `/audit-maestro {FLOW}` |
 | Review de PR/cambio de código | "grillame este PR desde perspectiva QA" (inline) |

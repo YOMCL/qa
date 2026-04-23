@@ -1,0 +1,1 @@
+../../ai-specs/.commands/qa-plan-client.md

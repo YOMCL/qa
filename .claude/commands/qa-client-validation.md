@@ -1,0 +1,1 @@
+../../ai-specs/.commands/qa-client-validation.md

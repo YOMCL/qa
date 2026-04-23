@@ -1,44 +1,44 @@
 {
   "date": "2026-04-23",
-  "timestamp": "2026-04-23T16:23:37.706240+00:00",
-  "total": 292,
-  "passed": 272,
-  "failed": 3,
-  "duration": 718,
+  "timestamp": "2026-04-23T16:24:59.535481+00:00",
+  "total": 254,
+  "passed": 240,
+  "failed": 12,
+  "duration": 921,
   "suites": [
     {
       "name": "00-contract.spec.ts",
-      "tests": 78,
-      "passed": 78,
+      "tests": 39,
+      "passed": 39,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "cart.spec.ts",
-      "tests": 8,
-      "passed": 6,
+      "tests": 4,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "catalog.spec.ts",
-      "tests": 8,
-      "passed": 8,
+      "tests": 4,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "checkout.spec.ts",
-      "tests": 6,
-      "passed": 6,
+      "tests": 3,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "coupons.spec.ts",
-      "tests": 10,
-      "passed": 8,
-      "failed": 1,
+      "tests": 5,
+      "passed": 0,
+      "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
@@ -85,57 +85,57 @@
     },
     {
       "name": "mongo-data.spec.ts",
-      "tests": 2,
-      "passed": 2,
-      "failed": 0,
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "multi-client.spec.ts",
-      "tests": 10,
-      "passed": 10,
-      "failed": 0,
+      "tests": 5,
+      "passed": 1,
+      "failed": 4,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "orders.spec.ts",
-      "tests": 2,
-      "passed": 2,
+      "tests": 1,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "payment-documents.spec.ts",
-      "tests": 10,
-      "passed": 4,
+      "tests": 5,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "payments.spec.ts",
-      "tests": 4,
-      "passed": 4,
+      "tests": 2,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "prices.spec.ts",
-      "tests": 22,
-      "passed": 15,
-      "failed": 2,
+      "tests": 11,
+      "passed": 0,
+      "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "promotions.spec.ts",
-      "tests": 6,
-      "passed": 6,
+      "tests": 3,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "step-pricing.spec.ts",
-      "tests": 4,
-      "passed": 4,
+      "tests": 2,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     }
@@ -240,6 +240,91 @@
         "bastien",
         "sonrie"
       ]
+    },
+    {
+      "category": "bug",
+      "label": "\ud83d\udd34 Bug",
+      "reason": "Redirecci\u00f3n incorrecta en: Pipeline API cat\u00e1logo devuelve productos con nombre y pricing @catalog @critico",
+      "owner": "dev",
+      "action": "Revisar el routing \u2014 la app qued\u00f3 en la misma URL en lugar de avanzar al paso siguiente.",
+      "count": 1,
+      "tests": [
+        "[mongo-data.spec.ts] sonrie-prod: Pipeline API cat\u00e1logo devuelve productos con nombre y pricing @catalog @critico"
+      ],
+      "clients": [
+        "sonrie-prod"
+      ],
+      "error_sample": "Error: expect(page).not.toHaveURL(expected) failed\n\nExpected pattern: not /auth\\/jwt\\/login|\\/login$/\nReceived string: \"https://sonrie.youorder.me/auth/jwt/login\"\nTimeout: 45000ms\n\nCall log:\n  - Expect \"not toHaveURL\" with timeout 45000ms\n    49 \u00d7 unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\n",
+      "annotations_sample": [],
+      "spec_file": "mongo-data.spec.ts"
+    },
+    {
+      "category": "bug",
+      "label": "\ud83d\udd34 Bug",
+      "reason": "Redirecci\u00f3n incorrecta en: Login exitoso",
+      "owner": "dev",
+      "action": "Revisar el routing \u2014 la app qued\u00f3 en la misma URL en lugar de avanzar al paso siguiente.",
+      "count": 1,
+      "tests": [
+        "[multi-client.spec.ts] sonrie-prod: Login exitoso"
+      ],
+      "clients": [
+        "sonrie-prod"
+      ],
+      "error_sample": "Error: expect(page).not.toHaveURL(expected) failed\n\nExpected pattern: not /auth\\/jwt\\/login|\\/login$/\nReceived string: \"https://sonrie.youorder.me/auth/jwt/login\"\nTimeout: 45000ms\n\nCall log:\n  - Expect \"not toHaveURL\" with timeout 45000ms\n    49 \u00d7 unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\n",
+      "annotations_sample": [],
+      "spec_file": "multi-client.spec.ts"
+    },
+    {
+      "category": "bug",
+      "label": "\ud83d\udd34 Bug",
+      "reason": "Redirecci\u00f3n incorrecta en: Cat\u00e1logo muestra productos con precios",
+      "owner": "dev",
+      "action": "Revisar el routing \u2014 la app qued\u00f3 en la misma URL en lugar de avanzar al paso siguiente.",
+      "count": 1,
+      "tests": [
+        "[multi-client.spec.ts] sonrie-prod: Cat\u00e1logo muestra productos con precios"
+      ],
+      "clients": [
+        "sonrie-prod"
+      ],
+      "error_sample": "Error: expect(page).not.toHaveURL(expected) failed\n\nExpected pattern: not /auth\\/jwt\\/login|\\/login$/\nReceived string: \"https://sonrie.youorder.me/auth/jwt/login\"\nTimeout: 45000ms\n\nCall log:\n  - Expect \"not toHaveURL\" with timeout 45000ms\n    49 \u00d7 unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\n",
+      "annotations_sample": [],
+      "spec_file": "multi-client.spec.ts"
+    },
+    {
+      "category": "bug",
+      "label": "\ud83d\udd34 Bug",
+      "reason": "Redirecci\u00f3n incorrecta en: Agregar producto al carro",
+      "owner": "dev",
+      "action": "Revisar el routing \u2014 la app qued\u00f3 en la misma URL en lugar de avanzar al paso siguiente.",
+      "count": 1,
+      "tests": [
+        "[multi-client.spec.ts] sonrie-prod: Agregar producto al carro"
+      ],
+      "clients": [
+        "sonrie-prod"
+      ],
+      "error_sample": "Error: expect(page).not.toHaveURL(expected) failed\n\nExpected pattern: not /auth\\/jwt\\/login|\\/login$/\nReceived string: \"https://sonrie.youorder.me/auth/jwt/login\"\nTimeout: 45000ms\n\nCall log:\n  - Expect \"not toHaveURL\" with timeout 45000ms\n    49 \u00d7 unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\n",
+      "annotations_sample": [],
+      "spec_file": "multi-client.spec.ts"
+    },
+    {
+      "category": "integracion",
+      "label": "\ud83d\udfe3 Integraci\u00f3n",
+      "reason": "Productos con precio $0 en cat\u00e1logo \u2014 dato faltante en integraci\u00f3n de productos",
+      "owner": "dev",
+      "action": "Revisar productos con precio $0 en MongoDB. Probablemente el campo price no fue sincronizado correctamente desde la fuente de datos.",
+      "count": 1,
+      "tests": [
+        "[multi-client.spec.ts] sonrie-prod: No hay productos con precio $0"
+      ],
+      "clients": [
+        "sonrie-prod"
+      ],
+      "error_sample": "Error: expect(page).not.toHaveURL(expected) failed\n\nExpected pattern: not /auth\\/jwt\\/login|\\/login$/\nReceived string: \"https://sonrie.youorder.me/auth/jwt/login\"\nTimeout: 45000ms\n\nCall log:\n  - Expect \"not toHaveURL\" with timeout 45000ms\n    48 \u00d7 unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\n",
+      "annotations_sample": [],
+      "spec_file": "multi-client.spec.ts"
     }
   ],
   "pending_b2b": [],

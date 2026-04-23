@@ -1,0 +1,1 @@
+../../ai-specs/.commands/report-qa.md
