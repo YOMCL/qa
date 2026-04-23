@@ -2,11 +2,31 @@
   "running": true,
   "startTime": "2026-04-23T20:57:28.615Z",
   "total": 145,
-  "passed": 113,
+  "passed": 117,
   "failed": 2,
   "skipped": 6,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie-prod: C7-INV /payment-documents no accesible cuando flag=false",
+      "status": "passed",
+      "duration": 12535
+    },
+    {
+      "title": "sonrie-prod: Historial de pedidos carga @orders @funcional",
+      "status": "passed",
+      "duration": 15177
+    },
+    {
+      "title": "sonrie-prod: No hay productos con precio $0",
+      "status": "passed",
+      "duration": 12040
+    },
+    {
+      "title": "sonrie-prod: PM1-04 Cupón inválido muestra error (no crash)",
+      "status": "passed",
+      "duration": 47328
+    },
     {
       "title": "sonrie-prod: Agregar producto al carro",
       "status": "passed",
@@ -86,26 +106,6 @@
       "title": "sonrie-prod: blockedClientAlert.enableBlockedClientAlert=false",
       "status": "passed",
       "duration": 6511
-    },
-    {
-      "title": "sonrie-prod: externalAccess=true",
-      "status": "passed",
-      "duration": 6377
-    },
-    {
-      "title": "sonrie-prod: enableCreditNotes=false",
-      "status": "passed",
-      "duration": 7207
-    },
-    {
-      "title": "sonrie-prod: showMinOne=false",
-      "status": "passed",
-      "duration": 6614
-    },
-    {
-      "title": "sonrie-prod: enableTask=false",
-      "status": "passed",
-      "duration": 6309
     }
   ]
 }
