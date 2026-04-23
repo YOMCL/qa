@@ -113,6 +113,42 @@ footer{color:rgba(255,255,255,.7);font-size:.82em;text-align:center;margin-top:2
 </div>
 
 <div class="card">
+  <div class="card-title">Métricas de sync — arranque app (datos MongoDB)</div>
+  <table>
+    <thead><tr><th>Tipo</th><th>Tiempo</th><th>Documentos</th><th>Requests</th><th>Estado</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>commerces</strong></td>
+        <td><span style="color:#dc2626;font-weight:700;">414s <span style="font-weight:400;font-size:.82em">(~7 min)</span></span></td>
+        <td>11,500</td><td>115</td>
+        <td><span class="badge warn">LENTO</span></td>
+      </tr>
+      <tr>
+        <td><strong>stock</strong></td>
+        <td><span style="color:#d97706;font-weight:700;">276s <span style="font-weight:400;font-size:.82em">(~4.6 min)</span></span></td>
+        <td>108,496</td><td>1,085</td>
+        <td><span class="badge warn">REVISAR</span></td>
+      </tr>
+      <tr>
+        <td><strong>commerceDistributionCenter</strong></td>
+        <td>94s</td>
+        <td>620,000</td><td>1</td>
+        <td><span class="badge pass">OK</span></td>
+      </tr>
+      <tr>
+        <td><strong>documents</strong></td>
+        <td>1.5s</td>
+        <td>0</td><td>1</td>
+        <td><span class="badge pass">OK</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="margin-top:12px;padding:10px 14px;background:#fef2f2;border-radius:8px;font-size:.84em;color:#991b1b;">
+    ⚠️ <strong>commerces tarda 414s</strong> con solo 11,500 documentos y 115 requests (pageSize 100) — ratio muy alto. Puede explicar por qué la app solicita sincronizar cada sesión. <strong>stock</strong> con 1,085 requests también impacta el tiempo de arranque total (~13 min de sync acumulada).
+  </div>
+</div>
+
+<div class="card">
   <div class="card-title">Detalle por flow</div>
   <table>
     <thead><tr><th>Flow</th><th>Producto</th></tr></thead>
