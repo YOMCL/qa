@@ -10,18 +10,14 @@
     "grep": {},
     "grepInvert": null,
     "maxFailures": 0,
-    "metadata": {
-      "actualWorkers": 4
-    },
+    "metadata": {},
     "preserveOutput": "always",
     "projects": [
       {
         "outputDir": "/Users/lalojimenez/qa/tests/e2e/test-results",
         "repeatEach": 1,
         "retries": 1,
-        "metadata": {
-          "actualWorkers": 4
-        },
+        "metadata": {},
         "id": "b2b",
         "name": "b2b",
         "testDir": "/Users/lalojimenez/qa/tests/e2e/b2b",
@@ -35,9 +31,7 @@
         "outputDir": "/Users/lalojimenez/qa/tests/e2e/test-results",
         "repeatEach": 1,
         "retries": 1,
-        "metadata": {
-          "actualWorkers": 4
-        },
+        "metadata": {},
         "id": "admin",
         "name": "admin",
         "testDir": "/Users/lalojimenez/qa/tests/e2e/admin",
@@ -115,22 +109,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 7,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.015Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-34303bd3e0e292631ddf",
@@ -149,22 +129,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 4,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:16.999Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-ba2feacf9084d1090373",
@@ -183,22 +149,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 2,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:16.994Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-d1013d3c7a03e1557c1e",
@@ -217,22 +169,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "passed",
-                      "duration": 3,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:16.999Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-8cf43e98d03639925b1e",
@@ -251,22 +189,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 8,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.011Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-c94aef467608f3853d8c",
@@ -285,22 +209,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.020Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-aad3aeb09d4f43324812",
@@ -319,22 +229,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.032Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-8253c6236e4c2c695cae",
@@ -353,22 +249,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.043Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-8792326d208d4f2b6a93",
@@ -387,22 +269,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.045Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-a01ff923438dd82a38d6",
@@ -421,22 +289,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.050Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-d2ddea38f9055ffb622e",
@@ -455,22 +309,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.056Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-1af69c2d35251bb1cb9a",
@@ -489,22 +329,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.055Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-afa8b2f02908894d868b",
@@ -523,22 +349,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.057Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-1f35b5e1dc06f26b09ff",
@@ -557,22 +369,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.059Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-c4dbe9f5a75044adea22",
@@ -591,22 +389,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.064Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-03790ae6369eea1ec188",
@@ -625,22 +409,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.064Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-3ea321c2ab6ca884f910",
@@ -659,22 +429,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.064Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-0a0a609a07803defef53",
@@ -693,22 +449,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.064Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-4007ddf46cc28e293d7e",
@@ -727,22 +469,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.068Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-2a5f8ff489748c063d81",
@@ -761,22 +489,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.069Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-cfc5a7af4f332f55bf40",
@@ -795,22 +509,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.070Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-247bcef2bc52b15994d0",
@@ -829,22 +529,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.074Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-2b2ebbf35444a0eb765d",
@@ -863,22 +549,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.075Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-fc95b95f19a5675aeb29",
@@ -897,22 +569,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.076Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-55b9536a446c3ac757db",
@@ -931,22 +589,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.077Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-efeb7e6c391a23131c40",
@@ -965,22 +609,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 4,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.083Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-8186c07d8bc933a39d94",
@@ -999,22 +629,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 3,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.085Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-5b0751c1e4470a09cb6f",
@@ -1033,22 +649,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.089Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-e399588914d2e0a86e97",
@@ -1067,22 +669,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "passed",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.089Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-34707c67d2b0a4013314",
@@ -1101,22 +689,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.102Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-05e6c00ccfe519980c35",
@@ -1135,22 +709,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.103Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-58564a36f57ce8b4829a",
@@ -1169,22 +729,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.104Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-240e95395771e6dd2dab",
@@ -1203,22 +749,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 2,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.106Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-bd9102403967e019fc9e",
@@ -1237,22 +769,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.114Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-60cc9d5db45b9f2c4ac8",
@@ -1271,22 +789,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.123Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-af693c61158f1a5f37f2",
@@ -1305,22 +809,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.116Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-2d38e7b4d86428d8a5fc",
@@ -1339,22 +829,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.122Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-7be7cc4e186db40173e6",
@@ -1373,22 +849,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.126Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-71a0341574600c09c93a",
@@ -1407,22 +869,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.128Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "fe04e7cbe303a47ecca5-5ae9b2c8ae41305eae42",
@@ -1454,45 +902,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.132Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -1508,45 +922,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.132Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -1562,45 +942,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "skipped",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.137Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -1616,45 +962,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "skipped",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:17.138Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -1690,45 +1002,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.051Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -1747,45 +1025,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.058Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -1804,45 +1048,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.066Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -1861,45 +1071,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.089Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -1932,45 +1108,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.094Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -1986,45 +1128,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.095Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -2040,45 +1148,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.107Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -2111,45 +1185,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.114Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -2165,45 +1205,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "skipped",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.121Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -2219,45 +1225,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.123Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -2273,45 +1245,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.129Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -2327,45 +1265,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.139Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -2393,7 +1297,7 @@
           "specs": [
             {
               "title": "sonrie-prod: Pipeline API catálogo devuelve productos con nombre y pricing @catalog @critico",
-              "ok": false,
+              "ok": true,
               "tags": [
                 "catalog",
                 "critico"
@@ -2405,110 +1309,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "failed",
-                      "duration": 48979,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at loginIfNeeded (/Users/lalojimenez/qa/tests/e2e/b2b/mongo-data.spec.ts:27:9)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/mongo-data.spec.ts:133:7",
-                        "location": {
-                          "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                          "column": 26,
-                          "line": 56
-                        },
-                        "snippet": "   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                            "column": 26,
-                            "line": 56
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n\n   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at loginIfNeeded (/Users/lalojimenez/qa/tests/e2e/b2b/mongo-data.spec.ts:27:9)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/mongo-data.spec.ts:133:7"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.146Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/mongo-data-Mongo-Data-Vali-46b93-e-y-pricing-catalog-critico-b2b/test-failed-1.png"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/mongo-data-Mongo-Data-Vali-46b93-e-y-pricing-catalog-critico-b2b/error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                        "column": 26,
-                        "line": 56
-                      }
-                    },
-                    {
-                      "workerIndex": 6,
-                      "parallelIndex": 0,
-                      "status": "failed",
-                      "duration": 48911,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at loginIfNeeded (/Users/lalojimenez/qa/tests/e2e/b2b/mongo-data.spec.ts:27:9)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/mongo-data.spec.ts:133:7",
-                        "location": {
-                          "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                          "column": 26,
-                          "line": 56
-                        },
-                        "snippet": "   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                            "column": 26,
-                            "line": 56
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n\n   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at loginIfNeeded (/Users/lalojimenez/qa/tests/e2e/b2b/mongo-data.spec.ts:27:9)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/mongo-data.spec.ts:133:7"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 1,
-                      "startTime": "2026-04-23T16:21:07.647Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/mongo-data-Mongo-Data-Vali-46b93-e-y-pricing-catalog-critico-b2b-retry1/test-failed-1.png"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/mongo-data-Mongo-Data-Vali-46b93-e-y-pricing-catalog-critico-b2b-retry1/error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/mongo-data-Mongo-Data-Vali-46b93-e-y-pricing-catalog-critico-b2b-retry1/trace.zip"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                        "column": 26,
-                        "line": 56
-                      }
-                    }
-                  ],
-                  "status": "unexpected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "e06546f5b585fa5fe864-df910b5197752d744c9d",
@@ -2535,7 +1337,7 @@
           "specs": [
             {
               "title": "sonrie-prod: Login exitoso",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -2544,110 +1346,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 1,
-                      "status": "failed",
-                      "duration": 48850,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:27:7",
-                        "location": {
-                          "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                          "column": 26,
-                          "line": 56
-                        },
-                        "snippet": "   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                            "column": 26,
-                            "line": 56
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n\n   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:27:7"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.146Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-970b9-e-sonrie-prod-Login-exitoso-b2b/test-failed-1.png"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-970b9-e-sonrie-prod-Login-exitoso-b2b/error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                        "column": 26,
-                        "line": 56
-                      }
-                    },
-                    {
-                      "workerIndex": 4,
-                      "parallelIndex": 1,
-                      "status": "failed",
-                      "duration": 48862,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:27:7",
-                        "location": {
-                          "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                          "column": 26,
-                          "line": 56
-                        },
-                        "snippet": "   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                            "column": 26,
-                            "line": 56
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n\n   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:27:7"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 1,
-                      "startTime": "2026-04-23T16:21:07.623Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-970b9-e-sonrie-prod-Login-exitoso-b2b-retry1/test-failed-1.png"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-970b9-e-sonrie-prod-Login-exitoso-b2b-retry1/error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-970b9-e-sonrie-prod-Login-exitoso-b2b-retry1/trace.zip"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                        "column": 26,
-                        "line": 56
-                      }
-                    }
-                  ],
-                  "status": "unexpected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "2a9fe09f1aa1004e241f-3c3c28bdbad798dda3db",
@@ -2666,22 +1366,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "passed",
-                      "duration": 4767,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.146Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "expected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "2a9fe09f1aa1004e241f-b87f01b039849aef26b0",
@@ -2691,7 +1377,7 @@
             },
             {
               "title": "sonrie-prod: Catálogo muestra productos con precios",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -2700,110 +1386,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 3,
-                      "parallelIndex": 3,
-                      "status": "failed",
-                      "duration": 48891,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:62:9",
-                        "location": {
-                          "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                          "column": 26,
-                          "line": 56
-                        },
-                        "snippet": "   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                            "column": 26,
-                            "line": 56
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n\n   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:62:9"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:18.150Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-f76d7-estra-productos-con-precios-b2b/test-failed-1.png"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-f76d7-estra-productos-con-precios-b2b/error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                        "column": 26,
-                        "line": 56
-                      }
-                    },
-                    {
-                      "workerIndex": 5,
-                      "parallelIndex": 3,
-                      "status": "failed",
-                      "duration": 48788,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:62:9",
-                        "location": {
-                          "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                          "column": 26,
-                          "line": 56
-                        },
-                        "snippet": "   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                            "column": 26,
-                            "line": 56
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n\n   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:62:9"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 1,
-                      "startTime": "2026-04-23T16:21:07.623Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-f76d7-estra-productos-con-precios-b2b-retry1/test-failed-1.png"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-f76d7-estra-productos-con-precios-b2b-retry1/error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-f76d7-estra-productos-con-precios-b2b-retry1/trace.zip"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                        "column": 26,
-                        "line": 56
-                      }
-                    }
-                  ],
-                  "status": "unexpected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "2a9fe09f1aa1004e241f-0acb8a71b87e1f684fc2",
@@ -2813,7 +1397,7 @@
             },
             {
               "title": "sonrie-prod: Agregar producto al carro",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -2822,110 +1406,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 2,
-                      "parallelIndex": 2,
-                      "status": "failed",
-                      "duration": 48956,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:83:11",
-                        "location": {
-                          "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                          "column": 26,
-                          "line": 56
-                        },
-                        "snippet": "   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                            "column": 26,
-                            "line": 56
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n\n   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:83:11"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:20:22.920Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-ef808-d-Agregar-producto-al-carro-b2b/test-failed-1.png"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-ef808-d-Agregar-producto-al-carro-b2b/error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                        "column": 26,
-                        "line": 56
-                      }
-                    },
-                    {
-                      "workerIndex": 7,
-                      "parallelIndex": 2,
-                      "status": "failed",
-                      "duration": 48894,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:83:11",
-                        "location": {
-                          "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                          "column": 26,
-                          "line": 56
-                        },
-                        "snippet": "   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                            "column": 26,
-                            "line": 56
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n\n   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:83:11"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 1,
-                      "startTime": "2026-04-23T16:21:12.632Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-ef808-d-Agregar-producto-al-carro-b2b-retry1/test-failed-1.png"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-ef808-d-Agregar-producto-al-carro-b2b-retry1/error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-ef808-d-Agregar-producto-al-carro-b2b-retry1/trace.zip"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                        "column": 26,
-                        "line": 56
-                      }
-                    }
-                  ],
-                  "status": "unexpected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "2a9fe09f1aa1004e241f-bcdceaf374c0a4510906",
@@ -2935,7 +1417,7 @@
             },
             {
               "title": "sonrie-prod: No hay productos con precio $0",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -2944,110 +1426,8 @@
                   "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 8,
-                      "parallelIndex": 3,
-                      "status": "failed",
-                      "duration": 48803,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:114:9",
-                        "location": {
-                          "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                          "column": 26,
-                          "line": 56
-                        },
-                        "snippet": "   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                            "column": 26,
-                            "line": 56
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    49 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n\n   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:114:9"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:57.915Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-a4a34--hay-productos-con-precio-0-b2b/test-failed-1.png"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-a4a34--hay-productos-con-precio-0-b2b/error-context.md"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                        "column": 26,
-                        "line": 56
-                      }
-                    },
-                    {
-                      "workerIndex": 11,
-                      "parallelIndex": 0,
-                      "status": "failed",
-                      "duration": 48843,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    48 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    48 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:114:9",
-                        "location": {
-                          "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                          "column": 26,
-                          "line": 56
-                        },
-                        "snippet": "   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                            "column": 26,
-                            "line": 56
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).not.\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected pattern: not \u001b[32m/auth\\/jwt\\/login|\\/login$/\u001b[39m\nReceived string: \u001b[31m\"https://sonrie.youorder.me/\u001b[7mauth/jwt/login\u001b[27m\"\u001b[39m\nTimeout: 45000ms\n\nCall log:\n\u001b[2m  - Expect \"not toHaveURL\" with timeout 45000ms\u001b[22m\n\u001b[2m    48 × unexpected value \"https://sonrie.youorder.me/auth/jwt/login\"\u001b[22m\n\n\n   at fixtures/login.ts:56\n\n  54 |\n  55 |   // Wait for redirect away from login page\n> 56 |   await expect(page).not.toHaveURL(/auth\\/jwt\\/login|\\/login$/, { timeout: 45_000 });\n     |                          ^\n  57 | }\n  58 |\n    at loginHelper (/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts:56:26)\n    at /Users/lalojimenez/qa/tests/e2e/b2b/multi-client.spec.ts:114:9"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 1,
-                      "startTime": "2026-04-23T16:22:47.911Z",
-                      "annotations": [],
-                      "attachments": [
-                        {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-a4a34--hay-productos-con-precio-0-b2b-retry1/test-failed-1.png"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-a4a34--hay-productos-con-precio-0-b2b-retry1/error-context.md"
-                        },
-                        {
-                          "name": "trace",
-                          "contentType": "application/zip",
-                          "path": "/Users/lalojimenez/qa/tests/e2e/test-results/multi-client-Sonrie-Market-a4a34--hay-productos-con-precio-0-b2b-retry1/trace.zip"
-                        }
-                      ],
-                      "errorLocation": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/login.ts",
-                        "column": 26,
-                        "line": 56
-                      }
-                    }
-                  ],
-                  "status": "unexpected"
+                  "results": [],
+                  "status": "skipped"
                 }
               ],
               "id": "2a9fe09f1aa1004e241f-900467e369c0acb04346",
@@ -3082,45 +1462,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 9,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:57.939Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3153,45 +1499,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 2,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.000Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3207,45 +1519,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 9,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.624Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3261,45 +1539,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 2,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.628Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3315,45 +1559,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 9,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 1,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.648Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3369,45 +1579,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 9,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.660Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3440,45 +1616,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.672Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3494,45 +1636,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 9,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.669Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3565,45 +1673,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "Sonrie Market requiere login — catálogo anónimo no aplica",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/b2b/prices.spec.ts",
-                        "line": 9,
-                        "column": 12
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 9,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 93,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.681Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "Sonrie Market requiere login — catálogo anónimo no aplica",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/b2b/prices.spec.ts",
-                            "line": 9,
-                            "column": 12
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3619,45 +1693,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "Sonrie Market requiere login — catálogo anónimo no aplica",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/b2b/prices.spec.ts",
-                        "line": 19,
-                        "column": 12
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 88,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.686Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "Sonrie Market requiere login — catálogo anónimo no aplica",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/b2b/prices.spec.ts",
-                            "line": 19,
-                            "column": 12
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3673,45 +1713,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.780Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3727,45 +1733,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "Sonrie Market requiere login — catálogo anónimo no aplica",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/b2b/prices.spec.ts",
-                        "line": 72,
-                        "column": 12
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 9,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 59,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.780Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "Sonrie Market requiere login — catálogo anónimo no aplica",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/b2b/prices.spec.ts",
-                            "line": 72,
-                            "column": 12
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3781,45 +1753,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.784Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3835,45 +1773,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.791Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3889,45 +1793,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.796Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -3943,45 +1813,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.800Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -4000,45 +1836,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.805Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -4057,45 +1859,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.812Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -4111,45 +1879,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.818Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -4182,45 +1916,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.823Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -4236,45 +1936,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.828Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -4290,45 +1956,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.836Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -4361,45 +1993,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 10,
-                      "parallelIndex": 0,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.843Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -4415,45 +2013,11 @@
               "tests": [
                 {
                   "timeout": 120000,
-                  "annotations": [
-                    {
-                      "type": "skip",
-                      "description": "No credentials for Sonrie Market — client inactive or not configured",
-                      "location": {
-                        "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                        "line": 108,
-                        "column": 16
-                      }
-                    }
-                  ],
-                  "expectedStatus": "skipped",
+                  "annotations": [],
+                  "expectedStatus": "passed",
                   "projectId": "b2b",
                   "projectName": "b2b",
-                  "results": [
-                    {
-                      "workerIndex": 9,
-                      "parallelIndex": 1,
-                      "status": "skipped",
-                      "duration": 0,
-                      "errors": [],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2026-04-23T16:21:58.845Z",
-                      "annotations": [
-                        {
-                          "type": "skip",
-                          "description": "No credentials for Sonrie Market — client inactive or not configured",
-                          "location": {
-                            "file": "/Users/lalojimenez/qa/tests/e2e/fixtures/multi-client-auth.ts",
-                            "line": 108,
-                            "column": 16
-                          }
-                        }
-                      ],
-                      "attachments": []
-                    }
-                  ],
+                  "results": [],
                   "status": "skipped"
                 }
               ],
@@ -4469,11 +2033,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2026-04-23T16:20:15.283Z",
-    "duration": 203465.75,
-    "expected": 40,
-    "skipped": 40,
-    "unexpected": 5,
+    "startTime": "2026-04-23T16:32:39.668Z",
+    "duration": 39.75,
+    "expected": 0,
+    "skipped": 85,
+    "unexpected": 0,
     "flaky": 0
   }
 }
