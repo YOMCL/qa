@@ -2,11 +2,41 @@
   "running": true,
   "startTime": "2026-04-23T19:02:01.442Z",
   "total": 145,
-  "passed": 65,
-  "failed": 3,
+  "passed": 70,
+  "failed": 4,
   "skipped": 4,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie-prod: weightInfo=false",
+      "status": "passed",
+      "duration": 7062
+    },
+    {
+      "title": "sonrie-prod: packagingInformation.hidePackagingInformationB2B=true",
+      "status": "passed",
+      "duration": 7940
+    },
+    {
+      "title": "sonrie-prod: hasNoSaleFilter=false",
+      "status": "passed",
+      "duration": 7450
+    },
+    {
+      "title": "sonrie-prod: hasMultiUnitEnabled=false",
+      "status": "passed",
+      "duration": 8694
+    },
+    {
+      "title": "sonrie-prod: hasTransportCode=false",
+      "status": "failed",
+      "duration": 48792
+    },
+    {
+      "title": "sonrie-prod: hasStockEnabled=false",
+      "status": "passed",
+      "duration": 8396
+    },
     {
       "title": "sonrie-prod: lazyLoadingPrices=false",
       "status": "passed",
@@ -76,36 +106,6 @@
       "title": "sonrie-prod: enableAskDeliveryDate=false",
       "status": "passed",
       "duration": 13026
-    },
-    {
-      "title": "sonrie-prod: disableCart=false",
-      "status": "passed",
-      "duration": 7330
-    },
-    {
-      "title": "sonrie-prod: C2-13 Pedido aparece en historial",
-      "status": "passed",
-      "duration": 13305
-    },
-    {
-      "title": "sonrie-prod: loginButtons.facebook=false",
-      "status": "passed",
-      "duration": 3419
-    },
-    {
-      "title": "sonrie-prod: loginButtons.google=false",
-      "status": "passed",
-      "duration": 2645
-    },
-    {
-      "title": "sonrie-prod: C2-04 Sin imágenes rotas (404) en catálogo @catalog @funcional",
-      "status": "passed",
-      "duration": 17683
-    },
-    {
-      "title": "sonrie-prod: inMaintenance=false",
-      "status": "passed",
-      "duration": 2643
     }
   ]
 }
