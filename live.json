@@ -2,11 +2,26 @@
   "running": true,
   "startTime": "2026-04-23T19:02:01.442Z",
   "total": 145,
-  "passed": 104,
+  "passed": 107,
   "failed": 4,
   "skipped": 4,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie-prod: PM1-01 Campo de cupón existe y es interactuable",
+      "status": "passed",
+      "duration": 15507
+    },
+    {
+      "title": "sonrie-prod: enableNewUI=false",
+      "status": "passed",
+      "duration": 12310
+    },
+    {
+      "title": "sonrie-prod: suggestions.hide=true",
+      "status": "passed",
+      "duration": 9908
+    },
     {
       "title": "sonrie-prod: enableBetaButtons=false",
       "status": "passed",
@@ -91,21 +106,6 @@
       "title": "sonrie-prod: includeTaxRateInPrices=false",
       "status": "passed",
       "duration": 10389
-    },
-    {
-      "title": "sonrie-prod: taxes.showSummary=false",
-      "status": "passed",
-      "duration": 9572
-    },
-    {
-      "title": "sonrie-prod: enablePayments=false",
-      "status": "passed",
-      "duration": 9691
-    },
-    {
-      "title": "sonrie-prod: disableCommerceEdit=false",
-      "status": "passed",
-      "duration": 8121
     }
   ]
 }
