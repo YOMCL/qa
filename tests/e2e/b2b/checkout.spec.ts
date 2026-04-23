@@ -4,14 +4,12 @@ import clients from '../fixtures/clients';
 for (const [key, client] of Object.entries(clients)) {
   const test = createClientTest(client);
   test.describe(`C2 — Checkout / crear pedido: ${client.name}`, () => {
-    test.skip(client.baseURL.includes('youorder.me'), 'BLOQUEADO-PROD — no crear pedidos en producción');
 
     async function addProducts(page: any) {
       await page.goto(`${client.baseURL}/products`, { waitUntil: 'domcontentloaded' });
       const addButtons = page.getByRole('button', { name: 'Agregar' });
       await addButtons.first().waitFor({ timeout: 30_000 });
 
-      // Agregar 3 productos — suficiente para superar monto mínimo
       const count = Math.min(await addButtons.count(), 3);
       for (let i = 0; i < count; i++) {
         await Promise.all([
@@ -21,52 +19,56 @@ for (const [key, client] of Object.entries(clients)) {
       }
     }
 
-    test(`${key}: C2-11 Flujo completo catalogo → carro → checkout`, async ({ authedPage: page }) => {
-      await addProducts(page);
+    // C2-11 y C2-12 crean pedidos reales — BLOQUEADOS en producción
+    test.describe('Confirmar pedido — BLOQUEADO-PROD en youorder.me', () => {
+      test.skip(client.baseURL.includes('youorder.me'), 'BLOQUEADO-PROD — no crear pedidos en producción');
 
-      await page.goto(`${client.baseURL}/cart`);
-      await expect(page.getByText(/\d+ Producto/)).toBeVisible({ timeout: 15_000 });
+      test(`${key}: C2-11 Flujo completo catalogo → carro → checkout`, async ({ authedPage: page }) => {
+        await addProducts(page);
 
-      const confirmButton = page.getByRole('button', { name: 'Confirmar pedido' });
-      await expect(confirmButton).toBeVisible({ timeout: 10_000 });
-      await confirmButton.scrollIntoViewIfNeeded();
+        await page.goto(`${client.baseURL}/cart`);
+        await expect(page.getByText(/\d+ Producto/)).toBeVisible({ timeout: 15_000 });
 
-      await Promise.all([
-        page.waitForURL(/\/confirmation\/\w+/, { timeout: 30_000 }),
-        confirmButton.click({ force: true }),
-      ]);
+        const confirmButton = page.getByRole('button', { name: 'Confirmar pedido' });
+        await expect(confirmButton).toBeVisible({ timeout: 10_000 });
+        await confirmButton.scrollIntoViewIfNeeded();
 
-      await page.screenshot({ path: `test-results/checkout-confirm-${key}.png`, fullPage: true });
+        await Promise.all([
+          page.waitForURL(/\/confirmation\/\w+/, { timeout: 30_000 }),
+          confirmButton.click({ force: true }),
+        ]);
 
-      // Requires actual order ID after /confirmation/ — bare /confirmation/ means order was not processed
-      expect(page.url()).toMatch(/\/confirmation\/\w+/);
-    });
-
-    test(`${key}: C2-12 Doble click en crear pedido no genera duplicado`, async ({ authedPage: page }) => {
-      await addProducts(page);
-
-      await page.goto(`${client.baseURL}/cart`);
-      await expect(page.getByText(/\d+ Producto/)).toBeVisible({ timeout: 15_000 });
-
-      const orderRequests: any[] = [];
-      page.on('response', (resp: any) => {
-        if (resp.url().includes('/order') && resp.request().method() === 'POST') {
-          orderRequests.push(resp);
-        }
+        await page.screenshot({ path: `test-results/checkout-confirm-${key}.png`, fullPage: true });
+        expect(page.url()).toMatch(/\/confirmation\/\w+/);
       });
 
-      const confirmButton = page.getByRole('button', { name: 'Confirmar pedido' });
-      await expect(confirmButton).toBeVisible({ timeout: 10_000 });
-      await confirmButton.scrollIntoViewIfNeeded();
-      await confirmButton.dblclick({ force: true });
+      test(`${key}: C2-12 Doble click en crear pedido no genera duplicado`, async ({ authedPage: page }) => {
+        await addProducts(page);
 
-      await page.waitForLoadState('domcontentloaded');
+        await page.goto(`${client.baseURL}/cart`);
+        await expect(page.getByText(/\d+ Producto/)).toBeVisible({ timeout: 15_000 });
 
-      if (orderRequests.length > 0) {
-        expect(orderRequests.length).toBeLessThanOrEqual(1);
-      }
-    });
+        const orderRequests: any[] = [];
+        page.on('response', (resp: any) => {
+          if (resp.url().includes('/order') && resp.request().method() === 'POST') {
+            orderRequests.push(resp);
+          }
+        });
 
+        const confirmButton = page.getByRole('button', { name: 'Confirmar pedido' });
+        await expect(confirmButton).toBeVisible({ timeout: 10_000 });
+        await confirmButton.scrollIntoViewIfNeeded();
+        await confirmButton.dblclick({ force: true });
+
+        await page.waitForLoadState('domcontentloaded');
+
+        if (orderRequests.length > 0) {
+          expect(orderRequests.length).toBeLessThanOrEqual(1);
+        }
+      });
+    }); // fin BLOQUEADO-PROD
+
+    // C2-13 solo lee historial — corre en staging y producción
     test(`${key}: C2-13 Pedido aparece en historial`, async ({ authedPage: page }) => {
       await page.goto(`${client.baseURL}/order`);
       await page.waitForLoadState('domcontentloaded');
