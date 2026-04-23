@@ -1,6 +1,6 @@
 {
   "date": "2026-04-23",
-  "timestamp": "2026-04-23T16:40:12.730299+00:00",
+  "timestamp": "2026-04-23T21:03:37.116839+00:00",
   "total": 254,
   "passed": 240,
   "failed": 12,
@@ -8,133 +8,140 @@
   "suites": [
     {
       "name": "00-contract.spec.ts",
-      "tests": 39,
+      "tests": 660,
       "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "cart.spec.ts",
-      "tests": 4,
+      "tests": 68,
       "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "catalog.spec.ts",
-      "tests": 4,
+      "tests": 68,
       "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "checkout.spec.ts",
-      "tests": 3,
+      "tests": 51,
       "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "coupons.spec.ts",
-      "tests": 5,
+      "tests": 85,
       "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "cv-access.spec.ts",
-      "tests": 10,
-      "passed": 9,
+      "tests": 53,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "cv-cart.spec.ts",
-      "tests": 25,
-      "passed": 25,
+      "tests": 118,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "cv-catalog.spec.ts",
-      "tests": 28,
-      "passed": 26,
+      "tests": 129,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "cv-orders.spec.ts",
-      "tests": 18,
-      "passed": 18,
+      "tests": 85,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "cv-payments.spec.ts",
-      "tests": 20,
-      "passed": 20,
+      "tests": 90,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "cv-ui-features.spec.ts",
-      "tests": 21,
-      "passed": 21,
+      "tests": 93,
+      "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "mongo-data.spec.ts",
-      "tests": 1,
+      "tests": 17,
       "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "multi-client.spec.ts",
-      "tests": 5,
+      "tests": 85,
       "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "orders.spec.ts",
-      "tests": 1,
+      "tests": 17,
       "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "payment-documents.spec.ts",
-      "tests": 5,
+      "tests": 85,
       "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "payments.spec.ts",
-      "tests": 2,
+      "tests": 34,
       "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "prices.spec.ts",
-      "tests": 11,
+      "tests": 187,
       "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "promotions.spec.ts",
-      "tests": 3,
+      "tests": 51,
       "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
     },
     {
       "name": "step-pricing.spec.ts",
-      "tests": 2,
+      "tests": 34,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html"
+    },
+    {
+      "name": "segment-min-order.spec.ts",
+      "tests": 6,
       "passed": 0,
       "failed": 0,
       "reportUrl": "reports/index.html"
@@ -180,6 +187,149 @@
       "failed": 5,
       "reportUrl": "reports/index.html",
       "last_tested": "2026-04-07"
+    },
+    "soprole": {
+      "name": "Soprole (staging)",
+      "url": "https://soprole.solopide.me",
+      "environment": "staging",
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html",
+      "client_slug": "soprole",
+      "last_tested": "2026-04-23"
+    },
+    "softys-cencocal": {
+      "name": "Softys Cencocal (staging)",
+      "url": "https://softys-cencocal.solopide.me",
+      "environment": "staging",
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html",
+      "client_slug": "softys-cencocal",
+      "last_tested": "2026-04-23"
+    },
+    "softys-dimak": {
+      "name": "Softys Dimak (staging)",
+      "url": "https://softys-dimak.solopide.me",
+      "environment": "staging",
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html",
+      "client_slug": "softys-dimak",
+      "last_tested": "2026-04-23"
+    },
+    "expressdent": {
+      "name": "Expressdent (staging)",
+      "url": "https://expressdent.solopide.me",
+      "environment": "staging",
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html",
+      "client_slug": "expressdent",
+      "last_tested": "2026-04-23"
+    },
+    "coexito": {
+      "name": "Coexito (staging)",
+      "url": "https://coexito.solopide.me",
+      "environment": "staging",
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html",
+      "client_slug": "coexito",
+      "last_tested": "2026-04-23"
+    },
+    "marleycoffee": {
+      "name": "Marleycoffee (staging)",
+      "url": "https://marleycoffee.solopide.me",
+      "environment": "staging",
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html",
+      "client_slug": "marleycoffee",
+      "last_tested": "2026-04-23"
+    },
+    "elmuneco": {
+      "name": "Elmuneco (staging)",
+      "url": "https://elmuneco.solopide.me",
+      "environment": "staging",
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html",
+      "client_slug": "elmuneco",
+      "last_tested": "2026-04-23"
+    },
+    "globalwines": {
+      "name": "Globalwines (staging)",
+      "url": "https://globalwines.solopide.me",
+      "environment": "staging",
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html",
+      "client_slug": "globalwines",
+      "last_tested": "2026-04-23"
+    },
+    "codelpa-peru": {
+      "name": "Codelpa Peru (staging)",
+      "url": "https://codelpa-peru.solopide.me",
+      "environment": "staging",
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html",
+      "client_slug": "codelpa-peru",
+      "last_tested": "2026-04-23"
+    },
+    "new-soprole": {
+      "name": "New Soprole (staging)",
+      "url": "https://new-soprole.solopide.me",
+      "environment": "staging",
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html",
+      "client_slug": "new-soprole",
+      "last_tested": "2026-04-23"
+    },
+    "prisur": {
+      "name": "Prisur (staging)",
+      "url": "https://prisur.solopide.me",
+      "environment": "staging",
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html",
+      "client_slug": "prisur",
+      "last_tested": "2026-04-23"
+    },
+    "cedisur": {
+      "name": "Cedisur (staging)",
+      "url": "https://cedisur.solopide.me",
+      "environment": "staging",
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html",
+      "client_slug": "cedisur",
+      "last_tested": "2026-04-23"
+    },
+    "prinorte": {
+      "name": "Prinorte (staging)",
+      "url": "https://prinorte.solopide.me",
+      "environment": "staging",
+      "tests": 0,
+      "passed": 0,
+      "failed": 0,
+      "reportUrl": "reports/index.html",
+      "client_slug": "prinorte",
+      "last_tested": "2026-04-23"
     }
   },
   "failure_groups": [
