@@ -2,11 +2,26 @@
   "running": true,
   "startTime": "2026-04-23T19:02:01.442Z",
   "total": 145,
-  "passed": 117,
-  "failed": 4,
-  "skipped": 7,
+  "passed": 118,
+  "failed": 5,
+  "skipped": 8,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie-prod: PAG-04 Historial de pagos carga correctamente",
+      "status": "passed",
+      "duration": 12102
+    },
+    {
+      "title": "sonrie-prod: Login exitoso",
+      "status": "failed",
+      "duration": 49321
+    },
+    {
+      "title": "sonrie-prod: C7-12 /payment-documents carga sin error cuando flag=true",
+      "status": "skipped",
+      "duration": 11180
+    },
     {
       "title": "sonrie-prod: C7-11 Opción de facturas en menú lateral cuando flag=true",
       "status": "skipped",
@@ -91,21 +106,6 @@
       "title": "sonrie-prod: enableBetaButtons=false",
       "status": "passed",
       "duration": 10393
-    },
-    {
-      "title": "sonrie-prod: useNewPromotions=false",
-      "status": "passed",
-      "duration": 7985
-    },
-    {
-      "title": "sonrie-prod: blockedClientAlert.enableBlockedClientAlert=false",
-      "status": "passed",
-      "duration": 6145
-    },
-    {
-      "title": "sonrie-prod: externalAccess=true",
-      "status": "passed",
-      "duration": 5713
     }
   ]
 }
