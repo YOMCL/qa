@@ -2,11 +2,41 @@
   "running": true,
   "startTime": "2026-04-23T20:57:28.615Z",
   "total": 145,
-  "passed": 117,
+  "passed": 118,
   "failed": 2,
-  "skipped": 6,
+  "skipped": 11,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie-prod: C7-12 /payment-documents carga sin error cuando flag=true",
+      "status": "skipped",
+      "duration": 11523
+    },
+    {
+      "title": "sonrie-prod: C3-02 Detectar productos con precio $0",
+      "status": "skipped",
+      "duration": 46
+    },
+    {
+      "title": "sonrie-prod: C3-01 Precios visibles en catalogo anonimo (formato CLP)",
+      "status": "skipped",
+      "duration": 57
+    },
+    {
+      "title": "sonrie-prod: C7-11 Opción de facturas en menú lateral cuando flag=true",
+      "status": "skipped",
+      "duration": 11519
+    },
+    {
+      "title": "sonrie-prod: C7-10 Facturas visibles en /orders cuando flag=true",
+      "status": "skipped",
+      "duration": 11540
+    },
+    {
+      "title": "sonrie-prod: C7-INV Link \"Mis documentos\" oculto cuando flag=false",
+      "status": "passed",
+      "duration": 14883
+    },
     {
       "title": "sonrie-prod: C7-INV /payment-documents no accesible cuando flag=false",
       "status": "passed",
@@ -76,36 +106,6 @@
       "title": "sonrie-prod: payment.enableNewPaymentModule=false",
       "status": "failed",
       "duration": 49259
-    },
-    {
-      "title": "sonrie-prod: PM1-01 Campo de cupón existe y es interactuable",
-      "status": "passed",
-      "duration": 16001
-    },
-    {
-      "title": "sonrie-prod: enableNewUI=false",
-      "status": "passed",
-      "duration": 9913
-    },
-    {
-      "title": "sonrie-prod: suggestions.hide=true",
-      "status": "passed",
-      "duration": 9870
-    },
-    {
-      "title": "sonrie-prod: enableBetaButtons=false",
-      "status": "passed",
-      "duration": 6730
-    },
-    {
-      "title": "sonrie-prod: useNewPromotions=false",
-      "status": "passed",
-      "duration": 6635
-    },
-    {
-      "title": "sonrie-prod: blockedClientAlert.enableBlockedClientAlert=false",
-      "status": "passed",
-      "duration": 6511
     }
   ]
 }
