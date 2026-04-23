@@ -2,11 +2,41 @@
   "running": true,
   "startTime": "2026-04-23T19:02:01.442Z",
   "total": 145,
-  "passed": 43,
+  "passed": 47,
   "failed": 3,
-  "skipped": 1,
+  "skipped": 3,
   "currentTest": null,
   "recentTests": [
+    {
+      "title": "sonrie-prod: inMaintenance=false",
+      "status": "passed",
+      "duration": 2643
+    },
+    {
+      "title": "sonrie-prod: C2-03 Búsqueda sin resultados muestra mensaje @catalog @funcional",
+      "status": "passed",
+      "duration": 23526
+    },
+    {
+      "title": "sonrie-prod: anonymousAccess=false",
+      "status": "passed",
+      "duration": 4585
+    },
+    {
+      "title": "sonrie-prod: C2-09 Eliminar producto del carro",
+      "status": "passed",
+      "duration": 15048
+    },
+    {
+      "title": "sonrie-prod: C2-12 Doble click en crear pedido no genera duplicado",
+      "status": "skipped",
+      "duration": 0
+    },
+    {
+      "title": "sonrie-prod: C2-11 Flujo completo catalogo → carro → checkout",
+      "status": "skipped",
+      "duration": 0
+    },
     {
       "title": "sonrie-prod: C2-06 Cantidad mínima — sistema corrige o bloquea",
       "status": "skipped",
@@ -74,36 +104,6 @@
     },
     {
       "title": "taxes.showSummary must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
-      "title": "showMinOne must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 1
-    },
-    {
-      "title": "showEmptyCategories must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
-      "title": "pendingDocuments must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
-      "title": "ordersRequireVerification must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
-      "title": "purchaseOrderEnabled must be boolean (got boolean false)",
-      "status": "passed",
-      "duration": 0
-    },
-    {
-      "title": "pointsEnabled must be boolean (got boolean false)",
       "status": "passed",
       "duration": 0
     }
