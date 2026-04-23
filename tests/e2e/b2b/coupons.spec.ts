@@ -179,7 +179,7 @@ for (const [key, client] of Object.entries(clients)) {
     });
 
     test(`${key}: PM1-03 Crear orden SIN cupón no se rompe por cambios en cupones`, async ({ authedPage: page }) => {
-      // Este es el test más importante: un cambio en cupones no debe romper órdenes normales
+      test.skip(client.baseURL.includes('youorder.me'), 'BLOQUEADO-PROD — no crear pedidos en producción');
       await addProductsAndGoToCart(page);
 
       const confirmButton = page.getByRole('button', { name: /confirmar|crear pedido|finalizar/i });

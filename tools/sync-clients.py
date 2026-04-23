@@ -224,6 +224,7 @@ const clients: Record<string, ClientConfig> = {{
         "sonrie-staging",
         # Production-matrix keys (used when syncing from qa-matrix.json)
         "surtiventas",
+        "sonrie-prod",
     }
 
     client_entries = []
@@ -366,7 +367,7 @@ def generate_b2b_variables_json(qa_matrix: dict, b2b_feature_map: dict) -> dict:
         "marleycoffee-staging", "soprole-staging", "elmuneco-staging", "cedisur-staging",
         "codelpa-staging", "codelpa-peru-staging", "coexito-staging", "new-soprole-staging",
         "expressdent-staging", "globalwines-staging", "softys-cencocal-staging",
-        "softys-dimak-staging", "sonrie-staging", "surtiventas",
+        "softys-dimak-staging", "sonrie-staging", "surtiventas", "sonrie-prod",
     }
 
     # {var: {clientKey: value}} — actual value per client

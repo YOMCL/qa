@@ -4,6 +4,7 @@ import clients from '../fixtures/clients';
 for (const [key, client] of Object.entries(clients)) {
   const test = createClientTest(client);
   test.describe(`C2 — Checkout / crear pedido: ${client.name}`, () => {
+    test.skip(client.baseURL.includes('youorder.me'), 'BLOQUEADO-PROD — no crear pedidos en producción');
 
     async function addProducts(page: any) {
       await page.goto(`${client.baseURL}/products`, { waitUntil: 'domcontentloaded' });

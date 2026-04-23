@@ -86,6 +86,7 @@ REAL_CLIENTS = {
     "surtiventas.youorder.me": "Surtiventas",
     "softys-cencocal.youorder.me": "Softys-Cencocal",
     "softys-dimak.youorder.me": "Softys-Dimak",
+    "sonrie.youorder.me": "Sonrie Market",
 }
 
 # Staging domains to exclude from auto-discovery (dev/test/personal environments)
