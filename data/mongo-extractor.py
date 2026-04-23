@@ -522,6 +522,61 @@ def extract_collections(db: Any, domain: str, cid_obj: Any) -> dict:
 # ─────────────────────────────────────────────
 # Extract integrations data
 # ─────────────────────────────────────────────
+# Extract sync metrics from mobile app sync logs
+# ─────────────────────────────────────────────
+
+SYNC_SLOW_THRESHOLD_S = 60   # flag actionTypes that take longer than this
+
+def extract_sync_metrics(db: Any, domain: str) -> list:
+    """Query the mobile app sync log collection for the last sync event per actionType.
+
+    Returns a list of dicts with: actionType, syncTimeSeconds, documentsCount,
+    requests, pageSize, successful, hasErrors — sorted by syncTimeSeconds desc.
+    Returns [] if the collection doesn't exist or has no data for this domain.
+    """
+    CANDIDATE_COLLECTIONS = ["synclogs", "syncLogs", "syncLog", "mobileSyncs", "appSyncs", "appsync"]
+    results = []
+    for col_name in CANDIDATE_COLLECTIONS:
+        try:
+            col = db[col_name]
+            # Check if collection has documents for this domain
+            sample = col.find_one({"domain": domain})
+            if sample is None:
+                continue
+            # Get latest document per actionType (sorted by _id desc = most recent)
+            pipeline = [
+                {"$match": {"domain": domain, "successful": {"$exists": True}}},
+                {"$sort": {"_id": -1}},
+                {"$group": {
+                    "_id": "$actionType",
+                    "syncTimeSeconds": {"$first": "$syncTimeSeconds"},
+                    "documentsCount": {"$first": "$documentsCount"},
+                    "requests": {"$first": "$requests"},
+                    "pageSize": {"$first": "$pageSize"},
+                    "successful": {"$first": "$successful"},
+                    "errorMsgList": {"$first": "$errorMsgList"},
+                }},
+            ]
+            for doc in col.aggregate(pipeline):
+                results.append({
+                    "actionType": doc["_id"],
+                    "syncTimeSeconds": round(float(doc.get("syncTimeSeconds") or 0), 1),
+                    "documentsCount": int(doc.get("documentsCount") or 0),
+                    "requests": int(doc.get("requests") or 0),
+                    "pageSize": int(doc.get("pageSize") or 0),
+                    "successful": bool(doc.get("successful", True)),
+                    "hasErrors": bool(doc.get("errorMsgList")),
+                    "slow": float(doc.get("syncTimeSeconds") or 0) > SYNC_SLOW_THRESHOLD_S,
+                })
+            if results:
+                results.sort(key=lambda x: x["syncTimeSeconds"], reverse=True)
+                break  # found the right collection
+        except Exception:
+            continue
+    return results
+
+
+# ─────────────────────────────────────────────
 
 def extract_integrations_data(integrations_client, domain: str, cid_obj) -> dict:
     """Extract segments, overrides, and user segments from integrations/yom-production."""
@@ -771,6 +826,9 @@ def extract(client_filter: Optional[str] = None, full_extract: bool = False, sta
         # Extract additional collections if --full flag is set
         if full_extract and cid_obj:
             client_obj["collections"] = extract_collections(legacy_db, domain, cid_obj)
+
+        # Always extract mobile sync metrics (lightweight — reads latest doc per actionType)
+        client_obj["syncMetrics"] = extract_sync_metrics(legacy_db, domain)
 
         result["clients"][client_key] = client_obj
 

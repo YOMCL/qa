@@ -456,20 +456,49 @@ manifest['reports'] = [
     r for r in manifest.get('reports', [])
     if not (r.get('client_slug') == client_slug and r.get('date') == date_str)
 ]
+# ── Leer sync metrics del QA matrix (si existe) ──────────────
+sync_warnings = []
+qa_root = os.path.dirname(os.path.dirname(os.path.abspath(manifest_file)))
+matrix_candidates = [
+    os.path.join(qa_root, 'data', f'qa-matrix-staging-{client_slug}.json'),
+    os.path.join(qa_root, 'data', f'qa-matrix-staging.json'),
+    os.path.join(qa_root, 'data', 'qa-matrix.json'),
+]
+for matrix_path in matrix_candidates:
+    if os.path.exists(matrix_path):
+        try:
+            with open(matrix_path) as f:
+                matrix = json.load(f)
+            # Find client by slug (try exact key first, then partial match)
+            clients = matrix.get('clients', {})
+            client_data = clients.get(client_slug) or clients.get(f'{client_slug}-staging')
+            if not client_data:
+                for k, v in clients.items():
+                    if client_slug in k:
+                        client_data = v
+                        break
+            if client_data:
+                sync_metrics = client_data.get('syncMetrics', [])
+                sync_warnings = [m for m in sync_metrics if m.get('slow') or not m.get('successful')]
+        except Exception:
+            pass
+        break
+
 manifest['reports'].append({
-    'client':       client_cap,
-    'client_slug':  client_slug,
-    'date':         date_str,
-    'file':         f'app-reports/{report_file}',
-    'platform':     'app',
-    'environment':  environment,
-    'passed':       passed,
-    'manual':       manual,
-    'failed':       failed,
-    'skipped':      skipped,
-    'total':        total,
-    'health':       health,
-    'verdict':      verdict,
+    'client':        client_cap,
+    'client_slug':   client_slug,
+    'date':          date_str,
+    'file':          f'app-reports/{report_file}',
+    'platform':      'app',
+    'environment':   environment,
+    'passed':        passed,
+    'manual':        manual,
+    'failed':        failed,
+    'skipped':       skipped,
+    'total':         total,
+    'health':        health,
+    'verdict':       verdict,
+    'syncWarnings':  sync_warnings,
 })
 manifest['reports'].sort(key=lambda x: x['date'], reverse=True)
 
