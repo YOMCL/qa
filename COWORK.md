@@ -38,8 +38,8 @@
 | **A — Login + Compra** | C1 + C2 | ~20 min |
 | **B — Precios + Config** | C3 + validación de flags + PM regressions | ~20 min |
 | **C — Documentos** | C7 (solo si `enablePaymentDocumentsB2B=true`) | ~10 min |
-| **D — Tier 2** | C5, C9, C10, A2, A3 | ~25 min |
-| **FULL** | Todo lo anterior en orden | ~70 min |
+| **D — Tier 2** | C5, C9, C10 | ~15 min |
+| **FULL** | Todo lo anterior en orden | ~65 min |
 
 Una vez confirmado el modo, ejecuta **solo ese scope**.
 
@@ -53,13 +53,10 @@ Una vez confirmado el modo, ejecuta **solo ese scope**.
 | Crear pedidos B2B (C2-11, C2-12) | ✓ OK — monto máximo **$100.000 CLP** | ✗ **PROHIBIDO** — marcar `BLOQUEADO-PROD` |
 | Tomar pedidos APP (Maestro) | ✓ OK — monto máximo **$100.000 CLP** | ✗ **PROHIBIDO** — no emitir pedidos |
 | Historial de pedidos (C9) | Usar órdenes propias del test | Usar pedidos históricos existentes |
-| Cambios en Admin (A2/A3) | ✓ OK | ⚠️ Solo observar — no modificar config |
-
 Si el ambiente es **Producción**: C2-11 y C2-12 se marcan `BLOQUEADO-PROD` en el reporte. C9 se valida sobre pedidos históricos del comercio.
 
 **Lógica de modos condicionales:**
 - Después de B: si `enablePaymentDocumentsB2B=false` → saltar C, ir directo a D
-- Modo D incluye Admin (A2/A3) solo si tienes acceso a `admin.youorder.me`
 
 **Al terminar el modo, produce siempre este bloque de Handoff:**
 ```
@@ -302,7 +299,7 @@ Después del flujo de compra, valida que los flags del cliente se reflejan corre
 
 ## 5. Flujos Tier 2 · Modo D
 
-Ejecuta en este orden. Admin (A2/A3) solo si tienes acceso a `admin.youorder.me` del cliente.
+Ejecuta en este orden.
 
 ---
 
@@ -367,48 +364,6 @@ C9-03 Timeline de estados: PASS/FAIL/N/A — [estados que aparecen]
 [C10] COMERCIO BLOQUEADO — {CLIENTE}
 C10-01 Login bloqueado: PASS/FAIL/N/A — [mensaje mostrado]
 C10-02 Compra bloqueada: PASS/FAIL/N/A — [comportamiento]
-```
-
----
-
-### [A2] Gestión de Comercios · `Modo D` (Admin)
-
-**URL:** `admin.youorder.me` → Comercios  
-**Tiempo:** ~5 min
-
-| ID | Qué validar | Cómo hacerlo | Resultado esperado |
-|----|------------|--------------|-------------------|
-| A2-01 | Listado de comercios accesible | Admin → sección Comercios | Lista de comercios del cliente visible |
-| A2-02 | Activar/desactivar comercio | Seleccionar un comercio → toggle activo/inactivo | Estado cambia, confirmación visible |
-| A2-03 | Cambio refleja en B2B | Desactivar comercio → intentar login en B2B con ese comercio | Login bloqueado o catálogo vacío |
-
-**Formato de reporte A2:**
-```
-[A2] GESTIÓN COMERCIOS (Admin) — {CLIENTE}
-A2-01 Listado accesible: PASS/FAIL/N/A — [cantidad comercios visibles]
-A2-02 Toggle activo: PASS/FAIL/N/A — [observación]
-A2-03 Reflejo en B2B: PASS/FAIL/N/A — [comportamiento en B2B]
-```
-
----
-
-### [A3] Configuración de Tienda · `Modo D` (Admin)
-
-**URL:** `admin.youorder.me` → Configuración  
-**Tiempo:** ~5 min
-
-| ID | Qué validar | Cómo hacerlo | Resultado esperado |
-|----|------------|--------------|-------------------|
-| A3-01 | Acceso a configuración | Admin → Configuración o Settings | Pantalla de settings visible |
-| A3-02 | Banners configurables | Buscar sección de banners | Lista de banners, posibilidad de editar |
-| A3-03 | Cambio visible en B2B | Modificar un setting menor (ej: banner) → abrir B2B | Cambio reflejado en la tienda |
-
-**Formato de reporte A3:**
-```
-[A3] CONFIGURACIÓN TIENDA (Admin) — {CLIENTE}
-A3-01 Acceso configuración: PASS/FAIL/N/A — [observación]
-A3-02 Banners configurables: PASS/FAIL/N/A — [observación]
-A3-03 Reflejo en B2B: PASS/FAIL/N/A — [observación]
 ```
 
 ---
@@ -508,7 +463,6 @@ Al terminar todos los flujos:
 | C5 Recomendados | ✓ PASS / ✗ FAIL / N/A | — |
 | C9 Seguimiento | ✓ PASS / ✗ FAIL / N/A | — |
 | C10 Bloqueado | ✓ PASS / ✗ FAIL / N/A | — |
-| A2/A3 Admin | ✓ PASS / ✗ FAIL / N/A | — |
 
 VEREDICTO FINAL: LISTO / CON CONDICIONES / NO APTO
 
