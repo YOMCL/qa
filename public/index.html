@@ -877,25 +877,39 @@
         /* ── Chart ── */
         .chart-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 24px;
+            grid-template-columns: 1fr 220px;
+            gap: 28px;
             align-items: start;
         }
         .chart-container {
             position: relative;
-            height: 300px;
+            height: 280px;
         }
         .donut-container {
             position: relative;
             height: 220px;
-            display: flex;
-            justify-content: center;
+            width: 100%;
+            max-width: 220px;
         }
         .chart-subtitle {
             font-size: 0.82em;
             color: #9ca3af;
             margin-bottom: 10px;
         }
+        /* Trend date-range buttons */
+        .trend-controls { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+        .trend-days-btns {
+            display: flex; gap: 3px;
+            background: #f3f4f6; border-radius: 8px; padding: 3px;
+        }
+        .trend-day-btn {
+            padding: 4px 13px; border-radius: 6px; border: none;
+            background: transparent; font-size: 0.78em; font-weight: 700;
+            color: #6b7280; cursor: pointer; transition: all 0.15s;
+            font-family: inherit;
+        }
+        .trend-day-btn.active { background: white; color: #0284c7; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .trend-day-btn:not(.active):hover { color: #374151; }
 
         /* ── Tab bar ── */
         .tab-bar {
@@ -1811,9 +1825,16 @@
         <div class="card" id="trendCard">
             <div class="trend-header">
                 <div class="card-title">📈 Tendencia Histórica</div>
-                <div class="trend-client-nav">
-                    <span class="run-nav-label">Cliente:</span>
-                    <select id="trendClientSelector" class="run-select"></select>
+                <div class="trend-controls">
+                    <div class="trend-days-btns">
+                        <button class="trend-day-btn" id="trendBtn7" onclick="setTrendDays(7,this)">7d</button>
+                        <button class="trend-day-btn" id="trendBtn14" onclick="setTrendDays(14,this)">14d</button>
+                        <button class="trend-day-btn active" id="trendBtn30" onclick="setTrendDays(30,this)">30d</button>
+                    </div>
+                    <div class="trend-client-nav">
+                        <span class="run-nav-label">Cliente:</span>
+                        <select id="trendClientSelector" class="run-select"></select>
+                    </div>
                 </div>
             </div>
             <div class="chart-grid">
@@ -1872,6 +1893,7 @@ let selectedEnv = null; // 'staging' | 'production' | null
 let _inlineFailureRegistry = [];
 let selectedClientKey = null;
 let _currentRunForDetail = null;
+let trendDays = 30;
 
 // ── Phase 3: Unified QA Status View ──────────────────────────────────────
 const appClients = ['prinorte', 'surtiventas', 'coexito'];  // MEMORY.md project_app_clients
@@ -2880,42 +2902,49 @@ function toggleCard(header) {
 
 // ── Charts ────────────────────────────────────────────────
 
+function setTrendDays(days, btn) {
+    trendDays = days;
+    document.querySelectorAll('.trend-day-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    const slug = document.getElementById('trendClientSelector')?.value || null;
+    updateTrendChart(slug || null);
+}
+
 async function updateTrendChart(filterSlug = null) {
     const canvas = document.getElementById('trendChart');
-    // Pitfall 1: destroy existing chart instance before creating a new one (Chart.js v4 API)
     const existing = Chart.getChart(canvas);
     if (existing) existing.destroy();
 
-    const labels = allRuns.map(r => r.date).reverse();
+    // Slice allRuns to the selected day window
+    const cutoff = new Date(latestRun?.date || new Date());
+    cutoff.setDate(cutoff.getDate() - trendDays + 1);
+    const visibleRuns = allRuns.filter(r => new Date(r.date) >= cutoff);
+
+    const labels = visibleRuns.map(r => r.date).reverse();
     let passedData, failedData, title, passedColor;
 
     if (!filterSlug) {
-        // AGGREGATE PATH — must be pixel-identical to pre-Phase 3 behavior
-        passedData = allRuns.map(r => r.passed).reverse();
-        failedData = allRuns.map(r => r.failed).reverse();
-        title = `${labels.length} run${labels.length !== 1 ? 's' : ''} · últimos 30 días`;
+        passedData = visibleRuns.map(r => r.passed).reverse();
+        failedData = visibleRuns.map(r => r.failed).reverse();
+        title = `${labels.length} run${labels.length !== 1 ? 's' : ''} · últimos ${trendDays} días`;
         passedColor = '#10b981';
     } else {
-        // PER-CLIENT PATH — lazy-load allRunsDetailed, map to per-client series
         const detailed = await loadAllRunDetails();
-        // Align detailed array to allRuns order (both sorted desc by date from loadHistoryIndex)
-        // Fallback to 0 when a run has no entry for this slug (D-05: nullish coalesce)
         const detailedByDate = {};
         for (const run of detailed) {
             if (run && run.date) detailedByDate[run.date] = run;
         }
-        passedData = allRuns.map(r => detailedByDate[r.date]?.clients?.[filterSlug]?.passed ?? 0).reverse();
-        failedData = allRuns.map(r => detailedByDate[r.date]?.clients?.[filterSlug]?.failed ?? 0).reverse();
-        // Derive client name from any run that has it
+        passedData = visibleRuns.map(r => detailedByDate[r.date]?.clients?.[filterSlug]?.passed ?? 0).reverse();
+        failedData = visibleRuns.map(r => detailedByDate[r.date]?.clients?.[filterSlug]?.failed ?? 0).reverse();
         let clientName = filterSlug;
         for (const run of detailed) {
             if (run?.clients?.[filterSlug]?.name) { clientName = run.clients[filterSlug].name; break; }
         }
         const hasAnyData = passedData.some(v => v > 0) || failedData.some(v => v > 0);
         title = hasAnyData
-            ? `${clientName} · ${labels.length} runs · últimos 30 días`
+            ? `${clientName} · ${labels.length} runs · últimos ${trendDays} días`
             : `Sin datos para ${clientName}`;
-        passedColor = '#0284c7';  // accent when filtered (UI-SPEC Dimension 3)
+        passedColor = '#0284c7';
     }
 
     document.getElementById('chartTitle').textContent = title;
