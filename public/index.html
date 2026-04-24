@@ -832,7 +832,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
             flex-wrap: wrap;
             gap: 8px;
         }
@@ -1823,9 +1822,9 @@
 
         <!-- Trend chart -->
         <div class="card" id="trendCard">
-            <div class="trend-header">
-                <div class="card-title">📈 Tendencia Histórica</div>
-                <div class="trend-controls">
+            <div class="card-title trend-header">
+                <span>📈 Tendencia Histórica</span>
+                <div class="trend-controls" onclick="event.stopPropagation()">
                     <div class="trend-days-btns">
                         <button class="trend-day-btn" id="trendBtn7" onclick="setTrendDays(7,this)">7d</button>
                         <button class="trend-day-btn" id="trendBtn14" onclick="setTrendDays(14,this)">14d</button>
@@ -2132,6 +2131,7 @@ function getReportEnv(rep) {
 }
 function enterEnv(env) {
     selectedEnv = env;
+    selectedClientKey = null;
     localStorage.setItem('qa-selected-env', env);
     document.querySelector('.env-landing').classList.add('hidden');
     updateEnvBadge();
@@ -2677,8 +2677,7 @@ function renderSuitesTable() {
 function _clientHelpers(run) {
     const referenceDate = run.date;
     const getReportUrl = (c, key) => {
-        let f = c.client_slug || key || '';
-        try { if (c.url) { const h = new URL(c.url).hostname; f = h.replace(/\.(solopide|youorder)\.me$/, '').replace(/\.(com|cl)$/, '') || f; } } catch(e) {}
+        const f = c.client_slug || key || '';
         return (c.reportUrl || '') + (f ? '#?q=' + encodeURIComponent(f + ':') : '');
     };
     const shortName = name => name.replace(/ \((staging|production)\)$/i, '');
@@ -2971,7 +2970,10 @@ async function updateTrendChart(filterSlug = null) {
     // Distribution donut (large)
     const { passed, failed } = latestRun;
     const passRate = passed + failed > 0 ? Math.round(passed / (passed + failed) * 100) : 0;
-    new Chart(document.getElementById('donutChart').getContext('2d'), {
+    const donutCanvas = document.getElementById('donutChart');
+    const existingDonut = Chart.getChart(donutCanvas);
+    if (existingDonut) existingDonut.destroy();
+    new Chart(donutCanvas.getContext('2d'), {
         type: 'doughnut',
         data: {
             labels: ['Passed', 'Failed'],
@@ -3593,6 +3595,7 @@ function initCollapsibleCards() {
             const isCollapsed = body.classList.toggle('collapsed');
             arrow.classList.toggle('collapsed', isCollapsed);
             localStorage.setItem(`card-collapsed-${cardId}`, isCollapsed);
+            if (!isCollapsed) setTimeout(() => window.dispatchEvent(new Event('resize')), 50);
         });
     });
 
