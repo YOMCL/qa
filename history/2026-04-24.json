@@ -1,10 +1,10 @@
 {
   "date": "2026-04-24",
-  "timestamp": "2026-04-24T14:59:00.551956+00:00",
+  "timestamp": "2026-04-24T15:05:26.067330+00:00",
   "total": 385,
   "passed": 371,
   "failed": 12,
-  "duration": 424,
+  "duration": 831,
   "suites": [
     {
       "name": "prices.spec.ts",
@@ -135,9 +135,9 @@
   ],
   "clients": {
     "bastien": {
-      "name": "Bastien",
-      "url": "https://bastien.youorder.me",
-      "environment": "production",
+      "name": "Bastien (staging)",
+      "url": "https://bastien.solopide.me",
+      "environment": "staging",
       "tests": 101,
       "passed": 100,
       "failed": 1,
