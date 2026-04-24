@@ -554,13 +554,13 @@
         /* ── Scoreboard ─────────────────────────── */
         .client-scoreboard {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-            gap: 10px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
         }
         .scoreboard-item {
-            border-radius: 10px;
-            padding: 12px 10px;
+            border-radius: 12px;
+            padding: 16px 12px 14px;
             text-align: center;
             border: 2px solid transparent;
         }
@@ -568,16 +568,16 @@
         .scoreboard-item.sc-amber { background: #fffbeb; border-color: #fcd34d; }
         .scoreboard-item.sc-red   { background: #fff1f2; border-color: #fca5a5; }
         .sc-rate {
-            font-size: 1.7em; font-weight: 800; line-height: 1; margin-bottom: 3px;
+            font-size: 2em; font-weight: 800; line-height: 1; margin-bottom: 5px;
         }
         .scoreboard-item.sc-green .sc-rate { color: #16a34a; }
         .scoreboard-item.sc-amber .sc-rate { color: #d97706; }
         .scoreboard-item.sc-red   .sc-rate { color: #dc2626; }
         .sc-name {
-            font-size: 0.72em; font-weight: 700; color: #374151;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 3px;
+            font-size: 0.78em; font-weight: 700; color: #374151;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px;
         }
-        .sc-status { font-size: 0.72em; color: #6b7280; }
+        .sc-status { font-size: 0.75em; color: #6b7280; min-height: 1.2em; }
 
         /* ── Failures by client ─────────────────── */
         .failures-section-label {
@@ -2595,12 +2595,12 @@ function updateClients(run = latestRun) {
         activeClients.map(([key, c]) => {
             const failed = c.failed ?? (c.tests - c.passed);
             const passRate = Math.round(c.passed / c.tests * 100);
-            const cls = passRate === 100 ? 'sc-green' : passRate >= 80 ? 'sc-amber' : 'sc-red';
-            const stale = getStale(c);
+            const cls = passRate >= 95 ? 'sc-green' : passRate >= 70 ? 'sc-amber' : 'sc-red';
+            const staleLabel = failed === 0 ? getStale(c) : '';
             return `<div class="scoreboard-item ${cls}" title="${escapeHtml(c.url || '')}">
                 <div class="sc-rate">${passRate}%</div>
                 <div class="sc-name">${escapeHtml(shortName(c.name))}</div>
-                <div class="sc-status">${failed > 0 ? `${failed} ❌` : '✅'}${stale ? ` · ${stale}` : ''}</div>
+                <div class="sc-status">${failed > 0 ? `${failed} ❌` : `✅${staleLabel ? ` · ${staleLabel}` : ''}`}</div>
             </div>`;
         }).join('')
     }</div>`;
