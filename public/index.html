@@ -2596,18 +2596,26 @@ function updateClients(run = latestRun) {
             const failed = c.failed ?? (c.tests - c.passed);
             const passRate = Math.round(c.passed / c.tests * 100);
             const cls = passRate >= 95 ? 'sc-green' : passRate >= 70 ? 'sc-amber' : 'sc-red';
-            const staleLabel = failed === 0 ? getStale(c) : '';
+            const staleLabel = getStale(c);
+            const hasGroups = runGroups.some(g => (g.clients || []).includes(key));
+            const statusIcon = hasGroups ? `${failed} ❌` : failed > 0 ? `${failed} ❌ · ${staleLabel || 'stale'}` : `✅${staleLabel ? ` · ${staleLabel}` : ''}`;
             return `<div class="scoreboard-item ${cls}" title="${escapeHtml(c.url || '')}">
                 <div class="sc-rate">${passRate}%</div>
                 <div class="sc-name">${escapeHtml(shortName(c.name))}</div>
-                <div class="sc-status">${failed > 0 ? `${failed} ❌` : `✅${staleLabel ? ` · ${staleLabel}` : ''}`}</div>
+                <div class="sc-status">${statusIcon}</div>
             </div>`;
         }).join('')
     }</div>`;
 
-    // ── Clients with failures: flat sections ──────────────
-    const withFails = activeClients.filter(([, c]) => (c.failed ?? (c.tests - c.passed)) > 0);
-    const noFails   = activeClients.filter(([, c]) => (c.failed ?? (c.tests - c.passed)) === 0);
+    // ── Clients with failures: only if they have actual groups in THIS run ──
+    // run.clients acumulates historical data; run.failure_groups is run-specific.
+    // Avoid showing "Sin fallos" contradicting a non-zero failed count from stale data.
+    const withFails = activeClients.filter(([key]) =>
+        runGroups.some(g => (g.clients || []).includes(key))
+    );
+    const noFails = activeClients.filter(([key]) =>
+        !runGroups.some(g => (g.clients || []).includes(key))
+    );
 
     let failSections = '';
     if (withFails.length === 0) {
