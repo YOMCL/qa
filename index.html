@@ -1947,6 +1947,7 @@ async function updateUnifiedQaTable(run = latestRun) {
     const manifest = await loadManifestCached();
     const weeklyStatus = weeklyStatusCache || { clients: {} };
     const rows = Object.entries(run.clients)
+        .filter(([, c]) => !selectedEnv || getClientEnv(c.url, c.name) === selectedEnv)
         .sort(([aSlug, a], [bSlug, b]) => (a.name || aSlug).localeCompare(b.name || bSlug))  // D-13
         .map(([slug, c]) => {
             const pwBadge = renderPlaywrightBadge(c, run.date);
@@ -2019,10 +2020,12 @@ function enterEnv(env) {
     document.querySelector('.env-landing').classList.add('hidden');
     updateEnvBadge();
     if (latestRun) {
+        updateSummary();
         updateClients();
         activeClientFilter = 'all';
         buildClientFilter();
         renderFailureGroups();
+        updateUnifiedQaTable();
     }
     loadCoworkReports();
     loadAppReports();
