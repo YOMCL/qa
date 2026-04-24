@@ -1654,7 +1654,7 @@
     <div id="tab-b2b">
 
         <!-- Summary card -->
-        <div class="card">
+        <div class="card" id="summaryCard">
             <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
                 <span class="status-badge" id="statusBadge">⏳ Cargando...</span>
                 <span class="timestamp" id="timestamp"></span>
@@ -1666,7 +1666,7 @@
         </div>
 
         <!-- Clients B2B -->
-        <div class="card">
+        <div class="card" id="clientsCard">
             <div class="card-title">🏪 Clientes B2B</div>
             <div class="run-nav">
                 <span class="run-nav-label">Run:</span>
@@ -1772,7 +1772,7 @@
 
 
         <!-- Cowork QA Reports -->
-        <div class="card">
+        <div class="card" id="coworkCard">
             <div class="card-title">📋 Reportes QA Cowork</div>
             <div class="reports-grid" id="coworkReportsGrid">
                 <div class="loading">Cargando reportes...</div>
@@ -1780,7 +1780,7 @@
         </div>
 
         <!-- Unified QA Status per Client (Phase 3) -->
-        <div class="card">
+        <div class="card" id="unifiedQaCard">
             <div class="card-title">🎯 Estado QA por Cliente</div>
             <p class="unified-subtitle">Resumen de las tres pipelines por cliente. N/A = pipeline no aplica a este cliente.</p>
             <div class="unified-filter-pills" id="unifiedFilterPills" role="tablist">
@@ -1808,7 +1808,7 @@
         </div>
 
         <!-- Trend chart -->
-        <div class="card">
+        <div class="card" id="trendCard">
             <div class="trend-header">
                 <div class="card-title">📈 Tendencia Histórica</div>
                 <div class="trend-client-nav">
@@ -3551,8 +3551,9 @@ function initCollapsibleCards() {
         arrow.innerHTML = '▾';
         title.appendChild(arrow);
 
-        // Restore collapse state from localStorage
-        const savedCollapsed = localStorage.getItem(`card-collapsed-${cardId}`) === 'true';
+        // Restore collapse state — skip auto-indexed cards (stale after ID stabilization)
+        const isAutoId = cardId.startsWith('card-auto-');
+        const savedCollapsed = !isAutoId && localStorage.getItem(`card-collapsed-${cardId}`) === 'true';
         if (savedCollapsed) {
             body.classList.add('collapsed');
             arrow.classList.add('collapsed');
