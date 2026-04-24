@@ -10,7 +10,7 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0d1117;
+            background: linear-gradient(150deg, #0284c7 0%, #0369a1 60%, #075985 100%);
             min-height: 100vh;
             padding: 28px 32px;
         }
@@ -148,7 +148,7 @@
             cursor: pointer;
             user-select: none;
         }
-        .card-title:hover .card-collapse-arrow { color: #3b82f6; }
+        .card-title:hover .card-collapse-arrow { color: #0284c7; }
         .card-collapse-arrow {
             margin-left: auto;
             font-size: 22px;
@@ -174,7 +174,7 @@
             align-items: center;
             gap: 3px;
         }
-        .card-open-btn:hover { color: #3b82f6; border-color: #3b82f6; }
+        .card-open-btn:hover { color: #0284c7; border-color: #0284c7; }
 
         /* ── APP client accordion ── */
         .app-client-section { border:1px solid #e5e7eb; border-radius:10px; margin-bottom:10px; overflow:hidden; }
@@ -228,7 +228,7 @@
         .mq-badge.bug         { background:#fee2e2;color:#991b1b; }
         .mq-badge.ux          { background:#fef3c7;color:#92400e; }
         .mq-badge.ambiente    { background:#dbeafe;color:#1e40af; }
-        .mq-badge.integracion { background:#ede9fe;color:#6d28d9; }
+        .mq-badge.integracion { background:#e0f2fe;color:#6d28d9; }
         .mq-badge.ok      { background:#d1fae5;color:#065f46; }
         .mq-badge.nota    { background:#f3f4f6;color:#374151; }
         .mq-title { font-weight: 600; font-size: 14px; color: #111827; }
@@ -245,7 +245,7 @@
             margin-bottom: 10px;
         }
         .stat-box {
-            background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%);
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
             color: white;
             padding: 10px 12px;
             border-radius: 8px;
@@ -323,10 +323,10 @@
             color: #374151;
             transition: all 0.15s;
         }
-        .filter-btn:hover { border-color: #3b82f6; color: #3b82f6; }
-        .filter-btn.active { background: #1d4ed8; border-color: #1d4ed8; color: white; }
+        .filter-btn:hover { border-color: #0284c7; color: #0284c7; }
+        .filter-btn.active { background: #0284c7; border-color: #0284c7; color: white; }
         .filter-btn.active span[id^="b2b-count"] { background: rgba(255,255,255,0.25) !important; color: white !important; }
-        .env-btn.active { background: #4338ca !important; border-color: #4338ca !important; color: white !important; }
+        .env-btn.active { background: #0369a1 !important; border-color: #0369a1 !important; color: white !important; }
         .filter-btn.active-red { background: #ef4444; border-color: #ef4444; color: white; }
         .filter-btn.active-green { background: #10b981; border-color: #10b981; color: white; }
         .filter-btn.active-amber { background: #f59e0b; border-color: #f59e0b; color: white; }
@@ -340,7 +340,7 @@
             width: 200px;
             transition: border-color 0.15s;
         }
-        .search-input:focus { border-color: #3b82f6; }
+        .search-input:focus { border-color: #0284c7; }
         .filter-count {
             margin-left: auto;
             font-size: 0.8em;
@@ -399,7 +399,7 @@
             padding: 3px 10px; border-radius: 4px;
             font-size: 0.8em; font-weight: 700;
         }
-        .report-link { color: #3b82f6; text-decoration: none; font-weight: 600; font-size: 0.85em; }
+        .report-link { color: #0284c7; text-decoration: none; font-weight: 600; font-size: 0.85em; }
         .report-link:hover { text-decoration: underline; }
 
         /* ── Failure Groups ── */
@@ -466,7 +466,7 @@
         }
         .fg-action-arrow { color: #6b7280; font-weight: 700; flex-shrink: 0; }
         .failure-group.bug      .fg-action-arrow { color: #ef4444; }
-        .failure-group.ambiente .fg-action-arrow { color: #3b82f6; }
+        .failure-group.ambiente .fg-action-arrow { color: #0284c7; }
         .failure-group.flaky    .fg-action-arrow { color: #22c55e; }
 
         .fg-right {
@@ -611,7 +611,7 @@
             background: #fee2e2; padding: 2px 9px; border-radius: 9999px;
         }
         .cs-report-link {
-            font-size: 0.82em; color: #3b82f6; font-weight: 600;
+            font-size: 0.82em; color: #0284c7; font-weight: 600;
             text-decoration: none; white-space: nowrap;
         }
         .cs-report-link:hover { text-decoration: underline; }
@@ -708,7 +708,7 @@
             background: white;
             cursor: pointer;
         }
-        .run-select:focus { outline: none; border-color: #3b82f6; }
+        .run-select:focus { outline: none; border-color: #0284c7; }
 
         /* ── Unified QA Status View (Phase 3) ── */
         .unified-subtitle {
@@ -820,7 +820,7 @@
         }
         .unified-filter-pill:hover { background: #e5e7eb; }
         .unified-filter-pill.active {
-            background: #3b82f6;
+            background: #0284c7;
             color: #ffffff;
         }
         /* Client-side filter toggle via class on tbody (Pattern 4 Approach A) */
@@ -919,7 +919,7 @@
             cursor: pointer;
             transition: background 0.2s, color 0.2s;
         }
-        .tab-btn.active { background: white; color: #1e293b; }
+        .tab-btn.active { background: white; color: #0284c7; }
         .tab-btn:not(.active):hover { background: rgba(255,255,255,0.12); color: white; }
 
         /* ── Footer ── */
@@ -949,7 +949,7 @@
             color: inherit;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .report-card:hover { border-color: #6366f1; box-shadow: 0 4px 16px rgba(99,102,241,0.12); }
+        .report-card:hover { border-color: #0284c7; box-shadow: 0 4px 16px rgba(2,132,199,0.12); }
         .report-card-header { display: flex; justify-content: space-between; align-items: flex-start; }
         .report-client { font-weight: 700; color: #111827; font-size: 0.95em; }
         .report-date { font-size: 0.75em; color: #9ca3af; }
@@ -977,7 +977,7 @@
             display:flex; align-items:center; gap:12px; padding:0;
             text-decoration:none; color:inherit;
         }
-        .cowork-client-card:hover .cowork-card-inner { border-color:#6366f1; box-shadow:0 4px 16px rgba(99,102,241,0.12); }
+        .cowork-client-card:hover .cowork-card-inner { border-color:#0284c7; box-shadow:0 4px 16px rgba(2,132,199,0.12); }
         .cowork-card-inner {
             flex:1; border:none; border-radius:0; padding:16px;
             display:flex; flex-direction:column; gap:8px;
@@ -990,7 +990,7 @@
             color:#6b7280; transition:background 0.15s, color 0.15s;
             align-self:stretch; padding:0; border-radius:0;
         }
-        .cowork-history-toggle:hover { background:#ede9fe; color:#6366f1; }
+        .cowork-history-toggle:hover { background:#e0f2fe; color:#0284c7; }
         .cowork-history-toggle .toggle-arrow { transition:transform 0.2s; display:inline-block; }
         .cowork-history-toggle.open .toggle-arrow { transform:rotate(180deg); }
         .cowork-history-body { display:none; padding:10px 14px; border-top:1px solid #e5e7eb; background:#fafafa; }
@@ -1001,7 +1001,7 @@
             font-size:12px; color:#374151; margin-bottom:4px;
             border:1px solid #e5e7eb;
         }
-        .cowork-history-item:hover { border-color:#6366f1; }
+        .cowork-history-item:hover { border-color:#0284c7; }
 
         @media (max-width: 1100px) {
             .summary-row { grid-template-columns: repeat(2, 1fr); }
@@ -1414,7 +1414,7 @@
         }
         .csi:last-child { border-bottom: none; }
         .csi:hover { background: #f0f0f5; }
-        .csi.active { background: #ede9fe; border-left-color: #6366f1; }
+        .csi.active { background: #e0f2fe; border-left-color: #0284c7; }
         .csi-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
         .csi-dot.green { background: #22c55e; }
         .csi-dot.amber { background: #f59e0b; }
@@ -1465,7 +1465,7 @@
             text-decoration: none; font-size: 0.82em; font-weight: 600;
             transition: border-color 0.15s, color 0.15s;
         }
-        .cdp-report-btn:hover { border-color: #3b82f6; color: #3b82f6; }
+        .cdp-report-btn:hover { border-color: #0284c7; color: #0284c7; }
 
         @media (max-width: 720px) {
             .b2b-layout { grid-template-columns: 1fr; }
@@ -1723,7 +1723,7 @@
             <div id="b2bEnvBar" style="display:flex;gap:8px;align-items:center;margin-bottom:14px;">
                 <span class="filter-label">Entorno:</span>
                 <button class="env-btn active" onclick="switchB2bEnv('staging', this)"
-                    style="padding:4px 14px;border-radius:6px;border:1.5px solid #6366f1;background:#ede9fe;color:#4338ca;font-size:13px;font-weight:600;cursor:pointer;">
+                    style="padding:4px 14px;border-radius:6px;border:1.5px solid #0284c7;background:#e0f2fe;color:#0369a1;font-size:13px;font-weight:600;cursor:pointer;">
                     🔵 Staging <span style="font-weight:400;font-size:11px;opacity:0.8;">(4 clientes)</span>
                 </button>
                 <button class="env-btn" onclick="switchB2bEnv('production', this)"
@@ -2258,7 +2258,7 @@ function updatePendingB2b() {
                     ${(item.clients || []).map(c => `<span class="test-client-tag">${escapeHtml(c)}</span>`).join('')}
                     <div style="font-size:12px;color:#6b7280;margin-top:3px;">${escapeHtml(item.action)}</div>
                 </div>
-                <span style="background:#ede9fe;color:#5b21b6;border-radius:9999px;padding:2px 10px;font-size:12px;white-space:nowrap;">${item.tests.length} test${item.tests.length !== 1 ? 's' : ''} skipped</span>
+                <span style="background:#e0f2fe;color:#5b21b6;border-radius:9999px;padding:2px 10px;font-size:12px;white-space:nowrap;">${item.tests.length} test${item.tests.length !== 1 ? 's' : ''} skipped</span>
             </div>
         </div>`).join('');
 }
@@ -2915,7 +2915,7 @@ async function updateTrendChart(filterSlug = null) {
         title = hasAnyData
             ? `${clientName} · ${labels.length} runs · últimos 30 días`
             : `Sin datos para ${clientName}`;
-        passedColor = '#3b82f6';  // accent when filtered (UI-SPEC Dimension 3)
+        passedColor = '#0284c7';  // accent when filtered (UI-SPEC Dimension 3)
     }
 
     document.getElementById('chartTitle').textContent = title;
@@ -3434,7 +3434,7 @@ async function loadAppReports() {
                 : latest.verdict === 'CON OBSERVACIONES' ? 'verdict-condiciones'
                 : 'verdict-bloqueado';
             const noteCount = loadManualQaEntries().filter(e => e.client === client).length;
-            const noteBadge = noteCount ? `<span style="background:#ede9fe;color:#5b21b6;border-radius:9999px;padding:1px 8px;font-size:11px;font-weight:600;">✍️ ${noteCount}</span>` : '';
+            const noteBadge = noteCount ? `<span style="background:#e0f2fe;color:#5b21b6;border-radius:9999px;padding:1px 8px;font-size:11px;font-weight:600;">✍️ ${noteCount}</span>` : '';
             const syncWarn = (latest.syncWarnings || []).filter(w => w.slow || !w.successful);
             const syncBadge = syncWarn.length ? `<span title="Sync lenta: ${syncWarn.map(w => w.actionType + ' ' + w.syncTimeSeconds + 's').join(', ')}" style="background:#fef3c7;color:#92400e;border-radius:9999px;padding:1px 8px;font-size:11px;font-weight:600;cursor:default;">⚠️ Sync</span>` : '';
 
@@ -3468,7 +3468,7 @@ async function loadAppReports() {
                     <a href="${latest.file}" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid #e5e7eb;border-radius:8px;text-decoration:none;background:#fff;margin-bottom:8px;">
                         <span style="font-size:13px;font-weight:600;color:#111827;">Ver reporte completo</span>
                         <span style="color:#9ca3af;font-size:12px;">${latest.date}</span>
-                        <span style="margin-left:auto;font-size:12px;color:#3b82f6;">↗</span>
+                        <span style="margin-left:auto;font-size:12px;color:#0284c7;">↗</span>
                     </a>
                     ${historyHtml ? `<div style="margin-bottom:8px;">${historyHtml}</div>` : ''}
 
@@ -3487,7 +3487,7 @@ async function loadAppReports() {
                                 onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();addClientNote('${escapeHtml(client)}')}"
                                 style="flex:1;min-width:180px;">
                             <input id="mqTck-${cid}" type="text" placeholder="YOM-XXX" style="width:90px;">
-                            <button onclick="addClientNote('${escapeHtml(client)}')" style="background:#3b82f6;color:white;border:none;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:600;cursor:pointer;">+</button>
+                            <button onclick="addClientNote('${escapeHtml(client)}')" style="background:#0284c7;color:white;border:none;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:600;cursor:pointer;">+</button>
                         </div>
                         <div style="margin-bottom:8px;">
                             <textarea id="mqDet-${cid}" placeholder="Detalle opcional (pasos, contexto)..." rows="2"
@@ -3641,7 +3641,7 @@ function refreshClientBadge(section, client) {
     if (count && !badge) {
         badge = document.createElement('span');
         badge.className = 'mq-note-badge';
-        badge.style.cssText = 'background:#ede9fe;color:#5b21b6;border-radius:9999px;padding:1px 8px;font-size:11px;font-weight:600;';
+        badge.style.cssText = 'background:#e0f2fe;color:#5b21b6;border-radius:9999px;padding:1px 8px;font-size:11px;font-weight:600;';
         const arrow = section.querySelector('.app-client-arrow');
         section.querySelector('.app-client-header').insertBefore(badge, arrow);
     }
