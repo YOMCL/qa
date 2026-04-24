@@ -537,7 +537,8 @@ def load_staging_urls(project_root: Path) -> dict:
             domain = val.get("domain", "")
             name = val.get("name", slug.capitalize())
             url = f"https://{domain}" if domain and not domain.startswith("http") else domain
-            result[slug] = {"name": name, "url": url}
+            if slug not in result:
+                result[slug] = {"name": name, "url": url}
 
     return result
 
